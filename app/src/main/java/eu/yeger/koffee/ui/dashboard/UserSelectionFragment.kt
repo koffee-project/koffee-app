@@ -15,9 +15,9 @@ class UserSelectionFragment : Fragment() {
     private val userSelectionViewModel: UserSelectionViewModel by viewModels()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_user_selection, container, false)
         val textView: TextView = root.findViewById(R.id.text_dashboard)

@@ -15,9 +15,9 @@ class AdminFragment : Fragment() {
     private val adminViewModel: AdminViewModel by viewModels()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_admin, container, false)
         val textView: TextView = root.findViewById(R.id.text_notifications)
