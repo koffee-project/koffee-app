@@ -14,7 +14,7 @@ val moshi: Moshi = Moshi.Builder()
 interface KoffeeApi {
 
     @GET("users")
-    suspend fun users(): List<KoffeeApiUserListEntry>
+    suspend fun getUsers(): ApiResponse<List<ApiUserEntry>>
 }
 
 object NetworkService {

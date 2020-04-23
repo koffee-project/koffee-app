@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_user_selection"
-        android:name="eu.yeger.koffee.ui.dashboard.UserSelectionFragment"
+        android:name="eu.yeger.koffee.ui.user_selection.UserSelectionFragment"
         android:label="@string/title_user_selection"
         tools:layout="@layout/fragment_user_selection" />
 
