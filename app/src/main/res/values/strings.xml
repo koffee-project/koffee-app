@@ -2,5 +2,6 @@
     <string name="app_name">Koffee</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_admin">Admin</string>
+    <string name="title_user_selection">User Selection</string>
 </resources>

@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="eu.yeger.koffee.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_user_selection"
+        android:name="eu.yeger.koffee.ui.dashboard.UserSelectionFragment"
+        android:label="@string/title_user_selection"
+        tools:layout="@layout/fragment_user_selection" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="eu.yeger.koffee.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_admin"
+        android:name="eu.yeger.koffee.ui.admin.AdminFragment"
+        android:label="@string/title_admin"
+        tools:layout="@layout/fragment_admin" />
 </navigation>
