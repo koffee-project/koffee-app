@@ -6,7 +6,6 @@ import eu.yeger.koffee.repository.UserEntryRepository
 import eu.yeger.koffee.utility.mediatedLiveData
 import eu.yeger.koffee.utility.sourcedLiveData
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class UserSelectionViewModel(
     private val userEntryRepository: UserEntryRepository
@@ -39,9 +38,29 @@ class UserSelectionViewModel(
         filteredUsers.value?.size == 0 && !(isBusy.value ?: false)
     }
 
+    val refreshing = userEntryRepository.state.map { it is UserEntryRepository.State.Refreshing }
+
+    val refreshResultAction = userEntryRepository.state.map { state ->
+        when (state) {
+            is UserEntryRepository.State.Done -> state
+            is UserEntryRepository.State.Error -> state
+            else -> null
+        }
+    }
+
     init {
+        refreshUsers()
+    }
+
+    fun refreshUsers() {
         viewModelScope.launch {
-            userEntryRepository.refresh()
+            userEntryRepository.refreshUsers()
+        }
+    }
+
+    fun onRefreshResultActionHandled() {
+        viewModelScope.launch {
+            (refreshResultAction as MutableLiveData).value = null
         }
     }
 

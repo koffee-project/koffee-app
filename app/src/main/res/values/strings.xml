@@ -5,5 +5,8 @@
     <string name="title_admin">Admin</string>
     <string name="title_user_selection">User Selection</string>
     <string name="name">Name</string>
+    <string name="user_name_id_format">%s (%s)</string>
     <string name="no_results">No results</string>
+    <string name="user_refresh_success">Users refreshed successfully</string>
+    <string name="user_refresh_error_format">Unable to refresh users: %s</string>
 </resources>
