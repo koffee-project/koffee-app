@@ -8,6 +8,10 @@
         <variable
             name="userEntry"
             type="eu.yeger.koffee.domain.UserEntry" />
+
+        <variable
+            name="onClickListener"
+            type="eu.yeger.koffee.ui.OnClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -16,6 +20,7 @@
         android:layout_margin="@dimen/half_spacing"
         app:cardElevation="@dimen/card_elevation"
         app:cardCornerRadius="@dimen/card_corner_radius"
+        android:onClick="@{() -> onClickListener.onClick(userEntry)}"
         app:contentPadding="@dimen/default_spacing">
 
         <TextView

@@ -20,7 +20,7 @@ class UserEntryRepository(private val database: KoffeeDatabase) {
         object Idle : State()
         object Refreshing : State()
         object Done : State()
-        class Error(val exception: Exception): State()
+        class Error(val exception: Exception) : State()
     }
 
     private val _state = MutableLiveData<State>(State.Idle)

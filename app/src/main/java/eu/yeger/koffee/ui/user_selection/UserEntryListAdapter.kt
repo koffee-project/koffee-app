@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import eu.yeger.koffee.databinding.CardUserEntryBinding
 import eu.yeger.koffee.domain.UserEntry
+import eu.yeger.koffee.ui.OnClickListener
 
-class UserEntryListAdapter : ListAdapter<UserEntry, UserEntryListAdapter.ViewHolder>(DiffCallback) {
+class UserEntryListAdapter(private val onClickListener: OnClickListener<UserEntry>) : ListAdapter<UserEntry, UserEntryListAdapter.ViewHolder>(DiffCallback) {
 
     inner class ViewHolder(private val binding: CardUserEntryBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -20,6 +21,7 @@ class UserEntryListAdapter : ListAdapter<UserEntry, UserEntryListAdapter.ViewHol
          */
         fun bind(userEntry: UserEntry) {
             binding.userEntry = userEntry
+            binding.onClickListener = onClickListener
             binding.executePendingBindings()
         }
     }
