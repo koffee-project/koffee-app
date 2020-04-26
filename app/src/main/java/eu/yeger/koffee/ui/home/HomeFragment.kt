@@ -4,26 +4,40 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import eu.yeger.koffee.R
+import eu.yeger.koffee.databinding.FragmentHomeBinding
+import eu.yeger.koffee.repository.UserEntryRepository
+import eu.yeger.koffee.utility.SharedPreferencesKeys
+import eu.yeger.koffee.utility.sharedPreferences
 
 class HomeFragment : Fragment() {
 
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels {
+        val userId =
+            when (val argumentUserId = HomeFragmentArgs.fromBundle(requireArguments()).userId) {
+                null -> requireContext().sharedPreferences.getString(
+                    SharedPreferencesKeys.activeUserId,
+                    null
+                ) // use active userid if no explicit id was passed
+                else -> argumentUserId // use argument id otherwise
+            }
+        val userEntryRepository = UserEntryRepository(requireContext())
+
+        HomeViewModel.Factory(
+            userId = userId,
+            userEntryRepository = userEntryRepository
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+        val binding = FragmentHomeBinding.inflate(inflater)
+        binding.viewModel = homeViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
     }
 }

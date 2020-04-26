@@ -12,4 +12,5 @@
     <string name="set_active_user_format">Set %s (%s) as your active user?</string>
     <string name="set_as_active_user">Set As Active User</string>
     <string name="cancel">Cancel</string>
+    <string name="no_user_selected">No User Selected</string>
 </resources>
