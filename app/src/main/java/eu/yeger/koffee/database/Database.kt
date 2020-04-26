@@ -4,16 +4,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.domain.UserEntry
 
 @Database(
-    entities = [UserEntry::class],
-    version = 1,
+    entities = [UserEntry::class, User::class],
+    version = 2,
     exportSchema = false
 )
 abstract class KoffeeDatabase : RoomDatabase() {
 
     abstract val userEntryDao: UserEntryDao
+
+    abstract val userDao: UserDao
 }
 
 private lateinit var instance: KoffeeDatabase

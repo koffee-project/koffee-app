@@ -36,10 +36,6 @@ class UserEntryRepository(private val database: KoffeeDatabase) {
         return database.userEntryDao.getFilteredAsLiveData(filter.nameFragment)
     }
 
-    fun getUserById(userId: String?): LiveData<UserEntry?> {
-        return database.userEntryDao.getByIdAsLiveData(userId)
-    }
-
     suspend fun refreshUsers() {
         withContext(Dispatchers.IO) {
             try {

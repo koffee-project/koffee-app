@@ -6,6 +6,7 @@ import eu.yeger.koffee.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 val moshi: Moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -15,6 +16,12 @@ interface KoffeeApi {
 
     @GET("users")
     suspend fun getUsers(): ApiResponse<List<ApiUserEntry>>
+
+    @GET("users/{id}")
+    suspend fun getUserById(@Path("id") id: String): ApiResponse<ApiUserProfile?>
+
+//    @GET("users/{id}/transactions")
+//    suspend fun getTransactionForUser(userId: String): ApiResponse<>
 }
 
 object NetworkService {

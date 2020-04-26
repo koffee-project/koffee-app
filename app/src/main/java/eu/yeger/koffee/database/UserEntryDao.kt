@@ -22,9 +22,6 @@ interface UserEntryDao {
     @Query("SELECT * FROM userentry WHERE name LIKE :nameFilter ORDER BY name ASC")
     fun getFilteredAsLiveData(nameFilter: String): LiveData<List<UserEntry>>
 
-    @Query("SELECT * FROM userentry WHERE id == :userId")
-    fun getByIdAsLiveData(userId: String?): LiveData<UserEntry?>
-
     @Query("DELETE FROM userentry")
     fun deleteAll()
 }

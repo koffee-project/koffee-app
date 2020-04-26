@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import eu.yeger.koffee.databinding.FragmentHomeBinding
 import eu.yeger.koffee.repository.UserEntryRepository
+import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.utility.SharedPreferencesKeys
 import eu.yeger.koffee.utility.sharedPreferences
 
@@ -22,11 +23,11 @@ class HomeFragment : Fragment() {
                 ) // use active userid if no explicit id was passed
                 else -> argumentUserId // use argument id otherwise
             }
-        val userEntryRepository = UserEntryRepository(requireContext())
+        val userRepository = UserRepository(requireContext())
 
         HomeViewModel.Factory(
             userId = userId,
-            userEntryRepository = userEntryRepository
+            userRepository = userRepository
         )
     }
 
