@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import eu.yeger.koffee.databinding.FragmentHomeBinding
-import eu.yeger.koffee.repository.UserEntryRepository
+import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.utility.SharedPreferencesKeys
 import eu.yeger.koffee.utility.sharedPreferences
@@ -24,10 +24,12 @@ class HomeFragment : Fragment() {
                 else -> argumentUserId // use argument id otherwise
             }
         val userRepository = UserRepository(requireContext())
+        val transactionRepository = TransactionRepository(requireContext())
 
         HomeViewModel.Factory(
             userId = userId,
-            userRepository = userRepository
+            userRepository = userRepository,
+            transactionRepository = transactionRepository
         )
     }
 

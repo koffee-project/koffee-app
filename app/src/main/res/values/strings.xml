@@ -13,4 +13,5 @@
     <string name="set_as_active_user">Set As Active User</string>
     <string name="cancel">Cancel</string>
     <string name="no_user_selected">No User Selected</string>
+    <string name="currency_format">%.2f€</string>
 </resources>
