@@ -3,7 +3,7 @@ package eu.yeger.koffee.network
 import eu.yeger.koffee.domain.Transaction
 
 data class ApiTransaction(
-    val type: Transaction.Type = Transaction.Type.purchase, // TODO fix this
+    val type: Transaction.Type,
     val value: Double,
     val timestamp: Long,
     val itemId: String?,
