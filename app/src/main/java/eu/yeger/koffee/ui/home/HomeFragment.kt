@@ -9,22 +9,17 @@ import androidx.fragment.app.viewModels
 import eu.yeger.koffee.databinding.FragmentHomeBinding
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.utility.SharedPreferencesKeys
-import eu.yeger.koffee.utility.sharedPreferences
+import eu.yeger.koffee.utility.getUserIdFromSharedPreferencesIfNull
 
 class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by viewModels {
-        val userId =
-            when (val argumentUserId = HomeFragmentArgs.fromBundle(requireArguments()).userId) {
-                null -> requireContext().sharedPreferences.getString(
-                    SharedPreferencesKeys.activeUserId,
-                    null
-                ) // use active userid if no explicit id was passed
-                else -> argumentUserId // use argument id otherwise
-            }
-        val userRepository = UserRepository(requireContext())
-        val transactionRepository = TransactionRepository(requireContext())
+        val argumentUserId = HomeFragmentArgs.fromBundle(requireArguments()).userId
+        val userId = requireContext().getUserIdFromSharedPreferencesIfNull(argumentUserId)
+
+        val context = requireContext()
+        val userRepository = UserRepository(context)
+        val transactionRepository = TransactionRepository(context)
 
         HomeViewModel.Factory(
             userId = userId,

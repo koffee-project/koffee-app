@@ -32,4 +32,17 @@
         android:name="eu.yeger.koffee.ui.admin.AdminFragment"
         android:label="@string/title_admin"
         tools:layout="@layout/fragment_admin" />
+    <fragment
+        android:id="@+id/navigation_item_fragment"
+        android:name="eu.yeger.koffee.ui.item.ItemFragment"
+        android:label="ItemFragment" >
+        <argument
+            android:name="itemId"
+            app:argType="string" />
+        <argument
+            android:name="userId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

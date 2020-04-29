@@ -22,6 +22,12 @@ interface KoffeeApi {
 
     @GET("users/{id}/transactions")
     suspend fun getTransactionForUser(@Path("id") id: String): ApiResponse<List<ApiTransaction>?>
+
+    @GET("items")
+    suspend fun getItems(): ApiResponse<List<ApiItem>>
+
+    @GET("items/{id}")
+    suspend fun getItemById(@Path("id") id: String): ApiResponse<ApiItem?>
 }
 
 object NetworkService {

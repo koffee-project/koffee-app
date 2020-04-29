@@ -5,21 +5,24 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import eu.yeger.koffee.domain.Item
 import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.domain.UserEntry
 
 @Database(
-    entities = [UserEntry::class, User::class, Transaction::class],
-    version = 4,
+    entities = [UserEntry::class, User::class, Transaction::class, Item::class],
+    version = 5,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class KoffeeDatabase : RoomDatabase() {
 
-    abstract val userEntryDao: UserEntryDao
+    abstract val itemDao: ItemDao
 
     abstract val userDao: UserDao
+
+    abstract val userEntryDao: UserEntryDao
 
     abstract val transactionDao: TransactionDao
 }
