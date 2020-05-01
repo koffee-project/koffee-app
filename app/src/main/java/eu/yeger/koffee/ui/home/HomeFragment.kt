@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import eu.yeger.koffee.databinding.FragmentHomeBinding
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
+import eu.yeger.koffee.ui.OnClickListener
+import eu.yeger.koffee.ui.adapter.TransactionListAdapter
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferencesIfNull
 
 class HomeFragment : Fragment() {
@@ -35,6 +37,10 @@ class HomeFragment : Fragment() {
     ): View? {
         val binding = FragmentHomeBinding.inflate(inflater)
         binding.viewModel = homeViewModel
+        binding.transactionRecyclerView.adapter =
+            TransactionListAdapter(OnClickListener { selectedTransaction ->
+                // TODO
+            })
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

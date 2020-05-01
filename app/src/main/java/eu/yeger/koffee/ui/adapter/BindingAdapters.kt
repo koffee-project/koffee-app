@@ -5,6 +5,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import eu.yeger.koffee.domain.Item
+import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.domain.UserEntry
 
 /**
@@ -51,7 +52,7 @@ fun RecyclerView.bindUserEntryList(userEntries: List<UserEntry>?, callback: Runn
 }
 
 /**
- * Submits a [Item] [List] to the [ItemListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ * Submits an [Item] [List] to the [ItemListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  *
  * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  * @param items The [List] of [Item] objects that will be submitted.
@@ -62,4 +63,18 @@ fun RecyclerView.bindUserEntryList(userEntries: List<UserEntry>?, callback: Runn
 fun RecyclerView.bindItemList(items: List<Item>?) {
     val adapter = adapter as ItemListAdapter
     adapter.submitList(items)
+}
+
+/**
+ * Submits a [Transaction] [List] to the [TransactionListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ *
+ * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ * @param transactions The [List] of [Transaction] objects that will be submitted.
+ *
+ * @author Jan Müller
+ */
+@BindingAdapter("transactions")
+fun RecyclerView.bindTransactionList(transactions: List<Transaction>?) {
+    val adapter = adapter as TransactionListAdapter
+    adapter.submitList(transactions)
 }

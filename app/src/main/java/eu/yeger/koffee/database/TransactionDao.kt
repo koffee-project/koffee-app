@@ -5,14 +5,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import eu.yeger.koffee.domain.Transaction
 
 @Dao
 interface TransactionDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg transactions: Transaction)
+    fun insertAll(vararg transactions: DatabaseTransaction)
 
-    @Query("SELECT * FROM `transaction` WHERE userId == :userId")
-    fun getAllByUserIdAsLiveData(userId: String?): LiveData<List<Transaction>>
+    @Query("SELECT * FROM databasetransaction WHERE userId == :userId ORDER BY timestamp DESC")
+    fun getAllByUserIdAsLiveData(userId: String?): LiveData<List<DatabaseTransaction>>
+
+    @Query("DELETE FROM databasetransaction")
+    fun deleteAll()
 }

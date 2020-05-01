@@ -1,19 +1,35 @@
 package eu.yeger.koffee.domain
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+sealed class Transaction {
 
-@Entity
-data class Transaction(
-    @PrimaryKey(autoGenerate = true)
-    val primaryKey: Long = 0,
-    val userId: String,
-    val type: Type,
-    val value: Double,
-    val timestamp: Long,
-    val itemId: String?,
-    val amount: Int?
-) {
+    abstract val userId: String
+
+    abstract val value: Double
+
+    abstract val timestamp: Long
+
+    data class Funding(
+        override val userId: String,
+        override val value: Double,
+        override val timestamp: Long
+    ) : Transaction()
+
+    data class Purchase(
+        override val userId: String,
+        override val value: Double,
+        override val timestamp: Long,
+        val itemId: String,
+        val amount: Int
+    ) : Transaction()
+
+    data class Refund(
+        override val userId: String,
+        override val value: Double,
+        override val timestamp: Long,
+        val itemId: String,
+        val amount: Int
+    ) : Transaction()
+
     enum class Type {
         funding,
         purchase,

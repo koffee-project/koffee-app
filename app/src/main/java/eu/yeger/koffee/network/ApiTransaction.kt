@@ -1,5 +1,6 @@
 package eu.yeger.koffee.network
 
+import eu.yeger.koffee.database.DatabaseTransaction
 import eu.yeger.koffee.domain.Transaction
 
 data class ApiTransaction(
@@ -10,13 +11,13 @@ data class ApiTransaction(
     val amount: Int?
 )
 
-fun List<ApiTransaction>.asDomainModel(userId: String) = map { transaction ->
-    Transaction(
+fun List<ApiTransaction>.asDatabaseModel(userId: String) = map { apiTransaction ->
+    DatabaseTransaction(
         userId = userId,
-        type = transaction.type,
-        value = transaction.value,
-        timestamp = transaction.timestamp,
-        itemId = transaction.itemId,
-        amount = transaction.amount
+        type = apiTransaction.type,
+        value = apiTransaction.value,
+        timestamp = apiTransaction.timestamp,
+        itemId = apiTransaction.itemId,
+        amount = apiTransaction.amount
     )
 }

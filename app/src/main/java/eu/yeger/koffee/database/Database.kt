@@ -6,13 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import eu.yeger.koffee.domain.Item
-import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.domain.UserEntry
 
 @Database(
-    entities = [UserEntry::class, User::class, Transaction::class, Item::class],
-    version = 5,
+    entities = [UserEntry::class, User::class, DatabaseTransaction::class, Item::class],
+    version = 8,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="purchase"
+            type="eu.yeger.koffee.domain.Transaction.Purchase" />
+
+        <variable
+            name="onClickListener"
+            type="eu.yeger.koffee.ui.OnClickListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/half_spacing"
+        app:cardElevation="@dimen/card_elevation"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        android:onClick="@{() -> onClickListener.onClick(purchase)}"
+        app:contentPadding="@dimen/default_spacing">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{@string/purchase_format(purchase.amount, purchase.itemId, purchase.value, purchase.timestamp)}"
+            android:textAlignment="center"
+            tools:text="CardFundingTransaction" />
+    </androidx.cardview.widget.CardView>
+</layout>
