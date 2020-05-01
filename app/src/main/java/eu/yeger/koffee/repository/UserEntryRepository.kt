@@ -16,15 +16,8 @@ class UserEntryRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    sealed class State {
-        object Idle : State()
-        object Refreshing : State()
-        object Done : State()
-        class Error(val exception: Exception) : State()
-    }
-
-    private val _state = MutableLiveData<State>(State.Idle)
-    val state: LiveData<State> = _state
+    private val _state = MutableLiveData<RepositoryState>(RepositoryState.Idle)
+    val state: LiveData<RepositoryState> = _state
 
     val users = database.userEntryDao.getAllAsLiveData()
 
@@ -39,16 +32,16 @@ class UserEntryRepository(private val database: KoffeeDatabase) {
     suspend fun refreshUsers() {
         withContext(Dispatchers.IO) {
             try {
-                _state.postValue(State.Refreshing)
+                _state.postValue(RepositoryState.Refreshing)
                 val apiResponse = NetworkService.koffeeApi.getUsers()
                 val userEntries = apiResponse.data.map(ApiUserEntry::asDomainModel)
                 database.userEntryDao.apply {
                     deleteAll()
                     insertAll(*userEntries.toTypedArray())
                 }
-                _state.postValue(State.Done)
+                _state.postValue(RepositoryState.Done)
             } catch (exception: Exception) {
-                _state.postValue(State.Error(exception))
+                _state.postValue(RepositoryState.Error(exception))
             }
         }
     }

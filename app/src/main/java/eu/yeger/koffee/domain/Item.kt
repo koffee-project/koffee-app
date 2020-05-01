@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class Item(
     @PrimaryKey
     val id: String,
+    val name: String,
     val amount: Int?,
     val price: Double
 )

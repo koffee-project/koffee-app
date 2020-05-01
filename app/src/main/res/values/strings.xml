@@ -14,4 +14,7 @@
     <string name="cancel">Cancel</string>
     <string name="no_user_selected">No User Selected</string>
     <string name="currency_format">%.2f€</string>
+    <string name="title_item_list">Items</string>
+    <string name="item_refresh_success">Items refreshed successfully</string>
+    <string name="item_refresh_error_format">Unable to refresh items: %s</string>
 </resources>

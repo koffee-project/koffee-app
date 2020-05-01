@@ -1,11 +1,11 @@
-package eu.yeger.koffee.ui
+package eu.yeger.koffee.ui.adapter
 
 import android.view.View
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import eu.yeger.koffee.domain.Item
 import eu.yeger.koffee.domain.UserEntry
-import eu.yeger.koffee.ui.user_selection.UserEntryListAdapter
 
 /**
  * Sets the visibility of a [View](https://developer.android.com/reference/android/view/View).
@@ -48,4 +48,18 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
 fun RecyclerView.bindUserEntryList(userEntries: List<UserEntry>?, callback: Runnable) {
     val adapter = adapter as UserEntryListAdapter
     adapter.submitList(userEntries, callback)
+}
+
+/**
+ * Submits a [Item] [List] to the [ItemListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ *
+ * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ * @param items The [List] of [Item] objects that will be submitted.
+ *
+ * @author Jan Müller
+ */
+@BindingAdapter("items")
+fun RecyclerView.bindItemList(items: List<Item>?) {
+    val adapter = adapter as ItemListAdapter
+    adapter.submitList(items)
 }

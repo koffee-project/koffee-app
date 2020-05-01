@@ -10,14 +10,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserSelectionBinding
 import eu.yeger.koffee.domain.UserEntry
 import eu.yeger.koffee.repository.UserEntryRepository
 import eu.yeger.koffee.ui.OnClickListener
+import eu.yeger.koffee.ui.adapter.UserEntryListAdapter
 import eu.yeger.koffee.utility.SharedPreferencesKeys
 import eu.yeger.koffee.utility.sharedPreferences
+import eu.yeger.koffee.utility.showRefreshResultSnackbar
 
 class UserSelectionFragment : Fragment() {
 
@@ -34,7 +35,11 @@ class UserSelectionFragment : Fragment() {
 
         userSelectionViewModel.refreshResultAction.observe(viewLifecycleOwner, Observer { state ->
             state?.let {
-                showRefreshResultSnackbar(state)
+                showRefreshResultSnackbar(
+                    repositoryState = state,
+                    successText = R.string.user_refresh_success,
+                    errorTextFormat = R.string.user_refresh_error_format
+                )
                 userSelectionViewModel.onRefreshResultActionHandled()
             }
         })
@@ -47,21 +52,6 @@ class UserSelectionFragment : Fragment() {
             })
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
-    }
-
-    private fun showRefreshResultSnackbar(state: UserEntryRepository.State) {
-        val message = when (state) {
-            is UserEntryRepository.State.Done -> getString(R.string.user_refresh_success)
-            is UserEntryRepository.State.Error -> getString(R.string.user_refresh_error_format).format(
-                state.exception.message ?: "Unknown"
-            )
-            else -> return // impossible
-        }
-        Snackbar.make(
-            requireView(),
-            message,
-            Snackbar.LENGTH_SHORT
-        ).show()
     }
 
     private fun showUserSelectionDialog(userEntry: UserEntry) {

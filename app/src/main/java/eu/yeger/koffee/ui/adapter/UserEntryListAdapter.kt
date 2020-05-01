@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.user_selection
+package eu.yeger.koffee.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

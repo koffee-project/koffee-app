@@ -2,6 +2,7 @@ package eu.yeger.koffee.ui.user_selection
 
 import androidx.lifecycle.*
 import eu.yeger.koffee.domain.UserEntry
+import eu.yeger.koffee.repository.RepositoryState
 import eu.yeger.koffee.repository.UserEntryRepository
 import eu.yeger.koffee.utility.mediatedLiveData
 import eu.yeger.koffee.utility.sourcedLiveData
@@ -38,12 +39,12 @@ class UserSelectionViewModel(
         filteredUsers.value?.size == 0 && !(isBusy.value ?: false)
     }
 
-    val refreshing = userEntryRepository.state.map { it is UserEntryRepository.State.Refreshing }
+    val refreshing = userEntryRepository.state.map { it is RepositoryState.Refreshing }
 
     val refreshResultAction = userEntryRepository.state.map { state ->
         when (state) {
-            is UserEntryRepository.State.Done -> state
-            is UserEntryRepository.State.Error -> state
+            is RepositoryState.Done -> state
+            is RepositoryState.Error -> state
             else -> null
         }
     }

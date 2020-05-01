@@ -2,6 +2,7 @@ package eu.yeger.koffee.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.getDatabase
 import eu.yeger.koffee.domain.Item
@@ -14,6 +15,9 @@ class ItemRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
+    private val _state = MutableLiveData<RepositoryState>(RepositoryState.Idle)
+    val state: LiveData<RepositoryState> = _state
+
     val items = database.itemDao.getAllAsLiveData()
 
     fun getItemById(id: String?): LiveData<Item?> {
@@ -22,17 +26,29 @@ class ItemRepository(private val database: KoffeeDatabase) {
 
     suspend fun refreshItems() {
         withContext(Dispatchers.IO) {
-            val response = NetworkService.koffeeApi.getItems()
-            val items = response.data.asDomainModel()
-            database.itemDao.insertAll(*items.toTypedArray())
+            try {
+                _state.postValue(RepositoryState.Refreshing)
+                val response = NetworkService.koffeeApi.getItems()
+                val items = response.data.asDomainModel()
+                database.itemDao.insertAll(*items.toTypedArray())
+                _state.postValue(RepositoryState.Done)
+            } catch (exception: Exception) {
+                _state.postValue(RepositoryState.Error(exception))
+            }
         }
     }
 
     suspend fun refreshItemById(itemId: String) {
         withContext(Dispatchers.IO) {
-            val response = NetworkService.koffeeApi.getItemById(itemId)
-            val item = response.data!!.asDomainModel()
-            database.itemDao.insertAll(item)
+            try {
+                _state.postValue(RepositoryState.Refreshing)
+                val response = NetworkService.koffeeApi.getItemById(itemId)
+                val item = response.data!!.asDomainModel()
+                database.itemDao.insertAll(item)
+                _state.postValue(RepositoryState.Done)
+            } catch (exception: Exception) {
+                _state.postValue(RepositoryState.Error(exception))
+            }
         }
     }
 }

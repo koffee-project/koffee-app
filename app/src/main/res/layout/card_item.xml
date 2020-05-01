@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="userEntry"
-            type="eu.yeger.koffee.domain.UserEntry" />
+            name="item"
+            type="eu.yeger.koffee.domain.Item" />
 
         <variable
             name="onClickListener"
@@ -20,14 +20,14 @@
         android:layout_margin="@dimen/half_spacing"
         app:cardElevation="@dimen/card_elevation"
         app:cardCornerRadius="@dimen/card_corner_radius"
-        android:onClick="@{() -> onClickListener.onClick(userEntry)}"
+        android:onClick="@{() -> onClickListener.onClick(item)}"
         app:contentPadding="@dimen/default_spacing">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{@string/user_name_id_format(userEntry.name, userEntry.id)}"
+            android:text="@{item.name}"
             android:textAlignment="center"
-            tools:text="Name" />
+            tools:text="Water" />
     </androidx.cardview.widget.CardView>
 </layout>

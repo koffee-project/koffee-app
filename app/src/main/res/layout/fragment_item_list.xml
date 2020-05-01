@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="eu.yeger.koffee.ui.item_list.ItemListViewModel" />
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:onRefresh="@{() -> viewModel.refreshItems()}"
+        app:refreshing="@{viewModel.refreshing}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/state_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:layout_marginBottom="@dimen/default_spacing"
+                android:text="@string/no_results"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:visible="@{viewModel.items.size() == 0}" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/item_recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/half_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/half_spacing"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:items="@{viewModel.items}"
+                app:visible="@{viewModel.items.size() != 0}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>
