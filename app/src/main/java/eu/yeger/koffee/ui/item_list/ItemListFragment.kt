@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentItemListBinding
 import eu.yeger.koffee.repository.ItemRepository
@@ -29,7 +30,6 @@ class ItemListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         itemListViewModel.refreshResultAction.observe(viewLifecycleOwner, Observer { state ->
             state?.let {
                 showRefreshResultSnackbar(
@@ -45,7 +45,8 @@ class ItemListFragment : Fragment() {
         binding.viewModel = itemListViewModel
         binding.itemRecyclerView.adapter =
             ItemListAdapter(OnClickListener { selectedItem ->
-                // TODO transition to item detail view
+                val action = ItemListFragmentDirections.actionNavigationItemListToItemDetailsFragment(selectedItem.id)
+                findNavController().navigate(action)
             })
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root

@@ -7,29 +7,13 @@
 
         <variable
             name="viewModel"
-            type="eu.yeger.koffee.ui.home.HomeViewModel" />
+            type="eu.yeger.koffee.ui.item_details.ItemDetailsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.home.HomeFragment">
-
-        <TextView
-            android:id="@+id/no_user_selected_text"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_spacing"
-            android:layout_marginTop="@dimen/default_spacing"
-            android:layout_marginEnd="@dimen/default_spacing"
-            android:text="@string/no_user_selected"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:visible="@{!viewModel.hasUser}" />
 
         <TextView
             android:id="@+id/item_name_text"
@@ -39,13 +23,13 @@
             android:layout_marginStart="@dimen/default_spacing"
             android:layout_marginTop="@dimen/default_spacing"
             android:layout_marginEnd="@dimen/default_spacing"
-            android:text="@{viewModel.user.name}"
+            android:text="@{viewModel.item.name}"
             android:textAlignment="viewStart"
             app:layout_constraintEnd_toStartOf="@+id/item_price_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:visible="@{viewModel.hasUser}"
-            tools:text="UserName" />
+            app:visible="@{viewModel.hasItem}"
+            tools:text="ItemName" />
 
         <TextView
             android:id="@+id/item_price_text"
@@ -53,12 +37,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/default_spacing"
-            android:text="@{@string/currency_format(viewModel.user.balance)}"
+            android:text="@{@string/currency_format(viewModel.item.price)}"
             android:textAlignment="center"
             app:layout_constraintBaseline_toBaselineOf="@+id/item_name_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:visible="@{viewModel.hasUser}"
+            app:visible="@{viewModel.hasItem}"
             tools:text="100$" />
+
+        <Button
+            android:id="@+id/buy_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_spacing"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:layout_marginEnd="@dimen/default_spacing"
+            android:onClick="@{() -> viewModel.buyItem()}"
+            android:text="@string/buy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_name_text"
+            app:visible="@{viewModel.hasUser}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/transaction_recycler_view"
@@ -72,8 +70,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_name_text"
+            app:layout_constraintTop_toBottomOf="@+id/buy_button"
             app:transactions="@{viewModel.transactions}"
-            app:visible="@{viewModel.hasUser}" />
+            app:visible="@{viewModel.hasTransactions}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

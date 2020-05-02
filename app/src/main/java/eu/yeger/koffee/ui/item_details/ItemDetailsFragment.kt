@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.home
+package eu.yeger.koffee.ui.item_details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,24 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import eu.yeger.koffee.databinding.FragmentHomeBinding
+import eu.yeger.koffee.databinding.FragmentItemDetailsBinding
+import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
-import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.TransactionListAdapter
-import eu.yeger.koffee.utility.getUserIdFromSharedPreferencesIfNull
+import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
 
-class HomeFragment : Fragment() {
+class ItemDetailsFragment : Fragment() {
 
-    private val homeViewModel: HomeViewModel by viewModels {
-        val argumentUserId = HomeFragmentArgs.fromBundle(requireArguments()).userId
-        val userId = requireContext().getUserIdFromSharedPreferencesIfNull(argumentUserId)
-
+    private val itemDetailsViewModel: ItemDetailsViewModel by viewModels {
         val context = requireContext()
 
-        HomeViewModel.Factory(
-            userId = userId,
-            userRepository = UserRepository(context),
+        ItemDetailsViewModel.Factory(
+            itemId = ItemDetailsFragmentArgs.fromBundle(requireArguments()).itemId,
+            userId = requireContext().getUserIdFromSharedPreferences(),
+            itemRepository = ItemRepository(context),
             transactionRepository = TransactionRepository(context)
         )
     }
@@ -33,8 +31,8 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentHomeBinding.inflate(inflater)
-        binding.viewModel = homeViewModel
+        val binding = FragmentItemDetailsBinding.inflate(inflater)
+        binding.viewModel = itemDetailsViewModel
         binding.transactionRecyclerView.adapter =
             TransactionListAdapter(OnClickListener { selectedTransaction ->
                 // TODO

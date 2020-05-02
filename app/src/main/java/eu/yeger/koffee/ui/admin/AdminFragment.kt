@@ -18,7 +18,7 @@ class AdminFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val root = inflater.inflate(R.layout.fragment_admin, container, false)
         val textView: TextView = root.findViewById(R.id.text_notifications)
         adminViewModel.text.observe(viewLifecycleOwner, Observer {

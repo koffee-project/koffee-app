@@ -20,4 +20,6 @@
     <string name="funding_format">Funding: %.2f€ at %d</string>
     <string name="purchase_format">Purchase: %d of %s for %.2f€ at %d</string>
     <string name="refund_format">Refund : %d of %s for %.2f€ at %d</string>
+    <string name="title_item_details">Item Details</string>
+    <string name="buy">Buy</string>
 </resources>

@@ -5,7 +5,9 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import eu.yeger.koffee.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 val moshi: Moshi = Moshi.Builder()
@@ -28,6 +30,10 @@ interface KoffeeApi {
 
     @GET("items/{id}")
     suspend fun getItemById(@Path("id") id: String): ApiResponse<ApiItem?>
+
+    // TODO improve return
+    @POST("users/{userId}/purchases")
+    suspend fun purchaseItem(@Path("userId") userId: String, @Body purchaseRequest: ApiPurchaseRequest): ApiResponse<Any>
 }
 
 object NetworkService {

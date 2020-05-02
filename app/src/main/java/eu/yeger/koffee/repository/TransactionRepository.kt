@@ -7,6 +7,7 @@ import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.asDomainModel
 import eu.yeger.koffee.database.getDatabase
 import eu.yeger.koffee.domain.Transaction
+import eu.yeger.koffee.network.ApiPurchaseRequest
 import eu.yeger.koffee.network.NetworkService
 import eu.yeger.koffee.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +21,10 @@ class TransactionRepository(private val database: KoffeeDatabase) {
         return database.transactionDao.getAllByUserIdAsLiveData(userId).map { it.asDomainModel() }
     }
 
+    fun getTransactionsByUserIdAndItemId(userId: String?, itemId: String): LiveData<List<Transaction>> {
+        return database.transactionDao.getAllByUserIdAndItemIdAsLiveData(userId = userId, itemId = itemId).map { it.asDomainModel() }
+    }
+
     suspend fun fetchTransactionsByUserId(userId: String) {
         withContext(Dispatchers.IO) {
             val response = NetworkService.koffeeApi.getTransactionForUser(userId)
@@ -28,6 +33,13 @@ class TransactionRepository(private val database: KoffeeDatabase) {
                 deleteAll()
                 insertAll(*transactions.toTypedArray())
             }
+        }
+    }
+
+    suspend fun buyItem(userId: String, itemId: String, amount: Int) {
+        withContext(Dispatchers.IO) {
+            val purchaseRequest = ApiPurchaseRequest(itemId, amount)
+            NetworkService.koffeeApi.purchaseItem(userId, purchaseRequest)
         }
     }
 }

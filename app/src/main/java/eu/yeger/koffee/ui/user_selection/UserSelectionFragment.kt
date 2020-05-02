@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -16,15 +15,15 @@ import eu.yeger.koffee.domain.UserEntry
 import eu.yeger.koffee.repository.UserEntryRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.UserEntryListAdapter
-import eu.yeger.koffee.utility.SharedPreferencesKeys
-import eu.yeger.koffee.utility.sharedPreferences
+import eu.yeger.koffee.utility.saveUserIdToSharedPreferences
 import eu.yeger.koffee.utility.showRefreshResultSnackbar
 
 class UserSelectionFragment : Fragment() {
 
     private val userSelectionViewModel: UserSelectionViewModel by viewModels {
-        val userEntryRepository = UserEntryRepository(requireContext())
-        UserSelectionViewModel.Factory(userEntryRepository)
+        UserSelectionViewModel.Factory(
+            userEntryRepository = UserEntryRepository(requireContext())
+        )
     }
 
     override fun onCreateView(
@@ -32,7 +31,6 @@ class UserSelectionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         userSelectionViewModel.refreshResultAction.observe(viewLifecycleOwner, Observer { state ->
             state?.let {
                 showRefreshResultSnackbar(
@@ -68,12 +66,10 @@ class UserSelectionFragment : Fragment() {
     }
 
     private fun setActiveUser(userEntry: UserEntry) {
-        requireContext().sharedPreferences.edit {
-            putString(SharedPreferencesKeys.activeUserId, userEntry.id)
-            val action =
-                UserSelectionFragmentDirections.actionNavigationUserSelectionToNavigationHome()
-            action.userId = userEntry.id
-            findNavController().navigate(action)
-        }
+        requireContext().saveUserIdToSharedPreferences(userId = userEntry.id)
+        val action =
+            UserSelectionFragmentDirections.actionNavigationUserSelectionToNavigationHome()
+        action.userId = userEntry.id
+        findNavController().navigate(action)
     }
 }
