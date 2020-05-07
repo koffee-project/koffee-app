@@ -16,26 +16,28 @@ data class DatabaseTransaction(
     val amount: Int?
 )
 
-fun List<DatabaseTransaction>.asDomainModel() = map { databaseTransaction ->
-    when (databaseTransaction.type) {
+fun DatabaseTransaction.asDomainModel(): Transaction {
+    return when (type) {
         Transaction.Type.funding -> Transaction.Funding(
-            userId = databaseTransaction.userId,
-            value = databaseTransaction.value,
-            timestamp = databaseTransaction.timestamp
+            userId = userId,
+            value = value,
+            timestamp = timestamp
         )
         Transaction.Type.purchase -> Transaction.Purchase(
-            userId = databaseTransaction.userId,
-            value = databaseTransaction.value,
-            timestamp = databaseTransaction.timestamp,
-            itemId = databaseTransaction.itemId!!,
-            amount = databaseTransaction.amount!!
+            userId = userId,
+            value = value,
+            timestamp = timestamp,
+            itemId = itemId!!,
+            amount = amount!!
         )
         Transaction.Type.refund -> Transaction.Refund(
-            userId = databaseTransaction.userId,
-            value = databaseTransaction.value,
-            timestamp = databaseTransaction.timestamp,
-            itemId = databaseTransaction.itemId!!,
-            amount = databaseTransaction.amount!!
+            userId = userId,
+            value = value,
+            timestamp = timestamp,
+            itemId = itemId!!,
+            amount = amount!!
         )
     }
 }
+
+fun List<DatabaseTransaction>.asDomainModel() = map { it.asDomainModel() }

@@ -77,4 +77,5 @@ fun RecyclerView.bindItemList(items: List<Item>?) {
 fun RecyclerView.bindTransactionList(transactions: List<Transaction>?) {
     val adapter = adapter as TransactionListAdapter
     adapter.submitList(transactions)
+    smoothScrollToPosition(0)
 }

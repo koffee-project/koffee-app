@@ -16,8 +16,6 @@ private const val FUNDING_VIEW_TYPE = 0
 private const val PURCHASE_VIEW_TYPE = 1
 private const val REFUND_VIEW_TYPE = 2
 
-// TODO auto scroll to top
-
 class TransactionListAdapter(private val onClickListener: OnClickListener<Transaction>) :
     ListAdapter<Transaction, TransactionListAdapter.ViewHolder>(DiffCallback) {
 

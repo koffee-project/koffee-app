@@ -32,7 +32,7 @@
             app:visible="@{!viewModel.hasUser}" />
 
         <TextView
-            android:id="@+id/item_name_text"
+            android:id="@+id/user_name_text"
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -41,24 +41,51 @@
             android:layout_marginEnd="@dimen/default_spacing"
             android:text="@{viewModel.user.name}"
             android:textAlignment="viewStart"
-            app:layout_constraintEnd_toStartOf="@+id/item_price_text"
+            app:layout_constraintEnd_toStartOf="@+id/user_price_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:visible="@{viewModel.hasUser}"
             tools:text="UserName" />
 
         <TextView
-            android:id="@+id/item_price_text"
+            android:id="@+id/user_price_text"
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/default_spacing"
             android:text="@{@string/currency_format(viewModel.user.balance)}"
             android:textAlignment="center"
-            app:layout_constraintBaseline_toBaselineOf="@+id/item_name_text"
+            app:layout_constraintBaseline_toBaselineOf="@+id/user_name_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:visible="@{viewModel.hasUser}"
             tools:text="100$" />
+
+        <Button
+            android:id="@+id/refund_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_spacing"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:layout_marginEnd="@dimen/default_spacing"
+            android:onClick="@{() -> viewModel.refundPurchase()}"
+            android:text="@string/refund"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_name_text"
+            app:visible="@{viewModel.canRefund}" />
+
+        <TextView
+            android:id="@+id/transactions_title_text"
+            android:layout_width="0dp"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_spacing"
+            android:layout_marginTop="@dimen/default_spacing"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@{@string/transactions_title}"
+            app:layout_constraintTop_toBottomOf="@+id/refund_button"
+            tools:text="Transaction of UserName"
+            app:visible="@{viewModel.hasUser}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/transaction_recycler_view"
@@ -71,8 +98,10 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_name_text"
+            app:layout_constraintTop_toBottomOf="@+id/transactions_title_text"
+            app:layout_constraintVertical_bias="0.0"
             app:transactions="@{viewModel.transactions}"
             app:visible="@{viewModel.hasUser}" />
     </androidx.constraintlayout.widget.ConstraintLayout>

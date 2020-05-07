@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import eu.yeger.koffee.databinding.FragmentItemDetailsBinding
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
+import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.TransactionListAdapter
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
@@ -20,9 +21,10 @@ class ItemDetailsFragment : Fragment() {
 
         ItemDetailsViewModel.Factory(
             itemId = ItemDetailsFragmentArgs.fromBundle(requireArguments()).itemId,
-            userId = requireContext().getUserIdFromSharedPreferences(),
+            userId = context.getUserIdFromSharedPreferences(),
             itemRepository = ItemRepository(context),
-            transactionRepository = TransactionRepository(context)
+            transactionRepository = TransactionRepository(context),
+            userRepository = UserRepository(context)
         )
     }
 

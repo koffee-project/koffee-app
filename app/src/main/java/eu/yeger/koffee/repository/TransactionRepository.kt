@@ -12,6 +12,7 @@ import eu.yeger.koffee.network.NetworkService
 import eu.yeger.koffee.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class TransactionRepository(private val database: KoffeeDatabase) {
 
@@ -23,6 +24,21 @@ class TransactionRepository(private val database: KoffeeDatabase) {
 
     fun getTransactionsByUserIdAndItemId(userId: String?, itemId: String): LiveData<List<Transaction>> {
         return database.transactionDao.getAllByUserIdAndItemIdAsLiveData(userId = userId, itemId = itemId).map { it.asDomainModel() }
+    }
+
+    fun getLastRefundableTransactionByUserId(userId: String?): LiveData<Transaction.Purchase?> {
+        return database.transactionDao.getAllByUserIdAsLiveData(userId).map { transactions ->
+            val lastTransaction = transactions
+                .firstOrNull { it.type !== Transaction.Type.funding }
+                ?.asDomainModel()
+            when {
+                lastTransaction == null -> null // no transaction found
+                lastTransaction is Transaction.Refund -> null // purchase already refunded
+                System.currentTimeMillis() - lastTransaction.timestamp >= 60_000 -> null // purchase too old
+                lastTransaction is Transaction.Purchase -> lastTransaction // refund possible
+                else -> null // impossible
+            }
+        }
     }
 
     suspend fun fetchTransactionsByUserId(userId: String) {
@@ -40,6 +56,13 @@ class TransactionRepository(private val database: KoffeeDatabase) {
         withContext(Dispatchers.IO) {
             val purchaseRequest = ApiPurchaseRequest(itemId, amount)
             NetworkService.koffeeApi.purchaseItem(userId, purchaseRequest)
+        }
+    }
+
+    suspend fun refundPurchase(userId: String) {
+        withContext(Dispatchers.IO) {
+            val response = NetworkService.koffeeApi.refundPurchase(userId)
+            Timber.d(response.toString())
         }
     }
 }

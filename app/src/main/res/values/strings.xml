@@ -22,4 +22,7 @@
     <string name="refund_format">Refund : %d of %s for %.2f€ at %d</string>
     <string name="title_item_details">Item Details</string>
     <string name="buy">Buy</string>
+    <string name="transactions_title">Transactions</string>
+    <string name="transactions_title_format">Transactions of %s</string>
+    <string name="refund">Refund</string>
 </resources>
