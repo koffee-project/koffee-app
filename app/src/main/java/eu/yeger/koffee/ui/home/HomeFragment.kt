@@ -37,21 +37,23 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        homeViewModel.userSelectionRequiredAction.observe(viewLifecycleOwner, Observer { userSelectionRequired ->
-            if (userSelectionRequired) {
-                showUserSelectionRequiredDialog()
-                homeViewModel.onUserSelectionRequiredActionHandled()
-            }
-        })
-
-        val binding = FragmentHomeBinding.inflate(inflater)
-        binding.viewModel = homeViewModel
-        binding.transactionRecyclerView.adapter =
-            TransactionListAdapter(OnClickListener { selectedTransaction ->
-                // TODO
+        homeViewModel.userSelectionRequiredAction.observe(
+            viewLifecycleOwner,
+            Observer { userSelectionRequired ->
+                if (userSelectionRequired) {
+                    showUserSelectionRequiredDialog()
+                    homeViewModel.onUserSelectionRequiredActionHandled()
+                }
             })
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
+
+        return FragmentHomeBinding.inflate(inflater).apply {
+            viewModel = homeViewModel
+            transactionRecyclerView.adapter =
+                TransactionListAdapter(OnClickListener { selectedTransaction ->
+                    // TODO
+                })
+            lifecycleOwner = viewLifecycleOwner
+        }.root
     }
 
     private fun showUserSelectionRequiredDialog() {

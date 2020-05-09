@@ -26,7 +26,6 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/user_id_label_text"
-            style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/large_spacing"
@@ -50,7 +49,6 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/password_label_text"
-            style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/large_spacing"

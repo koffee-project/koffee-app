@@ -22,9 +22,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/half_spacing"
-        app:cardElevation="@dimen/card_elevation"
-        app:cardCornerRadius="@dimen/card_corner_radius"
         android:onClick="@{() -> onClickListener.onClick(purchase)}"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardElevation="@dimen/card_elevation"
         app:contentPadding="@dimen/default_spacing">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,11 +35,11 @@
                 android:id="@+id/type_image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/refund_image_description"
                 android:src="@drawable/ic_shopping_cart_24dp"
                 app:layout_constraintBottom_toBottomOf="@+id/transaction_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/transaction_text"
-                android:contentDescription="@string/refund_image_description" />
+                app:layout_constraintTop_toTopOf="@+id/transaction_text" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/transaction_text"

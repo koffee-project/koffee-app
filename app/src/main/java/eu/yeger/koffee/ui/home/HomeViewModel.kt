@@ -17,7 +17,8 @@ class HomeViewModel(
 
     val transactions = transactionRepository.getTransactionsByUserId(userId)
 
-    val canRefund = transactionRepository.getLastRefundableTransactionByUserId(userId).map { it != null }
+    val canRefund =
+        transactionRepository.getLastRefundableTransactionByUserId(userId).map { it != null }
 
     private val _userSelectionRequiredAction = MutableLiveData(userId === null)
     val userSelectionRequiredAction: LiveData<Boolean> = _userSelectionRequiredAction

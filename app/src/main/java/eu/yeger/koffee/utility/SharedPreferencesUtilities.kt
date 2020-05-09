@@ -14,7 +14,7 @@ private const val activeUserId = "active_user_id"
  * @author Jan Müller
  */
 val Context.sharedPreferences: SharedPreferences
-        get() = getSharedPreferences("eu.yeger.koffee", Context.MODE_PRIVATE)
+    get() = getSharedPreferences("eu.yeger.koffee", Context.MODE_PRIVATE)
 
 fun Context.saveUserIdToSharedPreferences(userId: String) {
     sharedPreferences.edit {

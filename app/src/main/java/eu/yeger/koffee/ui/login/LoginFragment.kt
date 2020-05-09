@@ -42,11 +42,9 @@ class LoginFragment : Fragment() {
             }
         })
 
-        val binding = FragmentLoginBinding.inflate(inflater)
-        binding.apply {
+        return FragmentLoginBinding.inflate(inflater).apply {
             viewModel = loginViewModel
             lifecycleOwner = viewLifecycleOwner
-        }
-        return binding.root
+        }.root
     }
 }

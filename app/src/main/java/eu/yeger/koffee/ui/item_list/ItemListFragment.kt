@@ -41,14 +41,16 @@ class ItemListFragment : Fragment() {
             }
         })
 
-        val binding = FragmentItemListBinding.inflate(inflater)
-        binding.viewModel = itemListViewModel
-        binding.itemRecyclerView.adapter =
-            ItemListAdapter(OnClickListener { selectedItem ->
-                val action = ItemListFragmentDirections.actionNavigationItemListToItemDetailsFragment(selectedItem.id)
+        return FragmentItemListBinding.inflate(inflater).apply {
+            viewModel = itemListViewModel
+            itemRecyclerView.adapter = ItemListAdapter(OnClickListener { selectedItem ->
+                val action =
+                    ItemListFragmentDirections.actionNavigationItemListToItemDetailsFragment(
+                        selectedItem.id
+                    )
                 findNavController().navigate(action)
             })
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
+            lifecycleOwner = viewLifecycleOwner
+        }.root
     }
 }

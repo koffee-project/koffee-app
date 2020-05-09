@@ -1,6 +1,6 @@
 package eu.yeger.koffee
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**

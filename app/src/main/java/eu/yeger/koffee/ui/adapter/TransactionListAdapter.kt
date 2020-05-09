@@ -18,15 +18,16 @@ private const val FUNDING_VIEW_TYPE = 0
 private const val PURCHASE_VIEW_TYPE = 1
 private const val REFUND_VIEW_TYPE = 2
 
-class TransactionListAdapter(private val onClickListener: OnClickListener<Transaction>) :
-    ListAdapter<Transaction, TransactionListAdapter.ViewHolder>(DiffCallback) {
+class TransactionListAdapter(
+    private val onClickListener: OnClickListener<Transaction>
+) : ListAdapter<Transaction, TransactionListAdapter.ViewHolder>(DiffCallback) {
 
     sealed class ViewHolder(view: View) :
         RecyclerView.ViewHolder(view) {
 
         protected fun formatTimestamp(timestamp: Long): String {
             val prettyTime = PrettyTime(Locale.getDefault())
-            return prettyTime.format(Date(timestamp))
+            return prettyTime.format(Date(timestamp - 1000)) // subtract one second to prevent edge case issues
         }
 
         abstract fun bind(transaction: Transaction, onClickListener: OnClickListener<Transaction>)
@@ -34,33 +35,45 @@ class TransactionListAdapter(private val onClickListener: OnClickListener<Transa
         class FundingViewHolder(private val binding: CardFundingTransactionBinding) :
             ViewHolder(binding.root) {
 
-            override fun bind(transaction: Transaction, onClickListener: OnClickListener<Transaction>) {
-                binding.timestamp = formatTimestamp(transaction.timestamp)
-                binding.funding = transaction as Transaction.Funding
-                binding.onClickListener = onClickListener
-                binding.executePendingBindings()
+            override fun bind(
+                transaction: Transaction,
+                onClickListener: OnClickListener<Transaction>
+            ) {
+                binding.apply {
+                    timestamp = formatTimestamp(transaction.timestamp)
+                    funding = transaction as Transaction.Funding
+                    this.onClickListener = onClickListener
+                }.executePendingBindings()
             }
         }
 
         class PurchaseViewHolder(private val binding: CardPurchaseTransactionBinding) :
             ViewHolder(binding.root) {
 
-            override fun bind(transaction: Transaction, onClickListener: OnClickListener<Transaction>) {
-                binding.timestamp = formatTimestamp(transaction.timestamp)
-                binding.purchase = transaction as Transaction.Purchase
-                binding.onClickListener = onClickListener
-                binding.executePendingBindings()
+            override fun bind(
+                transaction: Transaction,
+                onClickListener: OnClickListener<Transaction>
+            ) {
+                binding.apply {
+                    timestamp = formatTimestamp(transaction.timestamp)
+                    purchase = transaction as Transaction.Purchase
+                    this.onClickListener = onClickListener
+                }.executePendingBindings()
             }
         }
 
         class RefundViewHolder(private val binding: CardRefundTransactionBinding) :
             ViewHolder(binding.root) {
 
-            override fun bind(transaction: Transaction, onClickListener: OnClickListener<Transaction>) {
-                binding.timestamp = formatTimestamp(transaction.timestamp)
-                binding.refund = transaction as Transaction.Refund
-                binding.onClickListener = onClickListener
-                binding.executePendingBindings()
+            override fun bind(
+                transaction: Transaction,
+                onClickListener: OnClickListener<Transaction>
+            ) {
+                binding.apply {
+                    timestamp = formatTimestamp(transaction.timestamp)
+                    refund = transaction as Transaction.Refund
+                    this.onClickListener = onClickListener
+                }.executePendingBindings()
             }
         }
     }

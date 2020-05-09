@@ -1,7 +1,9 @@
 package eu.yeger.koffee.ui.admin
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -32,11 +34,9 @@ class AdminFragment : Fragment() {
             }
         })
 
-        val binding = FragmentAdminBinding.inflate(inflater)
-        binding.apply {
+        return FragmentAdminBinding.inflate(inflater).apply {
             viewModel = adminViewModel
             lifecycleOwner = viewLifecycleOwner
-        }
-        return binding.root
+        }.root
     }
 }

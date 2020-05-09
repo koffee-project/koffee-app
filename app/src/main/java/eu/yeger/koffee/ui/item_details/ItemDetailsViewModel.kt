@@ -29,7 +29,8 @@ class ItemDetailsViewModel(
 
     val hasTransactions = transactions.map { it.isNotEmpty() }
 
-    val canRefund = transactionRepository.getLastRefundableTransactionByUserId(userId).map { it?.itemId == itemId }
+    val canRefund = transactionRepository.getLastRefundableTransactionByUserId(userId)
+        .map { it?.itemId == itemId }
 
     fun buyItem() {
         userId?.let {

@@ -22,8 +22,14 @@ class TransactionRepository(private val database: KoffeeDatabase) {
         return database.transactionDao.getAllByUserIdAsLiveData(userId).map { it.asDomainModel() }
     }
 
-    fun getTransactionsByUserIdAndItemId(userId: String?, itemId: String): LiveData<List<Transaction>> {
-        return database.transactionDao.getAllByUserIdAndItemIdAsLiveData(userId = userId, itemId = itemId).map { it.asDomainModel() }
+    fun getTransactionsByUserIdAndItemId(
+        userId: String?,
+        itemId: String
+    ): LiveData<List<Transaction>> {
+        return database.transactionDao.getAllByUserIdAndItemIdAsLiveData(
+            userId = userId,
+            itemId = itemId
+        ).map { it.asDomainModel() }
     }
 
     fun getLastRefundableTransactionByUserId(userId: String?): LiveData<Transaction.Purchase?> {

@@ -42,14 +42,14 @@ class UserSelectionFragment : Fragment() {
             }
         })
 
-        val binding = FragmentUserSelectionBinding.inflate(inflater)
-        binding.viewModel = userSelectionViewModel
-        binding.searchResultRecyclerView.adapter =
-            UserEntryListAdapter(OnClickListener { selectedUserEntry ->
-                showUserSelectionDialog(selectedUserEntry)
-            })
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
+        return FragmentUserSelectionBinding.inflate(inflater).apply {
+            viewModel = userSelectionViewModel
+            searchResultRecyclerView.adapter =
+                UserEntryListAdapter(OnClickListener { selectedUserEntry ->
+                    showUserSelectionDialog(selectedUserEntry)
+                })
+            lifecycleOwner = viewLifecycleOwner
+        }.root
     }
 
     private fun showUserSelectionDialog(userEntry: UserEntry) {

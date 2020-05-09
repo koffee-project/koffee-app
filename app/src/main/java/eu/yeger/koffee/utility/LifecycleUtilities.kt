@@ -35,4 +35,5 @@ fun <T> sourcedLiveData(vararg sources: LiveData<*>, block: () -> T?): LiveData<
  *
  * @author Jan Müller
  */
-inline fun <T> mediatedLiveData(block: MediatorLiveData<T>.() -> Unit): MediatorLiveData<T> = MediatorLiveData<T>().apply(block)
+inline fun <T> mediatedLiveData(block: MediatorLiveData<T>.() -> Unit): MediatorLiveData<T> =
+    MediatorLiveData<T>().apply(block)

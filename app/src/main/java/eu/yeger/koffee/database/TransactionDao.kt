@@ -16,7 +16,10 @@ interface TransactionDao {
     fun getAllByUserIdAsLiveData(userId: String?): LiveData<List<DatabaseTransaction>>
 
     @Query("SELECT * FROM databasetransaction WHERE userId == :userId AND itemId == :itemId ORDER BY timestamp DESC")
-    fun getAllByUserIdAndItemIdAsLiveData(userId: String?, itemId: String): LiveData<List<DatabaseTransaction>>
+    fun getAllByUserIdAndItemIdAsLiveData(
+        userId: String?,
+        itemId: String
+    ): LiveData<List<DatabaseTransaction>>
 
     @Query("DELETE FROM databasetransaction")
     fun deleteAll()

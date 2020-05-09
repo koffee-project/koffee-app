@@ -33,13 +33,13 @@ class ItemDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentItemDetailsBinding.inflate(inflater)
-        binding.viewModel = itemDetailsViewModel
-        binding.transactionRecyclerView.adapter =
-            TransactionListAdapter(OnClickListener { selectedTransaction ->
-                // TODO
-            })
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
+        return FragmentItemDetailsBinding.inflate(inflater).apply {
+            viewModel = itemDetailsViewModel
+            transactionRecyclerView.adapter =
+                TransactionListAdapter(OnClickListener { selectedTransaction ->
+                    // TODO
+                })
+            lifecycleOwner = viewLifecycleOwner
+        }.root
     }
 }

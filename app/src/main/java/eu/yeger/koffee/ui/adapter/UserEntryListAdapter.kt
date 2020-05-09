@@ -9,7 +9,8 @@ import eu.yeger.koffee.databinding.CardUserEntryBinding
 import eu.yeger.koffee.domain.UserEntry
 import eu.yeger.koffee.ui.OnClickListener
 
-class UserEntryListAdapter(private val onClickListener: OnClickListener<UserEntry>) : ListAdapter<UserEntry, UserEntryListAdapter.ViewHolder>(DiffCallback) {
+class UserEntryListAdapter(private val onClickListener: OnClickListener<UserEntry>) :
+    ListAdapter<UserEntry, UserEntryListAdapter.ViewHolder>(DiffCallback) {
 
     inner class ViewHolder(private val binding: CardUserEntryBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -40,7 +41,8 @@ class UserEntryListAdapter(private val onClickListener: OnClickListener<UserEntr
          * @param newItem The new [UserEntry].
          * @return true if both [UserEntry]s have the same id or false otherwise.
          */
-        override fun areItemsTheSame(oldItem: UserEntry, newItem: UserEntry) = oldItem.id == newItem.id
+        override fun areItemsTheSame(oldItem: UserEntry, newItem: UserEntry) =
+            oldItem.id == newItem.id
 
         /**
          * Checks if two [UserEntry]s are equal.
