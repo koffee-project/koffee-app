@@ -39,5 +39,4 @@ class AdminViewModel(private val adminRepository: AdminRepository) : ViewModel()
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
     }
-
 }

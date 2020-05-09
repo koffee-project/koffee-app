@@ -1,10 +1,11 @@
 package eu.yeger.koffee.utility
 
-import androidx.fragment.app.Fragment
+import android.app.Activity
 import com.google.android.material.snackbar.Snackbar
+import eu.yeger.koffee.R
 import eu.yeger.koffee.repository.RepositoryState
 
-fun Fragment.showRefreshResultSnackbar(
+fun Activity.showRefreshResultSnackbar(
     repositoryState: RepositoryState,
     successText: Int,
     errorTextFormat: Int
@@ -19,18 +20,12 @@ fun Fragment.showRefreshResultSnackbar(
     showSnackbar(message)
 }
 
-fun Fragment.showSnackbar(message: Int, length: Int = Snackbar.LENGTH_SHORT) {
+fun Activity.showSnackbar(message: String, length: Int = Snackbar.LENGTH_SHORT) {
     Snackbar.make(
-        requireView(),
+        findViewById(R.id.container),
         message,
         length
-    ).show()
-}
-
-fun Fragment.showSnackbar(message: String, length: Int = Snackbar.LENGTH_SHORT) {
-    Snackbar.make(
-        requireView(),
-        message,
-        length
-    ).show()
+    ).apply {
+        anchorView = findViewById(R.id.nav_view)
+    }.show()
 }

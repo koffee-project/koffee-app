@@ -14,6 +14,12 @@ class UserRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
+    suspend fun hasUserWithId(id: String?): Boolean {
+        return withContext(Dispatchers.IO) {
+            database.userDao.getById(id) !== null
+        }
+    }
+
     fun getUserById(id: String?): LiveData<User?> {
         return database.userDao.getByIdAsLiveData(id)
     }

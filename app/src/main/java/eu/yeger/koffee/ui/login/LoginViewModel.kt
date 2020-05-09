@@ -5,10 +5,6 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.utility.sourcedLiveData
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import retrofit2.Retrofit
-import timber.log.Timber
-import kotlin.coroutines.CoroutineContext
 
 class LoginViewModel(private val adminRepository: AdminRepository) : ViewModel() {
 

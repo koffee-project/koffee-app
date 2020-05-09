@@ -42,12 +42,12 @@
                 android:layout_marginStart="@dimen/half_spacing"
                 android:layout_marginTop="@dimen/default_spacing"
                 android:layout_marginEnd="@dimen/half_spacing"
+                app:items="@{viewModel.items}"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:items="@{viewModel.items}"
+                app:spanCount="2"
                 app:visible="@{viewModel.items.size() != 0}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

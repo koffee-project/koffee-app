@@ -12,7 +12,7 @@
     <string name="set_active_user_format">Set %s (%s) as your active user?</string>
     <string name="set_as_active_user">Set As Active User</string>
     <string name="cancel">Cancel</string>
-    <string name="no_user_selected">No User Selected</string>
+    <string name="no_user_selected">Looks like no user has been selected yet!</string>
     <string name="currency_format">%.2f€</string>
     <string name="title_item_list">Items</string>
     <string name="item_refresh_success">Items refreshed successfully</string>
@@ -31,4 +31,5 @@
     <string name="password">Password</string>
     <string name="login_success">Login successful</string>
     <string name="logout">Logout</string>
+    <string name="got_to_selection">Go To Selection</string>
 </resources>

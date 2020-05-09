@@ -32,7 +32,7 @@ class ItemListFragment : Fragment() {
     ): View {
         itemListViewModel.refreshResultAction.observe(viewLifecycleOwner, Observer { state ->
             state?.let {
-                showRefreshResultSnackbar(
+                requireActivity().showRefreshResultSnackbar(
                     repositoryState = state,
                     successText = R.string.item_refresh_success,
                     errorTextFormat = R.string.item_refresh_error_format

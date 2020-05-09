@@ -74,16 +74,16 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/transactions_title_text"
-            android:layout_width="0dp"
             style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_spacing"
             android:layout_marginTop="@dimen/default_spacing"
-            app:layout_constraintStart_toStartOf="parent"
             android:text="@{@string/transactions_title_format(viewModel.user.name)}"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/refund_button"
-            tools:text="Transaction of UserName"
-            app:visible="@{viewModel.hasUser}" />
+            app:visible="@{viewModel.hasUser}"
+            tools:text="Transaction of UserName" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/transaction_recycler_view"
@@ -92,7 +92,6 @@
             android:layout_marginStart="@dimen/half_spacing"
             android:layout_marginTop="@dimen/default_spacing"
             android:layout_marginEnd="@dimen/half_spacing"
-            android:layout_marginBottom="@dimen/default_spacing"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,11 +1,15 @@
 package eu.yeger.koffee.ui.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentHomeBinding
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
@@ -33,6 +37,13 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        homeViewModel.userSelectionRequiredAction.observe(viewLifecycleOwner, Observer { userSelectionRequired ->
+            if (userSelectionRequired) {
+                showUserSelectionRequiredDialog()
+                homeViewModel.onUserSelectionRequiredActionHandled()
+            }
+        })
+
         val binding = FragmentHomeBinding.inflate(inflater)
         binding.viewModel = homeViewModel
         binding.transactionRecyclerView.adapter =
@@ -41,5 +52,17 @@ class HomeFragment : Fragment() {
             })
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
+    }
+
+    private fun showUserSelectionRequiredDialog() {
+        AlertDialog.Builder(requireContext())
+            .setMessage(R.string.no_user_selected)
+            .setPositiveButton(R.string.got_to_selection) { _, _ ->
+                val action = HomeFragmentDirections.actionNavigationHomeToNavigationUserSelection()
+                findNavController().navigate(action)
+            }
+            .setCancelable(false)
+            .create()
+            .show()
     }
 }

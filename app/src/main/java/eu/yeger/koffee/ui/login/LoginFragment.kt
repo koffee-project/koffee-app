@@ -28,14 +28,14 @@ class LoginFragment : Fragment() {
     ): View {
         loginViewModel.loginErrorAction.observe(viewLifecycleOwner, Observer { loginError ->
             loginError?.let {
-                showSnackbar(loginError)
+                requireActivity().showSnackbar(loginError)
                 loginViewModel.onLoginErrorActionHandled()
             }
         })
 
         loginViewModel.loginSuccessAction.observe(viewLifecycleOwner, Observer { loginSuccess ->
             if (loginSuccess) {
-                showSnackbar(getString(R.string.login_success))
+                requireActivity().showSnackbar(getString(R.string.login_success))
                 val action = LoginFragmentDirections.actionNavigationLoginToNavigationAdmin()
                 findNavController().navigate(action)
                 loginViewModel.onLoginSuccessActionHandled()

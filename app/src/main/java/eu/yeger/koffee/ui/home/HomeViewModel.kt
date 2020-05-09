@@ -1,10 +1,6 @@
 package eu.yeger.koffee.ui.home
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.map
-import androidx.lifecycle.viewModelScope
-import eu.yeger.koffee.domain.Transaction
+import androidx.lifecycle.*
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import kotlinx.coroutines.launch
@@ -23,10 +19,14 @@ class HomeViewModel(
 
     val canRefund = transactionRepository.getLastRefundableTransactionByUserId(userId).map { it != null }
 
+    private val _userSelectionRequiredAction = MutableLiveData(userId === null)
+    val userSelectionRequiredAction: LiveData<Boolean> = _userSelectionRequiredAction
+
     init {
         userId?.let {
             viewModelScope.launch {
                 userRepository.fetchUserById(userId)
+                _userSelectionRequiredAction.value = userRepository.hasUserWithId(userId).not()
             }
             viewModelScope.launch {
                 transactionRepository.fetchTransactionsByUserId(userId)
@@ -46,6 +46,12 @@ class HomeViewModel(
         }
     }
 
+    fun onUserSelectionRequiredActionHandled() {
+        viewModelScope.launch {
+            _userSelectionRequiredAction.value = false
+        }
+    }
+
     class Factory(
         private val userId: String?,
         private val userRepository: UserRepository,
@@ -57,22 +63,6 @@ class HomeViewModel(
                 return HomeViewModel(userId, userRepository, transactionRepository) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
-
-    private object TransactionComparator : Comparator<Transaction> {
-
-        override fun compare(first: Transaction, second: Transaction): Int {
-            return when {
-                first.timestamp > second.timestamp -> 1 // First transaction is newer
-                first.timestamp == second.timestamp -> when {
-                    second is Transaction.Refund -> -1 // Second transaction is more important
-                    first is Transaction.Refund -> 1 // First transaction is more important
-                    else -> 0 // Equal
-                }
-                first.timestamp < second.timestamp -> -1 // Second transaction is newer
-                else -> 0 // Equal
-            }
         }
     }
 }

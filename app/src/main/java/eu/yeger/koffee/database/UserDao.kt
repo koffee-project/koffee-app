@@ -14,6 +14,9 @@ interface UserDao {
     fun insert(user: User)
 
     @Query("SELECT * FROM user WHERE id == :id")
+    fun getById(id: String?): User?
+
+    @Query("SELECT * FROM user WHERE id == :id")
     fun getByIdAsLiveData(id: String?): LiveData<User?>
 
     @Query("DELETE FROM user")

@@ -11,9 +11,8 @@ import eu.yeger.koffee.databinding.CardPurchaseTransactionBinding
 import eu.yeger.koffee.databinding.CardRefundTransactionBinding
 import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.ui.OnClickListener
-import org.ocpsoft.prettytime.PrettyTime
 import java.util.*
-
+import org.ocpsoft.prettytime.PrettyTime
 
 private const val FUNDING_VIEW_TYPE = 0
 private const val PURCHASE_VIEW_TYPE = 1

@@ -15,6 +15,11 @@
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_user_selection"
+            app:destination="@id/navigation_user_selection"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -24,14 +29,16 @@
         tools:layout="@layout/fragment_user_selection">
         <action
             android:id="@+id/action_navigation_user_selection_to_navigation_home"
-            app:destination="@id/navigation_home" />
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_user_selection"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_admin"
         android:name="eu.yeger.koffee.ui.admin.AdminFragment"
         android:label="@string/title_admin"
-        tools:layout="@layout/fragment_admin" >
+        tools:layout="@layout/fragment_admin">
         <action
             android:id="@+id/action_navigation_admin_to_loginFragment"
             app:destination="@id/navigation_login"
@@ -43,23 +50,27 @@
         android:id="@+id/navigation_item_list"
         android:name="eu.yeger.koffee.ui.item_list.ItemListFragment"
         android:label="@string/title_item_list"
-        tools:layout="@layout/fragment_item_list" >
+        tools:layout="@layout/fragment_item_list">
         <action
             android:id="@+id/action_navigation_item_list_to_itemDetailsFragment"
             app:destination="@id/navigation_item_details" />
     </fragment>
+
     <fragment
         android:id="@+id/navigation_item_details"
         android:name="eu.yeger.koffee.ui.item_details.ItemDetailsFragment"
-        android:label="@string/title_item_details">
+        android:label="@string/title_item_details"
+        tools:layout="@layout/fragment_item_details">
         <argument
             android:name="itemId"
             app:argType="string" />
     </fragment>
+
     <fragment
         android:id="@+id/navigation_login"
         android:name="eu.yeger.koffee.ui.login.LoginFragment"
-        android:label="@string/title_login" >
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_navigation_login_to_navigation_admin"
             app:destination="@id/navigation_admin"
