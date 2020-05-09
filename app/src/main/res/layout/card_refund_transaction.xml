@@ -10,6 +10,10 @@
             type="eu.yeger.koffee.domain.Transaction.Refund" />
 
         <variable
+            name="timestamp"
+            type="String" />
+
+        <variable
             name="onClickListener"
             type="eu.yeger.koffee.ui.OnClickListener" />
     </data>
@@ -18,16 +22,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/half_spacing"
-        app:cardElevation="@dimen/card_elevation"
-        app:cardCornerRadius="@dimen/card_corner_radius"
         android:onClick="@{() -> onClickListener.onClick(refund)}"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardElevation="@dimen/card_elevation"
         app:contentPadding="@dimen/default_spacing">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{@string/refund_format(refund.amount, refund.itemId, refund.value, refund.timestamp)}"
-            android:textAlignment="center"
-            tools:text="CardFundingTransaction" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/type_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_remove_shopping_cart_24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/transaction_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/transaction_text"
+                android:contentDescription="@string/refund_image_description" />
+
+            <TextView
+                android:id="@+id/transaction_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/half_spacing"
+                android:text="@{@string/refund_format(refund.amount, refund.itemId, refund.value)}"
+                android:textAlignment="textStart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/timestamp_text"
+                app:layout_constraintStart_toEndOf="@+id/type_image_view"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="CardRefundTransaction" />
+
+            <TextView
+                android:id="@+id/timestamp_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/half_spacing"
+                android:text="@{timestamp}"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Timestamp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

@@ -10,6 +10,10 @@
             type="eu.yeger.koffee.domain.Transaction.Funding" />
 
         <variable
+            name="timestamp"
+            type="String" />
+
+        <variable
             name="onClickListener"
             type="eu.yeger.koffee.ui.OnClickListener" />
     </data>
@@ -23,11 +27,44 @@
         android:onClick="@{() -> onClickListener.onClick(funding)}"
         app:contentPadding="@dimen/default_spacing">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{@string/funding_format(funding.value, funding.timestamp)}"
-            android:textAlignment="center"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/type_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_attach_money_24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/transaction_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/transaction_text"
+                android:contentDescription="@string/refund_image_description" />
+
+            <TextView
+                android:id="@+id/transaction_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/half_spacing"
+                android:text="@{@string/funding_format(funding.value, funding.timestamp)}"
+                android:textAlignment="textStart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/timestamp_text"
+                app:layout_constraintStart_toEndOf="@+id/type_image_view"
+                app:layout_constraintTop_toTopOf="parent"
             tools:text="CardFundingTransaction" />
+
+            <TextView
+                android:id="@+id/timestamp_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/half_spacing"
+                android:text="@{timestamp}"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Timestamp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

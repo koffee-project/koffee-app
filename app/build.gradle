@@ -84,6 +84,9 @@ dependencies {
     // Material
     implementation "com.google.android.material:material:$material_version"
 
+    // PrettyTime
+    implementation "org.ocpsoft.prettytime:prettytime:$pretty_time_version"
+
     // Testing
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$ax_junit_version"

@@ -11,6 +11,9 @@ import eu.yeger.koffee.databinding.CardPurchaseTransactionBinding
 import eu.yeger.koffee.databinding.CardRefundTransactionBinding
 import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.ui.OnClickListener
+import org.ocpsoft.prettytime.PrettyTime
+import java.util.*
+
 
 private const val FUNDING_VIEW_TYPE = 0
 private const val PURCHASE_VIEW_TYPE = 1
@@ -22,12 +25,18 @@ class TransactionListAdapter(private val onClickListener: OnClickListener<Transa
     sealed class ViewHolder(view: View) :
         RecyclerView.ViewHolder(view) {
 
+        protected fun formatTimestamp(timestamp: Long): String {
+            val prettyTime = PrettyTime(Locale.getDefault())
+            return prettyTime.format(Date(timestamp))
+        }
+
         abstract fun bind(transaction: Transaction, onClickListener: OnClickListener<Transaction>)
 
         class FundingViewHolder(private val binding: CardFundingTransactionBinding) :
             ViewHolder(binding.root) {
 
             override fun bind(transaction: Transaction, onClickListener: OnClickListener<Transaction>) {
+                binding.timestamp = formatTimestamp(transaction.timestamp)
                 binding.funding = transaction as Transaction.Funding
                 binding.onClickListener = onClickListener
                 binding.executePendingBindings()
@@ -38,6 +47,7 @@ class TransactionListAdapter(private val onClickListener: OnClickListener<Transa
             ViewHolder(binding.root) {
 
             override fun bind(transaction: Transaction, onClickListener: OnClickListener<Transaction>) {
+                binding.timestamp = formatTimestamp(transaction.timestamp)
                 binding.purchase = transaction as Transaction.Purchase
                 binding.onClickListener = onClickListener
                 binding.executePendingBindings()
@@ -48,6 +58,7 @@ class TransactionListAdapter(private val onClickListener: OnClickListener<Transa
             ViewHolder(binding.root) {
 
             override fun bind(transaction: Transaction, onClickListener: OnClickListener<Transaction>) {
+                binding.timestamp = formatTimestamp(transaction.timestamp)
                 binding.refund = transaction as Transaction.Refund
                 binding.onClickListener = onClickListener
                 binding.executePendingBindings()

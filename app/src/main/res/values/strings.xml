@@ -17,12 +17,13 @@
     <string name="title_item_list">Items</string>
     <string name="item_refresh_success">Items refreshed successfully</string>
     <string name="item_refresh_error_format">Unable to refresh items: %s</string>
-    <string name="funding_format">Funding: %.2f€ at %d</string>
-    <string name="purchase_format">Purchase: %d of %s for %.2f€ at %d</string>
-    <string name="refund_format">Refund : %d of %s for %.2f€ at %d</string>
+    <string name="funding_format">Funding: %.2f€</string>
+    <string name="purchase_format">Purchase: %d %s for %.2f€</string>
+    <string name="refund_format">Refund: %d %s for %.2f€</string>
     <string name="title_item_details">Item Details</string>
     <string name="buy">Buy</string>
     <string name="transactions_title">Transactions</string>
     <string name="transactions_title_format">Transactions of %s</string>
     <string name="refund">Refund</string>
+    <string name="refund_image_description">Refund</string>
 </resources>
