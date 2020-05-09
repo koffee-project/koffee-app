@@ -14,7 +14,7 @@
             type="eu.yeger.koffee.ui.OnClickListener" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/half_spacing"
@@ -23,11 +23,11 @@
         android:onClick="@{() -> onClickListener.onClick(item)}"
         app:contentPadding="@dimen/default_spacing">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{item.name}"
             android:textAlignment="center"
             tools:text="Water" />
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 </layout>

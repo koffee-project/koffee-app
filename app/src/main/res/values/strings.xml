@@ -26,4 +26,9 @@
     <string name="transactions_title_format">Transactions of %s</string>
     <string name="refund">Refund</string>
     <string name="refund_image_description">Refund</string>
+    <string name="title_login">Login</string>
+    <string name="user_id">UserID</string>
+    <string name="password">Password</string>
+    <string name="login_success">Login successful</string>
+    <string name="logout">Logout</string>
 </resources>

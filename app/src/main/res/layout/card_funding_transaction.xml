@@ -18,7 +18,7 @@
             type="eu.yeger.koffee.ui.OnClickListener" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/half_spacing"
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/type_image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                 app:layout_constraintTop_toTopOf="@+id/transaction_text"
                 android:contentDescription="@string/refund_image_description" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/transaction_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 app:layout_constraintTop_toTopOf="parent"
             tools:text="CardFundingTransaction" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/timestamp_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -66,5 +66,5 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Timestamp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 </layout>

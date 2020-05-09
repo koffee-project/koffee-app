@@ -13,7 +13,12 @@
 
     <item
         android:id="@+id/navigation_user_selection"
-        android:icon="@drawable/ic_person_24dp"
+        android:icon="@drawable/ic_group_24dp"
         android:title="@string/title_user_selection" />
+
+    <item
+        android:id="@+id/navigation_admin"
+        android:icon="@drawable/ic_poll_24dp"
+        android:title="@string/title_admin" />
 
 </menu>

@@ -16,9 +16,21 @@ fun Fragment.showRefreshResultSnackbar(
         )
         else -> return // impossible
     }
+    showSnackbar(message)
+}
+
+fun Fragment.showSnackbar(message: Int, length: Int = Snackbar.LENGTH_SHORT) {
     Snackbar.make(
         requireView(),
         message,
-        Snackbar.LENGTH_SHORT
+        length
+    ).show()
+}
+
+fun Fragment.showSnackbar(message: String, length: Int = Snackbar.LENGTH_SHORT) {
+    Snackbar.make(
+        requireView(),
+        message,
+        length
     ).show()
 }

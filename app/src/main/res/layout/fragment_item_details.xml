@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.home.HomeFragment">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/item_name_text"
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="0dp"
@@ -31,7 +31,7 @@
             app:visible="@{viewModel.hasItem}"
             tools:text="ItemName" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/item_price_text"
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
             app:visible="@{viewModel.hasItem}"
             tools:text="100$" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buy_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
             app:layout_constraintTop_toBottomOf="@+id/item_name_text"
             app:visible="@{viewModel.hasUser}" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/refund_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
             app:layout_constraintTop_toBottomOf="@+id/buy_button"
             app:visible="@{viewModel.canRefund}" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/transactions_title_text"
             android:layout_width="0dp"
             style="@style/TextAppearance.MaterialComponents.Headline6"
