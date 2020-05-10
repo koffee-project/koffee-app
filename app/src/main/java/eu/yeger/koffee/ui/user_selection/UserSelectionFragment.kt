@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserSelectionBinding
 import eu.yeger.koffee.domain.UserEntry
+import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserEntryRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.UserEntryListAdapter
@@ -21,8 +22,10 @@ import eu.yeger.koffee.utility.showRefreshResultSnackbar
 class UserSelectionFragment : Fragment() {
 
     private val userSelectionViewModel: UserSelectionViewModel by viewModels {
+        val context = requireContext()
         UserSelectionViewModel.Factory(
-            userEntryRepository = UserEntryRepository(requireContext())
+            adminRepository = AdminRepository(context),
+            userEntryRepository = UserEntryRepository(context)
         )
     }
 
@@ -39,6 +42,14 @@ class UserSelectionFragment : Fragment() {
                     errorTextFormat = R.string.user_refresh_error_format
                 )
                 userSelectionViewModel.onRefreshResultActionHandled()
+            }
+        })
+
+        userSelectionViewModel.createUserAction.observe(viewLifecycleOwner, Observer { createUser ->
+            if (createUser) {
+                val action = UserSelectionFragmentDirections.actionNavigationUserSelectionToUserCreationFragment()
+                findNavController().navigate(action)
+                userSelectionViewModel.onCreateUserActionHandled()
             }
         })
 

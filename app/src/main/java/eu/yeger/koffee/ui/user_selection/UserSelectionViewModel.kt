@@ -2,6 +2,7 @@ package eu.yeger.koffee.ui.user_selection
 
 import androidx.lifecycle.*
 import eu.yeger.koffee.domain.UserEntry
+import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.RepositoryState
 import eu.yeger.koffee.repository.UserEntryRepository
 import eu.yeger.koffee.utility.mediatedLiveData
@@ -9,6 +10,7 @@ import eu.yeger.koffee.utility.sourcedLiveData
 import kotlinx.coroutines.launch
 
 class UserSelectionViewModel(
+    private val adminRepository: AdminRepository,
     private val userEntryRepository: UserEntryRepository
 ) : ViewModel() {
 
@@ -49,6 +51,11 @@ class UserSelectionViewModel(
         }
     }
 
+    val isAuthenticated = adminRepository.isAuthenticatedAsLiveData()
+
+    private val _createUserAction = MutableLiveData(false)
+    val createUserAction: LiveData<Boolean> = _createUserAction
+
     init {
         refreshUsers()
     }
@@ -65,13 +72,26 @@ class UserSelectionViewModel(
         }
     }
 
+    fun triggerCreateUserAction() {
+        viewModelScope.launch {
+            _createUserAction.value = true
+        }
+    }
+
+    fun onCreateUserActionHandled() {
+        viewModelScope.launch {
+            _createUserAction.value = false
+        }
+    }
+
     class Factory(
+        private val adminRepository: AdminRepository,
         private val userEntryRepository: UserEntryRepository
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(UserSelectionViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return UserSelectionViewModel(userEntryRepository) as T
+                return UserSelectionViewModel(adminRepository, userEntryRepository) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }

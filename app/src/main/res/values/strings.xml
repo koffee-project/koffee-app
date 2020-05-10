@@ -32,4 +32,6 @@
     <string name="login_success">Login successful</string>
     <string name="logout">Logout</string>
     <string name="got_to_selection">Go To Selection</string>
+    <string name="title_user_creation">Create User</string>
+    <string name="is_admin">Is Admin</string>
 </resources>

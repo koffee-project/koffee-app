@@ -17,7 +17,7 @@ class ItemDetailsViewModel(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    val user = userRepository.getUserById(userId)
+    val user = userRepository.getUserByIdAsLiveData(userId)
 
     val hasUser = user.map { it != null }
 

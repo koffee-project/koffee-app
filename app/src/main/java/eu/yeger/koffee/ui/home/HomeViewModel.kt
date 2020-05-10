@@ -11,7 +11,7 @@ class HomeViewModel(
     private val transactionRepository: TransactionRepository
 ) : ViewModel() {
 
-    val user = userRepository.getUserById(userId)
+    val user = userRepository.getUserByIdAsLiveData(userId)
 
     val hasUser = user.map { it != null }
 

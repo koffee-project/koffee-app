@@ -2,6 +2,7 @@ package eu.yeger.koffee.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.getDatabase
 import eu.yeger.koffee.domain.JWT
@@ -15,13 +16,19 @@ class AdminRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
+    suspend fun getJWT(): JWT? {
+        return withContext(Dispatchers.IO) {
+            database.jwtDao.get()
+        }
+    }
+
+    fun isAuthenticatedAsLiveData(): LiveData<Boolean> = database.jwtDao.getAsLiveData().map { it !== null }
+
     suspend fun loginRequired(): Boolean {
         return withContext(Dispatchers.IO) {
             database.jwtDao.get() === null
         }
     }
-
-    fun getJWTTokenAsLiveData(): LiveData<JWT?> = database.jwtDao.getAsLiveData()
 
     suspend fun login(userId: String, password: String) {
         withContext(Dispatchers.IO) {

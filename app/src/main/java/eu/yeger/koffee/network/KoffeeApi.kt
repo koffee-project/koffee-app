@@ -1,9 +1,6 @@
 package eu.yeger.koffee.network
 
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface KoffeeApi {
 
@@ -35,4 +32,7 @@ interface KoffeeApi {
 
     @POST("login")
     suspend fun login(@Body credentials: ApiCredentials): ApiResponse<String>
+
+    @POST("users")
+    suspend fun createUser(@Body createUserRequest: ApiCreateUserRequest, @Header("Authorization") token: String): ApiResponse<String>
 }
