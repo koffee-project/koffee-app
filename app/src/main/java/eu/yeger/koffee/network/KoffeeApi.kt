@@ -21,10 +21,7 @@ interface KoffeeApi {
 
     // TODO improve return
     @POST("users/{userId}/purchases")
-    suspend fun purchaseItem(
-        @Path("userId") userId: String,
-        @Body purchaseRequest: ApiPurchaseRequest
-    ): ApiResponse<Any>
+    suspend fun purchaseItem(@Path("userId") userId: String, @Body purchaseRequest: ApiPurchaseRequest): ApiResponse<Any>
 
     // TODO improve return
     @POST("users/{userId}/purchases/refund")
@@ -35,4 +32,7 @@ interface KoffeeApi {
 
     @POST("users")
     suspend fun createUser(@Body createUserRequest: ApiCreateUserRequest, @Header("Authorization") token: String): ApiResponse<String>
+
+    @POST("items")
+    suspend fun createItem(@Body createItemRequest: ApiCreateItemRequest, @Header("Authorization") token: String): ApiResponse<String>
 }

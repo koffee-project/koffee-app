@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentItemListBinding
+import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.ItemListAdapter
@@ -18,10 +19,10 @@ import eu.yeger.koffee.utility.showRefreshResultSnackbar
 class ItemListFragment : Fragment() {
 
     private val itemListViewModel: ItemListViewModel by viewModels {
-        val itemRepository = ItemRepository(requireContext())
-
+        val context = requireContext()
         ItemListViewModel.Factory(
-            itemRepository = itemRepository
+            adminRepository = AdminRepository(context),
+            itemRepository = ItemRepository(context)
         )
     }
 
@@ -30,24 +31,31 @@ class ItemListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        itemListViewModel.refreshResultAction.observe(viewLifecycleOwner, Observer { state ->
-            state?.let {
-                requireActivity().showRefreshResultSnackbar(
-                    repositoryState = state,
-                    successText = R.string.item_refresh_success,
-                    errorTextFormat = R.string.item_refresh_error_format
-                )
-                itemListViewModel.onRefreshResultActionHandled()
-            }
-        })
+        itemListViewModel.apply {
+            refreshResultAction.observe(viewLifecycleOwner, Observer { state ->
+                state?.let {
+                    requireActivity().showRefreshResultSnackbar(
+                        repositoryState = state,
+                        successText = R.string.item_refresh_success,
+                        errorTextFormat = R.string.item_refresh_error_format
+                    )
+                    onRefreshResultActionHandled()
+                }
+            })
+
+            createItemAction.observe(viewLifecycleOwner, Observer { createItem ->
+                if (createItem) {
+                    val action = ItemListFragmentDirections.toItemCreation()
+                    findNavController().navigate(action)
+                    onCreateItemActionHandled()
+                }
+            })
+        }
 
         return FragmentItemListBinding.inflate(inflater).apply {
             viewModel = itemListViewModel
             itemRecyclerView.adapter = ItemListAdapter(OnClickListener { selectedItem ->
-                val action =
-                    ItemListFragmentDirections.actionNavigationItemListToItemDetailsFragment(
-                        selectedItem.id
-                    )
+                val action = ItemListFragmentDirections.toItemDetails(selectedItem.id)
                 findNavController().navigate(action)
             })
             lifecycleOwner = viewLifecycleOwner

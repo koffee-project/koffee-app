@@ -6,8 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.getDatabase
 import eu.yeger.koffee.domain.Item
+import eu.yeger.koffee.domain.JWT
+import eu.yeger.koffee.network.ApiCreateItemRequest
 import eu.yeger.koffee.network.NetworkService
 import eu.yeger.koffee.network.asDomainModel
+import eu.yeger.koffee.network.formatToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -49,6 +52,24 @@ class ItemRepository(private val database: KoffeeDatabase) {
             } catch (exception: Exception) {
                 _state.postValue(RepositoryState.Error(exception))
             }
+        }
+    }
+
+    suspend fun createItem(
+        itemId: String,
+        itemName: String,
+        itemPrice: Double,
+        itemAmount: Int?,
+        jwt: JWT
+    ) {
+        withContext(Dispatchers.IO) {
+            val createItemRequest = ApiCreateItemRequest(
+                id = itemId,
+                name = itemName,
+                price = itemPrice,
+                amount = itemAmount
+            )
+            NetworkService.koffeeApi.createItem(createItemRequest, jwt.formatToken())
         }
     }
 }

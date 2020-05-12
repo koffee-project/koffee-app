@@ -11,7 +11,8 @@ fun Activity.showRefreshResultSnackbar(
     errorTextFormat: Int
 ) {
     val message = when (repositoryState) {
-        is RepositoryState.Done -> getString(successText)
+        // Disabled because displaying messages for success is uncommon
+        // is RepositoryState.Done -> getString(successText)
         is RepositoryState.Error -> getString(errorTextFormat).format(
             repositoryState.exception.message ?: "Unknown"
         )

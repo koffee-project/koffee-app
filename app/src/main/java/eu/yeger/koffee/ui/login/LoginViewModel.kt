@@ -2,11 +2,12 @@ package eu.yeger.koffee.ui.login
 
 import androidx.lifecycle.*
 import eu.yeger.koffee.repository.AdminRepository
+import eu.yeger.koffee.ui.SuccessErrorViewModel
 import eu.yeger.koffee.utility.sourcedLiveData
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val adminRepository: AdminRepository) : ViewModel() {
+class LoginViewModel(private val adminRepository: AdminRepository) : SuccessErrorViewModel<Boolean>() {
 
     val userId = MutableLiveData("")
 
@@ -16,32 +17,10 @@ class LoginViewModel(private val adminRepository: AdminRepository) : ViewModel()
         userId.value.isNullOrBlank().not() && password.value.isNullOrBlank().not()
     }
 
-    private val _loginErrorAction = MutableLiveData<String?>()
-    val loginErrorAction: LiveData<String?> = _loginErrorAction
-
-    private val _loginSuccessAction = MutableLiveData(false)
-    val loginSuccessAction: LiveData<Boolean> = _loginSuccessAction
-
-    private val loginExceptionHandler = CoroutineExceptionHandler { _, exception ->
-        _loginErrorAction.postValue(exception.localizedMessage)
-    }
-
     fun login() {
-        viewModelScope.launch(loginExceptionHandler) {
+        viewModelScope.launch(exceptionHandler) {
             adminRepository.login(userId = userId.value!!, password = password.value!!)
-            _loginSuccessAction.value = true
-        }
-    }
-
-    fun onLoginErrorActionHandled() {
-        viewModelScope.launch {
-            _loginErrorAction.value = null
-        }
-    }
-
-    fun onLoginSuccessActionHandled() {
-        viewModelScope.launch {
-            _loginSuccessAction.value = null
+            _successAction.value = true
         }
     }
 

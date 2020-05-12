@@ -34,4 +34,10 @@
     <string name="got_to_selection">Go To Selection</string>
     <string name="title_user_creation">Create User</string>
     <string name="is_admin">Is Admin</string>
+    <string name="title_item_creation">Create Item</string>
+    <string name="id">ID</string>
+    <string name="amount">Amount</string>
+    <string name="price">Price</string>
+    <string name="item_creation_success">Item Created Successfully</string>
+    <string name="user_creation_success">User Created Successfully</string>
 </resources>

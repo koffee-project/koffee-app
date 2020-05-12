@@ -49,6 +49,17 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:spanCount="2"
                 app:visible="@{viewModel.items.size() != 0}" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:layout_marginBottom="@dimen/default_spacing"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_person_add_24dp"
+                android:onClick="@{() -> viewModel.triggerCreateItemAction()}"
+                app:visible="@{viewModel.isAuthenticated()}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

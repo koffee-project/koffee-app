@@ -37,14 +37,14 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        homeViewModel.userSelectionRequiredAction.observe(
-            viewLifecycleOwner,
-            Observer { userSelectionRequired ->
-                if (userSelectionRequired) {
-                    showUserSelectionRequiredDialog()
-                    homeViewModel.onUserSelectionRequiredActionHandled()
-                }
-            })
+        homeViewModel.apply {
+            userSelectionRequiredAction.observe(viewLifecycleOwner, Observer { userSelectionRequired ->
+                    if (userSelectionRequired) {
+                        showUserSelectionRequiredDialog()
+                        onUserSelectionRequiredActionHandled()
+                    }
+                })
+        }
 
         return FragmentHomeBinding.inflate(inflater).apply {
             viewModel = homeViewModel
@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.no_user_selected)
             .setPositiveButton(R.string.got_to_selection) { _, _ ->
-                val action = HomeFragmentDirections.actionNavigationHomeToNavigationUserSelection()
+                val action = HomeFragmentDirections.toUserSelection()
                 findNavController().navigate(action)
             }
             .setCancelable(false)

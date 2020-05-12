@@ -34,24 +34,26 @@ class UserSelectionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        userSelectionViewModel.refreshResultAction.observe(viewLifecycleOwner, Observer { state ->
-            state?.let {
-                requireActivity().showRefreshResultSnackbar(
-                    repositoryState = state,
-                    successText = R.string.user_refresh_success,
-                    errorTextFormat = R.string.user_refresh_error_format
-                )
-                userSelectionViewModel.onRefreshResultActionHandled()
-            }
-        })
+        userSelectionViewModel.apply {
+            refreshResultAction.observe(viewLifecycleOwner, Observer { state ->
+                state?.let {
+                    requireActivity().showRefreshResultSnackbar(
+                        repositoryState = state,
+                        successText = R.string.user_refresh_success,
+                        errorTextFormat = R.string.user_refresh_error_format
+                    )
+                    onRefreshResultActionHandled()
+                }
+            })
 
-        userSelectionViewModel.createUserAction.observe(viewLifecycleOwner, Observer { createUser ->
-            if (createUser) {
-                val action = UserSelectionFragmentDirections.actionNavigationUserSelectionToUserCreationFragment()
-                findNavController().navigate(action)
-                userSelectionViewModel.onCreateUserActionHandled()
-            }
-        })
+            createUserAction.observe(viewLifecycleOwner, Observer { createUser ->
+                if (createUser) {
+                    val action = UserSelectionFragmentDirections.toUserCreation()
+                    findNavController().navigate(action)
+                    onCreateUserActionHandled()
+                }
+            })
+        }
 
         return FragmentUserSelectionBinding.inflate(inflater).apply {
             viewModel = userSelectionViewModel
@@ -78,8 +80,7 @@ class UserSelectionFragment : Fragment() {
 
     private fun setActiveUser(userEntry: UserEntry) {
         requireContext().saveUserIdToSharedPreferences(userId = userEntry.id)
-        val action =
-            UserSelectionFragmentDirections.actionNavigationUserSelectionToNavigationHome()
+        val action = UserSelectionFragmentDirections.toHome()
         action.userId = userEntry.id
         findNavController().navigate(action)
     }

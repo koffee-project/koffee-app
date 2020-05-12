@@ -26,13 +26,15 @@ class AdminFragment : Fragment() {
     ): View {
         setHasOptionsMenu(true)
 
-        adminViewModel.loginRequiredAction.observe(viewLifecycleOwner, Observer { loginRequired ->
-            if (loginRequired) {
-                val action = AdminFragmentDirections.actionNavigationAdminToLoginFragment()
-                findNavController().navigate(action)
-                adminViewModel.onLoginRequiredActionHandled()
-            }
-        })
+        adminViewModel.apply {
+            loginRequiredAction.observe(viewLifecycleOwner, Observer { loginRequired ->
+                if (loginRequired) {
+                    val action = AdminFragmentDirections.toLogin()
+                    findNavController().navigate(action)
+                    onLoginRequiredActionHandled()
+                }
+            })
+        }
 
         return FragmentAdminBinding.inflate(inflater).apply {
             viewModel = adminViewModel

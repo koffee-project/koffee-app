@@ -1,11 +1,13 @@
 package eu.yeger.koffee.ui.item_list
 
 import androidx.lifecycle.*
+import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.RepositoryState
 import kotlinx.coroutines.launch
 
 class ItemListViewModel(
+    private val adminRepository: AdminRepository,
     private val itemRepository: ItemRepository
 ) : ViewModel() {
 
@@ -20,6 +22,11 @@ class ItemListViewModel(
             else -> null
         }
     }
+
+    val isAuthenticated = adminRepository.isAuthenticatedAsLiveData()
+
+    private val _createItemAction = MutableLiveData(false)
+    val createItemAction: LiveData<Boolean> = _createItemAction
 
     init {
         refreshItems()
@@ -37,13 +44,26 @@ class ItemListViewModel(
         }
     }
 
+    fun triggerCreateItemAction() {
+        viewModelScope.launch {
+            _createItemAction.value = true
+        }
+    }
+
+    fun onCreateItemActionHandled() {
+        viewModelScope.launch {
+            _createItemAction.value = false
+        }
+    }
+
     class Factory(
+        private val adminRepository: AdminRepository,
         private val itemRepository: ItemRepository
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ItemListViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return ItemListViewModel(itemRepository) as T
+                return ItemListViewModel(adminRepository, itemRepository) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }

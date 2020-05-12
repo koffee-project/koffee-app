@@ -26,21 +26,23 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        loginViewModel.loginErrorAction.observe(viewLifecycleOwner, Observer { loginError ->
-            loginError?.let {
-                requireActivity().showSnackbar(loginError)
-                loginViewModel.onLoginErrorActionHandled()
-            }
-        })
+        loginViewModel.apply {
+            successAction.observe(viewLifecycleOwner, Observer { loginSuccess ->
+                if (loginSuccess) {
+                    requireActivity().showSnackbar(getString(R.string.login_success))
+                    val action = LoginFragmentDirections.toAdmin()
+                    findNavController().navigate(action)
+                    onSuccessActionHandled()
+                }
+            })
 
-        loginViewModel.loginSuccessAction.observe(viewLifecycleOwner, Observer { loginSuccess ->
-            if (loginSuccess) {
-                requireActivity().showSnackbar(getString(R.string.login_success))
-                val action = LoginFragmentDirections.actionNavigationLoginToNavigationAdmin()
-                findNavController().navigate(action)
-                loginViewModel.onLoginSuccessActionHandled()
-            }
-        })
+            errorAction.observe(viewLifecycleOwner, Observer { loginError ->
+                loginError?.let {
+                    requireActivity().showSnackbar(loginError)
+                    onErrorActionHandled()
+                }
+            })
+        }
 
         return FragmentLoginBinding.inflate(inflater).apply {
             viewModel = loginViewModel
