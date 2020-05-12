@@ -20,6 +20,9 @@
             app:destination="@id/navigation_user_list"
             app:popUpTo="@id/navigation_home"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_item_details"
+            app:destination="@id/navigation_item_details" />
     </fragment>
 
     <fragment

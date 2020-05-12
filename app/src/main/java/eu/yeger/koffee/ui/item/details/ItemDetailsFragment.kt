@@ -35,10 +35,7 @@ class ItemDetailsFragment : Fragment() {
     ): View {
         return FragmentItemDetailsBinding.inflate(inflater).apply {
             viewModel = itemDetailsViewModel
-            transactionRecyclerView.adapter =
-                TransactionListAdapter(OnClickListener { selectedTransaction ->
-                    // TODO
-                })
+            transactionRecyclerView.adapter = TransactionListAdapter(OnClickListener { /*ignore*/ })
             lifecycleOwner = viewLifecycleOwner
         }.root
     }

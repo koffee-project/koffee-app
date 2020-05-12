@@ -22,9 +22,9 @@ class ItemCreationViewModel(
 
     // TODO verify price
     val canCreateItem = sourcedLiveData(itemId, itemName, itemPrice, itemAmount) {
-        itemId.value.isNullOrBlank().not()
-                && itemName.value.isNullOrBlank().not()
-                && (itemAmount.value.isNullOrBlank() || itemAmount.value?.toIntOrNull() ?: -1 >= 0)
+        itemId.value.isNullOrBlank().not() &&
+                itemName.value.isNullOrBlank().not() &&
+                (itemAmount.value.isNullOrBlank() || itemAmount.value?.toIntOrNull() ?: -1 >= 0)
     }
 
     // TODO catch exceptions

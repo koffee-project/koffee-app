@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentHomeBinding
+import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
@@ -38,7 +39,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         homeViewModel.apply {
-            userSelectionRequiredAction.observe(viewLifecycleOwner, Observer { userSelectionRequired ->
+            userSelectionRequiredAction.observe(
+                viewLifecycleOwner,
+                Observer { userSelectionRequired ->
                     if (userSelectionRequired) {
                         showUserSelectionRequiredDialog()
                         onUserSelectionRequiredActionHandled()
@@ -50,7 +53,14 @@ class HomeFragment : Fragment() {
             viewModel = homeViewModel
             transactionRecyclerView.adapter =
                 TransactionListAdapter(OnClickListener { selectedTransaction ->
-                    // TODO
+                    when (selectedTransaction) {
+                        is Transaction.Purchase -> selectedTransaction.itemId
+                        is Transaction.Refund -> selectedTransaction.itemId
+                        else -> null
+                    }?.let { itemId ->
+                        val action = HomeFragmentDirections.toItemDetails(itemId)
+                        findNavController().navigate(action)
+                    }
                 })
             lifecycleOwner = viewLifecycleOwner
         }.root

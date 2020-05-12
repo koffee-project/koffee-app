@@ -57,7 +57,7 @@
                 android:layout_marginBottom="@dimen/default_spacing"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_person_add_24dp"
+                app:srcCompat="@drawable/ic_add_24dp"
                 android:onClick="@{() -> viewModel.triggerCreateItemAction()}"
                 app:visible="@{viewModel.isAuthenticated()}" />
         </androidx.constraintlayout.widget.ConstraintLayout>

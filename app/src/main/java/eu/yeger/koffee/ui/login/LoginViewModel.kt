@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.ui.SuccessErrorViewModel
 import eu.yeger.koffee.utility.sourcedLiveData
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val adminRepository: AdminRepository) : SuccessErrorViewModel<Boolean>() {
