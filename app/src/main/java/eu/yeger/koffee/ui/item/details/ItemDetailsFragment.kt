@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.item_details
+package eu.yeger.koffee.ui.item.details
 
 import android.os.Bundle
 import android.view.LayoutInflater

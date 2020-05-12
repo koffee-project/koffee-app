@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.item_list
+package eu.yeger.koffee.ui.item.list
 
 import androidx.lifecycle.*
 import eu.yeger.koffee.repository.AdminRepository
@@ -63,7 +63,10 @@ class ItemListViewModel(
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ItemListViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return ItemListViewModel(adminRepository, itemRepository) as T
+                return ItemListViewModel(
+                    adminRepository,
+                    itemRepository
+                ) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }

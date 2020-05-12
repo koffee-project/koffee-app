@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.no_user_selected)
             .setPositiveButton(R.string.got_to_selection) { _, _ ->
-                val action = HomeFragmentDirections.toUserSelection()
+                val action = HomeFragmentDirections.toUserList()
                 findNavController().navigate(action)
             }
             .setCancelable(false)

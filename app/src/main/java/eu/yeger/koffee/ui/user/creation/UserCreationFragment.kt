@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.item_creation
+package eu.yeger.koffee.ui.user.creation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,18 +9,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
-import eu.yeger.koffee.databinding.FragmentItemCreationBinding
+import eu.yeger.koffee.databinding.FragmentUserCreationBinding
 import eu.yeger.koffee.repository.AdminRepository
-import eu.yeger.koffee.repository.ItemRepository
+import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.utility.showSnackbar
 
-class ItemCreationFragment : Fragment() {
+class UserCreationFragment : Fragment() {
 
-    private val itemCreationViewModel: ItemCreationViewModel by viewModels {
+    private val userCreationFragment: UserCreationViewModel by viewModels {
         val context = requireContext()
-        ItemCreationViewModel.Factory(
+        UserCreationViewModel.Factory(
             adminRepository = AdminRepository(context),
-            itemRepository = ItemRepository(context)
+            userRepository = UserRepository(context)
         )
     }
 
@@ -29,11 +29,12 @@ class ItemCreationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        itemCreationViewModel.apply {
-            successAction.observe(viewLifecycleOwner, Observer { itemId ->
-                itemId?.let {
-                    requireActivity().showSnackbar(getString(R.string.item_creation_success))
-                    val action = ItemCreationFragmentDirections.toItemDetails(itemId)
+        userCreationFragment.apply {
+            successAction.observe(viewLifecycleOwner, Observer { userId ->
+                userId?.let {
+                    requireActivity().showSnackbar(getString(R.string.user_creation_success))
+                    val action = UserCreationFragmentDirections.toUserDetails()
+                    action.userId = userId
                     findNavController().navigate(action)
                     onSuccessActionHandled()
                 }
@@ -47,8 +48,8 @@ class ItemCreationFragment : Fragment() {
             })
         }
 
-        return FragmentItemCreationBinding.inflate(inflater).apply {
-            viewModel = itemCreationViewModel
+        return FragmentUserCreationBinding.inflate(inflater).apply {
+            viewModel = userCreationFragment
             lifecycleOwner = viewLifecycleOwner
         }.root
     }

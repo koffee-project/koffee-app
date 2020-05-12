@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="eu.yeger.koffee.ui.item_details.ItemDetailsViewModel" />
+            type="eu.yeger.koffee.ui.item.details.ItemDetailsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

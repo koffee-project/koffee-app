@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.user_creation
+package eu.yeger.koffee.ui.user.creation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

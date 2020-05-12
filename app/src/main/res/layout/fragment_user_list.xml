@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="eu.yeger.koffee.ui.user_selection.UserSelectionViewModel" />
+            type="eu.yeger.koffee.ui.user.list.UserListViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

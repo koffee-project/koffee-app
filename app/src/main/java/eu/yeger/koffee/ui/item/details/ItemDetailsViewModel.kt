@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.item_details
+package eu.yeger.koffee.ui.item.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

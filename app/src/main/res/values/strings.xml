@@ -40,4 +40,5 @@
     <string name="price">Price</string>
     <string name="item_creation_success">Item Created Successfully</string>
     <string name="user_creation_success">User Created Successfully</string>
+    <string name="title_user_list">Users</string>
 </resources>

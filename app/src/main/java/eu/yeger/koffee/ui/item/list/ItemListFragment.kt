@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.item_list
+package eu.yeger.koffee.ui.item.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -45,7 +45,8 @@ class ItemListFragment : Fragment() {
 
             createItemAction.observe(viewLifecycleOwner, Observer { createItem ->
                 if (createItem) {
-                    val action = ItemListFragmentDirections.toItemCreation()
+                    val action =
+                        ItemListFragmentDirections.toItemCreation()
                     findNavController().navigate(action)
                     onCreateItemActionHandled()
                 }
@@ -55,7 +56,10 @@ class ItemListFragment : Fragment() {
         return FragmentItemListBinding.inflate(inflater).apply {
             viewModel = itemListViewModel
             itemRecyclerView.adapter = ItemListAdapter(OnClickListener { selectedItem ->
-                val action = ItemListFragmentDirections.toItemDetails(selectedItem.id)
+                val action =
+                    ItemListFragmentDirections.toItemDetails(
+                        selectedItem.id
+                    )
                 findNavController().navigate(action)
             })
             lifecycleOwner = viewLifecycleOwner

@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.user_selection
+package eu.yeger.koffee.ui.user.list
 
 import androidx.lifecycle.*
 import eu.yeger.koffee.domain.UserEntry
@@ -9,7 +9,7 @@ import eu.yeger.koffee.utility.mediatedLiveData
 import eu.yeger.koffee.utility.sourcedLiveData
 import kotlinx.coroutines.launch
 
-class UserSelectionViewModel(
+class UserListViewModel(
     private val adminRepository: AdminRepository,
     private val userEntryRepository: UserEntryRepository
 ) : ViewModel() {
@@ -89,9 +89,9 @@ class UserSelectionViewModel(
         private val userEntryRepository: UserEntryRepository
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(UserSelectionViewModel::class.java)) {
+            if (modelClass.isAssignableFrom(UserListViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return UserSelectionViewModel(adminRepository, userEntryRepository) as T
+                return UserListViewModel(adminRepository, userEntryRepository) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
