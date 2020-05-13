@@ -18,4 +18,10 @@ interface ItemDao {
 
     @Query("SELECT * FROM item WHERE id == :id")
     fun getByIdAsLiveData(id: String?): LiveData<Item?>
+
+    @Query("SELECT * FROM item WHERE id == :id")
+    fun getById(id: String?): Item?
+
+    @Query("DELETE FROM item WHERE id == :id")
+    fun deleteById(id: String)
 }

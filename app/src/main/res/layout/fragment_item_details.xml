@@ -13,6 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:visible="@{viewModel.hasItem}"
         tools:context=".ui.home.HomeFragment">
 
         <com.google.android.material.textview.MaterialTextView
@@ -28,7 +29,6 @@
             app:layout_constraintEnd_toStartOf="@+id/item_price_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:visible="@{viewModel.hasItem}"
             tools:text="ItemName" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -41,7 +41,6 @@
             android:textAlignment="center"
             app:layout_constraintBaseline_toBaselineOf="@+id/item_name_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:visible="@{viewModel.hasItem}"
             tools:text="100$" />
 
         <com.google.android.material.button.MaterialButton
@@ -99,5 +98,28 @@
             app:layout_constraintTop_toBottomOf="@+id/transactions_title_text"
             app:transactions="@{viewModel.transactions}"
             app:visible="@{viewModel.hasTransactions}" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/delete_item_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_spacing"
+            android:onClick="@{() -> viewModel.triggerDeleteItemAction()}"
+            app:layout_constraintBottom_toTopOf="@+id/edit_item_button"
+            app:layout_constraintEnd_toEndOf="@+id/edit_item_button"
+            app:srcCompat="@drawable/ic_delete_forever_24dp"
+            app:visible="@{viewModel.canModify}" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/edit_item_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_spacing"
+            android:layout_marginBottom="@dimen/default_spacing"
+            android:onClick="@{() -> viewModel.triggerEditItemAction()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_edit_24dp"
+            app:visible="@{viewModel.canModify}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

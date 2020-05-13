@@ -41,4 +41,9 @@
     <string name="item_creation_success">Item Created Successfully</string>
     <string name="user_creation_success">User Created Successfully</string>
     <string name="title_user_list">Users</string>
+    <string name="delete_format">Delete %s?</string>
+    <string name="delete">Delete</string>
+    <string name="delete_confirmation_format">Are you sure that you want to delete %s? This action cannot be undone.</string>
+    <string name="item_not_found">This item no longer exists.</string>
+    <string name="go_back">Go Back</string>
 </resources>

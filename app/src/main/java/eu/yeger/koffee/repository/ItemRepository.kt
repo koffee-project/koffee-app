@@ -23,6 +23,12 @@ class ItemRepository(private val database: KoffeeDatabase) {
 
     val items = database.itemDao.getAllAsLiveData()
 
+    suspend fun hasItemWithId(id: String?): Boolean {
+        return withContext(Dispatchers.IO) {
+            database.itemDao.getById(id) !== null
+        }
+    }
+
     fun getItemById(id: String?): LiveData<Item?> {
         return database.itemDao.getByIdAsLiveData(id)
     }
@@ -70,6 +76,13 @@ class ItemRepository(private val database: KoffeeDatabase) {
                 amount = itemAmount
             )
             NetworkService.koffeeApi.createItem(createItemRequest, jwt.formatToken())
+        }
+    }
+
+    suspend fun deleteItem(itemId: String, jwt: JWT) {
+        withContext(Dispatchers.IO) {
+            NetworkService.koffeeApi.deleteItem(itemId, jwt.formatToken())
+            database.itemDao.deleteById(itemId)
         }
     }
 }

@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserCreationBinding
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserRepository
+import eu.yeger.koffee.ui.onError
+import eu.yeger.koffee.ui.onSuccess
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
@@ -30,22 +31,16 @@ class UserCreationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         userCreationFragment.apply {
-            successAction.observe(viewLifecycleOwner, Observer { userId ->
-                userId?.let {
-                    requireActivity().showSnackbar(getString(R.string.user_creation_success))
-                    val action = UserCreationFragmentDirections.toUserDetails()
-                    action.userId = userId
-                    findNavController().navigate(action)
-                    onSuccessActionHandled()
-                }
-            })
+            onSuccess(this@UserCreationFragment) { userId ->
+                requireActivity().showSnackbar(getString(R.string.user_creation_success))
+                val action = UserCreationFragmentDirections.toUserDetails()
+                action.userId = userId
+                findNavController().navigate(action)
+            }
 
-            errorAction.observe(viewLifecycleOwner, Observer { error ->
-                error?.let {
-                    requireActivity().showSnackbar(error)
-                    onErrorActionHandled()
-                }
-            })
+            onError(this@UserCreationFragment) { error ->
+                requireActivity().showSnackbar(error)
+            }
         }
 
         return FragmentUserCreationBinding.inflate(inflater).apply {

@@ -1,9 +1,7 @@
 package eu.yeger.koffee.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
@@ -30,4 +28,22 @@ abstract class SuccessErrorViewModel<T> : ViewModel() {
             _successAction.value = null
         }
     }
+}
+
+fun <T> SuccessErrorViewModel<T>.onSuccess(fragment: Fragment, block: (T) -> Unit) {
+    successAction.observe(fragment.viewLifecycleOwner, Observer {
+        it?.let {
+            block(it)
+            onSuccessActionHandled()
+        }
+    })
+}
+
+fun SuccessErrorViewModel<*>.onError(fragment: Fragment, block: (String) -> Unit) {
+    errorAction.observe(fragment.viewLifecycleOwner, Observer {
+        it?.let {
+            block(it)
+            onErrorActionHandled()
+        }
+    })
 }
