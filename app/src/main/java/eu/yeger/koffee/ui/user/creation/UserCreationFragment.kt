@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
@@ -13,12 +12,13 @@ import eu.yeger.koffee.databinding.FragmentUserCreationBinding
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.utility.showSnackbar
+import eu.yeger.koffee.utility.viewModelFactories
 
 class UserCreationFragment : Fragment() {
 
-    private val userCreationFragment: UserCreationViewModel by viewModels {
+    private val userCreationFragment: UserCreationViewModel by viewModelFactories {
         val context = requireContext()
-        UserCreationViewModel.Factory(
+        UserCreationViewModel(
             adminRepository = AdminRepository(context),
             userRepository = UserRepository(context)
         )

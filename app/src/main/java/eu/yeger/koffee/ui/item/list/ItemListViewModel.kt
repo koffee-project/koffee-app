@@ -55,20 +55,4 @@ class ItemListViewModel(
             _createItemAction.value = false
         }
     }
-
-    class Factory(
-        private val adminRepository: AdminRepository,
-        private val itemRepository: ItemRepository
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(ItemListViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return ItemListViewModel(
-                    adminRepository,
-                    itemRepository
-                ) as T
-            }
-            throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
 }

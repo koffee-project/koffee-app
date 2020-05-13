@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
@@ -17,16 +16,17 @@ import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.TransactionListAdapter
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferencesIfNull
+import eu.yeger.koffee.utility.viewModelFactories
 
 class HomeFragment : Fragment() {
 
-    private val homeViewModel: HomeViewModel by viewModels {
+    private val homeViewModel: HomeViewModel by viewModelFactories {
         val argumentUserId = HomeFragmentArgs.fromBundle(requireArguments()).userId
         val userId = requireContext().getUserIdFromSharedPreferencesIfNull(argumentUserId)
 
         val context = requireContext()
 
-        HomeViewModel.Factory(
+        HomeViewModel(
             userId = userId,
             userRepository = UserRepository(context),
             transactionRepository = TransactionRepository(context)

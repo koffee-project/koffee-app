@@ -48,17 +48,4 @@ class UserCreationViewModel(
             _successAction.value = userId
         }
     }
-
-    class Factory(
-        private val adminRepository: AdminRepository,
-        private val userRepository: UserRepository
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(UserCreationViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return UserCreationViewModel(adminRepository, userRepository) as T
-            }
-            throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
 }

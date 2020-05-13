@@ -52,18 +52,4 @@ class HomeViewModel(
             _userSelectionRequiredAction.value = false
         }
     }
-
-    class Factory(
-        private val userId: String?,
-        private val userRepository: UserRepository,
-        private val transactionRepository: TransactionRepository
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return HomeViewModel(userId, userRepository, transactionRepository) as T
-            }
-            throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
 }

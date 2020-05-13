@@ -27,16 +27,4 @@ class AdminViewModel(private val adminRepository: AdminRepository) : ViewModel()
             _loginRequiredAction.value = true
         }
     }
-
-    class Factory(
-        private val adminRepository: AdminRepository
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(AdminViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return AdminViewModel(adminRepository) as T
-            }
-            throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
 }

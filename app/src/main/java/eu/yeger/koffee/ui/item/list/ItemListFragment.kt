@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
@@ -15,12 +14,13 @@ import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.ItemListAdapter
 import eu.yeger.koffee.utility.showRefreshResultSnackbar
+import eu.yeger.koffee.utility.viewModelFactories
 
 class ItemListFragment : Fragment() {
 
-    private val itemListViewModel: ItemListViewModel by viewModels {
+    private val itemListViewModel: ItemListViewModel by viewModelFactories {
         val context = requireContext()
-        ItemListViewModel.Factory(
+        ItemListViewModel(
             adminRepository = AdminRepository(context),
             itemRepository = ItemRepository(context)
         )

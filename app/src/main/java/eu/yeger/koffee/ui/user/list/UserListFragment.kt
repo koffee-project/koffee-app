@@ -18,12 +18,13 @@ import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.UserEntryListAdapter
 import eu.yeger.koffee.utility.saveUserIdToSharedPreferences
 import eu.yeger.koffee.utility.showRefreshResultSnackbar
+import eu.yeger.koffee.utility.viewModelFactories
 
 class UserListFragment : Fragment() {
 
-    private val userListViewModel: UserListViewModel by viewModels {
+    private val userListViewModel: UserListViewModel by viewModelFactories {
         val context = requireContext()
-        UserListViewModel.Factory(
+        UserListViewModel(
             adminRepository = AdminRepository(context),
             userEntryRepository = UserEntryRepository(context)
         )

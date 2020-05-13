@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import eu.yeger.koffee.databinding.FragmentItemDetailsBinding
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
@@ -13,13 +12,13 @@ import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.TransactionListAdapter
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
+import eu.yeger.koffee.utility.viewModelFactories
 
 class ItemDetailsFragment : Fragment() {
 
-    private val itemDetailsViewModel: ItemDetailsViewModel by viewModels {
+    private val itemDetailsViewModel: ItemDetailsViewModel by viewModelFactories {
         val context = requireContext()
-
-        ItemDetailsViewModel.Factory(
+        ItemDetailsViewModel(
             itemId = ItemDetailsFragmentArgs.fromBundle(requireArguments()).itemId,
             userId = context.getUserIdFromSharedPreferences(),
             itemRepository = ItemRepository(context),

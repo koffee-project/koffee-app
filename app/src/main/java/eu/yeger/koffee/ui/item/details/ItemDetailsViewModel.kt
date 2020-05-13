@@ -51,26 +51,4 @@ class ItemDetailsViewModel(
             }
         }
     }
-
-    class Factory(
-        private val itemId: String,
-        private val userId: String?,
-        private val itemRepository: ItemRepository,
-        private val transactionRepository: TransactionRepository,
-        private val userRepository: UserRepository
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(ItemDetailsViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return ItemDetailsViewModel(
-                    itemId = itemId,
-                    userId = userId,
-                    itemRepository = itemRepository,
-                    transactionRepository = transactionRepository,
-                    userRepository = userRepository
-                ) as T
-            }
-            throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
 }
