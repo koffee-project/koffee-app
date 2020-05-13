@@ -23,4 +23,7 @@ interface TransactionDao {
 
     @Query("DELETE FROM databasetransaction")
     fun deleteAll()
+
+    @Query("DELETE FROM databasetransaction WHERE userId == :userId")
+    fun deleteByUserId(userId: String)
 }

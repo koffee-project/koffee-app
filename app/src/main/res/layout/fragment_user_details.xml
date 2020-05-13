@@ -87,5 +87,28 @@
             app:layout_constraintVertical_bias="0.0"
             app:transactions="@{viewModel.transactions}"
             app:visible="@{viewModel.hasUser}" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/delete_item_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_spacing"
+            android:onClick="@{() -> viewModel.triggerDeleteUserAction()}"
+            app:layout_constraintBottom_toTopOf="@+id/edit_item_button"
+            app:layout_constraintEnd_toEndOf="@+id/edit_item_button"
+            app:srcCompat="@drawable/ic_delete_forever_24dp"
+            app:visible="@{viewModel.canModify}" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/edit_item_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_spacing"
+            android:layout_marginBottom="@dimen/default_spacing"
+            android:onClick="@{() -> viewModel.triggerEditUserAction()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_edit_24dp"
+            app:visible="@{viewModel.canModify}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

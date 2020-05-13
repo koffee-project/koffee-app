@@ -11,15 +11,6 @@ class HomeViewModel(
     private val transactionRepository: TransactionRepository
 ) : ViewModel() {
 
-    val user = userRepository.getUserByIdAsLiveData(userId)
-
-    val hasUser = user.map { it != null }
-
-    val transactions = transactionRepository.getTransactionsByUserId(userId)
-
-    val canRefund =
-        transactionRepository.getLastRefundableTransactionByUserId(userId).map { it != null }
-
     private val _userSelectionRequiredAction = MutableLiveData(userId === null)
     val userSelectionRequiredAction: LiveData<Boolean> = _userSelectionRequiredAction
 
@@ -31,18 +22,6 @@ class HomeViewModel(
             }
             viewModelScope.launch {
                 transactionRepository.fetchTransactionsByUserId(userId)
-            }
-        }
-    }
-
-    fun refundPurchase() {
-        userId?.let {
-            viewModelScope.launch {
-                transactionRepository.run {
-                    refundPurchase(userId)
-                    fetchTransactionsByUserId(userId)
-                }
-                userRepository.fetchUserById(userId)
             }
         }
     }

@@ -52,4 +52,13 @@ class UserRepository(private val database: KoffeeDatabase) {
             NetworkService.koffeeApi.createUser(createUserRequest, jwt.formatToken())
         }
     }
+
+    suspend fun deleteUser(userId: String, jwt: JWT) {
+        withContext(Dispatchers.IO) {
+            NetworkService.koffeeApi.deleteUser(userId, jwt.formatToken())
+            database.userDao.deleteById(userId)
+            database.userEntryDao.deleteById(userId)
+            database.transactionDao.deleteByUserId(userId)
+        }
+    }
 }

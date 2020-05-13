@@ -18,6 +18,7 @@ import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.TransactionListAdapter
 import eu.yeger.koffee.ui.onError
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
+import eu.yeger.koffee.utility.showDeleteDialog
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
@@ -51,7 +52,9 @@ class ItemDetailsFragment : Fragment() {
 
             deleteItemAction.observe(viewLifecycleOwner, Observer { itemId ->
                 itemId?.let {
-                    showFirstDeleteItemDialog(itemId)
+                    showDeleteDialog(itemId) {
+                        itemDetailsViewModel.deleteItem()
+                    }
                     onDeleteItemActionHandled()
                 }
             })
@@ -80,30 +83,6 @@ class ItemDetailsFragment : Fragment() {
             transactionRecyclerView.adapter = TransactionListAdapter(OnClickListener { /*ignore*/ })
             lifecycleOwner = viewLifecycleOwner
         }.root
-    }
-
-    private fun showFirstDeleteItemDialog(itemId: String) {
-        AlertDialog.Builder(requireContext())
-            .setMessage(getString(R.string.delete_format, itemId))
-            .setPositiveButton(R.string.delete) { _, _ ->
-                showSecondDeleteItemDialog(itemId)
-            }
-            .setNegativeButton(R.string.cancel) { _, _ -> /*ignore*/ }
-            .setCancelable(false)
-            .create()
-            .show()
-    }
-
-    private fun showSecondDeleteItemDialog(itemId: String) {
-        AlertDialog.Builder(requireContext())
-            .setMessage(getString(R.string.delete_confirmation_format, itemId))
-            .setPositiveButton(R.string.delete) { _, _ ->
-                itemDetailsViewModel.deleteItem()
-            }
-            .setNegativeButton(R.string.cancel) { _, _ -> /*ignore*/ }
-            .setCancelable(false)
-            .create()
-            .show()
     }
 
     private fun showItemNotFoundDialog() {

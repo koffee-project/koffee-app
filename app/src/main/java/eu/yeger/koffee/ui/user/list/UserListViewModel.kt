@@ -56,6 +56,9 @@ class UserListViewModel(
     private val _createUserAction = MutableLiveData(false)
     val createUserAction: LiveData<Boolean> = _createUserAction
 
+    private val _userEntrySelectedAction = MutableLiveData<Pair<Boolean, UserEntry>>(null)
+    val userEntrySelectedAction: LiveData<Pair<Boolean, UserEntry>> = _userEntrySelectedAction
+
     init {
         refreshUsers()
     }
@@ -81,6 +84,18 @@ class UserListViewModel(
     fun onCreateUserActionHandled() {
         viewModelScope.launch {
             _createUserAction.value = false
+        }
+    }
+
+    fun triggerUserEntrySelectedAction(userEntry: UserEntry) {
+        viewModelScope.launch {
+            _userEntrySelectedAction.value = (isAuthenticated.value ?: false) to userEntry
+        }
+    }
+
+    fun onUserEntrySelectedActionHandled() {
+        viewModelScope.launch {
+            _userEntrySelectedAction.value = null
         }
     }
 }

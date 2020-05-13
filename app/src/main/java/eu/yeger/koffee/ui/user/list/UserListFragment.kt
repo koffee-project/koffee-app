@@ -53,25 +53,54 @@ class UserListFragment : Fragment() {
                     onCreateUserActionHandled()
                 }
             })
+
+            userEntrySelectedAction.observe(viewLifecycleOwner, Observer { pair ->
+                pair?.let {
+                    val (isAdmin, userEntry) = pair
+
+                    if (!isAdmin) {
+                        showUserSelectionDialog(userEntry)
+                    } else {
+                        showAdminSelectionDialog(userEntry)
+                    }
+
+                    onUserEntrySelectedActionHandled()
+                }
+            })
         }
 
         return FragmentUserListBinding.inflate(inflater).apply {
             viewModel = userListViewModel
             searchResultRecyclerView.adapter =
                 UserEntryListAdapter(OnClickListener { selectedUserEntry ->
-                    showUserSelectionDialog(selectedUserEntry)
+                    userListViewModel.triggerUserEntrySelectedAction(selectedUserEntry)
                 })
             lifecycleOwner = viewLifecycleOwner
         }.root
     }
 
     private fun showUserSelectionDialog(userEntry: UserEntry) {
-        val message =
-            getString(R.string.set_active_user_format).format(userEntry.name, userEntry.id)
+        val message = getString(R.string.set_active_user_format, userEntry.name, userEntry.id)
         AlertDialog.Builder(requireContext())
             .setMessage(message)
             .setPositiveButton(R.string.set_as_active_user) { _, _ ->
                 setActiveUser(userEntry)
+            }
+            .setNegativeButton(R.string.cancel) { _, _ -> /*ignore*/ }
+            .create()
+            .show()
+    }
+
+    private fun showAdminSelectionDialog(userEntry: UserEntry) {
+        val message = getString(R.string.set_active_user_format, userEntry.name, userEntry.id)
+        AlertDialog.Builder(requireContext())
+            .setMessage(message)
+            .setPositiveButton(R.string.set_as_active_user) { _, _ ->
+                setActiveUser(userEntry)
+            }
+            .setNeutralButton(R.string.view_user) { _, _ ->
+                val action = UserListFragmentDirections.toUserDetails(userEntry.id)
+                findNavController().navigate(action)
             }
             .setNegativeButton(R.string.cancel) { _, _ -> /*ignore*/ }
             .create()

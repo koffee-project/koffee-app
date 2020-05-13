@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserDetailsBinding
 import eu.yeger.koffee.domain.Transaction
+import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
@@ -35,8 +36,9 @@ class HomeFragment : Fragment() {
         UserDetailsViewModel(
             isActiveUser = true,
             userId = context.getUserIdFromSharedPreferences(),
-            userRepository = UserRepository(context),
-            transactionRepository = TransactionRepository(context)
+            adminRepository = AdminRepository(context),
+            transactionRepository = TransactionRepository(context),
+            userRepository = UserRepository(context)
         )
     }
 
