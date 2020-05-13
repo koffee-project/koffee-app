@@ -9,12 +9,7 @@
         android:id="@+id/navigation_home"
         android:name="eu.yeger.koffee.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home">
-        <argument
-            android:name="userId"
-            android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
+        tools:layout="@layout/fragment_user_details">
         <action
             android:id="@+id/to_user_list"
             app:destination="@id/navigation_user_list"
@@ -38,6 +33,9 @@
         <action
             android:id="@+id/to_user_creation"
             app:destination="@id/navigation_user_creation" />
+        <action
+            android:id="@+id/to_user_details"
+            app:destination="@id/navigation_user_details" />
     </fragment>
 
     <fragment
@@ -97,7 +95,7 @@
         tools:layout="@layout/fragment_user_creation">
         <action
             android:id="@+id/to_user_details"
-            app:destination="@id/navigation_home"
+            app:destination="@id/navigation_user_details"
             app:popUpTo="@id/navigation_user_creation"
             app:popUpToInclusive="true" />
     </fragment>
@@ -125,5 +123,15 @@
         <action
             android:id="@+id/to_item_details"
             app:destination="@id/navigation_item_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_user_details"
+        android:name="eu.yeger.koffee.ui.user.details.UserDetailsFragment"
+        android:label="@string/title_user_details"
+        tools:layout="@layout/fragment_user_details">
+        <argument
+            android:name="userId"
+            app:argType="string" />
     </fragment>
 </navigation>

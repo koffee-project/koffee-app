@@ -81,7 +81,6 @@ class UserListFragment : Fragment() {
     private fun setActiveUser(userEntry: UserEntry) {
         requireContext().saveUserIdToSharedPreferences(userId = userEntry.id)
         val action = UserListFragmentDirections.toHome()
-        action.userId = userEntry.id
         findNavController().navigate(action)
     }
 }

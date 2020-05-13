@@ -33,8 +33,7 @@ class UserCreationFragment : Fragment() {
         userCreationFragment.apply {
             onSuccess(this@UserCreationFragment) { userId ->
                 requireActivity().showSnackbar(getString(R.string.user_creation_success))
-                val action = UserCreationFragmentDirections.toUserDetails()
-                action.userId = userId
+                val action = UserCreationFragmentDirections.toUserDetails(userId)
                 findNavController().navigate(action)
             }
 

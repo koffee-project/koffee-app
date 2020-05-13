@@ -49,4 +49,5 @@
     <string name="title_item_editing">Edit Item</string>
     <string name="update_item">Update Item</string>
     <string name="item_editing_success">Item Updated Successfully</string>
+    <string name="title_user_details">User Details</string>
 </resources>

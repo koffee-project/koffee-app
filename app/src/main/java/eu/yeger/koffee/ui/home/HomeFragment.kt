@@ -9,25 +9,32 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
-import eu.yeger.koffee.databinding.FragmentHomeBinding
+import eu.yeger.koffee.databinding.FragmentUserDetailsBinding
 import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.TransactionListAdapter
-import eu.yeger.koffee.utility.getUserIdFromSharedPreferencesIfNull
+import eu.yeger.koffee.ui.user.details.UserDetailsViewModel
+import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
 import eu.yeger.koffee.utility.viewModelFactories
 
 class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by viewModelFactories {
-        val argumentUserId = HomeFragmentArgs.fromBundle(requireArguments()).userId
-        val userId = requireContext().getUserIdFromSharedPreferencesIfNull(argumentUserId)
-
         val context = requireContext()
-
         HomeViewModel(
-            userId = userId,
+            userId = context.getUserIdFromSharedPreferences(),
+            userRepository = UserRepository(context),
+            transactionRepository = TransactionRepository(context)
+        )
+    }
+
+    private val userDetailsViewModel: UserDetailsViewModel by viewModelFactories {
+        val context = requireContext()
+        UserDetailsViewModel(
+            isActiveUser = true,
+            userId = context.getUserIdFromSharedPreferences(),
             userRepository = UserRepository(context),
             transactionRepository = TransactionRepository(context)
         )
@@ -49,8 +56,8 @@ class HomeFragment : Fragment() {
                 })
         }
 
-        return FragmentHomeBinding.inflate(inflater).apply {
-            viewModel = homeViewModel
+        return FragmentUserDetailsBinding.inflate(inflater).apply {
+            viewModel = userDetailsViewModel
             transactionRecyclerView.adapter =
                 TransactionListAdapter(OnClickListener { selectedTransaction ->
                     when (selectedTransaction) {
