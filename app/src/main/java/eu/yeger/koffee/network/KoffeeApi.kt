@@ -34,7 +34,10 @@ interface KoffeeApi {
     suspend fun createUser(@Body createUserRequest: ApiCreateUserRequest, @Header("Authorization") token: String): ApiResponse<String>
 
     @POST("items")
-    suspend fun createItem(@Body createItemRequest: ApiCreateItemRequest, @Header("Authorization") token: String): ApiResponse<String>
+    suspend fun createItem(@Body itemDTO: ApiItemDTO, @Header("Authorization") token: String): ApiResponse<String>
+
+    @PUT("items")
+    suspend fun updateItem(@Body itemDTO: ApiItemDTO, @Header("Authorization") token: String): ApiResponse<String>
 
     @DELETE("items/{id}")
     suspend fun deleteItem(@Path("id") id: String, @Header("Authorization") token: String): ApiResponse<String>

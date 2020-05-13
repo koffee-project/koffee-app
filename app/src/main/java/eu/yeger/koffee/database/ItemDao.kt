@@ -13,7 +13,7 @@ interface ItemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg items: Item)
 
-    @Query("SELECT * FROM item")
+    @Query("SELECT * FROM item ORDER BY name ASC")
     fun getAllAsLiveData(): LiveData<List<Item>>
 
     @Query("SELECT * FROM item WHERE id == :id")

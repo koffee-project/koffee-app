@@ -73,6 +73,9 @@
         <argument
             android:name="itemId"
             app:argType="string" />
+        <action
+            android:id="@+id/to_item_editing"
+            app:destination="@id/navigation_item_editing" />
     </fragment>
 
     <fragment
@@ -109,5 +112,18 @@
             app:destination="@id/navigation_item_details"
             app:popUpTo="@id/navigation_item_creation"
             app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_item_editing"
+        android:name="eu.yeger.koffee.ui.item.editing.ItemEditingFragment"
+        android:label="@string/title_item_editing"
+        tools:layout="@layout/fragment_item_editing">
+        <argument
+            android:name="itemId"
+            app:argType="string" />
+        <action
+            android:id="@+id/to_item_details"
+            app:destination="@id/navigation_item_details" />
     </fragment>
 </navigation>

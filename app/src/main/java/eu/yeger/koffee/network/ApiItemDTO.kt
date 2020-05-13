@@ -1,6 +1,6 @@
 package eu.yeger.koffee.network
 
-class ApiCreateItemRequest(
+class ApiItemDTO(
     val id: String,
     val name: String,
     val price: Double,

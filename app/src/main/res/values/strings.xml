@@ -46,4 +46,7 @@
     <string name="delete_confirmation_format">Are you sure that you want to delete %s? This action cannot be undone.</string>
     <string name="item_not_found">This item no longer exists.</string>
     <string name="go_back">Go Back</string>
+    <string name="title_item_editing">Edit Item</string>
+    <string name="update_item">Update Item</string>
+    <string name="item_editing_success">Item Updated Successfully</string>
 </resources>

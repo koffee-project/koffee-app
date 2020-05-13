@@ -41,9 +41,17 @@ class ItemDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         itemDetailsViewModel.apply {
-            deleteItemAction.observe(viewLifecycleOwner, Observer { itemName ->
-                itemName?.let {
-                    showFirstDeleteItemDialog(itemName)
+            editItemAction.observe(viewLifecycleOwner, Observer { itemId ->
+                itemId?.let {
+                    val action = ItemDetailsFragmentDirections.toItemEditing(itemId)
+                    findNavController().navigate(action)
+                    onEditItemActionHandled()
+                }
+            })
+
+            deleteItemAction.observe(viewLifecycleOwner, Observer { itemId ->
+                itemId?.let {
+                    showFirstDeleteItemDialog(itemId)
                     onDeleteItemActionHandled()
                 }
             })
@@ -74,11 +82,11 @@ class ItemDetailsFragment : Fragment() {
         }.root
     }
 
-    private fun showFirstDeleteItemDialog(itemName: String) {
+    private fun showFirstDeleteItemDialog(itemId: String) {
         AlertDialog.Builder(requireContext())
-            .setMessage(getString(R.string.delete_format, itemName))
+            .setMessage(getString(R.string.delete_format, itemId))
             .setPositiveButton(R.string.delete) { _, _ ->
-                showSecondDeleteItemDialog(itemName)
+                showSecondDeleteItemDialog(itemId)
             }
             .setNegativeButton(R.string.cancel) { _, _ -> /*ignore*/ }
             .setCancelable(false)
@@ -86,9 +94,9 @@ class ItemDetailsFragment : Fragment() {
             .show()
     }
 
-    private fun showSecondDeleteItemDialog(itemName: String) {
+    private fun showSecondDeleteItemDialog(itemId: String) {
         AlertDialog.Builder(requireContext())
-            .setMessage(getString(R.string.delete_confirmation_format, itemName))
+            .setMessage(getString(R.string.delete_confirmation_format, itemId))
             .setPositiveButton(R.string.delete) { _, _ ->
                 itemDetailsViewModel.deleteItem()
             }

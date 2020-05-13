@@ -7,7 +7,7 @@ import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.getDatabase
 import eu.yeger.koffee.domain.Item
 import eu.yeger.koffee.domain.JWT
-import eu.yeger.koffee.network.ApiCreateItemRequest
+import eu.yeger.koffee.network.ApiItemDTO
 import eu.yeger.koffee.network.NetworkService
 import eu.yeger.koffee.network.asDomainModel
 import eu.yeger.koffee.network.formatToken
@@ -29,7 +29,13 @@ class ItemRepository(private val database: KoffeeDatabase) {
         }
     }
 
-    fun getItemById(id: String?): LiveData<Item?> {
+    suspend fun getItemById(id: String?): Item? {
+        return withContext(Dispatchers.IO) {
+            database.itemDao.getById(id)
+        }
+    }
+
+    fun getItemByIdAsLiveData(id: String?): LiveData<Item?> {
         return database.itemDao.getByIdAsLiveData(id)
     }
 
@@ -69,13 +75,31 @@ class ItemRepository(private val database: KoffeeDatabase) {
         jwt: JWT
     ) {
         withContext(Dispatchers.IO) {
-            val createItemRequest = ApiCreateItemRequest(
+            val itemDTO = ApiItemDTO(
                 id = itemId,
                 name = itemName,
                 price = itemPrice,
                 amount = itemAmount
             )
-            NetworkService.koffeeApi.createItem(createItemRequest, jwt.formatToken())
+            NetworkService.koffeeApi.createItem(itemDTO, jwt.formatToken())
+        }
+    }
+
+    suspend fun updateItem(
+        itemId: String,
+        itemName: String,
+        itemPrice: Double,
+        itemAmount: Int?,
+        jwt: JWT
+    ) {
+        withContext(Dispatchers.IO) {
+            val itemDTO = ApiItemDTO(
+                id = itemId,
+                name = itemName,
+                price = itemPrice,
+                amount = itemAmount
+            )
+            NetworkService.koffeeApi.updateItem(itemDTO, jwt.formatToken())
         }
     }
 

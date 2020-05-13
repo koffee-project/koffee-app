@@ -24,7 +24,7 @@ class ItemDetailsViewModel(
 
     val hasUser = user.map { it != null }
 
-    val item = itemRepository.getItemById(itemId)
+    val item = itemRepository.getItemByIdAsLiveData(itemId)
 
     val hasItem = item.map { it != null }
 
@@ -39,8 +39,8 @@ class ItemDetailsViewModel(
         isAuthenticated.value ?: false && hasItem.value ?: false
     }
 
-    private val _editItemAction = MutableLiveData(false)
-    val editItemAction: LiveData<Boolean> = _editItemAction
+    private val _editItemAction = MutableLiveData<String>(null)
+    val editItemAction: LiveData<String> = _editItemAction
 
     private val _deleteItemAction = MutableLiveData<String>(null)
     val deleteItemAction: LiveData<String> = _deleteItemAction
@@ -80,19 +80,19 @@ class ItemDetailsViewModel(
 
     fun triggerEditItemAction() {
         viewModelScope.launch {
-            _editItemAction.value = true
+            _editItemAction.value = item.value?.id
         }
     }
 
     fun onEditItemActionHandled() {
         viewModelScope.launch {
-            _editItemAction.value = false
+            _editItemAction.value = null
         }
     }
 
     fun triggerDeleteItemAction() {
         viewModelScope.launch {
-            _deleteItemAction.value = item.value?.name
+            _deleteItemAction.value = item.value?.id
         }
     }
 
