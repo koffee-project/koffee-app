@@ -15,6 +15,7 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserEntryRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.UserEntryListAdapter
+import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
 import eu.yeger.koffee.utility.saveUserIdToSharedPreferences
 import eu.yeger.koffee.utility.showRefreshResultSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
@@ -56,14 +57,9 @@ class UserListFragment : Fragment() {
 
             userEntrySelectedAction.observe(viewLifecycleOwner, Observer { pair ->
                 pair?.let {
-                    val (isAdmin, userEntry) = pair
-
-                    if (!isAdmin) {
-                        showUserSelectionDialog(userEntry)
-                    } else {
-                        showAdminSelectionDialog(userEntry)
-                    }
-
+                    val (isAuthenticated, userEntry) = pair
+                    val canView = isAuthenticated && requireContext().getUserIdFromSharedPreferences() != userEntry.id
+                    showUserSelectionDialog(userEntry, canView)
                     onUserEntrySelectedActionHandled()
                 }
             })
@@ -79,30 +75,19 @@ class UserListFragment : Fragment() {
         }.root
     }
 
-    private fun showUserSelectionDialog(userEntry: UserEntry) {
+    private fun showUserSelectionDialog(userEntry: UserEntry, canView: Boolean) {
         val message = getString(R.string.set_active_user_format, userEntry.name, userEntry.id)
         AlertDialog.Builder(requireContext())
             .setMessage(message)
             .setPositiveButton(R.string.set_as_active_user) { _, _ ->
                 setActiveUser(userEntry)
+            }.apply {
+                if (canView)
+                    setNeutralButton(R.string.view_user) { _, _ ->
+                        val action = UserListFragmentDirections.toUserDetails(userEntry.id)
+                        findNavController().navigate(action)
+                    }
             }
-            .setNegativeButton(R.string.cancel) { _, _ -> /*ignore*/ }
-            .create()
-            .show()
-    }
-
-    private fun showAdminSelectionDialog(userEntry: UserEntry) {
-        val message = getString(R.string.set_active_user_format, userEntry.name, userEntry.id)
-        AlertDialog.Builder(requireContext())
-            .setMessage(message)
-            .setPositiveButton(R.string.set_as_active_user) { _, _ ->
-                setActiveUser(userEntry)
-            }
-            .setNeutralButton(R.string.view_user) { _, _ ->
-                val action = UserListFragmentDirections.toUserDetails(userEntry.id)
-                findNavController().navigate(action)
-            }
-            .setNegativeButton(R.string.cancel) { _, _ -> /*ignore*/ }
             .create()
             .show()
     }
