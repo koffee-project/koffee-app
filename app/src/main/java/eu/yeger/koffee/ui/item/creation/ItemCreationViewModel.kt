@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.SuccessViewModel
+import eu.yeger.koffee.utility.isValidPrice
 import eu.yeger.koffee.utility.sourcedLiveData
 
 class ItemCreationViewModel(
@@ -19,10 +20,10 @@ class ItemCreationViewModel(
 
     val itemAmount = MutableLiveData("")
 
-    // TODO verify price
     val canCreateItem = sourcedLiveData(itemId, itemName, itemPrice, itemAmount) {
         itemId.value.isNullOrBlank().not() &&
                 itemName.value.isNullOrBlank().not() &&
+                itemPrice.value?.toDoubleOrNull().isValidPrice() &&
                 (itemAmount.value.isNullOrBlank() || itemAmount.value?.toIntOrNull() ?: -1 >= 0)
     }
 

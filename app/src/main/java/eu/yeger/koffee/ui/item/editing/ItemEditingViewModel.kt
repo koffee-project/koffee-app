@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.SuccessViewModel
+import eu.yeger.koffee.utility.isValidPrice
 import eu.yeger.koffee.utility.sourcedLiveData
 
 class ItemEditingViewModel(
@@ -18,9 +19,9 @@ class ItemEditingViewModel(
 
     val itemAmount = MutableLiveData("")
 
-    // TODO verify price
     val canUpdateItem = sourcedLiveData(itemName, itemPrice, itemAmount) {
         itemName.value.isNullOrBlank().not() &&
+                itemPrice.value?.toDoubleOrNull().isValidPrice() &&
                 (itemAmount.value.isNullOrBlank() || itemAmount.value?.toIntOrNull() ?: -1 >= 0)
     }
 
