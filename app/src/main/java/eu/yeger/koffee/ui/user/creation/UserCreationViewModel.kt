@@ -44,7 +44,7 @@ class UserCreationViewModel(
                 isAdmin = isAdmin.value!!,
                 jwt = jwt
             )
-            userCreatedAction.activate(userId)
+            userCreatedAction.activateWith(userId)
         }
     }
 }

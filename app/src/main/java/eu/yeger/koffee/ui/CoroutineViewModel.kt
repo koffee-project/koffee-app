@@ -14,7 +14,7 @@ abstract class CoroutineViewModel : ViewModel() {
     private val errorAction = Action<Throwable?>()
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        errorAction.activate(throwable)
+        errorAction.activateWith(throwable)
     }
 
     protected fun onViewModelScope(block: suspend CoroutineScope.() -> Unit) =

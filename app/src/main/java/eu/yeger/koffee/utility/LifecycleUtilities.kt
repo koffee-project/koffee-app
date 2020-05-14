@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
-import eu.yeger.koffee.ui.ResettableLiveData
+import eu.yeger.koffee.ui.Action
 import eu.yeger.koffee.ui.SimpleAction
 
 /**
@@ -46,7 +46,7 @@ fun <T> Fragment.observe(source: LiveData<T>, block: (T) -> Unit) {
     source.observe(viewLifecycleOwner, Observer(block))
 }
 
-fun <T> Fragment.observeAction(source: ResettableLiveData<T?>, block: (T) -> Unit) {
+fun <T> Fragment.observeAction(source: Action<T?>, block: (T) -> Unit) {
     observe(source) {
         it?.let {
             block(it)

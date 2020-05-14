@@ -41,7 +41,7 @@ class ItemCreationViewModel(
                 itemAmount = itemAmount.value?.toIntOrNull(),
                 jwt = jwt
             )
-            itemCreatedAction.activate(itemId)
+            itemCreatedAction.activateWith(itemId)
         }
     }
 }

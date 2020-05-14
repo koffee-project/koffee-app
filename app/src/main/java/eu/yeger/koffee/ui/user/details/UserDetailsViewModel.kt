@@ -69,7 +69,7 @@ class UserDetailsViewModel(
         }
     }
 
-    fun triggerEditUserAction() = editUserAction.activate(user.value?.id)
+    fun triggerEditUserAction() = editUserAction.activateWith(user.value?.id)
 
-    fun triggerDeleteUserAction() = deleteUserAction.activate(user.value?.id)
+    fun triggerDeleteUserAction() = deleteUserAction.activateWith(user.value?.id)
 }

@@ -48,7 +48,7 @@ class ItemEditingViewModel(
                 itemAmount = itemAmount.value?.toIntOrNull(),
                 jwt = jwt
             )
-            itemUpdatedAction.activate(itemId)
+            itemUpdatedAction.activateWith(itemId)
         }
     }
 }

@@ -49,7 +49,7 @@ class UserEditingViewModel(
                 isAdmin = isAdmin.value!!,
                 jwt = jwt
             )
-            userUpdatedAction.activate(userId)
+            userUpdatedAction.activateWith(userId)
         }
     }
 }
