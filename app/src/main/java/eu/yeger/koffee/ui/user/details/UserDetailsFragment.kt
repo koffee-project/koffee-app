@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserDetailsBinding
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.TransactionRepository
@@ -38,11 +39,10 @@ class UserDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         userDetailsViewModel.apply {
-            editUserAction.observe(viewLifecycleOwner, Observer { itemId ->
-                itemId?.let {
-                    // TODO
-                    // val action = UserDetailsFragmentDirections.toUserEditing()
-                    // findNavController().navigate(action)
+            editUserAction.observe(viewLifecycleOwner, Observer { userId ->
+                userId?.let {
+                    val action = UserDetailsFragmentDirections.toUserEditing(userId)
+                    findNavController().navigate(action)
                     onEditUserActionHandled()
                 }
             })
@@ -56,8 +56,9 @@ class UserDetailsFragment : Fragment() {
                 }
             })
 
-            userDeletedAction.observe(viewLifecycleOwner, Observer { itemDeleted ->
-                if (itemDeleted) {
+            userDeletedAction.observe(viewLifecycleOwner, Observer { userDeleted ->
+                if (userDeleted) {
+                    requireActivity().showSnackbar(getString(R.string.user_deletion_success))
                     findNavController().navigateUp()
                     onUserDeletedActionHandled()
                 }

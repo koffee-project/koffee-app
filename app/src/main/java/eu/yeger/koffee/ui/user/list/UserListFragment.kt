@@ -83,7 +83,7 @@ class UserListFragment : Fragment() {
                 setActiveUser(userEntry)
             }.apply {
                 if (canView)
-                    setNeutralButton(R.string.view_user) { _, _ ->
+                    setNeutralButton(R.string.view_user_as_admin) { _, _ ->
                         val action = UserListFragmentDirections.toUserDetails(userEntry.id)
                         findNavController().navigate(action)
                     }

@@ -1,6 +1,6 @@
 package eu.yeger.koffee.network
 
-data class ApiCreateUserRequest(
+data class ApiUserDTO(
     val id: String,
     val name: String,
     val password: String?,

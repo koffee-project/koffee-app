@@ -31,7 +31,10 @@ interface KoffeeApi {
     suspend fun login(@Body credentials: ApiCredentials): ApiResponse<String>
 
     @POST("users")
-    suspend fun createUser(@Body createUserRequest: ApiCreateUserRequest, @Header("Authorization") token: String): ApiResponse<String>
+    suspend fun createUser(@Body userDTO: ApiUserDTO, @Header("Authorization") token: String): ApiResponse<String>
+
+    @PUT("users")
+    suspend fun updateUser(@Body userDTO: ApiUserDTO, @Header("Authorization") token: String)
 
     @DELETE("users/{id}")
     suspend fun deleteUser(@Path("id") id: String, @Header("Authorization") token: String)

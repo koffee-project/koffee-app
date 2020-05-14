@@ -133,5 +133,21 @@
         <argument
             android:name="userId"
             app:argType="string" />
+        <action
+            android:id="@+id/to_user_editing"
+            app:destination="@id/navigation_user_editing" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_user_editing"
+        android:name="eu.yeger.koffee.ui.user.editing.UserEditingFragment"
+        android:label="@string/title_user_editing"
+        tools:layout="@layout/fragment_user_editing">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+        <action
+            android:id="@+id/to_user_details"
+            app:destination="@id/navigation_user_details" />
     </fragment>
 </navigation>

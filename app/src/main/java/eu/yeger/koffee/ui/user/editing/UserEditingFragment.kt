@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.user.creation
+package eu.yeger.koffee.ui.user.editing
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
-import eu.yeger.koffee.databinding.FragmentUserCreationBinding
+import eu.yeger.koffee.databinding.FragmentUserEditingBinding
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.onError
@@ -15,11 +15,12 @@ import eu.yeger.koffee.ui.onSuccess
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
-class UserCreationFragment : Fragment() {
+class UserEditingFragment : Fragment() {
 
-    private val userCreationViewModel: UserCreationViewModel by viewModelFactories {
+    private val userEditingViewModel: UserEditingViewModel by viewModelFactories {
         val context = requireContext()
-        UserCreationViewModel(
+        UserEditingViewModel(
+            userId = UserEditingFragmentArgs.fromBundle(requireArguments()).userId,
             adminRepository = AdminRepository(context),
             userRepository = UserRepository(context)
         )
@@ -30,20 +31,20 @@ class UserCreationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        userCreationViewModel.apply {
-            onSuccess(this@UserCreationFragment) { userId ->
-                requireActivity().showSnackbar(getString(R.string.user_creation_success))
-                val action = UserCreationFragmentDirections.toUserDetails(userId)
+        userEditingViewModel.apply {
+            onSuccess(this@UserEditingFragment) { userId ->
+                requireActivity().showSnackbar(getString(R.string.user_editing_success))
+                val action = UserEditingFragmentDirections.toUserDetails(userId)
                 findNavController().navigate(action)
             }
 
-            onError(this@UserCreationFragment) { error ->
+            onError(this@UserEditingFragment) { error ->
                 requireActivity().showSnackbar(error)
             }
         }
 
-        return FragmentUserCreationBinding.inflate(inflater).apply {
-            viewModel = userCreationViewModel
+        return FragmentUserEditingBinding.inflate(inflater).apply {
+            viewModel = userEditingViewModel
             lifecycleOwner = viewLifecycleOwner
         }.root
     }

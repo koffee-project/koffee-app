@@ -61,6 +61,7 @@ class ItemDetailsFragment : Fragment() {
 
             itemDeletedAction.observe(viewLifecycleOwner, Observer { itemDeleted ->
                 if (itemDeleted) {
+                    requireActivity().showSnackbar(getString(R.string.item_deletion_success))
                     findNavController().navigateUp()
                     onItemDeletedActionHandled()
                 }

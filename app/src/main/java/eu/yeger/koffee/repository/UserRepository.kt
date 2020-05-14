@@ -6,7 +6,7 @@ import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.getDatabase
 import eu.yeger.koffee.domain.JWT
 import eu.yeger.koffee.domain.User
-import eu.yeger.koffee.network.ApiCreateUserRequest
+import eu.yeger.koffee.network.ApiUserDTO
 import eu.yeger.koffee.network.NetworkService
 import eu.yeger.koffee.network.asDomainModel
 import eu.yeger.koffee.network.formatToken
@@ -20,6 +20,12 @@ class UserRepository(private val database: KoffeeDatabase) {
     suspend fun hasUserWithId(id: String?): Boolean {
         return withContext(Dispatchers.IO) {
             database.userDao.getById(id) !== null
+        }
+    }
+
+    suspend fun getUserById(id: String?): User? {
+        return withContext(Dispatchers.IO) {
+            database.userDao.getById(id)
         }
     }
 
@@ -43,13 +49,31 @@ class UserRepository(private val database: KoffeeDatabase) {
         jwt: JWT
     ) {
         withContext(Dispatchers.IO) {
-            val createUserRequest = ApiCreateUserRequest(
+            val userDTO = ApiUserDTO(
                 id = userId,
                 name = userName,
                 password = password,
                 isAdmin = isAdmin
             )
-            NetworkService.koffeeApi.createUser(createUserRequest, jwt.formatToken())
+            NetworkService.koffeeApi.createUser(userDTO, jwt.formatToken())
+        }
+    }
+
+    suspend fun updateUser(
+        userId: String,
+        userName: String,
+        password: String?,
+        isAdmin: Boolean,
+        jwt: JWT
+    ) {
+        withContext(Dispatchers.IO) {
+            val userDTO = ApiUserDTO(
+                id = userId,
+                name = userName,
+                password = password,
+                isAdmin = isAdmin
+            )
+            NetworkService.koffeeApi.updateUser(userDTO, jwt.formatToken())
         }
     }
 
