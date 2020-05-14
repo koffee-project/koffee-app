@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.databinding.FragmentAdminBinding
 import eu.yeger.koffee.repository.AdminRepository
+import eu.yeger.koffee.ui.onErrorShowSnackbar
 import eu.yeger.koffee.utility.observeBooleanAction
 import eu.yeger.koffee.utility.viewModelFactories
 
@@ -31,6 +32,8 @@ class AdminFragment : Fragment() {
                 val direction = AdminFragmentDirections.toLogin()
                 findNavController().navigate(direction)
             }
+
+            onErrorShowSnackbar(this@AdminFragment)
         }
 
         return FragmentAdminBinding.inflate(inflater).apply {

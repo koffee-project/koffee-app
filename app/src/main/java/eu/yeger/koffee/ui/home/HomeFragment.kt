@@ -15,6 +15,8 @@ import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.TransactionListAdapter
+import eu.yeger.koffee.ui.onError
+import eu.yeger.koffee.ui.onErrorShowSnackbar
 import eu.yeger.koffee.ui.user.details.UserDetailsViewModel
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
 import eu.yeger.koffee.utility.observeBooleanAction
@@ -50,6 +52,10 @@ class HomeFragment : Fragment() {
             observeBooleanAction(userSelectionRequiredAction) {
                 showUserSelectionRequiredDialog()
             }
+        }
+
+        userDetailsViewModel.apply {
+            onErrorShowSnackbar(this@HomeFragment)
         }
 
         return FragmentUserDetailsBinding.inflate(inflater).apply {
