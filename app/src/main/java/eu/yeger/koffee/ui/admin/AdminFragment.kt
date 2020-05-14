@@ -14,7 +14,9 @@ import eu.yeger.koffee.utility.viewModelFactories
 class AdminFragment : Fragment() {
 
     private val adminViewModel: AdminViewModel by viewModelFactories {
-        AdminViewModel(adminRepository = AdminRepository(requireContext()))
+        AdminViewModel(
+            adminRepository = AdminRepository(requireContext())
+        )
     }
 
     override fun onCreateView(

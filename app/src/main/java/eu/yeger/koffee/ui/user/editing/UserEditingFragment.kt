@@ -10,7 +10,7 @@ import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserEditingBinding
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.onError
+import eu.yeger.koffee.ui.onErrorShowSnackbar
 import eu.yeger.koffee.ui.onSuccess
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
@@ -37,10 +37,7 @@ class UserEditingFragment : Fragment() {
                 val action = UserEditingFragmentDirections.toUserDetails(userId)
                 findNavController().navigate(action)
             }
-
-            onError(this@UserEditingFragment) { error ->
-                requireActivity().showSnackbar(error)
-            }
+            onErrorShowSnackbar(this@UserEditingFragment)
         }
 
         return FragmentUserEditingBinding.inflate(inflater).apply {

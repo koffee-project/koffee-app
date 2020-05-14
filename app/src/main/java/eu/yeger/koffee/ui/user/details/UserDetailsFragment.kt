@@ -14,7 +14,7 @@ import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.TransactionListAdapter
-import eu.yeger.koffee.ui.onError
+import eu.yeger.koffee.ui.onErrorShowSnackbar
 import eu.yeger.koffee.utility.showDeleteDialog
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
@@ -64,9 +64,7 @@ class UserDetailsFragment : Fragment() {
                 }
             })
 
-            onError(this@UserDetailsFragment) { error ->
-                requireActivity().showSnackbar(error)
-            }
+            onErrorShowSnackbar(this@UserDetailsFragment)
         }
 
         return FragmentUserDetailsBinding.inflate(inflater).apply {

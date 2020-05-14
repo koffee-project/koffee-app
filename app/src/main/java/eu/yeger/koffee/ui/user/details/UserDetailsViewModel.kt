@@ -4,9 +4,8 @@ import androidx.lifecycle.*
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.SuccessErrorViewModel
+import eu.yeger.koffee.ui.CoroutineViewModel
 import eu.yeger.koffee.utility.sourcedLiveData
-import kotlinx.coroutines.launch
 
 class UserDetailsViewModel(
     private val isActiveUser: Boolean,
@@ -14,7 +13,7 @@ class UserDetailsViewModel(
     private val adminRepository: AdminRepository,
     private val transactionRepository: TransactionRepository,
     private val userRepository: UserRepository
-) : SuccessErrorViewModel<String>() {
+) : CoroutineViewModel() {
 
     private val isAuthenticated = adminRepository.isAuthenticatedAsLiveData()
 
@@ -24,6 +23,7 @@ class UserDetailsViewModel(
 
     val transactions = transactionRepository.getTransactionsByUserId(userId)
 
+    // TODO disable refund after expiry
     val canRefund = transactionRepository.getLastRefundableTransactionByUserId(userId)
         .map { isActiveUser && it != null }
 
@@ -42,10 +42,10 @@ class UserDetailsViewModel(
 
     init {
         userId?.let {
-            viewModelScope.launch {
+            launchOnViewModelScope {
                 userRepository.fetchUserById(userId)
             }
-            viewModelScope.launch {
+            launchOnViewModelScope {
                 transactionRepository.fetchTransactionsByUserId(userId)
             }
         }
@@ -54,7 +54,7 @@ class UserDetailsViewModel(
     fun refundPurchase() {
         if (!isActiveUser || userId === null) return
 
-        viewModelScope.launch {
+        launchOnViewModelScope {
             transactionRepository.run {
                 refundPurchase(userId)
                 fetchTransactionsByUserId(userId)
@@ -63,33 +63,9 @@ class UserDetailsViewModel(
         }
     }
 
-    fun triggerEditUserAction() {
-        viewModelScope.launch {
-            _editUserAction.value = user.value?.id
-        }
-    }
-
-    fun onEditUserActionHandled() {
-        viewModelScope.launch {
-            _editUserAction.value = null
-        }
-    }
-
-    fun triggerDeleteUserAction() {
-        viewModelScope.launch {
-            _deleteUserAction.value = user.value?.id
-        }
-    }
-
-    fun onDeleteUserActionHandled() {
-        viewModelScope.launch {
-            _deleteUserAction.value = null
-        }
-    }
-
     fun deleteUser() {
         userId?.let {
-            viewModelScope.launch(exceptionHandler) {
+            launchOnViewModelScope {
                 val jwt = adminRepository.getJWT()!!
                 userRepository.deleteUser(userId, jwt)
                 _userDeletedAction.value = true
@@ -97,9 +73,13 @@ class UserDetailsViewModel(
         }
     }
 
-    fun onUserDeletedActionHandled() {
-        viewModelScope.launch {
-            _userDeletedAction.value = false
-        }
-    }
+    fun triggerEditUserAction() = _editUserAction.postValue(user.value?.id)
+
+    fun onEditUserActionHandled() = _editUserAction.postValue(null)
+
+    fun triggerDeleteUserAction() = _deleteUserAction.postValue(user.value?.id)
+
+    fun onDeleteUserActionHandled() = _deleteUserAction.postValue(null)
+
+    fun onUserDeletedActionHandled() = _userDeletedAction.postValue(false)
 }

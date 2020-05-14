@@ -10,7 +10,7 @@ import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentItemEditingBinding
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
-import eu.yeger.koffee.ui.onError
+import eu.yeger.koffee.ui.onErrorShowSnackbar
 import eu.yeger.koffee.ui.onSuccess
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
@@ -38,9 +38,7 @@ class ItemEditingFragment : Fragment() {
                 findNavController().navigate(action)
             }
 
-            onError(this@ItemEditingFragment) { error ->
-                requireActivity().showSnackbar(error)
-            }
+            onErrorShowSnackbar(this@ItemEditingFragment)
         }
 
         return FragmentItemEditingBinding.inflate(inflater).apply {

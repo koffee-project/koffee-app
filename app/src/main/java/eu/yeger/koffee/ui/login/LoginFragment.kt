@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentLoginBinding
 import eu.yeger.koffee.repository.AdminRepository
+import eu.yeger.koffee.ui.onErrorShowSnackbar
+import eu.yeger.koffee.ui.onSuccess
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
@@ -25,21 +26,15 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         loginViewModel.apply {
-            successAction.observe(viewLifecycleOwner, Observer { loginSuccess ->
-                if (loginSuccess) {
+            onSuccess(this@LoginFragment) { loginSuccessful ->
+                if (loginSuccessful) {
                     requireActivity().showSnackbar(getString(R.string.login_success))
                     val action = LoginFragmentDirections.toAdmin()
                     findNavController().navigate(action)
-                    onSuccessActionHandled()
                 }
-            })
+            }
 
-            errorAction.observe(viewLifecycleOwner, Observer { loginError ->
-                loginError?.let {
-                    requireActivity().showSnackbar(loginError)
-                    onErrorActionHandled()
-                }
-            })
+            onErrorShowSnackbar(this@LoginFragment)
         }
 
         return FragmentLoginBinding.inflate(inflater).apply {

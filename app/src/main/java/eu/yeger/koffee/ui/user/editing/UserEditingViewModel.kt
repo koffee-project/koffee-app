@@ -1,18 +1,16 @@
 package eu.yeger.koffee.ui.user.editing
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.SuccessErrorViewModel
+import eu.yeger.koffee.ui.SuccessViewModel
 import eu.yeger.koffee.utility.sourcedLiveData
-import kotlinx.coroutines.launch
 
 class UserEditingViewModel(
     val userId: String,
     private val adminRepository: AdminRepository,
     private val userRepository: UserRepository
-) : SuccessErrorViewModel<String>() {
+) : SuccessViewModel<String>() {
 
     val userName = MutableLiveData("")
 
@@ -27,7 +25,7 @@ class UserEditingViewModel(
     }
 
     init {
-        viewModelScope.launch {
+        launchOnViewModelScope {
             userRepository.getUserById(userId)?.run {
                 userName.value = name
             }
@@ -35,7 +33,7 @@ class UserEditingViewModel(
     }
 
     fun updateUser() {
-        viewModelScope.launch(exceptionHandler) {
+        launchOnViewModelScope {
             val jwt = adminRepository.getJWT()!!
             val actualPassword = when {
                 userPassword.value.isNullOrBlank() -> null
@@ -48,7 +46,7 @@ class UserEditingViewModel(
                 isAdmin = isAdmin.value!!,
                 jwt = jwt
             )
-            _successAction.value = userId
+            setSuccessResult(userId)
         }
     }
 }

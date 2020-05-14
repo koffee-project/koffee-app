@@ -5,7 +5,7 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.SuccessErrorViewModel
+import eu.yeger.koffee.ui.CoroutineViewModel
 import eu.yeger.koffee.utility.sourcedLiveData
 import kotlinx.coroutines.launch
 
@@ -16,7 +16,7 @@ class ItemDetailsViewModel(
     private val itemRepository: ItemRepository,
     private val transactionRepository: TransactionRepository,
     userRepository: UserRepository
-) : SuccessErrorViewModel<String>() {
+) : CoroutineViewModel() {
 
     private val isAuthenticated = adminRepository.isAuthenticatedAsLiveData()
 
@@ -32,6 +32,7 @@ class ItemDetailsViewModel(
 
     val hasTransactions = transactions.map { it.isNotEmpty() }
 
+    // TODO disable refund after expiry
     val canRefund = transactionRepository.getLastRefundableTransactionByUserId(userId)
         .map { it?.itemId == itemId }
 
@@ -52,15 +53,18 @@ class ItemDetailsViewModel(
     val itemNotFoundAction: LiveData<Boolean> = _itemNotFoundAction
 
     init {
-        viewModelScope.launch {
+        launchOnViewModelScope {
             itemRepository.refreshItemById(itemId)
-            _itemNotFoundAction.value = itemRepository.hasItemWithId(itemId).not()
+        }.invokeOnCompletion {
+            viewModelScope.launch {
+                _itemNotFoundAction.value = itemRepository.hasItemWithId(itemId).not()
+            }
         }
     }
 
     fun buyItem() {
         userId?.let {
-            viewModelScope.launch {
+            launchOnViewModelScope {
                 transactionRepository.buyItem(userId, itemId, 1)
                 transactionRepository.fetchTransactionsByUserId(userId)
             }
@@ -69,7 +73,7 @@ class ItemDetailsViewModel(
 
     fun refundPurchase() {
         userId?.let {
-            viewModelScope.launch {
+            launchOnViewModelScope {
                 transactionRepository.run {
                     refundPurchase(userId)
                     fetchTransactionsByUserId(userId)
@@ -78,47 +82,23 @@ class ItemDetailsViewModel(
         }
     }
 
-    fun triggerEditItemAction() {
-        viewModelScope.launch {
-            _editItemAction.value = item.value?.id
-        }
-    }
-
-    fun onEditItemActionHandled() {
-        viewModelScope.launch {
-            _editItemAction.value = null
-        }
-    }
-
-    fun triggerDeleteItemAction() {
-        viewModelScope.launch {
-            _deleteItemAction.value = item.value?.id
-        }
-    }
-
-    fun onDeleteItemActionHandled() {
-        viewModelScope.launch {
-            _deleteItemAction.value = null
-        }
-    }
-
     fun deleteItem() {
-        viewModelScope.launch(exceptionHandler) {
+        launchOnViewModelScope {
             val jwt = adminRepository.getJWT()!!
             itemRepository.deleteItem(itemId, jwt)
             _itemDeletedAction.value = true
         }
     }
 
-    fun onItemDeletedActionHandled() {
-        viewModelScope.launch {
-            _itemDeletedAction.value = false
-        }
-    }
+    fun triggerEditItemAction() = _editItemAction.postValue(item.value?.id)
 
-    fun onItemNotFoundActionHandled() {
-        viewModelScope.launch {
-            _itemNotFoundAction.value = false
-        }
-    }
+    fun onEditItemActionHandled() = _editItemAction.postValue(null)
+
+    fun triggerDeleteItemAction() = _deleteItemAction.postValue(item.value?.id)
+
+    fun onDeleteItemActionHandled() = _deleteItemAction.postValue(null)
+
+    fun onItemDeletedActionHandled() = _itemDeletedAction.postValue(false)
+
+    fun onItemNotFoundActionHandled() = _itemNotFoundAction.postValue(false)
 }

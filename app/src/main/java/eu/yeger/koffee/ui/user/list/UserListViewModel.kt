@@ -1,18 +1,19 @@
 package eu.yeger.koffee.ui.user.list
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.switchMap
 import eu.yeger.koffee.domain.UserEntry
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserEntryRepository
-import eu.yeger.koffee.ui.SuccessErrorViewModel
+import eu.yeger.koffee.ui.CoroutineViewModel
 import eu.yeger.koffee.utility.mediatedLiveData
 import eu.yeger.koffee.utility.sourcedLiveData
-import kotlinx.coroutines.launch
 
 class UserListViewModel(
     private val userEntryRepository: UserEntryRepository,
     adminRepository: AdminRepository
-) : SuccessErrorViewModel<String>() {
+) : CoroutineViewModel() {
 
     val isAuthenticated = adminRepository.isAuthenticatedAsLiveData()
 
@@ -57,7 +58,7 @@ class UserListViewModel(
     }
 
     fun refreshUsers() {
-        viewModelScope.launch(exceptionHandler) {
+        launchOnViewModelScope {
             _refreshing.value = true
             userEntryRepository.refreshUsers()
         }.invokeOnCompletion {
@@ -65,27 +66,12 @@ class UserListViewModel(
         }
     }
 
-    fun triggerCreateUserAction() {
-        viewModelScope.launch {
-            _createUserAction.value = true
-        }
-    }
+    fun triggerCreateUserAction() = _createUserAction.postValue(true)
 
-    fun onCreateUserActionHandled() {
-        viewModelScope.launch {
-            _createUserAction.value = false
-        }
-    }
+    fun onCreateUserActionHandled() = _createUserAction.postValue(false)
 
-    fun triggerUserEntrySelectedAction(userEntry: UserEntry) {
-        viewModelScope.launch {
-            _userEntrySelectedAction.value = (isAuthenticated.value ?: false) to userEntry
-        }
-    }
+    fun triggerUserEntrySelectedAction(userEntry: UserEntry) =
+        _userEntrySelectedAction.postValue((isAuthenticated.value ?: false) to userEntry)
 
-    fun onUserEntrySelectedActionHandled() {
-        viewModelScope.launch {
-            _userEntrySelectedAction.value = null
-        }
-    }
+    fun onUserEntrySelectedActionHandled() = _userEntrySelectedAction.postValue(null)
 }

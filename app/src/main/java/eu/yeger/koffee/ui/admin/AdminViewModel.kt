@@ -1,30 +1,28 @@
 package eu.yeger.koffee.ui.admin
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import eu.yeger.koffee.repository.AdminRepository
-import kotlinx.coroutines.launch
+import eu.yeger.koffee.ui.SuccessErrorViewModel
 
-class AdminViewModel(private val adminRepository: AdminRepository) : ViewModel() {
+class AdminViewModel(private val adminRepository: AdminRepository) :
+    SuccessErrorViewModel<String>() {
 
     private val _loginRequiredAction = MutableLiveData(false)
     val loginRequiredAction: LiveData<Boolean> = _loginRequiredAction
 
     init {
-        viewModelScope.launch {
+        launchOnViewModelScope {
             _loginRequiredAction.value = adminRepository.loginRequired()
         }
     }
 
-    fun onLoginRequiredActionHandled() {
-        viewModelScope.launch {
-            _loginRequiredAction.value = false
-        }
-    }
-
     fun logout() {
-        viewModelScope.launch {
+        launchOnViewModelScope {
             adminRepository.logout()
             _loginRequiredAction.value = true
         }
     }
+
+    fun onLoginRequiredActionHandled() = _loginRequiredAction.postValue(false)
 }

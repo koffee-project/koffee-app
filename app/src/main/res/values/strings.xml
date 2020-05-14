@@ -56,4 +56,5 @@
     <string name="view_user_as_admin">View As Admin</string>
     <string name="title_user_editing">Edit User</string>
     <string name="update_user">Update User</string>
+    <string name="unknown_error">Unknown Error</string>
 </resources>

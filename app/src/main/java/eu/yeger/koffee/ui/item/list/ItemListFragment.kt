@@ -13,8 +13,7 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.ItemListAdapter
-import eu.yeger.koffee.ui.onError
-import eu.yeger.koffee.utility.showSnackbar
+import eu.yeger.koffee.ui.onErrorShowSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
 class ItemListFragment : Fragment() {
@@ -42,8 +41,8 @@ class ItemListFragment : Fragment() {
                 }
             })
 
-            onError(this@ItemListFragment) { error ->
-                requireActivity().showSnackbar(getString(R.string.item_refresh_error_format, error))
+            onErrorShowSnackbar(this@ItemListFragment) { error ->
+                getString(R.string.item_refresh_error_format, error.localizedMessage)
             }
         }
 

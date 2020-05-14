@@ -3,14 +3,13 @@ package eu.yeger.koffee.ui.item.creation
 import androidx.lifecycle.*
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
-import eu.yeger.koffee.ui.SuccessErrorViewModel
+import eu.yeger.koffee.ui.SuccessViewModel
 import eu.yeger.koffee.utility.sourcedLiveData
-import kotlinx.coroutines.launch
 
 class ItemCreationViewModel(
     private val adminRepository: AdminRepository,
     private val itemRepository: ItemRepository
-) : SuccessErrorViewModel<String>() {
+) : SuccessViewModel<String>() {
 
     val itemId = MutableLiveData("")
 
@@ -28,7 +27,7 @@ class ItemCreationViewModel(
     }
 
     fun createItem() {
-        viewModelScope.launch(exceptionHandler) {
+        launchOnViewModelScope {
             val jwt = adminRepository.getJWT()!!
             val itemId = itemId.value!!
             itemRepository.createItem(
@@ -38,7 +37,7 @@ class ItemCreationViewModel(
                 itemAmount = itemAmount.value?.toIntOrNull(),
                 jwt = jwt
             )
-            _successAction.value = itemId
+            setSuccessResult(itemId)
         }
     }
 }

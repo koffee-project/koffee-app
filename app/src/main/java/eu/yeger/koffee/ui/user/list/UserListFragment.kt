@@ -15,10 +15,9 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserEntryRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.UserEntryListAdapter
-import eu.yeger.koffee.ui.onError
+import eu.yeger.koffee.ui.onErrorShowSnackbar
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
 import eu.yeger.koffee.utility.saveUserIdToSharedPreferences
-import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
 class UserListFragment : Fragment() {
@@ -55,8 +54,8 @@ class UserListFragment : Fragment() {
                 }
             })
 
-            onError(this@UserListFragment) { error ->
-                requireActivity().showSnackbar(getString(R.string.user_refresh_error_format, error))
+            onErrorShowSnackbar(this@UserListFragment) { error ->
+                getString(R.string.user_refresh_error_format, error.localizedMessage)
             }
         }
 

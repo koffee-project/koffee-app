@@ -1,12 +1,11 @@
 package eu.yeger.koffee.ui.login
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
 import eu.yeger.koffee.repository.AdminRepository
-import eu.yeger.koffee.ui.SuccessErrorViewModel
+import eu.yeger.koffee.ui.SuccessViewModel
 import eu.yeger.koffee.utility.sourcedLiveData
-import kotlinx.coroutines.launch
 
-class LoginViewModel(private val adminRepository: AdminRepository) : SuccessErrorViewModel<Boolean>() {
+class LoginViewModel(private val adminRepository: AdminRepository) : SuccessViewModel<Boolean>() {
 
     val userId = MutableLiveData("")
 
@@ -17,9 +16,9 @@ class LoginViewModel(private val adminRepository: AdminRepository) : SuccessErro
     }
 
     fun login() {
-        viewModelScope.launch(exceptionHandler) {
+        launchOnViewModelScope {
             adminRepository.login(userId = userId.value!!, password = password.value!!)
-            _successAction.value = true
+            setSuccessResult(true)
         }
     }
 }

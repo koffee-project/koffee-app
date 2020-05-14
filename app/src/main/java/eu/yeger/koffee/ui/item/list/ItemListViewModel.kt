@@ -3,13 +3,12 @@ package eu.yeger.koffee.ui.item.list
 import androidx.lifecycle.*
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
-import eu.yeger.koffee.ui.SuccessErrorViewModel
-import kotlinx.coroutines.launch
+import eu.yeger.koffee.ui.CoroutineViewModel
 
 class ItemListViewModel(
     private val itemRepository: ItemRepository,
     adminRepository: AdminRepository
-) : SuccessErrorViewModel<String>() {
+) : CoroutineViewModel() {
 
     val isAuthenticated = adminRepository.isAuthenticatedAsLiveData()
 
@@ -26,7 +25,7 @@ class ItemListViewModel(
     }
 
     fun refreshItems() {
-        viewModelScope.launch(exceptionHandler) {
+        launchOnViewModelScope {
             _refreshing.value = true
             itemRepository.refreshItems()
         }.invokeOnCompletion {
@@ -34,15 +33,7 @@ class ItemListViewModel(
         }
     }
 
-    fun triggerCreateItemAction() {
-        viewModelScope.launch {
-            _createItemAction.value = true
-        }
-    }
+    fun triggerCreateItemAction() = _createItemAction.postValue(true)
 
-    fun onCreateItemActionHandled() {
-        viewModelScope.launch {
-            _createItemAction.value = false
-        }
-    }
+    fun onCreateItemActionHandled() = _createItemAction.postValue(false)
 }

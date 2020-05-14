@@ -1,17 +1,15 @@
 package eu.yeger.koffee.ui.user.creation
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.SuccessErrorViewModel
+import eu.yeger.koffee.ui.SuccessViewModel
 import eu.yeger.koffee.utility.sourcedLiveData
-import kotlinx.coroutines.launch
 
 class UserCreationViewModel(
     private val adminRepository: AdminRepository,
     private val userRepository: UserRepository
-) : SuccessErrorViewModel<String>() {
+) : SuccessViewModel<String>() {
 
     val userId = MutableLiveData("")
 
@@ -29,7 +27,7 @@ class UserCreationViewModel(
     }
 
     fun createUser() {
-        viewModelScope.launch(exceptionHandler) {
+        launchOnViewModelScope {
             val jwt = adminRepository.getJWT()!!
             val userId = userId.value!!
             val actualPassword = when {
@@ -43,7 +41,7 @@ class UserCreationViewModel(
                 isAdmin = isAdmin.value!!,
                 jwt = jwt
             )
-            _successAction.value = userId
+            setSuccessResult(userId)
         }
     }
 }
