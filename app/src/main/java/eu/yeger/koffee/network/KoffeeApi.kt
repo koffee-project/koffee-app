@@ -19,13 +19,11 @@ interface KoffeeApi {
     @GET("items/{id}")
     suspend fun getItemById(@Path("id") id: String): ApiResponse<ApiItem?>
 
-    // TODO improve return
     @POST("users/{userId}/purchases")
-    suspend fun purchaseItem(@Path("userId") userId: String, @Body purchaseRequest: ApiPurchaseRequest): ApiResponse<Any>
+    suspend fun purchaseItem(@Path("userId") userId: String, @Body purchaseRequest: ApiPurchaseRequest): ApiResponse<String>
 
-    // TODO improve return
     @POST("users/{userId}/purchases/refund")
-    suspend fun refundPurchase(@Path("userId") userId: String): ApiResponse<Any>
+    suspend fun refundPurchase(@Path("userId") userId: String): ApiResponse<String>
 
     @POST("login")
     suspend fun login(@Body credentials: ApiCredentials): ApiResponse<String>

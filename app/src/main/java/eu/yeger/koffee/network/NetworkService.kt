@@ -10,6 +10,7 @@ val moshi: Moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
+// TODO intercept 4xx api errors and use their data as custom exception message
 object NetworkService {
 
     private val converterFactory = MoshiConverterFactory.create(moshi)

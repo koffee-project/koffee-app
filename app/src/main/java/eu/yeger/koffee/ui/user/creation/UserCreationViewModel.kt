@@ -22,10 +22,10 @@ class UserCreationViewModel(
     val isAdmin = MutableLiveData(false)
 
     val canCreateUser = sourcedLiveData(userId, userName, userPassword, isAdmin) {
-        userId.value.isNullOrBlank().not()
-                && userName.value.isNullOrBlank().not()
-                && (isAdmin.value!!.not()
-                || userPassword.value.isNullOrBlank().not() && userPassword.value!!.length >= 8)
+        userId.value.isNullOrBlank().not() &&
+                userName.value.isNullOrBlank().not() &&
+                (isAdmin.value!!.not() ||
+                userPassword.value.isNullOrBlank().not() && userPassword.value!!.length >= 8)
     }
 
     fun createUser() {
