@@ -13,7 +13,8 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.ItemListAdapter
-import eu.yeger.koffee.utility.showRefreshResultSnackbar
+import eu.yeger.koffee.ui.onError
+import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
 class ItemListFragment : Fragment() {
@@ -32,17 +33,6 @@ class ItemListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         itemListViewModel.apply {
-            refreshResultAction.observe(viewLifecycleOwner, Observer { state ->
-                state?.let {
-                    requireActivity().showRefreshResultSnackbar(
-                        repositoryState = state,
-                        successText = R.string.item_refresh_success,
-                        errorTextFormat = R.string.item_refresh_error_format
-                    )
-                    onRefreshResultActionHandled()
-                }
-            })
-
             createItemAction.observe(viewLifecycleOwner, Observer { createItem ->
                 if (createItem) {
                     val action =
@@ -51,6 +41,10 @@ class ItemListFragment : Fragment() {
                     onCreateItemActionHandled()
                 }
             })
+
+            onError(this@ItemListFragment) { error ->
+                requireActivity().showSnackbar(getString(R.string.item_refresh_error_format, error))
+            }
         }
 
         return FragmentItemListBinding.inflate(inflater).apply {

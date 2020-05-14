@@ -3,27 +3,20 @@ package eu.yeger.koffee.ui.item.list
 import androidx.lifecycle.*
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
-import eu.yeger.koffee.repository.RepositoryState
+import eu.yeger.koffee.ui.SuccessErrorViewModel
 import kotlinx.coroutines.launch
 
 class ItemListViewModel(
-    private val adminRepository: AdminRepository,
-    private val itemRepository: ItemRepository
-) : ViewModel() {
+    private val itemRepository: ItemRepository,
+    adminRepository: AdminRepository
+) : SuccessErrorViewModel<String>() {
+
+    val isAuthenticated = adminRepository.isAuthenticatedAsLiveData()
 
     val items = itemRepository.items
 
-    val refreshing = itemRepository.state.map { it is RepositoryState.Refreshing }
-
-    val refreshResultAction = itemRepository.state.map { state ->
-        when (state) {
-            is RepositoryState.Done -> state
-            is RepositoryState.Error -> state
-            else -> null
-        }
-    }
-
-    val isAuthenticated = adminRepository.isAuthenticatedAsLiveData()
+    private val _refreshing = MutableLiveData(false)
+    val refreshing: LiveData<Boolean> = _refreshing
 
     private val _createItemAction = MutableLiveData(false)
     val createItemAction: LiveData<Boolean> = _createItemAction
@@ -33,14 +26,11 @@ class ItemListViewModel(
     }
 
     fun refreshItems() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
+            _refreshing.value = true
             itemRepository.refreshItems()
-        }
-    }
-
-    fun onRefreshResultActionHandled() {
-        viewModelScope.launch {
-            (refreshResultAction as MutableLiveData).value = null
+        }.invokeOnCompletion {
+            _refreshing.postValue(false)
         }
     }
 

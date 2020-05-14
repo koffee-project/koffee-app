@@ -3,16 +3,18 @@ package eu.yeger.koffee.ui.user.list
 import androidx.lifecycle.*
 import eu.yeger.koffee.domain.UserEntry
 import eu.yeger.koffee.repository.AdminRepository
-import eu.yeger.koffee.repository.RepositoryState
 import eu.yeger.koffee.repository.UserEntryRepository
+import eu.yeger.koffee.ui.SuccessErrorViewModel
 import eu.yeger.koffee.utility.mediatedLiveData
 import eu.yeger.koffee.utility.sourcedLiveData
 import kotlinx.coroutines.launch
 
 class UserListViewModel(
-    private val adminRepository: AdminRepository,
-    private val userEntryRepository: UserEntryRepository
-) : ViewModel() {
+    private val userEntryRepository: UserEntryRepository,
+    adminRepository: AdminRepository
+) : SuccessErrorViewModel<String>() {
+
+    val isAuthenticated = adminRepository.isAuthenticatedAsLiveData()
 
     private val users = userEntryRepository.users
 
@@ -41,17 +43,8 @@ class UserListViewModel(
         filteredUsers.value?.size == 0 && !(isBusy.value ?: false)
     }
 
-    val refreshing = userEntryRepository.state.map { it is RepositoryState.Refreshing }
-
-    val refreshResultAction = userEntryRepository.state.map { state ->
-        when (state) {
-            is RepositoryState.Done -> state
-            is RepositoryState.Error -> state
-            else -> null
-        }
-    }
-
-    val isAuthenticated = adminRepository.isAuthenticatedAsLiveData()
+    private val _refreshing = MutableLiveData(false)
+    val refreshing: LiveData<Boolean> = _refreshing
 
     private val _createUserAction = MutableLiveData(false)
     val createUserAction: LiveData<Boolean> = _createUserAction
@@ -64,14 +57,11 @@ class UserListViewModel(
     }
 
     fun refreshUsers() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
+            _refreshing.value = true
             userEntryRepository.refreshUsers()
-        }
-    }
-
-    fun onRefreshResultActionHandled() {
-        viewModelScope.launch {
-            (refreshResultAction as MutableLiveData).value = null
+        }.invokeOnCompletion {
+            _refreshing.postValue(false)
         }
     }
 

@@ -15,9 +15,10 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserEntryRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.UserEntryListAdapter
+import eu.yeger.koffee.ui.onError
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
 import eu.yeger.koffee.utility.saveUserIdToSharedPreferences
-import eu.yeger.koffee.utility.showRefreshResultSnackbar
+import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
 class UserListFragment : Fragment() {
@@ -36,17 +37,6 @@ class UserListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         userListViewModel.apply {
-            refreshResultAction.observe(viewLifecycleOwner, Observer { state ->
-                state?.let {
-                    requireActivity().showRefreshResultSnackbar(
-                        repositoryState = state,
-                        successText = R.string.user_refresh_success,
-                        errorTextFormat = R.string.user_refresh_error_format
-                    )
-                    onRefreshResultActionHandled()
-                }
-            })
-
             createUserAction.observe(viewLifecycleOwner, Observer { createUser ->
                 if (createUser) {
                     val action = UserListFragmentDirections.toUserCreation()
@@ -58,11 +48,16 @@ class UserListFragment : Fragment() {
             userEntrySelectedAction.observe(viewLifecycleOwner, Observer { pair ->
                 pair?.let {
                     val (isAuthenticated, userEntry) = pair
-                    val canView = isAuthenticated && requireContext().getUserIdFromSharedPreferences() != userEntry.id
+                    val canView =
+                        isAuthenticated && requireContext().getUserIdFromSharedPreferences() != userEntry.id
                     showUserSelectionDialog(userEntry, canView)
                     onUserEntrySelectedActionHandled()
                 }
             })
+
+            onError(this@UserListFragment) { error ->
+                requireActivity().showSnackbar(getString(R.string.user_refresh_error_format, error))
+            }
         }
 
         return FragmentUserListBinding.inflate(inflater).apply {

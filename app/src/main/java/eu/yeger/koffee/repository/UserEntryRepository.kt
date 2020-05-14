@@ -2,7 +2,6 @@ package eu.yeger.koffee.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.getDatabase
 import eu.yeger.koffee.domain.UserEntry
@@ -16,9 +15,6 @@ class UserEntryRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    private val _state = MutableLiveData<RepositoryState>(RepositoryState.Idle)
-    val state: LiveData<RepositoryState> = _state
-
     val users = database.userEntryDao.getAllAsLiveData()
 
     class Filter(query: String) {
@@ -31,17 +27,11 @@ class UserEntryRepository(private val database: KoffeeDatabase) {
 
     suspend fun refreshUsers() {
         withContext(Dispatchers.IO) {
-            try {
-                _state.postValue(RepositoryState.Refreshing)
-                val apiResponse = NetworkService.koffeeApi.getUsers()
-                val userEntries = apiResponse.data.map(ApiUserEntry::asDomainModel)
-                database.userEntryDao.apply {
-                    deleteAll()
-                    insertAll(*userEntries.toTypedArray())
-                }
-                _state.postValue(RepositoryState.Done)
-            } catch (exception: Exception) {
-                _state.postValue(RepositoryState.Error(exception))
+            val apiResponse = NetworkService.koffeeApi.getUsers()
+            val userEntries = apiResponse.data.map(ApiUserEntry::asDomainModel)
+            database.userEntryDao.apply {
+                deleteAll()
+                insertAll(*userEntries.toTypedArray())
             }
         }
     }
