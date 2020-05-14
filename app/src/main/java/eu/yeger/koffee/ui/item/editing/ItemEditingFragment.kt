@@ -11,7 +11,7 @@ import eu.yeger.koffee.databinding.FragmentItemEditingBinding
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.onErrorShowSnackbar
-import eu.yeger.koffee.ui.onSuccess
+import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
@@ -32,7 +32,7 @@ class ItemEditingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         itemEditingViewModel.apply {
-            onSuccess(this@ItemEditingFragment) { itemId ->
+            observeAction(itemUpdatedAction) { itemId ->
                 requireActivity().showSnackbar(getString(R.string.item_editing_success))
                 val direction = ItemEditingFragmentDirections.toItemDetails(itemId)
                 findNavController().navigate(direction)
