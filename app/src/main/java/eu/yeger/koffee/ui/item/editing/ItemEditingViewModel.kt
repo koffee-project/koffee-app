@@ -26,7 +26,7 @@ class ItemEditingViewModel(
                 (itemAmount.value.isNullOrBlank() || itemAmount.value?.toIntOrNull() ?: -1 >= 0)
     }
 
-    val itemUpdatedAction = Action<String?>()
+    val itemUpdatedAction = Action<String>()
 
     init {
         onViewModelScope {

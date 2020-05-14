@@ -25,7 +25,7 @@ class UserEditingViewModel(
                 userPassword.value.isNullOrBlank().not() && userPassword.value!!.length >= 8)
     }
 
-    val userUpdatedAction = Action<String?>()
+    val userUpdatedAction = Action<String>()
 
     init {
         onViewModelScope {

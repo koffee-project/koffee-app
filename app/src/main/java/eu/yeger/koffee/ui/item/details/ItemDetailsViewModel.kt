@@ -39,8 +39,8 @@ class ItemDetailsViewModel(
         isAuthenticated.value ?: false && hasItem.value ?: false
     }
 
-    val editItemAction = Action<String?>()
-    val deleteItemAction = Action<String?>()
+    val editItemAction = Action<String>()
+    val deleteItemAction = Action<String>()
     val itemDeletedAction = SimpleAction()
     val itemNotFoundAction = SimpleAction()
 

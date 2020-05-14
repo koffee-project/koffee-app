@@ -27,7 +27,7 @@ class UserCreationViewModel(
                 userPassword.value.isNullOrBlank().not() && userPassword.value!!.length >= 8)
     }
 
-    val userCreatedAction = Action<String?>()
+    val userCreatedAction = Action<String>()
 
     fun createUser() {
         onViewModelScope {

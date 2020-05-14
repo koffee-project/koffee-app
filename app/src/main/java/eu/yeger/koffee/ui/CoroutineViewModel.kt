@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 abstract class CoroutineViewModel : ViewModel() {
-    private val errorAction = Action<Throwable?>()
+    private val errorAction = Action<Throwable>()
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         errorAction.activateWith(throwable)

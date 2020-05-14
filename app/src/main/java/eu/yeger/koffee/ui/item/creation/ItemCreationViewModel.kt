@@ -28,7 +28,7 @@ class ItemCreationViewModel(
                 (itemAmount.value.isNullOrBlank() || itemAmount.value?.toIntOrNull() ?: -1 >= 0)
     }
 
-    val itemCreatedAction = Action<String?>()
+    val itemCreatedAction = Action<String>()
 
     fun createItem() {
         onViewModelScope {

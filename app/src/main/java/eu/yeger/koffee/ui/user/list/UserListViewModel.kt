@@ -50,7 +50,7 @@ class UserListViewModel(
     val refreshing: LiveData<Boolean> = _refreshing
 
     val createUserAction = SimpleAction()
-    val userEntrySelectedAction = Action<Pair<Boolean, UserEntry>?>()
+    val userEntrySelectedAction = Action<Pair<Boolean, UserEntry>>()
 
     init {
         refreshUsers()

@@ -32,8 +32,8 @@ class UserDetailsViewModel(
         !isActiveUser && isAuthenticated.value ?: false && hasUser.value ?: false
     }
 
-    val editUserAction = Action<String?>()
-    val deleteUserAction = Action<String?>()
+    val editUserAction = Action<String>()
+    val deleteUserAction = Action<String>()
     val userDeletedAction = SimpleAction()
 
     init {
