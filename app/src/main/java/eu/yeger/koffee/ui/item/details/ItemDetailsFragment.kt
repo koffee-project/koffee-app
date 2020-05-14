@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentItemDetailsBinding
@@ -17,10 +16,7 @@ import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.TransactionListAdapter
 import eu.yeger.koffee.ui.onErrorShowSnackbar
-import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
-import eu.yeger.koffee.utility.showDeleteDialog
-import eu.yeger.koffee.utility.showSnackbar
-import eu.yeger.koffee.utility.viewModelFactories
+import eu.yeger.koffee.utility.*
 
 class ItemDetailsFragment : Fragment() {
 
@@ -42,37 +38,37 @@ class ItemDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         itemDetailsViewModel.apply {
-            editItemAction.observe(viewLifecycleOwner, Observer { itemId ->
+            observe(editItemAction) { itemId ->
                 itemId?.let {
                     val action = ItemDetailsFragmentDirections.toItemEditing(itemId)
                     findNavController().navigate(action)
                     onEditItemActionHandled()
                 }
-            })
+            }
 
-            deleteItemAction.observe(viewLifecycleOwner, Observer { itemId ->
+            observe(deleteItemAction) { itemId ->
                 itemId?.let {
                     showDeleteDialog(itemId) {
                         itemDetailsViewModel.deleteItem()
                     }
                     onDeleteItemActionHandled()
                 }
-            })
+            }
 
-            itemDeletedAction.observe(viewLifecycleOwner, Observer { itemDeleted ->
+            observe(itemDeletedAction) { itemDeleted ->
                 if (itemDeleted) {
                     requireActivity().showSnackbar(getString(R.string.item_deletion_success))
                     findNavController().navigateUp()
                     onItemDeletedActionHandled()
                 }
-            })
+            }
 
-            itemNotFoundAction.observe(viewLifecycleOwner, Observer { itemNotFound ->
+            observe(itemNotFoundAction) { itemNotFound ->
                 if (itemNotFound) {
                     showItemNotFoundDialog()
                     onItemNotFoundActionHandled()
                 }
-            })
+            }
 
             onErrorShowSnackbar(this@ItemDetailsFragment)
         }

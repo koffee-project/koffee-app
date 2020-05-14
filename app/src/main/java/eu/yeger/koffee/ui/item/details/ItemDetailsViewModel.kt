@@ -40,11 +40,11 @@ class ItemDetailsViewModel(
         isAuthenticated.value ?: false && hasItem.value ?: false
     }
 
-    private val _editItemAction = MutableLiveData<String>(null)
-    val editItemAction: LiveData<String> = _editItemAction
+    private val _editItemAction = MutableLiveData<String?>(null)
+    val editItemAction: LiveData<String?> = _editItemAction
 
-    private val _deleteItemAction = MutableLiveData<String>(null)
-    val deleteItemAction: LiveData<String> = _deleteItemAction
+    private val _deleteItemAction = MutableLiveData<String?>(null)
+    val deleteItemAction: LiveData<String?> = _deleteItemAction
 
     private val _itemDeletedAction = MutableLiveData(false)
     val itemDeletedAction: LiveData<Boolean> = _itemDeletedAction

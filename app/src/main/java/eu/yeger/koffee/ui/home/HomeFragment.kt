@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserDetailsBinding
@@ -18,6 +17,7 @@ import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.TransactionListAdapter
 import eu.yeger.koffee.ui.user.details.UserDetailsViewModel
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
+import eu.yeger.koffee.utility.observe
 import eu.yeger.koffee.utility.viewModelFactories
 
 class HomeFragment : Fragment() {
@@ -48,14 +48,12 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         homeViewModel.apply {
-            userSelectionRequiredAction.observe(
-                viewLifecycleOwner,
-                Observer { userSelectionRequired ->
-                    if (userSelectionRequired) {
-                        showUserSelectionRequiredDialog()
-                        onUserSelectionRequiredActionHandled()
-                    }
-                })
+            observe(userSelectionRequiredAction) { userSelectionRequired ->
+                if (userSelectionRequired) {
+                    showUserSelectionRequiredDialog()
+                    onUserSelectionRequiredActionHandled()
+                }
+            }
         }
 
         return FragmentUserDetailsBinding.inflate(inflater).apply {

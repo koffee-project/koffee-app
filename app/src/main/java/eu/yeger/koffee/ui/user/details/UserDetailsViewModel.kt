@@ -31,11 +31,11 @@ class UserDetailsViewModel(
         !isActiveUser && isAuthenticated.value ?: false && hasUser.value ?: false
     }
 
-    private val _editUserAction = MutableLiveData<String>(null)
-    val editUserAction: LiveData<String> = _editUserAction
+    private val _editUserAction = MutableLiveData<String?>(null)
+    val editUserAction: LiveData<String?> = _editUserAction
 
-    private val _deleteUserAction = MutableLiveData<String>(null)
-    val deleteUserAction: LiveData<String> = _deleteUserAction
+    private val _deleteUserAction = MutableLiveData<String?>(null)
+    val deleteUserAction: LiveData<String?> = _deleteUserAction
 
     private val _userDeletedAction = MutableLiveData(false)
     val userDeletedAction: LiveData<Boolean> = _userDeletedAction

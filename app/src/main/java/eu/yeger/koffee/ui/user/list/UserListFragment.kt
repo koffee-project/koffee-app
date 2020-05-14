@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserListBinding
@@ -17,6 +16,7 @@ import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.UserEntryListAdapter
 import eu.yeger.koffee.ui.onErrorShowSnackbar
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
+import eu.yeger.koffee.utility.observe
 import eu.yeger.koffee.utility.saveUserIdToSharedPreferences
 import eu.yeger.koffee.utility.viewModelFactories
 
@@ -36,15 +36,15 @@ class UserListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         userListViewModel.apply {
-            createUserAction.observe(viewLifecycleOwner, Observer { createUser ->
+            observe(createUserAction) { createUser ->
                 if (createUser) {
                     val action = UserListFragmentDirections.toUserCreation()
                     findNavController().navigate(action)
                     onCreateUserActionHandled()
                 }
-            })
+            }
 
-            userEntrySelectedAction.observe(viewLifecycleOwner, Observer { pair ->
+            observe(userEntrySelectedAction) { pair ->
                 pair?.let {
                     val (isAuthenticated, userEntry) = pair
                     val canView =
@@ -52,7 +52,7 @@ class UserListFragment : Fragment() {
                     showUserSelectionDialog(userEntry, canView)
                     onUserEntrySelectedActionHandled()
                 }
-            })
+            }
 
             onErrorShowSnackbar(this@UserListFragment) { error ->
                 getString(R.string.user_refresh_error_format, error.localizedMessage)

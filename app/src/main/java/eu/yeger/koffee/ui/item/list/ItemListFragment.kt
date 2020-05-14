@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentItemListBinding
@@ -14,6 +13,7 @@ import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.ItemListAdapter
 import eu.yeger.koffee.ui.onErrorShowSnackbar
+import eu.yeger.koffee.utility.observe
 import eu.yeger.koffee.utility.viewModelFactories
 
 class ItemListFragment : Fragment() {
@@ -32,14 +32,14 @@ class ItemListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         itemListViewModel.apply {
-            createItemAction.observe(viewLifecycleOwner, Observer { createItem ->
+            observe(createItemAction) { createItem ->
                 if (createItem) {
                     val action =
                         ItemListFragmentDirections.toItemCreation()
                     findNavController().navigate(action)
                     onCreateItemActionHandled()
                 }
-            })
+            }
 
             onErrorShowSnackbar(this@ItemListFragment) { error ->
                 getString(R.string.item_refresh_error_format, error.localizedMessage)
