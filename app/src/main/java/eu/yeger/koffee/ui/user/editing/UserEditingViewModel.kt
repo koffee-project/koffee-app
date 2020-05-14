@@ -21,8 +21,9 @@ class UserEditingViewModel(
     val isAdmin = MutableLiveData(false)
 
     val canUpdateUser = sourcedLiveData(userName, userPassword, isAdmin) {
-        userName.value.isNullOrBlank().not() &&
-                (isAdmin.value!!.not() || userPassword.value.isNullOrBlank().not())
+        userName.value.isNullOrBlank().not()
+                && (isAdmin.value!!.not()
+                || userPassword.value.isNullOrBlank().not() && userPassword.value!!.length >= 8)
     }
 
     init {

@@ -17,14 +17,15 @@ class UserCreationViewModel(
 
     val userName = MutableLiveData("")
 
-    val password = MutableLiveData("")
+    val userPassword = MutableLiveData("")
 
     val isAdmin = MutableLiveData(false)
 
-    val canCreateUser = sourcedLiveData(userId, userName, password, isAdmin) {
-        userId.value.isNullOrBlank().not() &&
-                userName.value.isNullOrBlank().not() &&
-                (isAdmin.value!!.not() || password.value.isNullOrBlank().not())
+    val canCreateUser = sourcedLiveData(userId, userName, userPassword, isAdmin) {
+        userId.value.isNullOrBlank().not()
+                && userName.value.isNullOrBlank().not()
+                && (isAdmin.value!!.not()
+                || userPassword.value.isNullOrBlank().not() && userPassword.value!!.length >= 8)
     }
 
     // TODO catch exceptions
@@ -33,8 +34,8 @@ class UserCreationViewModel(
             val jwt = adminRepository.getJWT()!!
             val userId = userId.value!!
             val actualPassword = when {
-                password.value.isNullOrBlank() -> null
-                else -> password.value
+                userPassword.value.isNullOrBlank() -> null
+                else -> userPassword.value
             }
             userRepository.createUser(
                 userId = userId,

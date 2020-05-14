@@ -92,7 +92,7 @@
                 android:ems="10"
                 android:importantForAutofill="no"
                 android:inputType="textPassword"
-                android:text="@={viewModel.password}"
+                android:text="@={viewModel.userPassword}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
