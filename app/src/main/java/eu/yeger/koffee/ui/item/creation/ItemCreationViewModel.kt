@@ -27,7 +27,6 @@ class ItemCreationViewModel(
                 (itemAmount.value.isNullOrBlank() || itemAmount.value?.toIntOrNull() ?: -1 >= 0)
     }
 
-    // TODO catch exceptions
     fun createItem() {
         viewModelScope.launch(exceptionHandler) {
             val jwt = adminRepository.getJWT()!!

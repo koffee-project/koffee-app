@@ -33,8 +33,7 @@ class UserEditingViewModel(
             }
         }
     }
-
-    // TODO catch exceptions
+    
     fun updateUser() {
         viewModelScope.launch(exceptionHandler) {
             val jwt = adminRepository.getJWT()!!

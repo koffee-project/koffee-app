@@ -28,7 +28,6 @@ class UserCreationViewModel(
                 || userPassword.value.isNullOrBlank().not() && userPassword.value!!.length >= 8)
     }
 
-    // TODO catch exceptions
     fun createUser() {
         viewModelScope.launch(exceptionHandler) {
             val jwt = adminRepository.getJWT()!!

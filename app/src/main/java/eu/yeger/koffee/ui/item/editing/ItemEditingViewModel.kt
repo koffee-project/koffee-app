@@ -36,7 +36,6 @@ class ItemEditingViewModel(
         }
     }
 
-    // TODO catch exceptions
     fun updateItem() {
         viewModelScope.launch(exceptionHandler) {
             val jwt = adminRepository.getJWT()!!
