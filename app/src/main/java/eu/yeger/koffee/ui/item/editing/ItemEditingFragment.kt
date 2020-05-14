@@ -34,8 +34,8 @@ class ItemEditingFragment : Fragment() {
         itemEditingViewModel.apply {
             onSuccess(this@ItemEditingFragment) { itemId ->
                 requireActivity().showSnackbar(getString(R.string.item_editing_success))
-                val action = ItemEditingFragmentDirections.toItemDetails(itemId)
-                findNavController().navigate(action)
+                val direction = ItemEditingFragmentDirections.toItemDetails(itemId)
+                findNavController().navigate(direction)
             }
 
             onErrorShowSnackbar(this@ItemEditingFragment)

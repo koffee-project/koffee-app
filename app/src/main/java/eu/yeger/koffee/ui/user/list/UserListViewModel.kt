@@ -7,6 +7,7 @@ import eu.yeger.koffee.domain.UserEntry
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserEntryRepository
 import eu.yeger.koffee.ui.CoroutineViewModel
+import eu.yeger.koffee.utility.ActionLiveData
 import eu.yeger.koffee.utility.mediatedLiveData
 import eu.yeger.koffee.utility.sourcedLiveData
 
@@ -47,11 +48,8 @@ class UserListViewModel(
     private val _refreshing = MutableLiveData(false)
     val refreshing: LiveData<Boolean> = _refreshing
 
-    private val _createUserAction = MutableLiveData(false)
-    val createUserAction: LiveData<Boolean> = _createUserAction
-
-    private val _userEntrySelectedAction = MutableLiveData<Pair<Boolean, UserEntry>?>(null)
-    val userEntrySelectedAction: LiveData<Pair<Boolean, UserEntry>?> = _userEntrySelectedAction
+    val createUserAction = ActionLiveData(false)
+    val userEntrySelectedAction = ActionLiveData<Pair<Boolean, UserEntry>?>()
 
     init {
         refreshUsers()
@@ -66,12 +64,8 @@ class UserListViewModel(
         }
     }
 
-    fun triggerCreateUserAction() = _createUserAction.postValue(true)
-
-    fun onCreateUserActionHandled() = _createUserAction.postValue(false)
+    fun triggerCreateUserAction() = createUserAction.trigger(true)
 
     fun triggerUserEntrySelectedAction(userEntry: UserEntry) =
-        _userEntrySelectedAction.postValue((isAuthenticated.value ?: false) to userEntry)
-
-    fun onUserEntrySelectedActionHandled() = _userEntrySelectedAction.postValue(null)
+        userEntrySelectedAction.trigger((isAuthenticated.value ?: false) to userEntry)
 }

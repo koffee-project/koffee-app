@@ -33,8 +33,8 @@ class ItemCreationFragment : Fragment() {
         itemCreationViewModel.apply {
             onSuccess(this@ItemCreationFragment) { itemId ->
                 requireActivity().showSnackbar(getString(R.string.item_creation_success))
-                val action = ItemCreationFragmentDirections.toItemDetails(itemId)
-                findNavController().navigate(action)
+                val direction = ItemCreationFragmentDirections.toItemDetails(itemId)
+                findNavController().navigate(direction)
             }
 
             onErrorShowSnackbar(this@ItemCreationFragment)

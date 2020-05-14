@@ -29,8 +29,8 @@ class LoginFragment : Fragment() {
             onSuccess(this@LoginFragment) { loginSuccessful ->
                 if (loginSuccessful) {
                     requireActivity().showSnackbar(getString(R.string.login_success))
-                    val action = LoginFragmentDirections.toAdmin()
-                    findNavController().navigate(action)
+                    val direction = LoginFragmentDirections.toAdmin()
+                    findNavController().navigate(direction)
                 }
             }
 

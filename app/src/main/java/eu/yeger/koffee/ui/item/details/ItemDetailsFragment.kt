@@ -38,36 +38,25 @@ class ItemDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         itemDetailsViewModel.apply {
-            observe(editItemAction) { itemId ->
-                itemId?.let {
-                    val action = ItemDetailsFragmentDirections.toItemEditing(itemId)
-                    findNavController().navigate(action)
-                    onEditItemActionHandled()
+            observeAction(editItemAction) { itemId ->
+                val direction = ItemDetailsFragmentDirections.toItemEditing(itemId)
+                findNavController().navigate(direction)
+            }
+
+            observeAction(deleteItemAction) { itemId ->
+                showDeleteDialog(itemId) {
+                    itemDetailsViewModel.deleteItem()
                 }
             }
 
-            observe(deleteItemAction) { itemId ->
-                itemId?.let {
-                    showDeleteDialog(itemId) {
-                        itemDetailsViewModel.deleteItem()
-                    }
-                    onDeleteItemActionHandled()
-                }
+            observeBooleanAction(itemDeletedAction) {
+                requireActivity().showSnackbar(getString(R.string.item_deletion_success))
+                val direction = ItemDetailsFragmentDirections.toItemList()
+                findNavController().navigate(direction)
             }
 
-            observe(itemDeletedAction) { itemDeleted ->
-                if (itemDeleted) {
-                    requireActivity().showSnackbar(getString(R.string.item_deletion_success))
-                    findNavController().navigateUp()
-                    onItemDeletedActionHandled()
-                }
-            }
-
-            observe(itemNotFoundAction) { itemNotFound ->
-                if (itemNotFound) {
-                    showItemNotFoundDialog()
-                    onItemNotFoundActionHandled()
-                }
+            observeBooleanAction(itemNotFoundAction) {
+                showItemNotFoundDialog()
             }
 
             onErrorShowSnackbar(this@ItemDetailsFragment)

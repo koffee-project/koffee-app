@@ -34,9 +34,10 @@ class UserEditingFragment : Fragment() {
         userEditingViewModel.apply {
             onSuccess(this@UserEditingFragment) { userId ->
                 requireActivity().showSnackbar(getString(R.string.user_editing_success))
-                val action = UserEditingFragmentDirections.toUserDetails(userId)
-                findNavController().navigate(action)
+                val direction = UserEditingFragmentDirections.toUserDetails(userId)
+                findNavController().navigate(direction)
             }
+
             onErrorShowSnackbar(this@UserEditingFragment)
         }
 

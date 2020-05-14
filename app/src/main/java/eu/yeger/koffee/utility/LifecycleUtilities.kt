@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
+import timber.log.Timber
 
 /**
  * Creates a [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) that is updated every time one of the [sources] changes.
@@ -40,6 +41,30 @@ fun <T> sourcedLiveData(vararg sources: LiveData<*>, block: () -> T?): LiveData<
 inline fun <T> mediatedLiveData(block: MediatorLiveData<T>.() -> Unit): MediatorLiveData<T> =
     MediatorLiveData<T>().apply(block)
 
+open class ActionLiveData<T : Any?>(initialValue: T? = null) : LiveData<T?>(initialValue) {
+    fun trigger(value: T?) = postValue(value)
+    fun reset() = postValue(null)
+}
+
 fun <T> Fragment.observe(source: LiveData<T>, block: (T) -> Unit) {
     source.observe(viewLifecycleOwner, Observer(block))
+}
+
+fun <T> Fragment.observeAction(source: ActionLiveData<T?>, block: (T) -> Unit) {
+    observe(source) {
+        it?.let {
+            block(it)
+            source.reset()
+        }
+    }
+}
+
+fun Fragment.observeBooleanAction(source: ActionLiveData<Boolean>, block: () -> Unit) {
+    observe(source) {
+        Timber.d(it.toString())
+        if (it == true) {
+            block()
+            source.reset()
+        }
+    }
 }

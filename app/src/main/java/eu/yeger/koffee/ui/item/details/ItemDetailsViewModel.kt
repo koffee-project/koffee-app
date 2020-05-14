@@ -6,6 +6,7 @@ import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.CoroutineViewModel
+import eu.yeger.koffee.utility.ActionLiveData
 import eu.yeger.koffee.utility.sourcedLiveData
 import kotlinx.coroutines.launch
 
@@ -21,15 +22,12 @@ class ItemDetailsViewModel(
     private val isAuthenticated = adminRepository.isAuthenticatedAsLiveData()
 
     val user = userRepository.getUserByIdAsLiveData(userId)
-
     val hasUser = user.map { it != null }
 
     val item = itemRepository.getItemByIdAsLiveData(itemId)
-
     val hasItem = item.map { it != null }
 
     val transactions = transactionRepository.getTransactionsByUserIdAndItemId(userId, itemId)
-
     val hasTransactions = transactions.map { it.isNotEmpty() }
 
     // TODO disable refund after expiry
@@ -40,24 +38,17 @@ class ItemDetailsViewModel(
         isAuthenticated.value ?: false && hasItem.value ?: false
     }
 
-    private val _editItemAction = MutableLiveData<String?>(null)
-    val editItemAction: LiveData<String?> = _editItemAction
-
-    private val _deleteItemAction = MutableLiveData<String?>(null)
-    val deleteItemAction: LiveData<String?> = _deleteItemAction
-
-    private val _itemDeletedAction = MutableLiveData(false)
-    val itemDeletedAction: LiveData<Boolean> = _itemDeletedAction
-
-    private val _itemNotFoundAction = MutableLiveData(false)
-    val itemNotFoundAction: LiveData<Boolean> = _itemNotFoundAction
+    val editItemAction = ActionLiveData<String?>()
+    val deleteItemAction = ActionLiveData<String?>()
+    val itemDeletedAction = ActionLiveData(false)
+    val itemNotFoundAction = ActionLiveData(false)
 
     init {
         onViewModelScope {
             itemRepository.refreshItemById(itemId)
         }.invokeOnCompletion {
             viewModelScope.launch {
-                _itemNotFoundAction.value = itemRepository.hasItemWithId(itemId).not()
+                itemNotFoundAction.trigger(itemRepository.hasItemWithId(itemId).not())
             }
         }
     }
@@ -86,19 +77,11 @@ class ItemDetailsViewModel(
         onViewModelScope {
             val jwt = adminRepository.getJWT()!!
             itemRepository.deleteItem(itemId, jwt)
-            _itemDeletedAction.value = true
+            itemDeletedAction.trigger(true)
         }
     }
 
-    fun triggerEditItemAction() = _editItemAction.postValue(item.value?.id)
+    fun triggerEditItemAction() = editItemAction.trigger(item.value?.id)
 
-    fun onEditItemActionHandled() = _editItemAction.postValue(null)
-
-    fun triggerDeleteItemAction() = _deleteItemAction.postValue(item.value?.id)
-
-    fun onDeleteItemActionHandled() = _deleteItemAction.postValue(null)
-
-    fun onItemDeletedActionHandled() = _itemDeletedAction.postValue(false)
-
-    fun onItemNotFoundActionHandled() = _itemNotFoundAction.postValue(false)
+    fun triggerDeleteItemAction() = deleteItemAction.trigger(item.value?.id)
 }

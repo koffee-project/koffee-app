@@ -74,6 +74,11 @@
         <action
             android:id="@+id/to_item_editing"
             app:destination="@id/navigation_item_editing" />
+        <action
+            android:id="@+id/to_item_list"
+            app:destination="@id/navigation_item_list"
+            app:popUpTo="@id/navigation_item_details"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -122,7 +127,9 @@
             app:argType="string" />
         <action
             android:id="@+id/to_item_details"
-            app:destination="@id/navigation_item_details" />
+            app:destination="@id/navigation_item_details"
+            app:popUpTo="@id/navigation_item_editing"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -136,6 +143,11 @@
         <action
             android:id="@+id/to_user_editing"
             app:destination="@id/navigation_user_editing" />
+        <action
+            android:id="@+id/to_user_list"
+            app:destination="@id/navigation_user_list"
+            app:popUpTo="@id/navigation_user_details"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -148,6 +160,8 @@
             app:argType="string" />
         <action
             android:id="@+id/to_user_details"
-            app:destination="@id/navigation_user_details" />
+            app:destination="@id/navigation_user_details"
+            app:popUpTo="@id/navigation_user_editing"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

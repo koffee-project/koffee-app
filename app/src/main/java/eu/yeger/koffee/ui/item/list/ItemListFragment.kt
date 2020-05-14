@@ -13,7 +13,7 @@ import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.ItemListAdapter
 import eu.yeger.koffee.ui.onErrorShowSnackbar
-import eu.yeger.koffee.utility.observe
+import eu.yeger.koffee.utility.observeBooleanAction
 import eu.yeger.koffee.utility.viewModelFactories
 
 class ItemListFragment : Fragment() {
@@ -32,13 +32,9 @@ class ItemListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         itemListViewModel.apply {
-            observe(createItemAction) { createItem ->
-                if (createItem) {
-                    val action =
-                        ItemListFragmentDirections.toItemCreation()
-                    findNavController().navigate(action)
-                    onCreateItemActionHandled()
-                }
+            observeBooleanAction(createItemAction) {
+                val direction = ItemListFragmentDirections.toItemCreation()
+                findNavController().navigate(direction)
             }
 
             onErrorShowSnackbar(this@ItemListFragment) { error ->
@@ -49,11 +45,9 @@ class ItemListFragment : Fragment() {
         return FragmentItemListBinding.inflate(inflater).apply {
             viewModel = itemListViewModel
             itemRecyclerView.adapter = ItemListAdapter(OnClickListener { selectedItem ->
-                val action =
-                    ItemListFragmentDirections.toItemDetails(
-                        selectedItem.id
-                    )
-                findNavController().navigate(action)
+                val direction =
+                    ItemListFragmentDirections.toItemDetails(selectedItem.id)
+                findNavController().navigate(direction)
             })
             lifecycleOwner = viewLifecycleOwner
         }.root

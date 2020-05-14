@@ -15,10 +15,7 @@ import eu.yeger.koffee.repository.UserEntryRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.UserEntryListAdapter
 import eu.yeger.koffee.ui.onErrorShowSnackbar
-import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
-import eu.yeger.koffee.utility.observe
-import eu.yeger.koffee.utility.saveUserIdToSharedPreferences
-import eu.yeger.koffee.utility.viewModelFactories
+import eu.yeger.koffee.utility.*
 
 class UserListFragment : Fragment() {
 
@@ -36,22 +33,16 @@ class UserListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         userListViewModel.apply {
-            observe(createUserAction) { createUser ->
-                if (createUser) {
-                    val action = UserListFragmentDirections.toUserCreation()
-                    findNavController().navigate(action)
-                    onCreateUserActionHandled()
-                }
+            observeBooleanAction(createUserAction) {
+                val direction = UserListFragmentDirections.toUserCreation()
+                findNavController().navigate(direction)
             }
 
-            observe(userEntrySelectedAction) { pair ->
-                pair?.let {
-                    val (isAuthenticated, userEntry) = pair
-                    val canView =
-                        isAuthenticated && requireContext().getUserIdFromSharedPreferences() != userEntry.id
-                    showUserSelectionDialog(userEntry, canView)
-                    onUserEntrySelectedActionHandled()
-                }
+            observeAction(userEntrySelectedAction) { pair ->
+                val (isAuthenticated, userEntry) = pair
+                val canView =
+                    isAuthenticated && requireContext().getUserIdFromSharedPreferences() != userEntry.id
+                showUserSelectionDialog(userEntry, canView)
             }
 
             onErrorShowSnackbar(this@UserListFragment) { error ->
@@ -74,21 +65,17 @@ class UserListFragment : Fragment() {
         AlertDialog.Builder(requireContext())
             .setMessage(message)
             .setPositiveButton(R.string.set_as_active_user) { _, _ ->
-                setActiveUser(userEntry)
+                requireContext().saveUserIdToSharedPreferences(userId = userEntry.id)
+                val direction = UserListFragmentDirections.toHome()
+                findNavController().navigate(direction)
             }.apply {
                 if (canView)
                     setNeutralButton(R.string.view_user_as_admin) { _, _ ->
-                        val action = UserListFragmentDirections.toUserDetails(userEntry.id)
-                        findNavController().navigate(action)
+                        val direction = UserListFragmentDirections.toUserDetails(userEntry.id)
+                        findNavController().navigate(direction)
                     }
             }
             .create()
             .show()
-    }
-
-    private fun setActiveUser(userEntry: UserEntry) {
-        requireContext().saveUserIdToSharedPreferences(userId = userEntry.id)
-        val action = UserListFragmentDirections.toHome()
-        findNavController().navigate(action)
     }
 }

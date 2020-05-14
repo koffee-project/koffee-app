@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.databinding.FragmentAdminBinding
 import eu.yeger.koffee.repository.AdminRepository
-import eu.yeger.koffee.utility.observe
+import eu.yeger.koffee.utility.observeBooleanAction
 import eu.yeger.koffee.utility.viewModelFactories
 
 class AdminFragment : Fragment() {
@@ -27,12 +27,9 @@ class AdminFragment : Fragment() {
         setHasOptionsMenu(true)
 
         adminViewModel.apply {
-            observe(loginRequiredAction) { loginRequired ->
-                if (loginRequired) {
-                    val action = AdminFragmentDirections.toLogin()
-                    findNavController().navigate(action)
-                    onLoginRequiredActionHandled()
-                }
+            observeBooleanAction(loginRequiredAction) {
+                val direction = AdminFragmentDirections.toLogin()
+                findNavController().navigate(direction)
             }
         }
 

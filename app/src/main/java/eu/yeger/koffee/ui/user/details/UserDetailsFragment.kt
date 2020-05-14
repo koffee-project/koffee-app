@@ -14,10 +14,7 @@ import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.TransactionListAdapter
 import eu.yeger.koffee.ui.onErrorShowSnackbar
-import eu.yeger.koffee.utility.observe
-import eu.yeger.koffee.utility.showDeleteDialog
-import eu.yeger.koffee.utility.showSnackbar
-import eu.yeger.koffee.utility.viewModelFactories
+import eu.yeger.koffee.utility.*
 
 class UserDetailsFragment : Fragment() {
 
@@ -39,29 +36,21 @@ class UserDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         userDetailsViewModel.apply {
-            observe(editUserAction) { userId ->
-                userId?.let {
-                    val action = UserDetailsFragmentDirections.toUserEditing(userId)
-                    findNavController().navigate(action)
-                    onEditUserActionHandled()
+            observeAction(editUserAction) { userId ->
+                val direction = UserDetailsFragmentDirections.toUserEditing(userId)
+                findNavController().navigate(direction)
+            }
+
+            observeAction(deleteUserAction) { userId ->
+                showDeleteDialog(userId) {
+                    userDetailsViewModel.deleteUser()
                 }
             }
 
-            observe(deleteUserAction) { userId ->
-                userId?.let {
-                    showDeleteDialog(userId) {
-                        userDetailsViewModel.deleteUser()
-                    }
-                    onDeleteUserActionHandled()
-                }
-            }
-
-            observe(userDeletedAction) { userDeleted ->
-                if (userDeleted) {
-                    requireActivity().showSnackbar(getString(R.string.user_deletion_success))
-                    findNavController().navigateUp()
-                    onUserDeletedActionHandled()
-                }
+            observeBooleanAction(userDeletedAction) {
+                requireActivity().showSnackbar(getString(R.string.user_deletion_success))
+                val direction = UserDetailsFragmentDirections.toUserList()
+                findNavController().navigate(direction)
             }
 
             onErrorShowSnackbar(this@UserDetailsFragment)

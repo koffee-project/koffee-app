@@ -33,8 +33,8 @@ class UserCreationFragment : Fragment() {
         userCreationViewModel.apply {
             onSuccess(this@UserCreationFragment) { userId ->
                 requireActivity().showSnackbar(getString(R.string.user_creation_success))
-                val action = UserCreationFragmentDirections.toUserDetails(userId)
-                findNavController().navigate(action)
+                val direction = UserCreationFragmentDirections.toUserDetails(userId)
+                findNavController().navigate(direction)
             }
 
             onErrorShowSnackbar(this@UserCreationFragment)

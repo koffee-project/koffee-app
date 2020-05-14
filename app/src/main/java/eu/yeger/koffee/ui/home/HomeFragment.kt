@@ -17,7 +17,7 @@ import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.TransactionListAdapter
 import eu.yeger.koffee.ui.user.details.UserDetailsViewModel
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
-import eu.yeger.koffee.utility.observe
+import eu.yeger.koffee.utility.observeBooleanAction
 import eu.yeger.koffee.utility.viewModelFactories
 
 class HomeFragment : Fragment() {
@@ -26,8 +26,7 @@ class HomeFragment : Fragment() {
         val context = requireContext()
         HomeViewModel(
             userId = context.getUserIdFromSharedPreferences(),
-            userRepository = UserRepository(context),
-            transactionRepository = TransactionRepository(context)
+            userRepository = UserRepository(context)
         )
     }
 
@@ -48,11 +47,8 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         homeViewModel.apply {
-            observe(userSelectionRequiredAction) { userSelectionRequired ->
-                if (userSelectionRequired) {
-                    showUserSelectionRequiredDialog()
-                    onUserSelectionRequiredActionHandled()
-                }
+            observeBooleanAction(userSelectionRequiredAction) {
+                showUserSelectionRequiredDialog()
             }
         }
 
@@ -65,8 +61,8 @@ class HomeFragment : Fragment() {
                         is Transaction.Refund -> selectedTransaction.itemId
                         else -> null
                     }?.let { itemId ->
-                        val action = HomeFragmentDirections.toItemDetails(itemId)
-                        findNavController().navigate(action)
+                        val direction = HomeFragmentDirections.toItemDetails(itemId)
+                        findNavController().navigate(direction)
                     }
                 })
             lifecycleOwner = viewLifecycleOwner
@@ -77,8 +73,8 @@ class HomeFragment : Fragment() {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.no_user_selected)
             .setPositiveButton(R.string.got_to_selection) { _, _ ->
-                val action = HomeFragmentDirections.toUserList()
-                findNavController().navigate(action)
+                val direction = HomeFragmentDirections.toUserList()
+                findNavController().navigate(direction)
             }
             .setCancelable(false)
             .create()
