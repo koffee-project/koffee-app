@@ -58,7 +58,7 @@ class UserListViewModel(
     }
 
     fun refreshUsers() {
-        launchOnViewModelScope {
+        onViewModelScope {
             _refreshing.value = true
             userEntryRepository.refreshUsers()
         }.invokeOnCompletion {

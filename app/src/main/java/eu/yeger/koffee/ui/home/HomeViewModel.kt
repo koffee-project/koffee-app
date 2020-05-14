@@ -16,11 +16,11 @@ class HomeViewModel(
 
     init {
         userId?.let {
-            launchOnViewModelScope {
+            onViewModelScope {
                 userRepository.fetchUserById(userId)
                 _userSelectionRequiredAction.value = userRepository.hasUserWithId(userId).not()
             }
-            launchOnViewModelScope {
+            onViewModelScope {
                 transactionRepository.fetchTransactionsByUserId(userId)
             }
         }

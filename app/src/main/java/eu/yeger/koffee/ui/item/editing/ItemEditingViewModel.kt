@@ -26,7 +26,7 @@ class ItemEditingViewModel(
     }
 
     init {
-        launchOnViewModelScope {
+        onViewModelScope {
             itemRepository.getItemById(itemId)?.run {
                 itemName.value = name
                 itemPrice.value = price.toString()
@@ -36,7 +36,7 @@ class ItemEditingViewModel(
     }
 
     fun updateItem() {
-        launchOnViewModelScope {
+        onViewModelScope {
             val jwt = adminRepository.getJWT()!!
             itemRepository.updateItem(
                 itemId = itemId,

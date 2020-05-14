@@ -16,7 +16,7 @@ abstract class CoroutineViewModel : ViewModel() {
         _errorAction.postValue(throwable)
     }
 
-    protected fun launchOnViewModelScope(block: suspend CoroutineScope.() -> Unit) =
+    protected fun onViewModelScope(block: suspend CoroutineScope.() -> Unit) =
         viewModelScope.launch(context = exceptionHandler, block = block)
 
     fun onErrorActionHandled() = _errorAction.postValue(null)

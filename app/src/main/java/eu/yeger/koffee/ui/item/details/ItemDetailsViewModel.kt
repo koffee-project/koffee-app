@@ -53,7 +53,7 @@ class ItemDetailsViewModel(
     val itemNotFoundAction: LiveData<Boolean> = _itemNotFoundAction
 
     init {
-        launchOnViewModelScope {
+        onViewModelScope {
             itemRepository.refreshItemById(itemId)
         }.invokeOnCompletion {
             viewModelScope.launch {
@@ -64,7 +64,7 @@ class ItemDetailsViewModel(
 
     fun buyItem() {
         userId?.let {
-            launchOnViewModelScope {
+            onViewModelScope {
                 transactionRepository.buyItem(userId, itemId, 1)
                 transactionRepository.fetchTransactionsByUserId(userId)
             }
@@ -73,7 +73,7 @@ class ItemDetailsViewModel(
 
     fun refundPurchase() {
         userId?.let {
-            launchOnViewModelScope {
+            onViewModelScope {
                 transactionRepository.run {
                     refundPurchase(userId)
                     fetchTransactionsByUserId(userId)
@@ -83,7 +83,7 @@ class ItemDetailsViewModel(
     }
 
     fun deleteItem() {
-        launchOnViewModelScope {
+        onViewModelScope {
             val jwt = adminRepository.getJWT()!!
             itemRepository.deleteItem(itemId, jwt)
             _itemDeletedAction.value = true

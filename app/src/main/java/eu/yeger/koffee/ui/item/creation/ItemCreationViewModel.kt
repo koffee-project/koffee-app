@@ -28,7 +28,7 @@ class ItemCreationViewModel(
     }
 
     fun createItem() {
-        launchOnViewModelScope {
+        onViewModelScope {
             val jwt = adminRepository.getJWT()!!
             val itemId = itemId.value!!
             itemRepository.createItem(

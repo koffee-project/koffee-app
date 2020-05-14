@@ -11,13 +11,13 @@ class AdminViewModel(private val adminRepository: AdminRepository) : CoroutineVi
     val loginRequiredAction: LiveData<Boolean> = _loginRequiredAction
 
     init {
-        launchOnViewModelScope {
+        onViewModelScope {
             _loginRequiredAction.value = adminRepository.loginRequired()
         }
     }
 
     fun logout() {
-        launchOnViewModelScope {
+        onViewModelScope {
             adminRepository.logout()
             _loginRequiredAction.value = true
         }

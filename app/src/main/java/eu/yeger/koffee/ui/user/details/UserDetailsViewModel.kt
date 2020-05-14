@@ -42,10 +42,10 @@ class UserDetailsViewModel(
 
     init {
         userId?.let {
-            launchOnViewModelScope {
+            onViewModelScope {
                 userRepository.fetchUserById(userId)
             }
-            launchOnViewModelScope {
+            onViewModelScope {
                 transactionRepository.fetchTransactionsByUserId(userId)
             }
         }
@@ -54,7 +54,7 @@ class UserDetailsViewModel(
     fun refundPurchase() {
         if (!isActiveUser || userId === null) return
 
-        launchOnViewModelScope {
+        onViewModelScope {
             transactionRepository.run {
                 refundPurchase(userId)
                 fetchTransactionsByUserId(userId)
@@ -65,7 +65,7 @@ class UserDetailsViewModel(
 
     fun deleteUser() {
         userId?.let {
-            launchOnViewModelScope {
+            onViewModelScope {
                 val jwt = adminRepository.getJWT()!!
                 userRepository.deleteUser(userId, jwt)
                 _userDeletedAction.value = true

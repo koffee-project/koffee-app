@@ -27,7 +27,7 @@ class UserCreationViewModel(
     }
 
     fun createUser() {
-        launchOnViewModelScope {
+        onViewModelScope {
             val jwt = adminRepository.getJWT()!!
             val userId = userId.value!!
             val actualPassword = when {

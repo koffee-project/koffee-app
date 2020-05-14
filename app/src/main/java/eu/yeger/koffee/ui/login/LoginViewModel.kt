@@ -16,7 +16,7 @@ class LoginViewModel(private val adminRepository: AdminRepository) : SuccessView
     }
 
     fun login() {
-        launchOnViewModelScope {
+        onViewModelScope {
             adminRepository.login(userId = userId.value!!, password = password.value!!)
             setSuccessResult(true)
         }

@@ -25,7 +25,7 @@ class UserEditingViewModel(
     }
 
     init {
-        launchOnViewModelScope {
+        onViewModelScope {
             userRepository.getUserById(userId)?.run {
                 userName.value = name
             }
@@ -33,7 +33,7 @@ class UserEditingViewModel(
     }
 
     fun updateUser() {
-        launchOnViewModelScope {
+        onViewModelScope {
             val jwt = adminRepository.getJWT()!!
             val actualPassword = when {
                 userPassword.value.isNullOrBlank() -> null
