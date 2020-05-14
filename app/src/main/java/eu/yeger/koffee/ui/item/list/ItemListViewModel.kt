@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.CoroutineViewModel
-import eu.yeger.koffee.utility.ActionLiveData
+import eu.yeger.koffee.ui.SimpleAction
 
 class ItemListViewModel(
     private val itemRepository: ItemRepository,
@@ -18,7 +18,7 @@ class ItemListViewModel(
     private val _refreshing = MutableLiveData(false)
     val refreshing: LiveData<Boolean> = _refreshing
 
-    val createItemAction = ActionLiveData(false)
+    val createItemAction = SimpleAction()
 
     init {
         refreshItems()
@@ -33,5 +33,5 @@ class ItemListViewModel(
         }
     }
 
-    fun triggerCreateItemAction() = createItemAction.trigger(true)
+    fun triggerCreateItemAction() = createItemAction.activate()
 }

@@ -5,8 +5,9 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
+import eu.yeger.koffee.ui.Action
 import eu.yeger.koffee.ui.CoroutineViewModel
-import eu.yeger.koffee.utility.ActionLiveData
+import eu.yeger.koffee.ui.SimpleAction
 import eu.yeger.koffee.utility.sourcedLiveData
 import kotlinx.coroutines.launch
 
@@ -38,17 +39,19 @@ class ItemDetailsViewModel(
         isAuthenticated.value ?: false && hasItem.value ?: false
     }
 
-    val editItemAction = ActionLiveData<String?>()
-    val deleteItemAction = ActionLiveData<String?>()
-    val itemDeletedAction = ActionLiveData(false)
-    val itemNotFoundAction = ActionLiveData(false)
+    val editItemAction = Action<String?>()
+    val deleteItemAction = Action<String?>()
+    val itemDeletedAction = SimpleAction()
+    val itemNotFoundAction = SimpleAction()
 
     init {
         onViewModelScope {
             itemRepository.refreshItemById(itemId)
         }.invokeOnCompletion {
             viewModelScope.launch {
-                itemNotFoundAction.trigger(itemRepository.hasItemWithId(itemId).not())
+                if (!itemRepository.hasItemWithId(itemId)) {
+                    itemNotFoundAction.activate()
+                }
             }
         }
     }
@@ -77,11 +80,11 @@ class ItemDetailsViewModel(
         onViewModelScope {
             val jwt = adminRepository.getJWT()!!
             itemRepository.deleteItem(itemId, jwt)
-            itemDeletedAction.trigger(true)
+            itemDeletedAction.activate()
         }
     }
 
-    fun triggerEditItemAction() = editItemAction.trigger(item.value?.id)
+    fun triggerEditItemAction() = editItemAction.activate(item.value?.id)
 
-    fun triggerDeleteItemAction() = deleteItemAction.trigger(item.value?.id)
+    fun triggerDeleteItemAction() = deleteItemAction.activate(item.value?.id)
 }

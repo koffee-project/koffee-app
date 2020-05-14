@@ -13,7 +13,6 @@ import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.TransactionListAdapter
-import eu.yeger.koffee.ui.onErrorShowSnackbar
 import eu.yeger.koffee.utility.*
 
 class UserDetailsFragment : Fragment() {
@@ -47,13 +46,13 @@ class UserDetailsFragment : Fragment() {
                 }
             }
 
-            observeBooleanAction(userDeletedAction) {
+            observeAction(userDeletedAction) {
                 requireActivity().showSnackbar(getString(R.string.user_deletion_success))
                 val direction = UserDetailsFragmentDirections.toUserList()
                 findNavController().navigate(direction)
             }
 
-            onErrorShowSnackbar(this@UserDetailsFragment)
+            onErrorShowSnackbar()
         }
 
         return FragmentUserDetailsBinding.inflate(inflater).apply {

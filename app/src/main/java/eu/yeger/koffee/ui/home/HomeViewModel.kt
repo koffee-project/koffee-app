@@ -2,14 +2,14 @@ package eu.yeger.koffee.ui.home
 
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.CoroutineViewModel
-import eu.yeger.koffee.utility.ActionLiveData
+import eu.yeger.koffee.ui.SimpleAction
 
 class HomeViewModel(
     private val userId: String?,
     private val userRepository: UserRepository
 ) : CoroutineViewModel() {
 
-    val userSelectionRequiredAction = ActionLiveData<Boolean>()
+    val userSelectionRequiredAction = SimpleAction()
 
     init {
         onViewModelScope {
@@ -18,7 +18,9 @@ class HomeViewModel(
             }
         }.invokeOnCompletion {
             onViewModelScope {
-                userSelectionRequiredAction.trigger(userRepository.hasUserWithId(userId).not())
+                if (!userRepository.hasUserWithId(userId)) {
+                    userSelectionRequiredAction.activate()
+                }
             }
         }
     }

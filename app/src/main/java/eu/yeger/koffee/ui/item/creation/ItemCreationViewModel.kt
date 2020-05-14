@@ -3,8 +3,8 @@ package eu.yeger.koffee.ui.item.creation
 import androidx.lifecycle.*
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
+import eu.yeger.koffee.ui.Action
 import eu.yeger.koffee.ui.CoroutineViewModel
-import eu.yeger.koffee.utility.ActionLiveData
 import eu.yeger.koffee.utility.isValidPrice
 import eu.yeger.koffee.utility.sourcedLiveData
 
@@ -28,7 +28,7 @@ class ItemCreationViewModel(
                 (itemAmount.value.isNullOrBlank() || itemAmount.value?.toIntOrNull() ?: -1 >= 0)
     }
 
-    val itemCreatedAction = ActionLiveData<String?>()
+    val itemCreatedAction = Action<String?>()
 
     fun createItem() {
         onViewModelScope {
@@ -41,7 +41,7 @@ class ItemCreationViewModel(
                 itemAmount = itemAmount.value?.toIntOrNull(),
                 jwt = jwt
             )
-            itemCreatedAction.trigger(itemId)
+            itemCreatedAction.activate(itemId)
         }
     }
 }

@@ -3,8 +3,8 @@ package eu.yeger.koffee.ui.user.creation
 import androidx.lifecycle.MutableLiveData
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserRepository
+import eu.yeger.koffee.ui.Action
 import eu.yeger.koffee.ui.CoroutineViewModel
-import eu.yeger.koffee.utility.ActionLiveData
 import eu.yeger.koffee.utility.sourcedLiveData
 
 class UserCreationViewModel(
@@ -27,7 +27,7 @@ class UserCreationViewModel(
                 userPassword.value.isNullOrBlank().not() && userPassword.value!!.length >= 8)
     }
 
-    val userCreatedAction = ActionLiveData<String?>()
+    val userCreatedAction = Action<String?>()
 
     fun createUser() {
         onViewModelScope {
@@ -44,7 +44,7 @@ class UserCreationViewModel(
                 isAdmin = isAdmin.value!!,
                 jwt = jwt
             )
-            userCreatedAction.trigger(userId)
+            userCreatedAction.activate(userId)
         }
     }
 }

@@ -8,8 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.databinding.FragmentAdminBinding
 import eu.yeger.koffee.repository.AdminRepository
-import eu.yeger.koffee.ui.onErrorShowSnackbar
-import eu.yeger.koffee.utility.observeBooleanAction
+import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.viewModelFactories
 
 class AdminFragment : Fragment() {
@@ -28,12 +27,12 @@ class AdminFragment : Fragment() {
         setHasOptionsMenu(true)
 
         adminViewModel.apply {
-            observeBooleanAction(loginRequiredAction) {
+            observeAction(loginRequiredAction) {
                 val direction = AdminFragmentDirections.toLogin()
                 findNavController().navigate(direction)
             }
 
-            onErrorShowSnackbar(this@AdminFragment)
+            onErrorShowSnackbar()
         }
 
         return FragmentAdminBinding.inflate(inflater).apply {

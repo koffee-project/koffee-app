@@ -1,41 +1,36 @@
 package eu.yeger.koffee.ui
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import eu.yeger.koffee.R
+import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 abstract class CoroutineViewModel : ViewModel() {
-    private val _errorAction = MutableLiveData<Throwable?>()
-    val errorAction: LiveData<Throwable?> = _errorAction
+    private val errorAction = Action<Throwable?>()
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        _errorAction.postValue(throwable)
+        errorAction.activate(throwable)
     }
 
     protected fun onViewModelScope(block: suspend CoroutineScope.() -> Unit) =
         viewModelScope.launch(context = exceptionHandler, block = block)
 
-    fun onErrorActionHandled() = _errorAction.postValue(null)
-}
+    fun Fragment.onError(block: (Throwable) -> Unit) {
+        observeAction(errorAction, block)
+    }
 
-fun CoroutineViewModel.onError(fragment: Fragment, block: (Throwable) -> Unit) {
-    errorAction.observe(fragment.viewLifecycleOwner, Observer {
-        it?.let {
-            block(it)
-            onErrorActionHandled()
+    fun Fragment.onErrorShowSnackbar(
+        block: (Throwable) -> String = {
+            it.localizedMessage ?: getString(R.string.unknown_error)
         }
-    })
-}
-
-fun CoroutineViewModel.onErrorShowSnackbar(
-    fragment: Fragment,
-    block: (Throwable) -> String = { it.localizedMessage ?: fragment.getString(R.string.unknown_error) }
-) {
-    onError(fragment) {
-        fragment.requireActivity().showSnackbar(block(it))
+    ) {
+        onError {
+            requireActivity().showSnackbar(block(it))
+        }
     }
 }

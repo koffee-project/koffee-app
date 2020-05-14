@@ -9,8 +9,7 @@ import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentLoginBinding
 import eu.yeger.koffee.repository.AdminRepository
-import eu.yeger.koffee.ui.onErrorShowSnackbar
-import eu.yeger.koffee.utility.observeBooleanAction
+import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
@@ -26,13 +25,13 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         loginViewModel.apply {
-            observeBooleanAction(loggedInAction) {
+            observeAction(loggedInAction) {
                 requireActivity().showSnackbar(getString(R.string.login_success))
                 val direction = LoginFragmentDirections.toAdmin()
                 findNavController().navigate(direction)
             }
 
-            onErrorShowSnackbar(this@LoginFragment)
+            onErrorShowSnackbar()
         }
 
         return FragmentLoginBinding.inflate(inflater).apply {

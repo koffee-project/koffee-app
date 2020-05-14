@@ -4,8 +4,9 @@ import androidx.lifecycle.*
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
+import eu.yeger.koffee.ui.Action
 import eu.yeger.koffee.ui.CoroutineViewModel
-import eu.yeger.koffee.utility.ActionLiveData
+import eu.yeger.koffee.ui.SimpleAction
 import eu.yeger.koffee.utility.sourcedLiveData
 
 class UserDetailsViewModel(
@@ -31,9 +32,9 @@ class UserDetailsViewModel(
         !isActiveUser && isAuthenticated.value ?: false && hasUser.value ?: false
     }
 
-    val editUserAction = ActionLiveData<String?>()
-    val deleteUserAction = ActionLiveData<String?>()
-    val userDeletedAction = ActionLiveData(false)
+    val editUserAction = Action<String?>()
+    val deleteUserAction = Action<String?>()
+    val userDeletedAction = SimpleAction()
 
     init {
         userId?.let {
@@ -63,12 +64,12 @@ class UserDetailsViewModel(
             onViewModelScope {
                 val jwt = adminRepository.getJWT()!!
                 userRepository.deleteUser(userId, jwt)
-                userDeletedAction.trigger(true)
+                userDeletedAction.activate()
             }
         }
     }
 
-    fun triggerEditUserAction() = editUserAction.trigger(user.value?.id)
+    fun triggerEditUserAction() = editUserAction.activate(user.value?.id)
 
-    fun triggerDeleteUserAction() = deleteUserAction.trigger(user.value?.id)
+    fun triggerDeleteUserAction() = deleteUserAction.activate(user.value?.id)
 }

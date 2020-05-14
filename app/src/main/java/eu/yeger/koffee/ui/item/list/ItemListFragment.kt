@@ -12,8 +12,7 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.ItemListAdapter
-import eu.yeger.koffee.ui.onErrorShowSnackbar
-import eu.yeger.koffee.utility.observeBooleanAction
+import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.viewModelFactories
 
 class ItemListFragment : Fragment() {
@@ -32,12 +31,12 @@ class ItemListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         itemListViewModel.apply {
-            observeBooleanAction(createItemAction) {
+            observeAction(createItemAction) {
                 val direction = ItemListFragmentDirections.toItemCreation()
                 findNavController().navigate(direction)
             }
 
-            onErrorShowSnackbar(this@ItemListFragment) { error ->
+            onErrorShowSnackbar { error ->
                 getString(R.string.item_refresh_error_format, error.localizedMessage)
             }
         }

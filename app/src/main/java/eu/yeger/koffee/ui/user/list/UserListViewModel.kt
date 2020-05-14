@@ -6,8 +6,9 @@ import androidx.lifecycle.switchMap
 import eu.yeger.koffee.domain.UserEntry
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserEntryRepository
+import eu.yeger.koffee.ui.Action
 import eu.yeger.koffee.ui.CoroutineViewModel
-import eu.yeger.koffee.utility.ActionLiveData
+import eu.yeger.koffee.ui.SimpleAction
 import eu.yeger.koffee.utility.mediatedLiveData
 import eu.yeger.koffee.utility.sourcedLiveData
 
@@ -48,8 +49,8 @@ class UserListViewModel(
     private val _refreshing = MutableLiveData(false)
     val refreshing: LiveData<Boolean> = _refreshing
 
-    val createUserAction = ActionLiveData(false)
-    val userEntrySelectedAction = ActionLiveData<Pair<Boolean, UserEntry>?>()
+    val createUserAction = SimpleAction()
+    val userEntrySelectedAction = Action<Pair<Boolean, UserEntry>?>()
 
     init {
         refreshUsers()
@@ -64,8 +65,8 @@ class UserListViewModel(
         }
     }
 
-    fun triggerCreateUserAction() = createUserAction.trigger(true)
+    fun triggerCreateUserAction() = createUserAction.activate()
 
     fun triggerUserEntrySelectedAction(userEntry: UserEntry) =
-        userEntrySelectedAction.trigger((isAuthenticated.value ?: false) to userEntry)
+        userEntrySelectedAction.activate((isAuthenticated.value ?: false) to userEntry)
 }

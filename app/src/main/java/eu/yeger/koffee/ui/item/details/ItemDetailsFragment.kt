@@ -15,7 +15,6 @@ import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.TransactionListAdapter
-import eu.yeger.koffee.ui.onErrorShowSnackbar
 import eu.yeger.koffee.utility.*
 
 class ItemDetailsFragment : Fragment() {
@@ -49,17 +48,17 @@ class ItemDetailsFragment : Fragment() {
                 }
             }
 
-            observeBooleanAction(itemDeletedAction) {
+            observeAction(itemDeletedAction) {
                 requireActivity().showSnackbar(getString(R.string.item_deletion_success))
                 val direction = ItemDetailsFragmentDirections.toItemList()
                 findNavController().navigate(direction)
             }
 
-            observeBooleanAction(itemNotFoundAction) {
+            observeAction(itemNotFoundAction) {
                 showItemNotFoundDialog()
             }
 
-            onErrorShowSnackbar(this@ItemDetailsFragment)
+            onErrorShowSnackbar()
         }
 
         return FragmentItemDetailsBinding.inflate(inflater).apply {

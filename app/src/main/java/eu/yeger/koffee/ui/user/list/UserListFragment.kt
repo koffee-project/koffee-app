@@ -14,7 +14,6 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserEntryRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.UserEntryListAdapter
-import eu.yeger.koffee.ui.onErrorShowSnackbar
 import eu.yeger.koffee.utility.*
 
 class UserListFragment : Fragment() {
@@ -33,7 +32,7 @@ class UserListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         userListViewModel.apply {
-            observeBooleanAction(createUserAction) {
+            observeAction(createUserAction) {
                 val direction = UserListFragmentDirections.toUserCreation()
                 findNavController().navigate(direction)
             }
@@ -45,7 +44,7 @@ class UserListFragment : Fragment() {
                 showUserSelectionDialog(userEntry, canView)
             }
 
-            onErrorShowSnackbar(this@UserListFragment) { error ->
+            onErrorShowSnackbar { error ->
                 getString(R.string.user_refresh_error_format, error.localizedMessage)
             }
         }
