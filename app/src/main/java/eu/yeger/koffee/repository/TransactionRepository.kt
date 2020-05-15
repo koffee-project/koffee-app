@@ -12,7 +12,6 @@ import eu.yeger.koffee.network.NetworkService
 import eu.yeger.koffee.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 class TransactionRepository(private val database: KoffeeDatabase) {
 
@@ -67,8 +66,7 @@ class TransactionRepository(private val database: KoffeeDatabase) {
 
     suspend fun refundPurchase(userId: String) {
         withContext(Dispatchers.IO) {
-            val response = NetworkService.koffeeApi.refundPurchase(userId)
-            Timber.d(response.toString())
+            NetworkService.koffeeApi.refundPurchase(userId)
         }
     }
 }

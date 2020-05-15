@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="userEntry"
-            type="eu.yeger.koffee.domain.UserEntry" />
+            name="user"
+            type="eu.yeger.koffee.domain.User" />
 
         <variable
             name="onClickListener"
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/half_spacing"
-        android:onClick="@{() -> onClickListener.onClick(userEntry)}"
+        android:onClick="@{() -> onClickListener.onClick(user)}"
         app:cardCornerRadius="@dimen/card_corner_radius"
         app:cardElevation="@dimen/card_elevation"
         app:contentPadding="@dimen/default_spacing">
@@ -26,7 +26,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{@string/user_name_id_format(userEntry.name, userEntry.id)}"
+            android:text="@{@string/user_name_id_format(user.name, user.id)}"
             android:textAlignment="center"
             tools:text="Name" />
     </com.google.android.material.circularreveal.cardview.CircularRevealCardView>

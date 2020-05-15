@@ -22,6 +22,9 @@ interface ItemDao {
     @Query("SELECT * FROM item WHERE id == :id")
     fun getById(id: String?): Item?
 
+    @Query("DELETE FROM item")
+    fun deleteAll()
+
     @Query("DELETE FROM item WHERE id == :id")
     fun deleteById(id: String)
 }

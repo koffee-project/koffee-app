@@ -3,9 +3,9 @@ package eu.yeger.koffee.ui.user.list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
-import eu.yeger.koffee.domain.UserEntry
+import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.repository.AdminRepository
-import eu.yeger.koffee.repository.UserEntryRepository
+import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.Action
 import eu.yeger.koffee.ui.CoroutineViewModel
 import eu.yeger.koffee.ui.SimpleAction
@@ -13,16 +13,16 @@ import eu.yeger.koffee.utility.mediatedLiveData
 import eu.yeger.koffee.utility.sourcedLiveData
 
 class UserListViewModel(
-    private val userEntryRepository: UserEntryRepository,
+    private val userRepository: UserRepository,
     adminRepository: AdminRepository
 ) : CoroutineViewModel() {
 
     val isAuthenticated = adminRepository.isAuthenticatedAsLiveData()
 
-    private val users = userEntryRepository.users
+    private val users = userRepository.getUsersAsLiveData()
 
     private val _isBusy: MutableLiveData<Boolean> = mediatedLiveData {
-        addSource(users) { userEntries: List<UserEntry>? ->
+        addSource(users) { userEntries: List<User>? ->
             value = userEntries?.size ?: 0 == 0 || value ?: false
         }
         value = true
@@ -32,10 +32,10 @@ class UserListViewModel(
     val searchQuery = MutableLiveData<String>()
 
     val filteredUsers = sourcedLiveData(users, searchQuery) {
-        UserEntryRepository.Filter(query = searchQuery.value ?: "")
+        UserRepository.Filter(query = searchQuery.value ?: "")
     }.switchMap { filter ->
         _isBusy.value = true
-        userEntryRepository.filteredUsers(filter)
+        userRepository.filteredUsers(filter)
     }
     val onFilteredUsersApplied = Runnable { _isBusy.postValue(false) }
 
@@ -50,7 +50,7 @@ class UserListViewModel(
     val refreshing: LiveData<Boolean> = _refreshing
 
     val createUserAction = SimpleAction()
-    val userEntrySelectedAction = Action<Pair<Boolean, UserEntry>>()
+    val userEntrySelectedAction = Action<Pair<Boolean, User>>()
 
     init {
         refreshUsers()
@@ -59,7 +59,7 @@ class UserListViewModel(
     fun refreshUsers() {
         onViewModelScope {
             _refreshing.value = true
-            userEntryRepository.refreshUsers()
+            userRepository.refreshUserList()
         }.invokeOnCompletion {
             _refreshing.postValue(false)
         }
@@ -67,6 +67,6 @@ class UserListViewModel(
 
     fun triggerCreateUserAction() = createUserAction.activate()
 
-    fun triggerUserEntrySelectedAction(userEntry: UserEntry) =
-        userEntrySelectedAction.activateWith((isAuthenticated.value ?: false) to userEntry)
+    fun triggerUserSelectedAction(user: User) =
+        userEntrySelectedAction.activateWith((isAuthenticated.value ?: false) to user)
 }

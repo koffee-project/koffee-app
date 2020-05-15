@@ -8,17 +8,15 @@ import androidx.room.TypeConverters
 import eu.yeger.koffee.domain.Item
 import eu.yeger.koffee.domain.JWT
 import eu.yeger.koffee.domain.User
-import eu.yeger.koffee.domain.UserEntry
 
 @Database(
     entities = [
         DatabaseTransaction::class,
         Item::class,
         JWT::class,
-        User::class,
-        UserEntry::class
+        User::class
     ],
-    version = 9,
+    version = 10,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -31,8 +29,6 @@ abstract class KoffeeDatabase : RoomDatabase() {
     abstract val transactionDao: TransactionDao
 
     abstract val userDao: UserDao
-
-    abstract val userEntryDao: UserEntryDao
 }
 
 private lateinit var instance: KoffeeDatabase

@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserListBinding
-import eu.yeger.koffee.domain.UserEntry
+import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.repository.AdminRepository
-import eu.yeger.koffee.repository.UserEntryRepository
+import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
-import eu.yeger.koffee.ui.adapter.UserEntryListAdapter
+import eu.yeger.koffee.ui.adapter.UserListAdapter
 import eu.yeger.koffee.utility.*
 
 class UserListFragment : Fragment() {
@@ -22,7 +22,7 @@ class UserListFragment : Fragment() {
         val context = requireContext()
         UserListViewModel(
             adminRepository = AdminRepository(context),
-            userEntryRepository = UserEntryRepository(context)
+            userRepository = UserRepository(context)
         )
     }
 
@@ -50,25 +50,25 @@ class UserListFragment : Fragment() {
         return FragmentUserListBinding.inflate(inflater).apply {
             viewModel = userListViewModel
             searchResultRecyclerView.adapter =
-                UserEntryListAdapter(OnClickListener { selectedUserEntry ->
-                    userListViewModel.triggerUserEntrySelectedAction(selectedUserEntry)
+                UserListAdapter(OnClickListener { selectedUser ->
+                    userListViewModel.triggerUserSelectedAction(selectedUser)
                 })
             lifecycleOwner = viewLifecycleOwner
         }.root
     }
 
-    private fun showUserSelectionDialog(userEntry: UserEntry, canView: Boolean) {
-        val message = getString(R.string.set_active_user_format, userEntry.name, userEntry.id)
+    private fun showUserSelectionDialog(user: User, canView: Boolean) {
+        val message = getString(R.string.set_active_user_format, user.name, user.id)
         AlertDialog.Builder(requireContext())
             .setMessage(message)
             .setPositiveButton(R.string.set_as_active_user) { _, _ ->
-                requireContext().saveUserIdToSharedPreferences(userId = userEntry.id)
+                requireContext().saveUserIdToSharedPreferences(userId = user.id)
                 val direction = UserListFragmentDirections.toHome()
                 findNavController().navigate(direction)
             }.apply {
                 if (canView)
                     setNeutralButton(R.string.view_user_as_admin) { _, _ ->
-                        val direction = UserListFragmentDirections.toUserDetails(userEntry.id)
+                        val direction = UserListFragmentDirections.toUserDetails(user.id)
                         findNavController().navigate(direction)
                     }
             }

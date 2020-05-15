@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import eu.yeger.koffee.domain.Item
 import eu.yeger.koffee.domain.Transaction
-import eu.yeger.koffee.domain.UserEntry
+import eu.yeger.koffee.domain.User
 
 /**
  * Sets the visibility of a [View](https://developer.android.com/reference/android/view/View).
@@ -37,7 +37,7 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
 }
 
 /**
- * Submits a [UserEntry] [List] to the [UserEntryListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ * Submits a [UserEntry] [List] to the [UserListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  *
  * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  * @param userEntries The [List] of [UserEntry] objects that will be submitted.
@@ -46,8 +46,8 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
  * @author Jan Müller
  */
 @BindingAdapter(value = ["userEntries", "callback"], requireAll = true)
-fun RecyclerView.bindUserEntryList(userEntries: List<UserEntry>?, callback: Runnable) {
-    val adapter = adapter as UserEntryListAdapter
+fun RecyclerView.bindUserEntryList(userEntries: List<User>?, callback: Runnable) {
+    val adapter = adapter as UserListAdapter
     adapter.submitList(userEntries, callback)
 }
 

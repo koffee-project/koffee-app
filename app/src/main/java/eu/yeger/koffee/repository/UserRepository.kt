@@ -6,16 +6,34 @@ import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.getDatabase
 import eu.yeger.koffee.domain.JWT
 import eu.yeger.koffee.domain.User
-import eu.yeger.koffee.network.ApiUserDTO
-import eu.yeger.koffee.network.NetworkService
-import eu.yeger.koffee.network.asDomainModel
-import eu.yeger.koffee.network.formatToken
+import eu.yeger.koffee.network.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class UserRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
+
+    fun getUsersAsLiveData() = database.userDao.getAllAsLiveData()
+
+    class Filter(query: String) {
+        val nameFragment = "%$query%"
+    }
+
+    fun filteredUsers(filter: Filter): LiveData<List<User>> {
+        return database.userDao.getFilteredAsLiveData(filter.nameFragment)
+    }
+
+    suspend fun refreshUserList() {
+        withContext(Dispatchers.IO) {
+            val response = NetworkService.koffeeApi.getUsers()
+            val userEntries = response.map(ApiUserEntry::asDomainModel)
+            database.userDao.apply {
+                deleteAll()
+                insertAll(*userEntries.toTypedArray())
+            }
+        }
+    }
 
     suspend fun hasUserWithId(id: String?): Boolean {
         return withContext(Dispatchers.IO) {
@@ -81,7 +99,6 @@ class UserRepository(private val database: KoffeeDatabase) {
         withContext(Dispatchers.IO) {
             NetworkService.koffeeApi.deleteUser(userId, jwt.formatToken())
             database.userDao.deleteById(userId)
-            database.userEntryDao.deleteById(userId)
             database.transactionDao.deleteByUserId(userId)
         }
     }

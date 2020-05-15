@@ -39,7 +39,10 @@ class ItemRepository(private val database: KoffeeDatabase) {
         withContext(Dispatchers.IO) {
             val response = NetworkService.koffeeApi.getItems()
             val items = response.asDomainModel()
-            database.itemDao.insertAll(*items.toTypedArray())
+            database.itemDao.run {
+                deleteAll()
+                insertAll(*items.toTypedArray())
+            }
         }
     }
 
