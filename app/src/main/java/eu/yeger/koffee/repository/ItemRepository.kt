@@ -2,6 +2,7 @@ package eu.yeger.koffee.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import eu.yeger.koffee.database.Filter
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.getDatabase
 import eu.yeger.koffee.domain.Item
@@ -18,7 +19,11 @@ class ItemRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    val items = database.itemDao.getAllAsLiveData()
+    fun getItemsAsLiveData() = database.itemDao.getAllAsLiveData()
+
+    fun filteredUsers(filter: Filter): LiveData<List<Item>> {
+        return database.itemDao.getFilteredAsLiveData(filter.nameFragment)
+    }
 
     suspend fun hasItemWithId(id: String?): Boolean {
         return withContext(Dispatchers.IO) {

@@ -54,12 +54,13 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/search_result_recycler_view"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="@dimen/half_spacing"
                 android:layout_marginTop="@dimen/default_spacing"
                 android:layout_marginEnd="@dimen/half_spacing"
                 app:callback="@{viewModel.onFilteredUsersApplied}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
@@ -80,10 +81,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/default_spacing"
                 android:layout_marginBottom="@dimen/default_spacing"
+                android:onClick="@{() -> viewModel.activateCreateUserAction()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_person_add_24dp"
-                android:onClick="@{() -> viewModel.activateCreateUserAction()}"
                 app:visible="@{viewModel.isAuthenticated()}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

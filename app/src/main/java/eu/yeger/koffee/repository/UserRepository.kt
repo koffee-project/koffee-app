@@ -2,6 +2,7 @@ package eu.yeger.koffee.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import eu.yeger.koffee.database.Filter
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.getDatabase
 import eu.yeger.koffee.domain.JWT
@@ -16,10 +17,6 @@ class UserRepository(private val database: KoffeeDatabase) {
     constructor(context: Context) : this(getDatabase(context))
 
     fun getUsersAsLiveData() = database.userDao.getAllAsLiveData()
-
-    class Filter(query: String) {
-        val nameFragment = "%$query%"
-    }
 
     fun filteredUsers(filter: Filter): LiveData<List<User>> {
         return database.userDao.getFilteredAsLiveData(filter.nameFragment)

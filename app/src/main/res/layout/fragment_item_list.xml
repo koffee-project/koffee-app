@@ -19,6 +19,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search_query_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:ems="10"
+                android:hint="@string/item"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:text="@={viewModel.searchQuery}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/state_text"
                 android:layout_width="0dp"
@@ -32,33 +48,44 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:visible="@{viewModel.items.size() == 0}" />
+                app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
+                app:visible="@{viewModel.hasNoResults}" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/item_recycler_view"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="@dimen/half_spacing"
                 android:layout_marginTop="@dimen/default_spacing"
                 android:layout_marginEnd="@dimen/half_spacing"
-                app:items="@{viewModel.items}"
+                app:callback="@{viewModel.onFilteredUsersApplied}"
+                app:items="@{viewModel.filteredItems}"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
                 app:spanCount="2"
-                app:visible="@{viewModel.items.size() != 0}" />
+                app:visible="@{viewModel.hasResults}" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
+                app:visible="@{viewModel.isBusy}" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/default_spacing"
                 android:layout_marginBottom="@dimen/default_spacing"
+                android:onClick="@{() -> viewModel.activateCreateItemAction()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_add_24dp"
-                android:onClick="@{() -> viewModel.activateCreateItemAction()}"
                 app:visible="@{viewModel.isAuthenticated()}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

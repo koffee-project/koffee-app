@@ -16,11 +16,11 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(user: User)
 
-    @Query("SELECT * FROM user ORDER BY name ASC")
-    fun getAllAsLiveData(): LiveData<List<User>>
-
     @Query("SELECT * FROM user WHERE id == :id")
     fun getById(id: String?): User?
+
+    @Query("SELECT * FROM user ORDER BY name ASC")
+    fun getAllAsLiveData(): LiveData<List<User>>
 
     @Query("SELECT * FROM user WHERE id == :id")
     fun getByIdAsLiveData(id: String?): LiveData<User?>

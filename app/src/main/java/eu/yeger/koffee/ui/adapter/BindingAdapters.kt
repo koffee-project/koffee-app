@@ -49,6 +49,7 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
 fun RecyclerView.bindUserList(users: List<User>?, callback: Runnable) {
     val adapter = adapter as UserListAdapter
     adapter.submitList(users, callback)
+    smoothScrollToPosition(0)
 }
 
 /**
@@ -56,13 +57,15 @@ fun RecyclerView.bindUserList(users: List<User>?, callback: Runnable) {
  *
  * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  * @param items The [List] of [Item] objects that will be submitted.
+ * @param callback Callback, which is executed after the list has been submitted.
  *
  * @author Jan Müller
  */
-@BindingAdapter("items")
-fun RecyclerView.bindItemList(items: List<Item>?) {
+@BindingAdapter(value = ["items", "callback"], requireAll = true)
+fun RecyclerView.bindItemList(items: List<Item>?, callback: Runnable) {
     val adapter = adapter as ItemListAdapter
-    adapter.submitList(items)
+    adapter.submitList(items, callback)
+    smoothScrollToPosition(0)
 }
 
 /**
