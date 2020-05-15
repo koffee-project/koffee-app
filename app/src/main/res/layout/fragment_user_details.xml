@@ -97,7 +97,7 @@
             app:layout_constraintBottom_toTopOf="@+id/edit_item_button"
             app:layout_constraintEnd_toEndOf="@+id/edit_item_button"
             app:srcCompat="@drawable/ic_delete_forever_24dp"
-            app:visible="@{viewModel.canModify}" />
+            app:visible="@{viewModel.canDelete}" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/edit_item_button"
@@ -109,6 +109,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_edit_24dp"
-            app:visible="@{viewModel.canModify}" />
+            app:visible="@{viewModel.canEdit}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

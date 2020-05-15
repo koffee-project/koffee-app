@@ -18,6 +18,9 @@
         <action
             android:id="@+id/to_item_details"
             app:destination="@id/navigation_item_details" />
+        <action
+            android:id="@+id/to_user_editing"
+            app:destination="@id/navigation_user_editing" />
     </fragment>
 
     <fragment

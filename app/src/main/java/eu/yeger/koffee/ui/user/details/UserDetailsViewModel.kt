@@ -28,9 +28,11 @@ class UserDetailsViewModel(
     val canRefund = transactionRepository.getLastRefundableTransactionByUserId(userId)
         .map { isActiveUser && it != null }
 
-    val canModify = sourcedLiveData(isAuthenticated, hasUser) {
-        !isActiveUser && isAuthenticated.value ?: false && hasUser.value ?: false
+    val canEdit = sourcedLiveData(isAuthenticated, hasUser) {
+        isAuthenticated.value ?: false && hasUser.value ?: false
     }
+
+    val canDelete = canEdit.map { !isActiveUser && it }
 
     val editUserAction = Action<String>()
     val deleteUserAction = Action<String>()

@@ -21,7 +21,7 @@ class UserDetailsFragment : Fragment() {
         val context = requireContext()
         val userId = UserDetailsFragmentArgs.fromBundle(requireArguments()).userId
         UserDetailsViewModel(
-            isActiveUser = false,
+            isActiveUser = context.getUserIdFromSharedPreferences() == userId,
             userId = userId,
             adminRepository = AdminRepository(context),
             transactionRepository = TransactionRepository(context),

@@ -53,6 +53,11 @@ class HomeFragment : Fragment() {
         }
 
         userDetailsViewModel.apply {
+            observeAction(editUserAction) { userId ->
+                val direction = HomeFragmentDirections.toUserEditing(userId)
+                findNavController().navigate(direction)
+            }
+
             onErrorShowSnackbar()
         }
 

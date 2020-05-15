@@ -39,9 +39,7 @@ class UserListFragment : Fragment() {
 
             observeAction(userSelectedAction) { pair ->
                 val (isAuthenticated, user) = pair
-                val canView =
-                    isAuthenticated && requireContext().getUserIdFromSharedPreferences() != user.id
-                showUserSelectionDialog(user, canView)
+                showUserSelectionDialog(user, isAuthenticated)
             }
 
             onErrorShowSnackbar()
@@ -57,7 +55,7 @@ class UserListFragment : Fragment() {
         }.root
     }
 
-    private fun showUserSelectionDialog(user: User, canView: Boolean) {
+    private fun showUserSelectionDialog(user: User, isAuthenticated: Boolean) {
         val message = getString(R.string.set_active_user_format, user.name, user.id)
         AlertDialog.Builder(requireContext())
             .setMessage(message)
@@ -66,7 +64,7 @@ class UserListFragment : Fragment() {
                 val direction = UserListFragmentDirections.toHome()
                 findNavController().navigate(direction)
             }.apply {
-                if (canView)
+                if (isAuthenticated)
                     setNeutralButton(R.string.view_user_as_admin) { _, _ ->
                         val direction = UserListFragmentDirections.toUserDetails(user.id)
                         findNavController().navigate(direction)
