@@ -58,7 +58,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_add_24dp"
-                android:onClick="@{() -> viewModel.triggerCreateItemAction()}"
+                android:onClick="@{() -> viewModel.activateCreateItemAction()}"
                 app:visible="@{viewModel.isAuthenticated()}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

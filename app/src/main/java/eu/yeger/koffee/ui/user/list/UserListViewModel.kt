@@ -65,8 +65,8 @@ class UserListViewModel(
         }
     }
 
-    fun triggerCreateUserAction() = createUserAction.activate()
+    fun activateCreateUserAction() = createUserAction.activate()
 
-    fun triggerUserSelectedAction(user: User) =
+    fun activateUserSelectedAction(user: User) =
         userSelectedAction.activateWith((isAuthenticated.value ?: false) to user)
 }

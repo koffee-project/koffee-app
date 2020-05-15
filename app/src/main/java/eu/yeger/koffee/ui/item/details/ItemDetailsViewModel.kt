@@ -92,7 +92,7 @@ class ItemDetailsViewModel(
         }
     }
 
-    fun triggerEditItemAction() = editItemAction.activateWith(item.value?.id)
+    fun activateEditItemAction() = editItemAction.activateWith(item.value?.id)
 
-    fun triggerDeleteItemAction() = deleteItemAction.activateWith(item.value?.id)
+    fun activateDeleteItemAction() = deleteItemAction.activateWith(item.value?.id)
 }

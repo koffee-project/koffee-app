@@ -49,7 +49,7 @@ class UserListFragment : Fragment() {
             viewModel = userListViewModel
             searchResultRecyclerView.adapter =
                 UserListAdapter(OnClickListener { selectedUser ->
-                    userListViewModel.triggerUserSelectedAction(selectedUser)
+                    userListViewModel.activateUserSelectedAction(selectedUser)
                 })
             lifecycleOwner = viewLifecycleOwner
         }.root

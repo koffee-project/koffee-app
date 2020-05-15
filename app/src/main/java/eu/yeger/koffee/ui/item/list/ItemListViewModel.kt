@@ -33,5 +33,5 @@ class ItemListViewModel(
         }
     }
 
-    fun triggerCreateItemAction() = createItemAction.activate()
+    fun activateCreateItemAction() = createItemAction.activate()
 }
