@@ -28,11 +28,12 @@ class UserDetailsViewModel(
     val hasTransactions = transactions.map { it.isNotEmpty() }
 
     // TODO disable refund after expiry
-    val canRefund = transactionRepository.getLastRefundableTransactionByUserId(userId)
-        .map { isActiveUser && it != null }
+    val canRefund = transactionRepository.getLastRefundableTransactionByUserId(userId).map {
+        isActiveUser && it !== null
+    }
 
     val canEdit = sourcedLiveData(isAuthenticated, hasUser) {
-        isAuthenticated.value ?: false && hasUser.value ?: false
+        isAuthenticated.value == true && hasUser.value == true
     }
 
     val canDelete = canEdit.map { !isActiveUser && it }

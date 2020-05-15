@@ -16,14 +16,17 @@ interface TransactionDao {
     fun getAllByUserIdAsLiveData(userId: String?): LiveData<List<DatabaseTransaction>>
 
     @Query("SELECT * FROM databasetransaction WHERE userId == :userId AND itemId == :itemId ORDER BY timestamp DESC")
-    fun getAllByUserIdAndItemIdAsLiveData(
-        userId: String?,
-        itemId: String
-    ): LiveData<List<DatabaseTransaction>>
+    fun getAllByUserIdAndItemIdAsLiveData(userId: String?, itemId: String): LiveData<List<DatabaseTransaction>>
 
     @Query("DELETE FROM databasetransaction")
     fun deleteAll()
 
     @Query("DELETE FROM databasetransaction WHERE userId == :userId")
     fun deleteByUserId(userId: String)
+
+    @Query("SELECT * FROM (SELECT * FROM databasetransaction WHERE userId == :userId AND type != 'funding' ORDER BY timestamp DESC LIMIT 1) WHERE type == 'purchase'")
+    fun getRefundableByUserIdAsLiveData(userId: String?): LiveData<DatabaseTransaction?>
+
+    @Query("SELECT * FROM (SELECT * FROM databasetransaction WHERE userId == :userId AND itemId == :itemId AND type != 'funding' ORDER BY timestamp DESC LIMIT 1) WHERE type == 'purchase'")
+    fun getRefundableByUserIdAndItemIdAsLiveData(userId: String?, itemId: String): LiveData<DatabaseTransaction?>
 }

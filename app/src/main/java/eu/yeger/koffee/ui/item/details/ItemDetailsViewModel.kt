@@ -31,11 +31,11 @@ class ItemDetailsViewModel(
     val hasTransactions = transactions.map { it.isNotEmpty() }
 
     // TODO disable refund after expiry
-    val canRefund = transactionRepository.getLastRefundableTransactionByUserId(userId)
-        .map { it?.itemId == itemId }
+    val canRefund = transactionRepository.getLastRefundableTransactionByUserIdAndItemId(userId, itemId)
+        .map { it !== null }
 
     val canModify = sourcedLiveData(isAuthenticated, hasItem) {
-        isAuthenticated.value ?: false && hasItem.value ?: false
+        isAuthenticated.value == true && hasItem.value == true
     }
 
     private val _refreshing = MutableLiveData(false)
