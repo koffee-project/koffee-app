@@ -54,13 +54,13 @@
                 android:layout_marginStart="@dimen/half_spacing"
                 android:layout_marginTop="@dimen/default_spacing"
                 android:layout_marginEnd="@dimen/half_spacing"
-                app:callback="@{viewModel.onFilteredUsersApplied}"
+                app:callback="@{viewModel.onFilteredEntriesApplied}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
-                app:users="@{viewModel.filteredUsers}"
+                app:users="@{viewModel.filteredEntries}"
                 app:visible="@{viewModel.hasResults}" />
 
             <ProgressBar
