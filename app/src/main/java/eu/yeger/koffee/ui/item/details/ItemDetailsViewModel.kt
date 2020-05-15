@@ -46,10 +46,6 @@ class ItemDetailsViewModel(
     val itemDeletedAction = SimpleAction()
     val itemNotFoundAction = SimpleAction()
 
-    init {
-        refreshItem()
-    }
-
     fun refreshItem() {
         onViewModelScope {
             _refreshing.value = true

@@ -68,6 +68,11 @@ class ItemDetailsFragment : Fragment() {
         }.root
     }
 
+    override fun onResume() {
+        itemDetailsViewModel.refreshItem()
+        super.onResume()
+    }
+
     private fun showItemNotFoundDialog() {
         AlertDialog.Builder(requireContext())
             .setMessage(getString(R.string.item_not_found))

@@ -8,7 +8,7 @@ class AdminViewModel(private val adminRepository: AdminRepository) : CoroutineVi
 
     val loginRequiredAction = SimpleAction()
 
-    init {
+    fun refresh() {
         onViewModelScope {
             if (adminRepository.loginRequired()) {
                 loginRequiredAction.activate()

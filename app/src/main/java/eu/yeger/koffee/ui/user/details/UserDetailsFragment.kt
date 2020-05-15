@@ -77,6 +77,11 @@ class UserDetailsFragment : Fragment() {
         }.root
     }
 
+    override fun onResume() {
+        userDetailsViewModel.refreshUser()
+        super.onResume()
+    }
+
     private fun showUserNotFoundDialog() {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.user_not_found)

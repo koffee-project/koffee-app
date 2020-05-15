@@ -75,6 +75,11 @@ class HomeFragment : Fragment() {
         }.root
     }
 
+    override fun onResume() {
+        userDetailsViewModel.refreshUser()
+        super.onResume()
+    }
+
     private fun showUserSelectionRequiredDialog(message: Int) {
         AlertDialog.Builder(requireContext())
             .setMessage(message)

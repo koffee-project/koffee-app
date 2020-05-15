@@ -44,10 +44,6 @@ class UserDetailsViewModel(
     val userDeletedAction = SimpleAction()
     val userNotFoundAction = SimpleAction()
 
-    init {
-        refreshUser()
-    }
-
     fun refreshUser() {
         if (userId == null) {
             userNotFoundAction.activate()

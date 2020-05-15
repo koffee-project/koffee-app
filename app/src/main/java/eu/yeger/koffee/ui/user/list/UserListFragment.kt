@@ -55,6 +55,11 @@ class UserListFragment : Fragment() {
         }.root
     }
 
+    override fun onResume() {
+        userListViewModel.refreshUsers()
+        super.onResume()
+    }
+
     private fun showUserSelectionDialog(user: User, isAuthenticated: Boolean) {
         val message = getString(R.string.set_active_user_format, user.name, user.id)
         AlertDialog.Builder(requireContext())

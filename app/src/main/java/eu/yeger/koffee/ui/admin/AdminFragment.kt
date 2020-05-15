@@ -40,4 +40,9 @@ class AdminFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }.root
     }
+
+    override fun onResume() {
+        adminViewModel.refresh()
+        super.onResume()
+    }
 }

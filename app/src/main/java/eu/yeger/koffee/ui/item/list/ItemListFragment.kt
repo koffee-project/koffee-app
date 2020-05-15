@@ -48,4 +48,9 @@ class ItemListFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }.root
     }
+
+    override fun onResume() {
+        itemListViewModel.refreshItems()
+        super.onResume()
+    }
 }

@@ -52,10 +52,6 @@ class UserListViewModel(
     val createUserAction = SimpleAction()
     val userSelectedAction = DataAction<Pair<Boolean, User>>()
 
-    init {
-        refreshUsers()
-    }
-
     fun refreshUsers() {
         onViewModelScope {
             _refreshing.value = true

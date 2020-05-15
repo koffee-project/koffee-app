@@ -20,10 +20,6 @@ class ItemListViewModel(
 
     val createItemAction = SimpleAction()
 
-    init {
-        refreshItems()
-    }
-
     fun refreshItems() {
         onViewModelScope {
             _refreshing.value = true
