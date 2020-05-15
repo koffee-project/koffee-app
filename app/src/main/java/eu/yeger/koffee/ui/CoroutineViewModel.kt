@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import eu.yeger.koffee.R
+import eu.yeger.koffee.utility.nullIfBlank
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
 import java.net.UnknownHostException
@@ -24,7 +25,7 @@ abstract class CoroutineViewModel : ViewModel() {
             is UnknownHostException -> getString(R.string.no_connection)
             is HttpException -> error.response()?.errorBody()?.string()
             else -> error.localizedMessage
-        } ?: getString(R.string.unknown_error)
+        }.nullIfBlank() ?: getString(R.string.unknown_error)
     }
 
     protected fun onViewModelScope(block: suspend CoroutineScope.() -> Unit) =
@@ -38,7 +39,7 @@ abstract class CoroutineViewModel : ViewModel() {
         block: (Fragment.(Throwable) -> String?)? = null
     ) {
         onError {
-            val message = block?.invoke(this, it) ?: defaultErrorFormatter(it)
+            val message = block?.invoke(this, it).nullIfBlank() ?: defaultErrorFormatter(it)
             requireActivity().showSnackbar(message)
         }
     }

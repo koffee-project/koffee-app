@@ -5,6 +5,7 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.Action
 import eu.yeger.koffee.ui.CoroutineViewModel
+import eu.yeger.koffee.utility.nullIfBlank
 import eu.yeger.koffee.utility.sourcedLiveData
 
 class UserEditingViewModel(
@@ -38,14 +39,10 @@ class UserEditingViewModel(
     fun updateUser() {
         onViewModelScope {
             val jwt = adminRepository.getJWT()!!
-            val actualPassword = when {
-                userPassword.value.isNullOrBlank() -> null
-                else -> userPassword.value
-            }
             userRepository.updateUser(
                 userId = userId,
                 userName = userName.value!!,
-                password = actualPassword,
+                password = userPassword.value.nullIfBlank(),
                 isAdmin = isAdmin.value!!,
                 jwt = jwt
             )
