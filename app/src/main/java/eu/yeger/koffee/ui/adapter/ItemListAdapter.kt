@@ -16,7 +16,7 @@ class ItemListAdapter(private val onClickListener: OnClickListener<Item>) :
         RecyclerView.ViewHolder(binding.root) {
 
         /**
-         * Binds an [Item] to the CardUserEntryBinding.
+         * Binds an [Item] to the CardItemBinding.
          *
          * @param item The [Item] that will be bound to the CardItemBinding.
          */

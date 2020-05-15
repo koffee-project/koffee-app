@@ -37,11 +37,11 @@ class UserListFragment : Fragment() {
                 findNavController().navigate(direction)
             }
 
-            observeAction(userEntrySelectedAction) { pair ->
-                val (isAuthenticated, userEntry) = pair
+            observeAction(userSelectedAction) { pair ->
+                val (isAuthenticated, user) = pair
                 val canView =
-                    isAuthenticated && requireContext().getUserIdFromSharedPreferences() != userEntry.id
-                showUserSelectionDialog(userEntry, canView)
+                    isAuthenticated && requireContext().getUserIdFromSharedPreferences() != user.id
+                showUserSelectionDialog(user, canView)
             }
 
             onErrorShowSnackbar()

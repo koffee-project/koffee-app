@@ -50,7 +50,7 @@ class UserListViewModel(
     val refreshing: LiveData<Boolean> = _refreshing
 
     val createUserAction = SimpleAction()
-    val userEntrySelectedAction = Action<Pair<Boolean, User>>()
+    val userSelectedAction = Action<Pair<Boolean, User>>()
 
     init {
         refreshUsers()
@@ -68,5 +68,5 @@ class UserListViewModel(
     fun triggerCreateUserAction() = createUserAction.activate()
 
     fun triggerUserSelectedAction(user: User) =
-        userEntrySelectedAction.activateWith((isAuthenticated.value ?: false) to user)
+        userSelectedAction.activateWith((isAuthenticated.value ?: false) to user)
 }

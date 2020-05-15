@@ -63,7 +63,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
-                app:userEntries="@{viewModel.filteredUsers}"
+                app:users="@{viewModel.filteredUsers}"
                 app:visible="@{viewModel.hasResults}" />
 
             <ProgressBar

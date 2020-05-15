@@ -5,20 +5,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import eu.yeger.koffee.databinding.CardUserEntryBinding
+import eu.yeger.koffee.databinding.CardUserBinding
 import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.ui.OnClickListener
 
 class UserListAdapter(private val onClickListener: OnClickListener<User>) :
     ListAdapter<User, UserListAdapter.ViewHolder>(DiffCallback) {
 
-    inner class ViewHolder(private val binding: CardUserEntryBinding) :
+    inner class ViewHolder(private val binding: CardUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         /**
-         * Binds a [User] to the CardUserEntryBinding.
+         * Binds a [User] to the CardUserBinding.
          *
-         * @param user The [User] that will be bound to the CardUserEntryBinding.
+         * @param user The [User] that will be bound to the CardUserBinding.
          */
         fun bind(user: User) {
             binding.user = user
@@ -56,7 +56,7 @@ class UserListAdapter(private val onClickListener: OnClickListener<User>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            CardUserEntryBinding.inflate(
+            CardUserBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

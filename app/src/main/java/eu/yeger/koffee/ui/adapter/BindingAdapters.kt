@@ -37,18 +37,18 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
 }
 
 /**
- * Submits a [UserEntry] [List] to the [UserListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ * Submits a [User] [List] to the [UserListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  *
  * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
- * @param userEntries The [List] of [UserEntry] objects that will be submitted.
+ * @param users The [List] of [User] objects that will be submitted.
  * @param callback Callback, which is executed after the list has been submitted.
  *
  * @author Jan Müller
  */
-@BindingAdapter(value = ["userEntries", "callback"], requireAll = true)
-fun RecyclerView.bindUserEntryList(userEntries: List<User>?, callback: Runnable) {
+@BindingAdapter(value = ["users", "callback"], requireAll = true)
+fun RecyclerView.bindUserList(users: List<User>?, callback: Runnable) {
     val adapter = adapter as UserListAdapter
-    adapter.submitList(userEntries, callback)
+    adapter.submitList(users, callback)
 }
 
 /**
