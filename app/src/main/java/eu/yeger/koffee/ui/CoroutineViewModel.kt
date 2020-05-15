@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 abstract class CoroutineViewModel : ViewModel() {
-    private val errorAction = Action<Throwable>()
+    private val errorAction = DataAction<Throwable>()
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         errorAction.activateWith(throwable)

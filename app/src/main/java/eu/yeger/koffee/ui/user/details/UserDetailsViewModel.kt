@@ -6,8 +6,8 @@ import androidx.lifecycle.map
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.Action
 import eu.yeger.koffee.ui.CoroutineViewModel
+import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.ui.SimpleAction
 import eu.yeger.koffee.utility.sourcedLiveData
 
@@ -39,8 +39,8 @@ class UserDetailsViewModel(
     private val _refreshing = MutableLiveData(false)
     val refreshing: LiveData<Boolean> = _refreshing
 
-    val editUserAction = Action<String>()
-    val deleteUserAction = Action<String>()
+    val editUserAction = DataAction<String>()
+    val deleteUserAction = DataAction<String>()
     val userDeletedAction = SimpleAction()
     val userNotFoundAction = SimpleAction()
 

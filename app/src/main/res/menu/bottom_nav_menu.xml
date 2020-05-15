@@ -14,7 +14,7 @@
     <item
         android:id="@+id/navigation_user_list"
         android:icon="@drawable/ic_group_24dp"
-        android:title="@string/title_user_selection" />
+        android:title="@string/title_user_list" />
 
     <item
         android:id="@+id/navigation_admin"

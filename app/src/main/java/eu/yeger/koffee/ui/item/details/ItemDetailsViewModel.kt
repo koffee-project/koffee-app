@@ -5,8 +5,8 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.Action
 import eu.yeger.koffee.ui.CoroutineViewModel
+import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.ui.SimpleAction
 import eu.yeger.koffee.utility.sourcedLiveData
 
@@ -41,8 +41,8 @@ class ItemDetailsViewModel(
     private val _refreshing = MutableLiveData(false)
     val refreshing: LiveData<Boolean> = _refreshing
 
-    val editItemAction = Action<String>()
-    val deleteItemAction = Action<String>()
+    val editItemAction = DataAction<String>()
+    val deleteItemAction = DataAction<String>()
     val itemDeletedAction = SimpleAction()
     val itemNotFoundAction = SimpleAction()
 

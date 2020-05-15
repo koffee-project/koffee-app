@@ -6,8 +6,8 @@ import androidx.lifecycle.switchMap
 import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.Action
 import eu.yeger.koffee.ui.CoroutineViewModel
+import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.ui.SimpleAction
 import eu.yeger.koffee.utility.mediatedLiveData
 import eu.yeger.koffee.utility.sourcedLiveData
@@ -50,7 +50,7 @@ class UserListViewModel(
     val refreshing: LiveData<Boolean> = _refreshing
 
     val createUserAction = SimpleAction()
-    val userSelectedAction = Action<Pair<Boolean, User>>()
+    val userSelectedAction = DataAction<Pair<Boolean, User>>()
 
     init {
         refreshUsers()

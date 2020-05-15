@@ -3,8 +3,8 @@ package eu.yeger.koffee.ui.user.editing
 import androidx.lifecycle.MutableLiveData
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.Action
 import eu.yeger.koffee.ui.CoroutineViewModel
+import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.utility.nullIfBlank
 import eu.yeger.koffee.utility.sourcedLiveData
 
@@ -26,7 +26,7 @@ class UserEditingViewModel(
                 userPassword.value.isNullOrBlank().not() && userPassword.value!!.length >= 8)
     }
 
-    val userUpdatedAction = Action<String>()
+    val userUpdatedAction = DataAction<String>()
 
     init {
         onViewModelScope {

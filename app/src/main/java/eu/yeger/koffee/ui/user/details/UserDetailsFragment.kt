@@ -25,7 +25,7 @@ class UserDetailsFragment : Fragment() {
     private val userDetailsViewModel: UserDetailsViewModel by viewModelFactories {
         val context = requireContext()
         UserDetailsViewModel(
-            isActiveUser = context.getUserIdFromSharedPreferences() == userId,
+            isActiveUser = false,
             userId = userId,
             adminRepository = AdminRepository(context),
             transactionRepository = TransactionRepository(context),
@@ -37,7 +37,14 @@ class UserDetailsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
+        if (userId == requireContext().getUserIdFromSharedPreferences()) {
+            // current user is active user, so we navigate to home instead
+            val direction = UserDetailsFragmentDirections.toHome()
+            findNavController().navigate(direction)
+            return null
+        }
+
         userDetailsViewModel.apply {
             observeAction(editUserAction) { userId ->
                 val direction = UserDetailsFragmentDirections.toUserEditing(userId)
@@ -57,15 +64,7 @@ class UserDetailsFragment : Fragment() {
             }
 
             observeAction(userNotFoundAction) {
-                val context = requireContext()
-                val activeUserId = context.getUserIdFromSharedPreferences()
-                val message = if (activeUserId == userId) {
-                    context.deleteUserIdFromSharedPreferences()
-                    R.string.active_user_deleted
-                } else {
-                    R.string.user_not_found
-                }
-                showUserNotFoundDialog(message)
+                showUserNotFoundDialog()
             }
 
             onErrorShowSnackbar()
@@ -78,9 +77,9 @@ class UserDetailsFragment : Fragment() {
         }.root
     }
 
-    private fun showUserNotFoundDialog(message: Int) {
+    private fun showUserNotFoundDialog() {
         AlertDialog.Builder(requireContext())
-            .setMessage(message)
+            .setMessage(R.string.user_not_found)
             .setPositiveButton(R.string.go_back) { _, _ ->
                 val direction = UserDetailsFragmentDirections.toUserList()
                 findNavController().navigate(direction)

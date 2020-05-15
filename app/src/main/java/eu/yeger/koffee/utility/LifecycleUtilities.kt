@@ -4,8 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
-import eu.yeger.koffee.ui.ResettableLiveData
-import eu.yeger.koffee.ui.SimpleAction
+import eu.yeger.koffee.ui.Action
 
 /**
  * Creates a [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) that is updated every time one of the [sources] changes.
@@ -46,20 +45,20 @@ fun <T> Fragment.observe(source: LiveData<T>, block: (T) -> Unit) {
     source.observe(viewLifecycleOwner, Observer(block))
 }
 
-fun <T> Fragment.observeAction(source: ResettableLiveData<T?>, block: (T) -> Unit) {
+fun <T> Fragment.observeAction(source: Action<T?>, block: (T) -> Unit) {
     observe(source) {
         it?.let {
             block(it)
-            source.reset()
+            source.complete()
         }
     }
 }
 
-fun Fragment.observeAction(source: SimpleAction, block: () -> Unit) {
+fun Fragment.observeAction(source: Action<Boolean?>, block: () -> Unit) {
     observe(source) {
-        if (it) {
+        if (it == true) {
             block()
-            source.reset()
+            source.complete()
         }
     }
 }

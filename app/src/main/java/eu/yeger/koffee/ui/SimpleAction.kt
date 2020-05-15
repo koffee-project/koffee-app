@@ -1,6 +1,6 @@
 package eu.yeger.koffee.ui
 
-class SimpleAction : ResettableLiveData<Boolean>(false) {
+class SimpleAction : Action<Boolean?>(false) {
     fun activate() = postValue(true)
-    override fun reset() = postValue(false)
+    override fun complete() = postValue(false)
 }

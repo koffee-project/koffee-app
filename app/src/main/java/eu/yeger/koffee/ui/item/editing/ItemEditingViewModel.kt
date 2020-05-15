@@ -3,8 +3,8 @@ package eu.yeger.koffee.ui.item.editing
 import androidx.lifecycle.MutableLiveData
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
-import eu.yeger.koffee.ui.Action
 import eu.yeger.koffee.ui.CoroutineViewModel
+import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.utility.isValidPrice
 import eu.yeger.koffee.utility.sourcedLiveData
 
@@ -26,7 +26,7 @@ class ItemEditingViewModel(
                 (itemAmount.value.isNullOrBlank() || itemAmount.value?.toIntOrNull() ?: -1 >= 0)
     }
 
-    val itemUpdatedAction = Action<String>()
+    val itemUpdatedAction = DataAction<String>()
 
     init {
         onViewModelScope {
