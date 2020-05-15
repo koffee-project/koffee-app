@@ -50,7 +50,7 @@ class TransactionRepository(private val database: KoffeeDatabase) {
     suspend fun fetchTransactionsByUserId(userId: String) {
         withContext(Dispatchers.IO) {
             val response = NetworkService.koffeeApi.getTransactionForUser(userId)
-            val transactions = response.data!!.asDatabaseModel(userId)
+            val transactions = response!!.asDatabaseModel(userId)
             database.transactionDao.apply {
                 deleteAll()
                 insertAll(*transactions.toTypedArray())

@@ -38,7 +38,7 @@ class ItemRepository(private val database: KoffeeDatabase) {
     suspend fun refreshItems() {
         withContext(Dispatchers.IO) {
             val response = NetworkService.koffeeApi.getItems()
-            val items = response.data.asDomainModel()
+            val items = response.asDomainModel()
             database.itemDao.insertAll(*items.toTypedArray())
         }
     }
@@ -46,7 +46,7 @@ class ItemRepository(private val database: KoffeeDatabase) {
     suspend fun refreshItemById(itemId: String) {
         withContext(Dispatchers.IO) {
             val response = NetworkService.koffeeApi.getItemById(itemId)
-            val item = response.data!!.asDomainModel()
+            val item = response!!.asDomainModel()
             database.itemDao.insertAll(item)
         }
     }

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentItemListBinding
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
@@ -36,9 +35,7 @@ class ItemListFragment : Fragment() {
                 findNavController().navigate(direction)
             }
 
-            onErrorShowSnackbar { error ->
-                getString(R.string.item_refresh_error_format, error.localizedMessage)
-            }
+            onErrorShowSnackbar()
         }
 
         return FragmentItemListBinding.inflate(inflater).apply {

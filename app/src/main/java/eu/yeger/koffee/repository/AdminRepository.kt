@@ -33,8 +33,8 @@ class AdminRepository(private val database: KoffeeDatabase) {
     suspend fun login(userId: String, password: String) {
         withContext(Dispatchers.IO) {
             val credentials = ApiCredentials(id = userId, password = password)
-            val response = NetworkService.koffeeApi.login(credentials)
-            val jwt = JWT(userId = userId, token = response.data)
+            val token = NetworkService.koffeeApi.login(credentials)
+            val jwt = JWT(userId = userId, token = token)
             Timber.d("Received JWT: $jwt")
             database.jwtDao.run {
                 deleteAll()

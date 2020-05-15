@@ -27,8 +27,8 @@ class UserEntryRepository(private val database: KoffeeDatabase) {
 
     suspend fun refreshUsers() {
         withContext(Dispatchers.IO) {
-            val apiResponse = NetworkService.koffeeApi.getUsers()
-            val userEntries = apiResponse.data.map(ApiUserEntry::asDomainModel)
+            val response = NetworkService.koffeeApi.getUsers()
+            val userEntries = response.map(ApiUserEntry::asDomainModel)
             database.userEntryDao.apply {
                 deleteAll()
                 insertAll(*userEntries.toTypedArray())

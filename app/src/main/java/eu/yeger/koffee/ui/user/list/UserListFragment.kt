@@ -44,9 +44,7 @@ class UserListFragment : Fragment() {
                 showUserSelectionDialog(userEntry, canView)
             }
 
-            onErrorShowSnackbar { error ->
-                getString(R.string.user_refresh_error_format, error.localizedMessage)
-            }
+            onErrorShowSnackbar()
         }
 
         return FragmentUserListBinding.inflate(inflater).apply {

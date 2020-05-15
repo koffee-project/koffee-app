@@ -36,7 +36,7 @@ class UserRepository(private val database: KoffeeDatabase) {
     suspend fun fetchUserById(id: String) {
         withContext(Dispatchers.IO) {
             val response = NetworkService.koffeeApi.getUserById(id)
-            val user = response.data!!.asDomainModel()
+            val user = response!!.asDomainModel()
             database.userDao.insert(user)
         }
     }

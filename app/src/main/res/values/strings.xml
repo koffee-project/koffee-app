@@ -7,16 +7,12 @@
     <string name="name">Name</string>
     <string name="user_name_id_format">%s (%s)</string>
     <string name="no_results">No results</string>
-    <string name="user_refresh_success">Users refreshed successfully</string>
-    <string name="user_refresh_error_format">Unable to refresh users: %s</string>
     <string name="set_active_user_format">Set %s (%s) as your active user?</string>
     <string name="set_as_active_user">Set As Active User</string>
     <string name="cancel">Cancel</string>
     <string name="no_user_selected">Looks like no user has been selected yet!</string>
     <string name="currency_format">%.2f€</string>
     <string name="title_item_list">Items</string>
-    <string name="item_refresh_success">Items refreshed successfully</string>
-    <string name="item_refresh_error_format">Unable to refresh items: %s</string>
     <string name="funding_format">Funding: %.2f€</string>
     <string name="purchase_format">Purchase: %d %s for %.2f€</string>
     <string name="refund_format">Refund: %d %s for %.2f€</string>
@@ -29,7 +25,7 @@
     <string name="title_login">Login</string>
     <string name="user_id">UserID</string>
     <string name="password">Password</string>
-    <string name="login_success">Login successful</string>
+    <string name="login_success">Login successful.</string>
     <string name="logout">Logout</string>
     <string name="got_to_selection">Go To Selection</string>
     <string name="title_user_creation">Create User</string>
@@ -38,10 +34,10 @@
     <string name="id">ID</string>
     <string name="amount">Amount</string>
     <string name="price">Price</string>
-    <string name="item_creation_success">Item Created Successfully</string>
-    <string name="user_creation_success">User Created Successfully</string>
-    <string name="item_deletion_success">Item Deleted Successfully</string>
-    <string name="user_deletion_success">User Deleted Successfully</string>
+    <string name="item_creation_success">Item created successfully.</string>
+    <string name="user_creation_success">User created successfully.</string>
+    <string name="item_deletion_success">Item deleted successfully.</string>
+    <string name="user_deletion_success">User deleted successfully.</string>
     <string name="title_user_list">Users</string>
     <string name="delete_format">Delete %s?</string>
     <string name="delete">Delete</string>
@@ -50,11 +46,12 @@
     <string name="go_back">Go Back</string>
     <string name="title_item_editing">Edit Item</string>
     <string name="update_item">Update Item</string>
-    <string name="item_editing_success">Item Updated Successfully</string>
-    <string name="user_editing_success">User Updated Successfully</string>
+    <string name="item_editing_success">Item updated successfully.</string>
+    <string name="user_editing_success">User updated successfully.</string>
     <string name="title_user_details">User Details</string>
     <string name="view_user_as_admin">View As Admin</string>
     <string name="title_user_editing">Edit User</string>
     <string name="update_user">Update User</string>
     <string name="unknown_error">Unknown Error</string>
+    <string name="no_connection">No Connection</string>
 </resources>

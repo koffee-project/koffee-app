@@ -6,15 +6,25 @@ import androidx.lifecycle.viewModelScope
 import eu.yeger.koffee.R
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
+import java.net.UnknownHostException
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 abstract class CoroutineViewModel : ViewModel() {
     private val errorAction = Action<Throwable>()
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         errorAction.activateWith(throwable)
+    }
+
+    private val defaultErrorFormatter: Fragment.(Throwable) -> String = { error ->
+        when (error) {
+            is UnknownHostException -> getString(R.string.no_connection)
+            is HttpException -> error.response()?.errorBody()?.string()
+            else -> error.localizedMessage
+        } ?: getString(R.string.unknown_error)
     }
 
     protected fun onViewModelScope(block: suspend CoroutineScope.() -> Unit) =
@@ -25,12 +35,11 @@ abstract class CoroutineViewModel : ViewModel() {
     }
 
     fun Fragment.onErrorShowSnackbar(
-        block: (Throwable) -> String = {
-            it.localizedMessage ?: getString(R.string.unknown_error)
-        }
+        block: (Fragment.(Throwable) -> String?)? = null
     ) {
         onError {
-            requireActivity().showSnackbar(block(it))
+            val message = block?.invoke(this, it) ?: defaultErrorFormatter(it)
+            requireActivity().showSnackbar(message)
         }
     }
 }
