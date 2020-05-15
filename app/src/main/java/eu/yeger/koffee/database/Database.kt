@@ -9,6 +9,8 @@ import eu.yeger.koffee.domain.Item
 import eu.yeger.koffee.domain.JWT
 import eu.yeger.koffee.domain.User
 
+// TODO add worker for periodically cleaning the database
+// TODO add worker for periodically deleting jwts
 @Database(
     entities = [
         DatabaseTransaction::class,
