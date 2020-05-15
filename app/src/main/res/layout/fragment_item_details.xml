@@ -89,6 +89,18 @@
                 app:visible="@{viewModel.hasUser}"
                 tools:text="Transaction of UserName" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/state_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_transactions"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="@+id/transaction_recycler_view"
+                app:layout_constraintEnd_toEndOf="@+id/transaction_recycler_view"
+                app:layout_constraintStart_toStartOf="@+id/transaction_recycler_view"
+                app:layout_constraintTop_toTopOf="@+id/transaction_recycler_view"
+                app:visible="@{!viewModel.hasTransactions}" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/transaction_recycler_view"
                 android:layout_width="0dp"

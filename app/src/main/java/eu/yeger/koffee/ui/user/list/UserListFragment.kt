@@ -47,7 +47,7 @@ class UserListFragment : Fragment() {
 
         return FragmentUserListBinding.inflate(inflater).apply {
             viewModel = userListViewModel
-            searchResultRecyclerView.adapter =
+            userRecyclerView.adapter =
                 UserListAdapter(OnClickListener { selectedUser ->
                     userListViewModel.activateUserSelectedAction(selectedUser)
                 })

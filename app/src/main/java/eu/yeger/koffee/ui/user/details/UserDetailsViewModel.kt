@@ -25,6 +25,7 @@ class UserDetailsViewModel(
     val hasUser = user.map { it != null }
 
     val transactions = transactionRepository.getTransactionsByUserId(userId)
+    val hasTransactions = transactions.map { it.isNotEmpty() }
 
     // TODO disable refund after expiry
     val canRefund = transactionRepository.getLastRefundableTransactionByUserId(userId)

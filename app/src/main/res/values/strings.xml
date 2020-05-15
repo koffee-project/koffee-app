@@ -57,4 +57,5 @@
     <string name="user_not_found">This user no longer exists.</string>
     <string name="active_user_deleted">The previously active user has been deleted.</string>
     <string name="item">Item</string>
+    <string name="no_transactions">No transactions available</string>
 </resources>

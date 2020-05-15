@@ -37,22 +37,18 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/state_text"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/default_spacing"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:layout_marginEnd="@dimen/default_spacing"
-                android:layout_marginBottom="@dimen/default_spacing"
                 android:text="@string/no_results"
                 android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
+                app:layout_constraintBottom_toBottomOf="@+id/user_recycler_view"
+                app:layout_constraintEnd_toEndOf="@+id/user_recycler_view"
+                app:layout_constraintStart_toStartOf="@+id/user_recycler_view"
+                app:layout_constraintTop_toTopOf="@+id/user_recycler_view"
                 app:visible="@{viewModel.hasNoResults}" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/search_result_recycler_view"
+                android:id="@+id/user_recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="@dimen/half_spacing"
@@ -70,10 +66,10 @@
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
+                app:layout_constraintBottom_toBottomOf="@+id/user_recycler_view"
+                app:layout_constraintEnd_toEndOf="@+id/user_recycler_view"
+                app:layout_constraintStart_toStartOf="@+id/user_recycler_view"
+                app:layout_constraintTop_toTopOf="@+id/user_recycler_view"
                 app:visible="@{viewModel.isBusy}" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
