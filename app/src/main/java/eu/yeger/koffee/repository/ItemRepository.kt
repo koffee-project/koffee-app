@@ -49,7 +49,7 @@ class ItemRepository(private val database: KoffeeDatabase) {
 
     suspend fun fetchItemById(itemId: String) {
         withContext(Dispatchers.IO) {
-            onNotFound({ database.itemDao.deleteById(itemId) }) {
+            onNotFound({ database.purgeItemById(itemId) }) {
                 val response = NetworkService.koffeeApi.getItemById(itemId)
                 val item = response!!.asDomainModel()
                 database.itemDao.insertAll(item)
@@ -83,19 +83,21 @@ class ItemRepository(private val database: KoffeeDatabase) {
         jwt: JWT
     ) {
         withContext(Dispatchers.IO) {
-            val itemDTO = ApiItemDTO(
-                id = itemId,
-                name = itemName,
-                price = itemPrice,
-                amount = itemAmount
-            )
-            NetworkService.koffeeApi.updateItem(itemDTO, jwt.formatToken())
+            onNotFound({ database.purgeItemById(itemId) }) {
+                val itemDTO = ApiItemDTO(
+                    id = itemId,
+                    name = itemName,
+                    price = itemPrice,
+                    amount = itemAmount
+                )
+                NetworkService.koffeeApi.updateItem(itemDTO, jwt.formatToken())
+            }
         }
     }
 
     suspend fun deleteItem(itemId: String, jwt: JWT) {
         withContext(Dispatchers.IO) {
-            onNotFound({ database.itemDao.deleteById(itemId) }) {
+            onNotFound({ database.purgeItemById(itemId) }) {
                 NetworkService.koffeeApi.deleteItem(itemId, jwt.formatToken())
                 database.itemDao.deleteById(itemId)
             }

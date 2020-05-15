@@ -38,7 +38,7 @@ class UserRepository(private val database: KoffeeDatabase) {
 
     suspend fun fetchUserById(id: String) {
         withContext(Dispatchers.IO) {
-            onNotFound({ database.userDao.deleteById(id) }) {
+            onNotFound({ database.purgeUserById(id) }) {
                 val response = NetworkService.koffeeApi.getUserById(id)
                 val user = response.asDomainModel()
                 database.userDao.insert(user)
@@ -88,19 +88,21 @@ class UserRepository(private val database: KoffeeDatabase) {
         jwt: JWT
     ) {
         withContext(Dispatchers.IO) {
-            val userDTO = ApiUserDTO(
-                id = userId,
-                name = userName,
-                password = password,
-                isAdmin = isAdmin
-            )
-            NetworkService.koffeeApi.updateUser(userDTO, jwt.formatToken())
+            onNotFound({ database.purgeUserById(userId) }) {
+                val userDTO = ApiUserDTO(
+                    id = userId,
+                    name = userName,
+                    password = password,
+                    isAdmin = isAdmin
+                )
+                NetworkService.koffeeApi.updateUser(userDTO, jwt.formatToken())
+            }
         }
     }
 
     suspend fun deleteUser(userId: String, jwt: JWT) {
         withContext(Dispatchers.IO) {
-            onNotFound({ database.userDao.deleteById(userId) }) {
+            onNotFound({ database.purgeUserById(userId) }) {
                 NetworkService.koffeeApi.deleteUser(userId, jwt.formatToken())
                 database.userDao.deleteById(userId)
                 database.transactionDao.deleteByUserId(userId)
