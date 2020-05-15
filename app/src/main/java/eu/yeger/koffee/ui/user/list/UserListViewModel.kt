@@ -59,7 +59,7 @@ class UserListViewModel(
     fun refreshUsers() {
         onViewModelScope {
             _refreshing.value = true
-            userRepository.refreshUserList()
+            userRepository.fetchUsers()
         }.invokeOnCompletion {
             _refreshing.postValue(false)
         }

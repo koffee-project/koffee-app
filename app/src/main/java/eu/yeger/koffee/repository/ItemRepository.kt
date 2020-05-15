@@ -10,6 +10,7 @@ import eu.yeger.koffee.network.ApiItemDTO
 import eu.yeger.koffee.network.NetworkService
 import eu.yeger.koffee.network.asDomainModel
 import eu.yeger.koffee.network.formatToken
+import eu.yeger.koffee.utility.onNotFound
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -35,7 +36,7 @@ class ItemRepository(private val database: KoffeeDatabase) {
         return database.itemDao.getByIdAsLiveData(id)
     }
 
-    suspend fun refreshItems() {
+    suspend fun fetchItems() {
         withContext(Dispatchers.IO) {
             val response = NetworkService.koffeeApi.getItems()
             val items = response.asDomainModel()
@@ -46,11 +47,13 @@ class ItemRepository(private val database: KoffeeDatabase) {
         }
     }
 
-    suspend fun refreshItemById(itemId: String) {
+    suspend fun fetchItemById(itemId: String) {
         withContext(Dispatchers.IO) {
-            val response = NetworkService.koffeeApi.getItemById(itemId)
-            val item = response!!.asDomainModel()
-            database.itemDao.insertAll(item)
+            onNotFound({ database.itemDao.deleteById(itemId) }) {
+                val response = NetworkService.koffeeApi.getItemById(itemId)
+                val item = response!!.asDomainModel()
+                database.itemDao.insertAll(item)
+            }
         }
     }
 
@@ -92,8 +95,10 @@ class ItemRepository(private val database: KoffeeDatabase) {
 
     suspend fun deleteItem(itemId: String, jwt: JWT) {
         withContext(Dispatchers.IO) {
-            NetworkService.koffeeApi.deleteItem(itemId, jwt.formatToken())
-            database.itemDao.deleteById(itemId)
+            onNotFound({ database.itemDao.deleteById(itemId) }) {
+                NetworkService.koffeeApi.deleteItem(itemId, jwt.formatToken())
+                database.itemDao.deleteById(itemId)
+            }
         }
     }
 }

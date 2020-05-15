@@ -27,7 +27,7 @@ class ItemListViewModel(
     fun refreshItems() {
         onViewModelScope {
             _refreshing.value = true
-            itemRepository.refreshItems()
+            itemRepository.fetchItems()
         }.invokeOnCompletion {
             _refreshing.postValue(false)
         }

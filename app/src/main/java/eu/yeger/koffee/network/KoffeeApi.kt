@@ -8,10 +8,10 @@ interface KoffeeApi {
     suspend fun getUsers(): List<ApiUserEntry>
 
     @GET("users/{id}")
-    suspend fun getUserById(@Path("id") id: String): ApiUserProfile?
+    suspend fun getUserById(@Path("id") id: String): ApiUserProfile
 
     @GET("users/{id}/transactions")
-    suspend fun getTransactionForUser(@Path("id") id: String): List<ApiTransaction>?
+    suspend fun getTransactionForUser(@Path("id") id: String): List<ApiTransaction>
 
     @GET("items")
     suspend fun getItems(): List<ApiItem>

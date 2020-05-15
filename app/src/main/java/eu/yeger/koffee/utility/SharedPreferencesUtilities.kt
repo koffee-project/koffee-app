@@ -22,6 +22,12 @@ fun Context.saveUserIdToSharedPreferences(userId: String) {
     }
 }
 
+fun Context.deleteUserIdFromSharedPreferences() {
+    sharedPreferences.edit {
+        putString(activeUserId, null)
+    }
+}
+
 fun Context.getUserIdFromSharedPreferences(): String? {
     return sharedPreferences.getString(activeUserId, null)
 }

@@ -10,116 +10,122 @@
             type="eu.yeger.koffee.ui.item.details.ItemDetailsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:visible="@{viewModel.hasItem}"
-        tools:context=".ui.home.HomeFragment">
+        app:onRefresh="@{() -> viewModel.refreshItem()}"
+        app:refreshing="@{viewModel.refreshing}">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/item_name_text"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_spacing"
-            android:layout_marginTop="@dimen/default_spacing"
-            android:layout_marginEnd="@dimen/default_spacing"
-            android:text="@{viewModel.item.name}"
-            android:textAlignment="viewStart"
-            app:layout_constraintEnd_toStartOf="@+id/item_price_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="ItemName" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:visible="@{viewModel.hasItem}">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/item_price_text"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/default_spacing"
-            android:text="@{@string/currency_format(viewModel.item.price)}"
-            android:textAlignment="center"
-            app:layout_constraintBaseline_toBaselineOf="@+id/item_name_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="100$" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_name_text"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:text="@{viewModel.item.name}"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toStartOf="@+id/item_price_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="ItemName" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buy_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_spacing"
-            android:layout_marginTop="@dimen/default_spacing"
-            android:layout_marginEnd="@dimen/default_spacing"
-            android:onClick="@{() -> viewModel.buyItem()}"
-            android:text="@string/buy"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_name_text"
-            app:visible="@{viewModel.hasUser}" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_price_text"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:text="@{@string/currency_format(viewModel.item.price)}"
+                android:textAlignment="center"
+                app:layout_constraintBaseline_toBaselineOf="@+id/item_name_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="100$" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/refund_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_spacing"
-            android:layout_marginTop="@dimen/default_spacing"
-            android:layout_marginEnd="@dimen/default_spacing"
-            android:onClick="@{() -> viewModel.refundPurchase()}"
-            android:text="@string/refund"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buy_button"
-            app:visible="@{viewModel.canRefund}" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buy_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:onClick="@{() -> viewModel.buyItem()}"
+                android:text="@string/buy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_name_text"
+                app:visible="@{viewModel.hasUser}" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/transactions_title_text"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_spacing"
-            android:layout_marginTop="@dimen/default_spacing"
-            android:text="@{@string/transactions_title_format(viewModel.user.name)}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/refund_button"
-            app:visible="@{viewModel.hasUser}"
-            tools:text="Transaction of UserName" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/refund_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:onClick="@{() -> viewModel.refundPurchase()}"
+                android:text="@string/refund"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buy_button"
+                app:visible="@{viewModel.canRefund}" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/transaction_recycler_view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/half_spacing"
-            android:layout_marginTop="@dimen/default_spacing"
-            android:layout_marginEnd="@dimen/half_spacing"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/transactions_title_text"
-            app:transactions="@{viewModel.transactions}"
-            app:visible="@{viewModel.hasTransactions}" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/transactions_title_text"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:text="@{@string/transactions_title_format(viewModel.user.name)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/refund_button"
+                app:visible="@{viewModel.hasUser}"
+                tools:text="Transaction of UserName" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/delete_item_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/default_spacing"
-            android:onClick="@{() -> viewModel.triggerDeleteItemAction()}"
-            app:layout_constraintBottom_toTopOf="@+id/edit_item_button"
-            app:layout_constraintEnd_toEndOf="@+id/edit_item_button"
-            app:srcCompat="@drawable/ic_delete_forever_24dp"
-            app:visible="@{viewModel.canModify}" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/transaction_recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/half_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/half_spacing"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/transactions_title_text"
+                app:transactions="@{viewModel.transactions}"
+                app:visible="@{viewModel.hasTransactions}" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/edit_item_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/default_spacing"
-            android:layout_marginBottom="@dimen/default_spacing"
-            android:onClick="@{() -> viewModel.triggerEditItemAction()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_edit_24dp"
-            app:visible="@{viewModel.canModify}" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/delete_item_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/default_spacing"
+                android:onClick="@{() -> viewModel.triggerDeleteItemAction()}"
+                app:layout_constraintBottom_toTopOf="@+id/edit_item_button"
+                app:layout_constraintEnd_toEndOf="@+id/edit_item_button"
+                app:srcCompat="@drawable/ic_delete_forever_24dp"
+                app:visible="@{viewModel.canModify}" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/edit_item_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:layout_marginBottom="@dimen/default_spacing"
+                android:onClick="@{() -> viewModel.triggerEditItemAction()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_edit_24dp"
+                app:visible="@{viewModel.canModify}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

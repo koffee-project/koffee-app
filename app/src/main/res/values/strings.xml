@@ -54,4 +54,6 @@
     <string name="update_user">Update User</string>
     <string name="unknown_error">Unknown Error</string>
     <string name="no_connection">No Connection</string>
+    <string name="user_not_found">This user no longer exists.</string>
+    <string name="active_user_deleted">The previously active user has been deleted.</string>
 </resources>

@@ -1,5 +1,6 @@
 package eu.yeger.koffee.ui.user.details
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +18,12 @@ import eu.yeger.koffee.utility.*
 
 class UserDetailsFragment : Fragment() {
 
+    private val userId by lazy {
+        UserDetailsFragmentArgs.fromBundle(requireArguments()).userId
+    }
+
     private val userDetailsViewModel: UserDetailsViewModel by viewModelFactories {
         val context = requireContext()
-        val userId = UserDetailsFragmentArgs.fromBundle(requireArguments()).userId
         UserDetailsViewModel(
             isActiveUser = context.getUserIdFromSharedPreferences() == userId,
             userId = userId,
@@ -52,6 +56,18 @@ class UserDetailsFragment : Fragment() {
                 findNavController().navigate(direction)
             }
 
+            observeAction(userNotFoundAction) {
+                val context = requireContext()
+                val activeUserId = context.getUserIdFromSharedPreferences()
+                val message = if (activeUserId == userId) {
+                    context.deleteUserIdFromSharedPreferences()
+                    R.string.active_user_deleted
+                } else {
+                    R.string.user_not_found
+                }
+                showUserNotFoundDialog(message)
+            }
+
             onErrorShowSnackbar()
         }
 
@@ -60,5 +76,17 @@ class UserDetailsFragment : Fragment() {
             transactionRecyclerView.adapter = TransactionListAdapter(OnClickListener { /*ingore*/ })
             lifecycleOwner = viewLifecycleOwner
         }.root
+    }
+
+    private fun showUserNotFoundDialog(message: Int) {
+        AlertDialog.Builder(requireContext())
+            .setMessage(message)
+            .setPositiveButton(R.string.go_back) { _, _ ->
+                val direction = UserDetailsFragmentDirections.toUserList()
+                findNavController().navigate(direction)
+            }
+            .setCancelable(false)
+            .create()
+            .show()
     }
 }

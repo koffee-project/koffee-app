@@ -7,6 +7,7 @@ import eu.yeger.koffee.database.getDatabase
 import eu.yeger.koffee.domain.JWT
 import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.network.*
+import eu.yeger.koffee.utility.onNotFound
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -24,13 +25,23 @@ class UserRepository(private val database: KoffeeDatabase) {
         return database.userDao.getFilteredAsLiveData(filter.nameFragment)
     }
 
-    suspend fun refreshUserList() {
+    suspend fun fetchUsers() {
         withContext(Dispatchers.IO) {
             val response = NetworkService.koffeeApi.getUsers()
             val userEntries = response.map(ApiUserEntry::asDomainModel)
             database.userDao.apply {
                 deleteAll()
                 insertAll(*userEntries.toTypedArray())
+            }
+        }
+    }
+
+    suspend fun fetchUserById(id: String) {
+        withContext(Dispatchers.IO) {
+            onNotFound({ database.userDao.deleteById(id) }) {
+                val response = NetworkService.koffeeApi.getUserById(id)
+                val user = response.asDomainModel()
+                database.userDao.insert(user)
             }
         }
     }
@@ -49,14 +60,6 @@ class UserRepository(private val database: KoffeeDatabase) {
 
     fun getUserByIdAsLiveData(id: String?): LiveData<User?> {
         return database.userDao.getByIdAsLiveData(id)
-    }
-
-    suspend fun fetchUserById(id: String) {
-        withContext(Dispatchers.IO) {
-            val response = NetworkService.koffeeApi.getUserById(id)
-            val user = response!!.asDomainModel()
-            database.userDao.insert(user)
-        }
     }
 
     suspend fun createUser(
@@ -97,9 +100,11 @@ class UserRepository(private val database: KoffeeDatabase) {
 
     suspend fun deleteUser(userId: String, jwt: JWT) {
         withContext(Dispatchers.IO) {
-            NetworkService.koffeeApi.deleteUser(userId, jwt.formatToken())
-            database.userDao.deleteById(userId)
-            database.transactionDao.deleteByUserId(userId)
+            onNotFound({ database.userDao.deleteById(userId) }) {
+                NetworkService.koffeeApi.deleteUser(userId, jwt.formatToken())
+                database.userDao.deleteById(userId)
+                database.transactionDao.deleteByUserId(userId)
+            }
         }
     }
 }

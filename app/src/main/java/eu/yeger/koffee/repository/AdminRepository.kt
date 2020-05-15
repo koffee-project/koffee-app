@@ -10,7 +10,6 @@ import eu.yeger.koffee.network.ApiCredentials
 import eu.yeger.koffee.network.NetworkService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 class AdminRepository(private val database: KoffeeDatabase) {
 
@@ -35,7 +34,6 @@ class AdminRepository(private val database: KoffeeDatabase) {
             val credentials = ApiCredentials(id = userId, password = password)
             val token = NetworkService.koffeeApi.login(credentials)
             val jwt = JWT(userId = userId, token = token)
-            Timber.d("Received JWT: $jwt")
             database.jwtDao.run {
                 deleteAll()
                 insert(jwt)

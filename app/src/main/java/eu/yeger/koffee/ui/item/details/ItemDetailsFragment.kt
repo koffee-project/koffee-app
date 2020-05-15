@@ -72,7 +72,8 @@ class ItemDetailsFragment : Fragment() {
         AlertDialog.Builder(requireContext())
             .setMessage(getString(R.string.item_not_found))
             .setPositiveButton(R.string.go_back) { _, _ ->
-                findNavController().navigateUp()
+                val direction = ItemDetailsFragmentDirections.toItemList()
+                findNavController().navigate(direction)
             }
             .setCancelable(false)
             .create()

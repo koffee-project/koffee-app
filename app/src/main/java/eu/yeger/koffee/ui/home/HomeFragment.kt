@@ -16,25 +16,19 @@ import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.TransactionListAdapter
 import eu.yeger.koffee.ui.user.details.UserDetailsViewModel
-import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
-import eu.yeger.koffee.utility.observeAction
-import eu.yeger.koffee.utility.viewModelFactories
+import eu.yeger.koffee.utility.*
 
 class HomeFragment : Fragment() {
 
-    private val homeViewModel: HomeViewModel by viewModelFactories {
-        val context = requireContext()
-        HomeViewModel(
-            userId = context.getUserIdFromSharedPreferences(),
-            userRepository = UserRepository(context)
-        )
+    private val userId by lazy {
+        requireContext().getUserIdFromSharedPreferences()
     }
 
     private val userDetailsViewModel: UserDetailsViewModel by viewModelFactories {
         val context = requireContext()
         UserDetailsViewModel(
             isActiveUser = true,
-            userId = context.getUserIdFromSharedPreferences(),
+            userId = userId,
             adminRepository = AdminRepository(context),
             transactionRepository = TransactionRepository(context),
             userRepository = UserRepository(context)
@@ -46,16 +40,19 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        homeViewModel.apply {
-            observeAction(userSelectionRequiredAction) {
-                showUserSelectionRequiredDialog()
-            }
-        }
-
         userDetailsViewModel.apply {
             observeAction(editUserAction) { userId ->
                 val direction = HomeFragmentDirections.toUserEditing(userId)
                 findNavController().navigate(direction)
+            }
+
+            observeAction(userNotFoundAction) {
+                val message = when (userId) {
+                    null -> R.string.no_user_selected
+                    else -> R.string.active_user_deleted
+                }
+                requireContext().deleteUserIdFromSharedPreferences()
+                showUserSelectionRequiredDialog(message)
             }
 
             onErrorShowSnackbar()
@@ -78,9 +75,9 @@ class HomeFragment : Fragment() {
         }.root
     }
 
-    private fun showUserSelectionRequiredDialog() {
+    private fun showUserSelectionRequiredDialog(message: Int) {
         AlertDialog.Builder(requireContext())
-            .setMessage(R.string.no_user_selected)
+            .setMessage(message)
             .setPositiveButton(R.string.got_to_selection) { _, _ ->
                 val direction = HomeFragmentDirections.toUserList()
                 findNavController().navigate(direction)

@@ -1,6 +1,8 @@
 package eu.yeger.koffee.ui.user.details
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
@@ -34,18 +36,37 @@ class UserDetailsViewModel(
 
     val canDelete = canEdit.map { !isActiveUser && it }
 
+    private val _refreshing = MutableLiveData(false)
+    val refreshing: LiveData<Boolean> = _refreshing
+
     val editUserAction = Action<String>()
     val deleteUserAction = Action<String>()
     val userDeletedAction = SimpleAction()
+    val userNotFoundAction = SimpleAction()
 
     init {
-        userId?.let {
+        refreshUser()
+    }
+
+    fun refreshUser() {
+        if (userId == null) {
+            userNotFoundAction.activate()
+            return
+        }
+
+        onViewModelScope {
+            _refreshing.value = true
+            userRepository.fetchUserById(userId)
+        }.invokeOnCompletion {
+            _refreshing.postValue(false)
             onViewModelScope {
-                userRepository.fetchUserById(userId)
+                if (!userRepository.hasUserWithId(userId)) {
+                    userNotFoundAction.activate()
+                }
             }
-            onViewModelScope {
-                transactionRepository.fetchTransactionsByUserId(userId)
-            }
+        }
+        onViewModelScope {
+            transactionRepository.fetchTransactionsByUserId(userId)
         }
     }
 

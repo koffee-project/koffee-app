@@ -9,7 +9,6 @@ import eu.yeger.koffee.ui.Action
 import eu.yeger.koffee.ui.CoroutineViewModel
 import eu.yeger.koffee.ui.SimpleAction
 import eu.yeger.koffee.utility.sourcedLiveData
-import kotlinx.coroutines.launch
 
 class ItemDetailsViewModel(
     private val itemId: String,
@@ -39,16 +38,25 @@ class ItemDetailsViewModel(
         isAuthenticated.value ?: false && hasItem.value ?: false
     }
 
+    private val _refreshing = MutableLiveData(false)
+    val refreshing: LiveData<Boolean> = _refreshing
+
     val editItemAction = Action<String>()
     val deleteItemAction = Action<String>()
     val itemDeletedAction = SimpleAction()
     val itemNotFoundAction = SimpleAction()
 
     init {
+        refreshItem()
+    }
+
+    fun refreshItem() {
         onViewModelScope {
-            itemRepository.refreshItemById(itemId)
+            _refreshing.value = true
+            itemRepository.fetchItemById(itemId)
         }.invokeOnCompletion {
-            viewModelScope.launch {
+            _refreshing.postValue(false)
+            onViewModelScope {
                 if (!itemRepository.hasItemWithId(itemId)) {
                     itemNotFoundAction.activate()
                 }
