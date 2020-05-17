@@ -20,6 +20,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "KOFFEE_BACKEND_URL", '"https://yeger.eu/koffee/"'
+        buildConfigField "Long", "REFUND_INTERVAL", '60000L'
     }
 
     buildTypes {

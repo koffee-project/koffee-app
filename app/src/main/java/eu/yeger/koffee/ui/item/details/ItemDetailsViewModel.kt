@@ -1,6 +1,8 @@
 package eu.yeger.koffee.ui.item.details
 
+import android.os.CountDownTimer
 import androidx.lifecycle.*
+import eu.yeger.koffee.BuildConfig
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
@@ -8,6 +10,7 @@ import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.CoroutineViewModel
 import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.ui.SimpleAction
+import eu.yeger.koffee.utility.singleTickTimer
 import eu.yeger.koffee.utility.sourcedLiveData
 
 class ItemDetailsViewModel(
@@ -30,9 +33,35 @@ class ItemDetailsViewModel(
     val transactions = transactionRepository.getTransactionsByUserIdAndItemId(userId, itemId)
     val hasTransactions = transactions.map { it.isNotEmpty() }
 
-    // TODO disable refund after expiry
-    val canRefund = transactionRepository.getLastRefundableTransactionByUserIdAndItemId(userId, itemId)
-        .map { it !== null }
+    private var refundTimer: CountDownTimer? = null
+
+    private val isWithinRefundInterval = MutableLiveData(true)
+
+    private val hasRefundable =
+        transactionRepository.getLastRefundableTransactionByUserIdAndItemId(userId, itemId).map {
+            refundTimer?.cancel()
+            when {
+                it === null -> false // no refundable
+                else -> {
+                    val elapsedTime = System.currentTimeMillis() - it.timestamp
+                    val remainingTime = BuildConfig.REFUND_INTERVAL - elapsedTime
+                    when {
+                        remainingTime > 0 -> {
+                            isWithinRefundInterval.postValue(true)
+                            refundTimer = singleTickTimer(remainingTime) {
+                                isWithinRefundInterval.postValue(false)
+                            }.start()
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            }
+        }
+
+    val canRefund = sourcedLiveData(isWithinRefundInterval, hasRefundable) {
+        isWithinRefundInterval.value == true && hasRefundable.value == true
+    }
 
     val canModify = sourcedLiveData(isAuthenticated, hasItem) {
         isAuthenticated.value == true && hasItem.value == true
@@ -91,4 +120,9 @@ class ItemDetailsViewModel(
     fun activateEditItemAction() = editItemAction.activateWith(item.value?.id)
 
     fun activateDeleteItemAction() = deleteItemAction.activateWith(item.value?.id)
+
+    override fun onCleared() {
+        super.onCleared()
+        refundTimer?.cancel()
+    }
 }

@@ -1,5 +1,6 @@
 package eu.yeger.koffee.utility
 
+import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -24,4 +25,9 @@ inline fun <reified VM : ViewModel> Fragment.viewModelFactories(
         }
     }
     return viewModels(factoryProducer = factoryProducer)
+}
+
+fun singleTickTimer(duration: Long, onFinish: () -> Unit) = object : CountDownTimer(duration, duration) {
+    override fun onFinish() = onFinish()
+    override fun onTick(millisUntilFinished: Long) = Unit
 }

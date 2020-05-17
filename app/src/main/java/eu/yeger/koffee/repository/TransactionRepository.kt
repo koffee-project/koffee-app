@@ -34,10 +34,10 @@ class TransactionRepository(private val database: KoffeeDatabase) {
     }
 
     fun getLastRefundableTransactionByUserId(userId: String?) =
-        database.transactionDao.getRefundableByUserIdAsLiveData(userId).validated()
+        database.transactionDao.getRefundableByUserIdAsLiveData(userId).mapped()
 
     fun getLastRefundableTransactionByUserIdAndItemId(userId: String?, itemId: String) =
-        database.transactionDao.getRefundableByUserIdAndItemIdAsLiveData(userId, itemId).validated()
+        database.transactionDao.getRefundableByUserIdAndItemIdAsLiveData(userId, itemId).mapped()
 
     suspend fun fetchTransactionsByUserId(userId: String) {
         withContext(Dispatchers.IO) {
@@ -70,10 +70,7 @@ class TransactionRepository(private val database: KoffeeDatabase) {
         }
     }
 
-    private fun LiveData<DatabaseTransaction?>.validated() = map {
-        when (val transaction = it?.asDomainModel()) {
-            is Transaction.Purchase -> if (System.currentTimeMillis() - transaction.timestamp  < 60_000) transaction else null
-            else -> null
-        }
+    private fun LiveData<DatabaseTransaction?>.mapped() = map {
+        it?.asDomainModel() as Transaction.Purchase?
     }
 }
