@@ -5,19 +5,13 @@ import eu.yeger.koffee.domain.User
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface UserDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(vararg user: User)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(user: User)
-
-    @Query("SELECT * FROM user WHERE id == :id")
-    suspend fun getById(id: String?): User?
+interface UserDao : BaseDao<User> {
 
     @Query("SELECT * FROM user ORDER BY name ASC")
     fun getAllAsFlow(): Flow<List<User>>
+
+    @Query("SELECT * FROM user WHERE id == :id")
+    suspend fun getById(id: String?): User?
 
     @Query("SELECT * FROM user WHERE id == :id")
     fun getByIdAsFlow(id: String?): Flow<User?>
@@ -32,7 +26,7 @@ interface UserDao {
     suspend fun deleteById(id: String)
 
     @Transaction
-    suspend fun updateUsers(users: Collection<User>) {
+    suspend fun upsertAll(users: Collection<User>) {
         deleteAll()
         insertAll(*users.toTypedArray())
     }

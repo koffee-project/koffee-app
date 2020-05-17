@@ -53,7 +53,7 @@ class ItemRepository(private val database: KoffeeDatabase) {
         withContext(Dispatchers.IO) {
             val response = NetworkService.koffeeApi.getItems()
             val items = response.asDomainModel()
-            database.itemDao.updateItems(items)
+            database.itemDao.upsertAll(items)
         }
     }
 

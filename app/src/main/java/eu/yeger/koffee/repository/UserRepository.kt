@@ -34,7 +34,7 @@ class UserRepository(private val database: KoffeeDatabase) {
         withContext(Dispatchers.IO) {
             val response = NetworkService.koffeeApi.getUsers()
             val userEntries = response.map(ApiUserEntry::asDomainModel)
-            database.userDao.updateUsers(userEntries)
+            database.userDao.upsertAll(userEntries)
         }
     }
 
