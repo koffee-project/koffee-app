@@ -71,18 +71,11 @@ fun RecyclerView.bindItemList(items: List<Item>?, callback: Runnable) {
     smoothScrollToPosition(0)
 }
 
-/**
- * Submits a [Transaction] [List] to the [TransactionListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
- *
- * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
- * @param transactions The [List] of [Transaction] objects that will be submitted.
- *
- * @author Jan Müller
- */
-@BindingAdapter("transactions")
-fun RecyclerView.bindTransactionList(transactions: PagedList<Transaction>?) {
-    val adapter = adapter as TransactionListAdapter
-    adapter.submitList(transactions)
+@BindingAdapter("items")
+fun <T> RecyclerView.bindItems(items: PagedList<T>?) {
+    @Suppress("UNCHECKED_CAST")
+    val adapter = adapter as GenericPagedListAdapter<T>
+    adapter.submitList(items)
     smoothScrollToPosition(0)
 }
 

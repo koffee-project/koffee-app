@@ -2,72 +2,47 @@ package eu.yeger.koffee.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import eu.yeger.koffee.databinding.CardPurchaseTransactionBinding
 import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.ui.OnClickListener
 import java.util.*
 import org.ocpsoft.prettytime.PrettyTime
-import timber.log.Timber
 
-class TransactionListAdapter(
-    private val onClickListener: OnClickListener<Transaction>
-) : PagedListAdapter<Transaction, TransactionListAdapter.ViewHolder>(DiffCallback) {
-
-    class ViewHolder(private val binding: CardPurchaseTransactionBinding) : RecyclerView.ViewHolder(binding.root) {
+object TransactionViewHolderFactory : GenericPagedListAdapter.ViewHolderFactory<Transaction> {
+    class ViewHolder(private val binding: CardPurchaseTransactionBinding) :
+        GenericPagedListAdapter.ViewHolder<Transaction>(binding.root) {
         private fun formatTimestamp(timestamp: Long): String {
             val prettyTime = PrettyTime(Locale.getDefault())
             return prettyTime.format(Date(timestamp - 1000)) // subtract one second to prevent edge case issues
         }
 
-        fun bind(transaction: Transaction, onClickListener: OnClickListener<Transaction>) {
+        override fun bind(item: Transaction, onClickListener: OnClickListener<Transaction>) {
             binding.apply {
-                timestamp = formatTimestamp(transaction.timestamp)
-                this.transaction = transaction
+                timestamp = formatTimestamp(item.timestamp)
+                this.transaction = item
                 this.onClickListener = onClickListener
             }.executePendingBindings()
         }
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<Transaction>() {
-
-        /**
-         * Checks if two [Transaction]s have the same id.
-         *
-         * @param oldItem The old [Transaction].
-         * @param newItem The new [Transaction].
-         * @return true if both [Transaction]s have the same id or false otherwise.
-         */
-        override fun areItemsTheSame(oldItem: Transaction, newItem: Transaction) =
-            oldItem == newItem
-
-        /**
-         * Checks if two [Transaction]s are equal.
-         *
-         * @param oldItem The old [Transaction].
-         * @param newItem The new [Transaction].
-         * @return true if both [Transaction]s are equal or false otherwise.
-         */
-        override fun areContentsTheSame(oldItem: Transaction, newItem: Transaction) =
-            oldItem == newItem
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun createViewHolder(parent: ViewGroup): GenericPagedListAdapter.ViewHolder<Transaction> {
         return ViewHolder(
-                CardPurchaseTransactionBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
+            CardPurchaseTransactionBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
             )
+        )
     }
+}
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        when (val transaction = getItem(position)) {
-            null -> Timber.d("Received null item")
-            else -> holder.bind(transaction, onClickListener)
-        }
-    }
+fun transactionListAdapter(onClickListener: OnClickListener<Transaction>): GenericPagedListAdapter<Transaction> {
+    return GenericPagedListAdapter(
+        onClickListener,
+        TransactionViewHolderFactory,
+        itemCallback(
+            isSame = { old, new -> old == new },
+            isIdentical = { old, new -> old == new }
+        )
+    )
 }
