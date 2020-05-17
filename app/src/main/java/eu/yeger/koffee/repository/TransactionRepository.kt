@@ -3,6 +3,8 @@ package eu.yeger.koffee.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
+import androidx.paging.PagedList
+import androidx.paging.toLiveData
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.asDomainModel
 import eu.yeger.koffee.database.getDatabase
@@ -20,18 +22,16 @@ class TransactionRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    fun getTransactionsByUserIdAsLiveData(userId: String?): LiveData<List<Transaction>> {
-        return database.transactionDao.getAllByUserIdAsFlow(userId)
-            .distinctUntilChanged()
+    fun getTransactionsByUserIdAsLiveData(userId: String?): LiveData<PagedList<Transaction>> {
+        return database.transactionDao.getAllByUserIdPaged(userId)
             .map { it.asDomainModel() }
-            .asLiveData()
+            .toLiveData(pageSize = 20)
     }
 
-    fun getTransactionsByUserIdAndItemIdAsLiveData(userId: String?, itemId: String): LiveData<List<Transaction>> {
-        return database.transactionDao.getAllByUserIdAndItemIdAsFlow(userId = userId, itemId = itemId)
-            .distinctUntilChanged()
+    fun getTransactionsByUserIdAndItemIdAsLiveData(userId: String?, itemId: String): LiveData<PagedList<Transaction>> {
+        return database.transactionDao.getAllByUserIdAndItemIdPaged(userId = userId, itemId = itemId)
             .map { it.asDomainModel() }
-            .asLiveData()
+            .toLiveData(pageSize = 20)
     }
 
     fun getLastRefundableTransactionByUserIdAsLiveData(userId: String?): LiveData<Transaction.Purchase?> {

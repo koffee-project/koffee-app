@@ -2,8 +2,11 @@ package eu.yeger.koffee.ui.adapter
 
 import android.view.View
 import androidx.databinding.BindingAdapter
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.imageview.ShapeableImageView
+import eu.yeger.koffee.R
 import eu.yeger.koffee.domain.Item
 import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.domain.User
@@ -77,8 +80,20 @@ fun RecyclerView.bindItemList(items: List<Item>?, callback: Runnable) {
  * @author Jan Müller
  */
 @BindingAdapter("transactions")
-fun RecyclerView.bindTransactionList(transactions: List<Transaction>?) {
+fun RecyclerView.bindTransactionList(transactions: PagedList<Transaction>?) {
     val adapter = adapter as TransactionListAdapter
     adapter.submitList(transactions)
     smoothScrollToPosition(0)
+}
+
+@BindingAdapter("transaction")
+fun ShapeableImageView.bindTransaction(transaction: Transaction?) {
+    transaction?.let {
+        val resourceId = when (transaction) {
+            is Transaction.Funding -> R.drawable.ic_attach_money_24dp
+            is Transaction.Purchase -> R.drawable.ic_shopping_cart_24dp
+            is Transaction.Refund -> R.drawable.ic_remove_shopping_cart_24dp
+        }
+        setImageResource(resourceId)
+    }
 }

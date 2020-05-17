@@ -1,5 +1,6 @@
 package eu.yeger.koffee.database
 
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
@@ -8,10 +9,10 @@ import kotlinx.coroutines.flow.Flow
 interface TransactionDao : BaseDao<DatabaseTransaction> {
 
     @Query("SELECT * FROM databasetransaction WHERE userId == :userId ORDER BY timestamp DESC")
-    fun getAllByUserIdAsFlow(userId: String?): Flow<List<DatabaseTransaction>>
+    fun getAllByUserIdPaged(userId: String?): DataSource.Factory<Int, DatabaseTransaction>
 
     @Query("SELECT * FROM databasetransaction WHERE userId == :userId AND itemId == :itemId ORDER BY timestamp DESC")
-    fun getAllByUserIdAndItemIdAsFlow(userId: String?, itemId: String): Flow<List<DatabaseTransaction>>
+    fun getAllByUserIdAndItemIdPaged(userId: String?, itemId: String): DataSource.Factory<Int, DatabaseTransaction>
 
     @Query("SELECT * FROM (SELECT * FROM databasetransaction WHERE userId == :userId AND type != 'funding' ORDER BY timestamp DESC LIMIT 1) WHERE type == 'purchase'")
     fun getRefundableByUserIdAsFlow(userId: String?): Flow<DatabaseTransaction?>

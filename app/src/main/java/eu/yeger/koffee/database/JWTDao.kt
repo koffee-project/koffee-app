@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
 import eu.yeger.koffee.domain.JWT
-import eu.yeger.koffee.domain.User
 import kotlinx.coroutines.flow.Flow
 
 @Dao
