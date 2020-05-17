@@ -1,24 +1,24 @@
 package eu.yeger.koffee.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import eu.yeger.koffee.domain.JWT
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface JWTDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(jwt: JWT)
+    suspend fun insert(jwt: JWT)
 
     @Query("SELECT * FROM jwt LIMIT 1")
-    fun get(): JWT?
+    suspend fun get(): JWT?
 
     @Query("SELECT * FROM jwt LIMIT 1")
-    fun getAsLiveData(): LiveData<JWT?>
+    fun getAsFlow(): Flow<JWT?>
 
     @Query("DELETE FROM jwt")
-    fun deleteAll()
+    suspend fun deleteAll()
 }

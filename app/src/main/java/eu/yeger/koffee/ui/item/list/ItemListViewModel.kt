@@ -31,5 +31,5 @@ class ItemListViewModel(
 
     fun activateCreateItemAction() = createItemAction.activate()
 
-    override fun getSource(filter: Filter) = itemRepository.filteredUsers(filter)
+    override fun getSource(filter: Filter) = itemRepository.getFilteredItemsAsLiveData(filter)
 }

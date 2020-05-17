@@ -1,36 +1,39 @@
 package eu.yeger.koffee.database
 
-import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import eu.yeger.koffee.domain.User
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg user: User)
+    suspend fun insertAll(vararg user: User)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(user: User)
+    suspend fun insert(user: User)
 
     @Query("SELECT * FROM user WHERE id == :id")
-    fun getById(id: String?): User?
+    suspend fun getById(id: String?): User?
 
     @Query("SELECT * FROM user ORDER BY name ASC")
-    fun getAllAsLiveData(): LiveData<List<User>>
+    fun getAllAsFlow(): Flow<List<User>>
 
     @Query("SELECT * FROM user WHERE id == :id")
-    fun getByIdAsLiveData(id: String?): LiveData<User?>
+    fun getByIdAsFlow(id: String?): Flow<User?>
 
     @Query("SELECT * FROM user WHERE name LIKE :nameFilter ORDER BY name ASC")
-    fun getFilteredAsLiveData(nameFilter: String): LiveData<List<User>>
+    fun getFilteredAsFlow(nameFilter: String): Flow<List<User>>
 
     @Query("DELETE FROM user")
-    fun deleteAll()
+    suspend fun deleteAll()
 
     @Query("DELETE FROM user WHERE id == :id")
-    fun deleteById(id: String)
+    suspend fun deleteById(id: String)
+
+    @Transaction
+    suspend fun updateUsers(users: Collection<User>) {
+        deleteAll()
+        insertAll(*users.toTypedArray())
+    }
 }

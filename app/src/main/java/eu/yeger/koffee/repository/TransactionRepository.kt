@@ -2,8 +2,7 @@ package eu.yeger.koffee.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
-import eu.yeger.koffee.database.DatabaseTransaction
+import androidx.lifecycle.asLiveData
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.asDomainModel
 import eu.yeger.koffee.database.getDatabase
@@ -13,31 +12,34 @@ import eu.yeger.koffee.network.NetworkService
 import eu.yeger.koffee.network.asDatabaseModel
 import eu.yeger.koffee.utility.onNotFound
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 class TransactionRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    fun getTransactionsByUserId(userId: String?): LiveData<List<Transaction>> {
-        return database.transactionDao.getAllByUserIdAsLiveData(userId).map { it.asDomainModel() }
+    fun getTransactionsByUserIdAsLiveData(userId: String?): LiveData<List<Transaction>> {
+        return database.transactionDao.getAllByUserIdAsFlow(userId)
+            .distinctUntilChanged()
+            .map { it.asDomainModel() }
+            .asLiveData()
     }
 
-    fun getTransactionsByUserIdAndItemId(
-        userId: String?,
-        itemId: String
-    ): LiveData<List<Transaction>> {
-        return database.transactionDao.getAllByUserIdAndItemIdAsLiveData(
-            userId = userId,
-            itemId = itemId
-        ).map { it.asDomainModel() }
+    fun getTransactionsByUserIdAndItemIdAsLiveData(userId: String?, itemId: String): LiveData<List<Transaction>> {
+        return database.transactionDao.getAllByUserIdAndItemIdAsFlow(userId = userId, itemId = itemId)
+            .distinctUntilChanged()
+            .map { it.asDomainModel() }
+            .asLiveData()
     }
 
-    fun getLastRefundableTransactionByUserId(userId: String?) =
-        database.transactionDao.getRefundableByUserIdAsLiveData(userId).mapped()
-
-    fun getLastRefundableTransactionByUserIdAndItemId(userId: String?, itemId: String) =
-        database.transactionDao.getRefundableByUserIdAndItemIdAsLiveData(userId, itemId).mapped()
+    fun getLastRefundableTransactionByUserIdAsLiveData(userId: String?): LiveData<Transaction.Purchase?> {
+        return database.transactionDao.getRefundableByUserIdAsFlow(userId)
+            .distinctUntilChanged()
+            .map { it?.asDomainModel() as Transaction.Purchase? }
+            .asLiveData()
+    }
 
     suspend fun fetchTransactionsByUserId(userId: String) {
         withContext(Dispatchers.IO) {
@@ -68,9 +70,5 @@ class TransactionRepository(private val database: KoffeeDatabase) {
                 NetworkService.koffeeApi.refundPurchase(userId)
             }
         }
-    }
-
-    private fun LiveData<DatabaseTransaction?>.mapped() = map {
-        it?.asDomainModel() as Transaction.Purchase?
     }
 }

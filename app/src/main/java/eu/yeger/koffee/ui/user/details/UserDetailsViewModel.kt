@@ -27,7 +27,7 @@ class UserDetailsViewModel(
     val user = userRepository.getUserByIdAsLiveData(userId)
     val hasUser = user.map { it != null }
 
-    val transactions = transactionRepository.getTransactionsByUserId(userId)
+    val transactions = transactionRepository.getTransactionsByUserIdAsLiveData(userId)
     val hasTransactions = transactions.map { it.isNotEmpty() }
 
     private var refundTimer: CountDownTimer? = null
@@ -35,7 +35,7 @@ class UserDetailsViewModel(
     private val isWithinRefundInterval = MutableLiveData(true)
 
     private val hasRefundable =
-        transactionRepository.getLastRefundableTransactionByUserId(userId).map {
+        transactionRepository.getLastRefundableTransactionByUserIdAsLiveData(userId).map {
             refundTimer?.cancel()
             when {
                 it === null || !isActiveUser -> false // no refundable

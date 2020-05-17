@@ -2,6 +2,7 @@ package eu.yeger.koffee.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import eu.yeger.koffee.database.Filter
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.getDatabase
@@ -13,16 +14,21 @@ import eu.yeger.koffee.network.asDomainModel
 import eu.yeger.koffee.network.formatToken
 import eu.yeger.koffee.utility.onNotFound
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.withContext
 
 class ItemRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    fun getItemsAsLiveData() = database.itemDao.getAllAsLiveData()
+    fun getItemsAsLiveData() = database.itemDao.getAllAsFlow()
+        .distinctUntilChanged()
+        .asLiveData()
 
-    fun filteredUsers(filter: Filter): LiveData<List<Item>> {
-        return database.itemDao.getFilteredAsLiveData(filter.nameFragment)
+    fun getFilteredItemsAsLiveData(filter: Filter): LiveData<List<Item>> {
+        return database.itemDao.getFilteredAsFlow(filter.nameFragment)
+            .distinctUntilChanged()
+            .asLiveData()
     }
 
     suspend fun hasItemWithId(id: String?): Boolean {
@@ -38,17 +44,16 @@ class ItemRepository(private val database: KoffeeDatabase) {
     }
 
     fun getItemByIdAsLiveData(id: String?): LiveData<Item?> {
-        return database.itemDao.getByIdAsLiveData(id)
+        return database.itemDao.getByIdAsFlow(id)
+            .distinctUntilChanged()
+            .asLiveData()
     }
 
     suspend fun fetchItems() {
         withContext(Dispatchers.IO) {
             val response = NetworkService.koffeeApi.getItems()
             val items = response.asDomainModel()
-            database.itemDao.run {
-                deleteAll()
-                insertAll(*items.toTypedArray())
-            }
+            database.itemDao.updateItems(items)
         }
     }
 

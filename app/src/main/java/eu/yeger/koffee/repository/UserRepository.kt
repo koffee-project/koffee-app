@@ -2,6 +2,7 @@ package eu.yeger.koffee.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import eu.yeger.koffee.database.Filter
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.getDatabase
@@ -10,26 +11,30 @@ import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.network.*
 import eu.yeger.koffee.utility.onNotFound
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.withContext
 
 class UserRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    fun getUsersAsLiveData() = database.userDao.getAllAsLiveData()
+    fun getUsersAsLiveData(): LiveData<List<User>> {
+        return database.userDao.getAllAsFlow()
+            .distinctUntilChanged()
+            .asLiveData()
+    }
 
-    fun filteredUsers(filter: Filter): LiveData<List<User>> {
-        return database.userDao.getFilteredAsLiveData(filter.nameFragment)
+    fun getFilteredUsersAsLiveData(filter: Filter): LiveData<List<User>> {
+        return database.userDao.getFilteredAsFlow(filter.nameFragment)
+            .distinctUntilChanged()
+            .asLiveData()
     }
 
     suspend fun fetchUsers() {
         withContext(Dispatchers.IO) {
             val response = NetworkService.koffeeApi.getUsers()
             val userEntries = response.map(ApiUserEntry::asDomainModel)
-            database.userDao.apply {
-                deleteAll()
-                insertAll(*userEntries.toTypedArray())
-            }
+            database.userDao.updateUsers(userEntries)
         }
     }
 
@@ -56,7 +61,9 @@ class UserRepository(private val database: KoffeeDatabase) {
     }
 
     fun getUserByIdAsLiveData(id: String?): LiveData<User?> {
-        return database.userDao.getByIdAsLiveData(id)
+        return database.userDao.getByIdAsFlow(id)
+            .distinctUntilChanged()
+            .asLiveData()
     }
 
     suspend fun createUser(

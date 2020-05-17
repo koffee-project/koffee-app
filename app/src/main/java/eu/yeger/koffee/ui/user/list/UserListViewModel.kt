@@ -37,5 +37,5 @@ class UserListViewModel(
     fun activateUserSelectedAction(user: User) =
         userSelectedAction.activateWith((isAuthenticated.value ?: false) to user)
 
-    override fun getSource(filter: Filter) = userRepository.filteredUsers(filter)
+    override fun getSource(filter: Filter) = userRepository.getFilteredUsersAsLiveData(filter)
 }

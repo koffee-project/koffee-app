@@ -1,32 +1,29 @@
 package eu.yeger.koffee.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TransactionDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg transactions: DatabaseTransaction)
+    suspend fun insertAll(vararg transactions: DatabaseTransaction)
 
     @Query("SELECT * FROM databasetransaction WHERE userId == :userId ORDER BY timestamp DESC")
-    fun getAllByUserIdAsLiveData(userId: String?): LiveData<List<DatabaseTransaction>>
+    fun getAllByUserIdAsFlow(userId: String?): Flow<List<DatabaseTransaction>>
 
     @Query("SELECT * FROM databasetransaction WHERE userId == :userId AND itemId == :itemId ORDER BY timestamp DESC")
-    fun getAllByUserIdAndItemIdAsLiveData(userId: String?, itemId: String): LiveData<List<DatabaseTransaction>>
+    fun getAllByUserIdAndItemIdAsFlow(userId: String?, itemId: String): Flow<List<DatabaseTransaction>>
 
     @Query("DELETE FROM databasetransaction")
-    fun deleteAll()
+    suspend fun deleteAll()
 
     @Query("DELETE FROM databasetransaction WHERE userId == :userId")
-    fun deleteByUserId(userId: String)
+    suspend fun deleteByUserId(userId: String)
 
     @Query("SELECT * FROM (SELECT * FROM databasetransaction WHERE userId == :userId AND type != 'funding' ORDER BY timestamp DESC LIMIT 1) WHERE type == 'purchase'")
-    fun getRefundableByUserIdAsLiveData(userId: String?): LiveData<DatabaseTransaction?>
-
-    @Query("SELECT * FROM (SELECT * FROM databasetransaction WHERE userId == :userId AND itemId == :itemId AND type != 'funding' ORDER BY timestamp DESC LIMIT 1) WHERE type == 'purchase'")
-    fun getRefundableByUserIdAndItemIdAsLiveData(userId: String?, itemId: String): LiveData<DatabaseTransaction?>
+    fun getRefundableByUserIdAsFlow(userId: String?): Flow<DatabaseTransaction?>
 }

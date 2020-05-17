@@ -30,7 +30,7 @@ class ItemDetailsViewModel(
     val item = itemRepository.getItemByIdAsLiveData(itemId)
     val hasItem = item.map { it != null }
 
-    val transactions = transactionRepository.getTransactionsByUserIdAndItemId(userId, itemId)
+    val transactions = transactionRepository.getTransactionsByUserIdAndItemIdAsLiveData(userId, itemId)
     val hasTransactions = transactions.map { it.isNotEmpty() }
 
     private var refundTimer: CountDownTimer? = null
@@ -38,12 +38,13 @@ class ItemDetailsViewModel(
     private val isWithinRefundInterval = MutableLiveData(true)
 
     private val hasRefundable =
-        transactionRepository.getLastRefundableTransactionByUserIdAndItemId(userId, itemId).map {
+        transactionRepository.getLastRefundableTransactionByUserIdAsLiveData(userId).map { transaction ->
             refundTimer?.cancel()
             when {
-                it === null -> false // no refundable
+                transaction === null -> false // no refundable
+                transaction.itemId != itemId -> false // refundable is not this item
                 else -> {
-                    val elapsedTime = System.currentTimeMillis() - it.timestamp
+                    val elapsedTime = System.currentTimeMillis() - transaction.timestamp
                     val remainingTime = BuildConfig.REFUND_INTERVAL - elapsedTime
                     when {
                         remainingTime > 0 -> {
