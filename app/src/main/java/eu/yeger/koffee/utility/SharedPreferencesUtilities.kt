@@ -31,10 +31,3 @@ fun Context.deleteUserIdFromSharedPreferences() {
 fun Context.getUserIdFromSharedPreferences(): String? {
     return sharedPreferences.getString(activeUserId, null)
 }
-
-fun Context.getUserIdFromSharedPreferencesIfNull(userId: String?): String? {
-    return when (userId) {
-        null -> getUserIdFromSharedPreferences() // use active userid if no explicit id was passed
-        else -> userId // use argument id otherwise
-    }
-}

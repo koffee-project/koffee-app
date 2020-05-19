@@ -19,12 +19,12 @@ data class DatabaseTransaction(
 
 fun DatabaseTransaction.asDomainModel(): Transaction {
     return when (type) {
-        Transaction.Type.funding -> Transaction.Funding(
+        Transaction.Type.Funding -> Transaction.Funding(
             userId = userId,
             value = value,
             timestamp = timestamp
         )
-        Transaction.Type.purchase -> Transaction.Purchase(
+        Transaction.Type.Purchase -> Transaction.Purchase(
             userId = userId,
             value = value,
             timestamp = timestamp,
@@ -32,7 +32,7 @@ fun DatabaseTransaction.asDomainModel(): Transaction {
             itemName = itemName ?: itemId,
             amount = amount!!
         )
-        Transaction.Type.refund -> Transaction.Refund(
+        Transaction.Type.Refund -> Transaction.Refund(
             userId = userId,
             value = value,
             timestamp = timestamp,

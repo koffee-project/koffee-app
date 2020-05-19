@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">Koffee</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
     <string name="title_admin">Admin</string>
-    <string name="title_user_selection">User Selection</string>
     <string name="name">Name</string>
     <string name="user_name_id_format">%1$s (%2$s)</string>
     <string name="no_results">No results</string>

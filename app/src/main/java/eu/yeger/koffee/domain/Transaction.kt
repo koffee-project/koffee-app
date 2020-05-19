@@ -1,5 +1,7 @@
 package eu.yeger.koffee.domain
 
+import com.squareup.moshi.Json
+
 sealed class Transaction {
 
     abstract val userId: String
@@ -33,8 +35,11 @@ sealed class Transaction {
     ) : Transaction()
 
     enum class Type {
-        funding,
-        purchase,
-        refund
+        @Json(name = "funding")
+        Funding,
+        @Json(name = "purchase")
+        Purchase,
+        @Json(name = "refund")
+        Refund
     }
 }
