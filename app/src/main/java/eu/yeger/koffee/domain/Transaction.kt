@@ -19,6 +19,7 @@ sealed class Transaction {
         override val value: Double,
         override val timestamp: Long,
         val itemId: String,
+        val itemName: String,
         val amount: Int
     ) : Transaction()
 
@@ -27,6 +28,7 @@ sealed class Transaction {
         override val value: Double,
         override val timestamp: Long,
         val itemId: String,
+        val itemName: String,
         val amount: Int
     ) : Transaction()
 

@@ -13,6 +13,7 @@ data class DatabaseTransaction(
     val value: Double,
     val timestamp: Long,
     val itemId: String?,
+    val itemName: String?,
     val amount: Int?
 )
 
@@ -28,6 +29,7 @@ fun DatabaseTransaction.asDomainModel(): Transaction {
             value = value,
             timestamp = timestamp,
             itemId = itemId!!,
+            itemName = itemName ?: itemId,
             amount = amount!!
         )
         Transaction.Type.refund -> Transaction.Refund(
@@ -35,9 +37,8 @@ fun DatabaseTransaction.asDomainModel(): Transaction {
             value = value,
             timestamp = timestamp,
             itemId = itemId!!,
+            itemName = itemName ?: itemId,
             amount = amount!!
         )
     }
 }
-
-fun List<DatabaseTransaction>.asDomainModel() = map { it.asDomainModel() }

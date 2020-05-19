@@ -18,7 +18,7 @@ import eu.yeger.koffee.domain.User
         JWT::class,
         User::class
     ],
-    version = 10,
+    version = 11,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

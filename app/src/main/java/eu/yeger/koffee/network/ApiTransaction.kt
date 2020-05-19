@@ -8,16 +8,20 @@ data class ApiTransaction(
     val value: Double,
     val timestamp: Long,
     val itemId: String?,
+    val itemName: String?,
     val amount: Int?
 )
 
-fun List<ApiTransaction>.asDatabaseModel(userId: String) = map { apiTransaction ->
+fun ApiTransaction.asDatabaseModel(userId: String) =
     DatabaseTransaction(
         userId = userId,
-        type = apiTransaction.type,
-        value = apiTransaction.value,
-        timestamp = apiTransaction.timestamp,
-        itemId = apiTransaction.itemId,
-        amount = apiTransaction.amount
+        type = type,
+        value = value,
+        timestamp = timestamp,
+        itemId = itemId,
+        itemName = itemName,
+        amount = amount
     )
-}
+
+fun List<ApiTransaction>.asDatabaseModel(userId: String) =
+    map { it.asDatabaseModel(userId) }
