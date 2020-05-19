@@ -12,7 +12,6 @@ import eu.yeger.koffee.databinding.FragmentUserDetailsBinding
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.transactionListAdapter
 import eu.yeger.koffee.utility.*
 
@@ -72,7 +71,7 @@ class UserDetailsFragment : Fragment() {
 
         return FragmentUserDetailsBinding.inflate(inflater).apply {
             viewModel = userDetailsViewModel
-            transactionRecyclerView.adapter = transactionListAdapter(OnClickListener { /*ingore*/ })
+            transactionRecyclerView.adapter = transactionListAdapter()
             lifecycleOwner = viewLifecycleOwner
         }.root
     }

@@ -13,7 +13,6 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.transactionListAdapter
 import eu.yeger.koffee.utility.*
 
@@ -63,7 +62,7 @@ class ItemDetailsFragment : Fragment() {
 
         return FragmentItemDetailsBinding.inflate(inflater).apply {
             viewModel = itemDetailsViewModel
-            transactionRecyclerView.adapter = transactionListAdapter(OnClickListener { /*ignore*/ })
+            transactionRecyclerView.adapter = transactionListAdapter()
             lifecycleOwner = viewLifecycleOwner
         }.root
     }

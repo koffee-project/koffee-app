@@ -3,6 +3,7 @@ package eu.yeger.koffee.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
+import androidx.paging.DataSource
 import eu.yeger.koffee.database.Filter
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.getDatabase
@@ -18,16 +19,12 @@ class UserRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    fun getUsersAsLiveData(): LiveData<List<User>> {
-        return database.userDao.getAllAsFlow()
-            .distinctUntilChanged()
-            .asLiveData()
+    fun getAllUsersPaged(): DataSource.Factory<Int, User> {
+        return database.userDao.getAllPaged()
     }
 
-    fun getFilteredUsersAsLiveData(filter: Filter): LiveData<List<User>> {
-        return database.userDao.getFilteredAsFlow(filter.nameFragment)
-            .distinctUntilChanged()
-            .asLiveData()
+    fun getFilteredUsersPaged(filter: Filter): DataSource.Factory<Int, User> {
+        return database.userDao.getFilteredPaged(filter.nameFragment)
     }
 
     suspend fun fetchUsers() {

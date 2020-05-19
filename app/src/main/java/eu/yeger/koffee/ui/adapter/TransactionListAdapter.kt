@@ -8,38 +8,43 @@ import eu.yeger.koffee.ui.OnClickListener
 import java.util.*
 import org.ocpsoft.prettytime.PrettyTime
 
-object TransactionViewHolderFactory : GenericPagedListAdapter.ViewHolderFactory<Transaction> {
-    class ViewHolder(private val binding: CardPurchaseTransactionBinding) :
-        GenericPagedListAdapter.ViewHolder<Transaction>(binding.root) {
-        private fun formatTimestamp(timestamp: Long): String {
-            val prettyTime = PrettyTime(Locale.getDefault())
-            return prettyTime.format(Date(timestamp - 1000)) // subtract one second to prevent edge case issues
-        }
+class TransactionViewHolder(
+    private val binding: CardPurchaseTransactionBinding
+) : GenericPagedListAdapter.ViewHolder<Transaction>(binding.root) {
 
-        override fun bind(item: Transaction, onClickListener: OnClickListener<Transaction>) {
-            binding.apply {
-                timestamp = formatTimestamp(item.timestamp)
-                this.transaction = item
-                this.onClickListener = onClickListener
-            }.executePendingBindings()
+    companion object Factory : GenericPagedListAdapter.ViewHolderFactory<Transaction> {
+
+        override fun createViewHolder(parent: ViewGroup): GenericPagedListAdapter.ViewHolder<Transaction> {
+            return TransactionViewHolder(
+                CardPurchaseTransactionBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
         }
     }
 
-    override fun createViewHolder(parent: ViewGroup): GenericPagedListAdapter.ViewHolder<Transaction> {
-        return ViewHolder(
-            CardPurchaseTransactionBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    private fun formatTimestamp(timestamp: Long): String {
+        val prettyTime = PrettyTime(Locale.getDefault())
+        return prettyTime.format(Date(timestamp - 1000)) // subtract one second to prevent edge case issues
+    }
+
+    override fun bind(item: Transaction, onClickListener: OnClickListener<Transaction>) {
+        binding.apply {
+            timestamp = formatTimestamp(item.timestamp)
+            this.transaction = item
+            this.onClickListener = onClickListener
+        }.executePendingBindings()
     }
 }
 
-fun transactionListAdapter(onClickListener: OnClickListener<Transaction>): GenericPagedListAdapter<Transaction> {
+fun transactionListAdapter(
+    onClickListener: OnClickListener<Transaction> = OnClickListener { }
+): GenericPagedListAdapter<Transaction> {
     return GenericPagedListAdapter(
         onClickListener,
-        TransactionViewHolderFactory,
+        TransactionViewHolder.Factory,
         itemCallback(
             isSame = { old, new -> old == new },
             isIdentical = { old, new -> old == new }

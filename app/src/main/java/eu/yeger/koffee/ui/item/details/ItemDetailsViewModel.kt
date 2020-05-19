@@ -2,6 +2,7 @@ package eu.yeger.koffee.ui.item.details
 
 import android.os.CountDownTimer
 import androidx.lifecycle.*
+import androidx.paging.toLiveData
 import eu.yeger.koffee.BuildConfig
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
@@ -12,6 +13,8 @@ import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.ui.SimpleAction
 import eu.yeger.koffee.utility.singleTickTimer
 import eu.yeger.koffee.utility.sourcedLiveData
+
+private const val PAGE_SIZE = 50
 
 class ItemDetailsViewModel(
     private val itemId: String,
@@ -30,7 +33,8 @@ class ItemDetailsViewModel(
     val item = itemRepository.getItemByIdAsLiveData(itemId)
     val hasItem = item.map { it != null }
 
-    val transactions = transactionRepository.getTransactionsByUserIdAndItemIdAsLiveData(userId, itemId)
+    val transactions = transactionRepository.getTransactionsByUserIdAndItemIdPaged(userId, itemId)
+        .toLiveData(PAGE_SIZE)
     val hasTransactions = transactions.map { it.isNotEmpty() }
 
     private var refundTimer: CountDownTimer? = null

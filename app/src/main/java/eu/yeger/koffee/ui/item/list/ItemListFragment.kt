@@ -10,7 +10,7 @@ import eu.yeger.koffee.databinding.FragmentItemListBinding
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.OnClickListener
-import eu.yeger.koffee.ui.adapter.ItemListAdapter
+import eu.yeger.koffee.ui.adapter.itemListAdapter
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.viewModelFactories
 
@@ -40,7 +40,7 @@ class ItemListFragment : Fragment() {
 
         return FragmentItemListBinding.inflate(inflater).apply {
             viewModel = itemListViewModel
-            itemRecyclerView.adapter = ItemListAdapter(OnClickListener { selectedItem ->
+            itemRecyclerView.adapter = itemListAdapter(OnClickListener { selectedItem ->
                 val direction =
                     ItemListFragmentDirections.toItemDetails(selectedItem.id)
                 findNavController().navigate(direction)

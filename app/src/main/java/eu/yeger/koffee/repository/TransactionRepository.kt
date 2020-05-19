@@ -3,8 +3,7 @@ package eu.yeger.koffee.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
-import androidx.paging.PagedList
-import androidx.paging.toLiveData
+import androidx.paging.DataSource
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.asDomainModel
 import eu.yeger.koffee.database.getDatabase
@@ -22,22 +21,30 @@ class TransactionRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    fun getTransactionsByUserIdAsLiveData(userId: String?): LiveData<PagedList<Transaction>> {
+    fun getTransactionsByUserIdPaged(userId: String?): DataSource.Factory<Int, Transaction> {
         return database.transactionDao.getAllByUserIdPaged(userId)
             .map { it.asDomainModel() }
-            .toLiveData(pageSize = 20)
     }
 
-    fun getTransactionsByUserIdAndItemIdAsLiveData(userId: String?, itemId: String): LiveData<PagedList<Transaction>> {
-        return database.transactionDao.getAllByUserIdAndItemIdPaged(userId = userId, itemId = itemId)
-            .map { it.asDomainModel() }
-            .toLiveData(pageSize = 20)
+    fun getTransactionsByUserIdAndItemIdPaged(
+        userId: String?,
+        itemId: String
+    ): DataSource.Factory<Int, Transaction> {
+        return database.transactionDao.getAllByUserIdAndItemIdPaged(
+            userId = userId,
+            itemId = itemId
+        ).map { it.asDomainModel() }
     }
 
     fun getLastRefundableTransactionByUserIdAsLiveData(userId: String?): LiveData<Transaction.Purchase?> {
         return database.transactionDao.getRefundableByUserIdAsFlow(userId)
             .distinctUntilChanged()
-            .map { it?.asDomainModel() as Transaction.Purchase? }
+            .map {
+                when (val transaction = it?.asDomainModel()) {
+                    is Transaction.Purchase -> transaction
+                    else -> null
+                }
+            }
             .asLiveData()
     }
 

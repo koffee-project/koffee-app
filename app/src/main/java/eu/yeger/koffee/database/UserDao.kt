@@ -1,5 +1,6 @@
 package eu.yeger.koffee.database
 
+import androidx.paging.DataSource
 import androidx.room.*
 import eu.yeger.koffee.domain.User
 import kotlinx.coroutines.flow.Flow
@@ -8,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 interface UserDao : BaseDao<User> {
 
     @Query("SELECT * FROM user ORDER BY name ASC")
-    fun getAllAsFlow(): Flow<List<User>>
+    fun getAllPaged(): DataSource.Factory<Int, User>
 
     @Query("SELECT * FROM user WHERE id == :id")
     suspend fun getById(id: String?): User?
@@ -17,7 +18,7 @@ interface UserDao : BaseDao<User> {
     fun getByIdAsFlow(id: String?): Flow<User?>
 
     @Query("SELECT * FROM user WHERE name LIKE :nameFilter ORDER BY name ASC")
-    fun getFilteredAsFlow(nameFilter: String): Flow<List<User>>
+    fun getFilteredPaged(nameFilter: String): DataSource.Factory<Int, User>
 
     @Query("DELETE FROM user")
     suspend fun deleteAll()

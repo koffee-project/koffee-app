@@ -9,7 +9,6 @@ import com.google.android.material.imageview.ShapeableImageView
 import eu.yeger.koffee.R
 import eu.yeger.koffee.domain.Item
 import eu.yeger.koffee.domain.Transaction
-import eu.yeger.koffee.domain.User
 
 /**
  * Sets the visibility of a [View](https://developer.android.com/reference/android/view/View).
@@ -40,42 +39,20 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
 }
 
 /**
- * Submits a [User] [List] to the [UserListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ * Submits an [Item] [PagedList] to the [GenericPagedListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  *
  * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
- * @param users The [List] of [User] objects that will be submitted.
- * @param callback Callback, which is executed after the list has been submitted.
+ * @param T Type of the items.
+ * @param items The [List] of items that will be submitted.
+ * @param callback Callback, which is executed after the list has been submitted. Defaults to empty [Runnable].
  *
  * @author Jan Müller
  */
-@BindingAdapter(value = ["users", "callback"], requireAll = true)
-fun RecyclerView.bindUserList(users: List<User>?, callback: Runnable) {
-    val adapter = adapter as UserListAdapter
-    adapter.submitList(users, callback)
-    smoothScrollToPosition(0)
-}
-
-/**
- * Submits an [Item] [List] to the [ItemListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
- *
- * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
- * @param items The [List] of [Item] objects that will be submitted.
- * @param callback Callback, which is executed after the list has been submitted.
- *
- * @author Jan Müller
- */
-@BindingAdapter(value = ["items", "callback"], requireAll = true)
-fun RecyclerView.bindItemList(items: List<Item>?, callback: Runnable) {
-    val adapter = adapter as ItemListAdapter
-    adapter.submitList(items, callback)
-    smoothScrollToPosition(0)
-}
-
-@BindingAdapter("items")
-fun <T> RecyclerView.bindItems(items: PagedList<T>?) {
+@BindingAdapter(value = ["items", "callback"], requireAll = false)
+fun <T> RecyclerView.bindItems(items: PagedList<T>?, callback: Runnable? = Runnable { }) {
     @Suppress("UNCHECKED_CAST")
     val adapter = adapter as GenericPagedListAdapter<T>
-    adapter.submitList(items)
+    adapter.submitList(items, callback)
     smoothScrollToPosition(0)
 }
 

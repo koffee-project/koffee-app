@@ -3,6 +3,7 @@ package eu.yeger.koffee.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
+import androidx.paging.DataSource
 import eu.yeger.koffee.database.Filter
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.getDatabase
@@ -21,20 +22,16 @@ class ItemRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    fun getItemsAsLiveData() = database.itemDao.getAllAsFlow()
-        .distinctUntilChanged()
-        .asLiveData()
+    fun getAllItemsPaged(): DataSource.Factory<Int, Item> {
+        return database.itemDao.getAllPaged()
+    }
 
-    fun getFilteredItemsAsLiveData(filter: Filter): LiveData<List<Item>> {
-        return database.itemDao.getFilteredAsFlow(filter.nameFragment)
-            .distinctUntilChanged()
-            .asLiveData()
+    fun getFilteredItemsPaged(filter: Filter): DataSource.Factory<Int, Item> {
+        return database.itemDao.getFilteredPaged(filter.nameFragment)
     }
 
     suspend fun hasItemWithId(id: String?): Boolean {
-        return withContext(Dispatchers.IO) {
-            database.itemDao.getById(id) !== null
-        }
+        return getItemById(id) !== null
     }
 
     suspend fun getItemById(id: String?): Item? {

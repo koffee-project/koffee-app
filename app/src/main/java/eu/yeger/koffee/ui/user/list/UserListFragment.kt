@@ -13,8 +13,10 @@ import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
-import eu.yeger.koffee.ui.adapter.UserListAdapter
-import eu.yeger.koffee.utility.*
+import eu.yeger.koffee.ui.adapter.userListAdapter
+import eu.yeger.koffee.utility.observeAction
+import eu.yeger.koffee.utility.saveUserIdToSharedPreferences
+import eu.yeger.koffee.utility.viewModelFactories
 
 class UserListFragment : Fragment() {
 
@@ -47,10 +49,9 @@ class UserListFragment : Fragment() {
 
         return FragmentUserListBinding.inflate(inflater).apply {
             viewModel = userListViewModel
-            userRecyclerView.adapter =
-                UserListAdapter(OnClickListener { selectedUser ->
-                    userListViewModel.activateUserSelectedAction(selectedUser)
-                })
+            userRecyclerView.adapter = userListAdapter(OnClickListener { selectedUser ->
+                userListViewModel.activateUserSelectedAction(selectedUser)
+            })
             lifecycleOwner = viewLifecycleOwner
         }.root
     }

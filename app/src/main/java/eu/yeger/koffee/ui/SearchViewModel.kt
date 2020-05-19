@@ -3,11 +3,12 @@ package eu.yeger.koffee.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
+import androidx.paging.PagedList
 import eu.yeger.koffee.database.Filter
 import eu.yeger.koffee.utility.mediatedLiveData
 import eu.yeger.koffee.utility.sourcedLiveData
 
-abstract class SearchViewModel<T>(private val entries: LiveData<List<T>>) : CoroutineViewModel() {
+abstract class SearchViewModel<T>(private val entries: LiveData<PagedList<T>>) : CoroutineViewModel() {
 
     val searchQuery = MutableLiveData<String>()
 
@@ -34,5 +35,5 @@ abstract class SearchViewModel<T>(private val entries: LiveData<List<T>>) : Coro
         filteredEntries.value?.size == 0 && !(isBusy.value ?: false)
     }
 
-    protected abstract fun getSource(filter: Filter): LiveData<List<T>>
+    protected abstract fun getSource(filter: Filter): LiveData<PagedList<T>>
 }

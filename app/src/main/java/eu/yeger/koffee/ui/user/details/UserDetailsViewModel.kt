@@ -4,6 +4,7 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
+import androidx.paging.toLiveData
 import eu.yeger.koffee.BuildConfig
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.TransactionRepository
@@ -13,6 +14,8 @@ import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.ui.SimpleAction
 import eu.yeger.koffee.utility.singleTickTimer
 import eu.yeger.koffee.utility.sourcedLiveData
+
+private const val PAGE_SIZE = 50
 
 class UserDetailsViewModel(
     private val isActiveUser: Boolean,
@@ -27,7 +30,7 @@ class UserDetailsViewModel(
     val user = userRepository.getUserByIdAsLiveData(userId)
     val hasUser = user.map { it != null }
 
-    val transactions = transactionRepository.getTransactionsByUserIdAsLiveData(userId)
+    val transactions = transactionRepository.getTransactionsByUserIdPaged(userId).toLiveData(PAGE_SIZE)
     val hasTransactions = transactions.map { it.isNotEmpty() }
 
     private var refundTimer: CountDownTimer? = null
