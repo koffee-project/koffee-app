@@ -82,6 +82,7 @@ fun TextView.bindTransactionType(transaction: Transaction?) {
 
 @BindingAdapter("transactionValue")
 fun TextView.bindTransactionValue(transaction: Transaction?) {
+    setTextColor(resources.getColor(R.color.design_default_color_on_primary, context.theme))
     val resId = when {
         transaction == null -> R.string.no_data
         transaction.value > 0 -> {
@@ -105,7 +106,7 @@ fun TextView.bindTransactionDetails(transaction: Transaction?) {
     val newText = when (transaction) {
         is Transaction.Purchase -> defaultText(transaction.amount, transaction.itemName)
         is Transaction.Refund -> defaultText(transaction.amount, transaction.itemName)
-        else -> ""
+        else -> context.getString(R.string.no_transaction_details)
     }
     text = newText
 }

@@ -62,7 +62,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/half_spacing"
-
                 android:layout_marginEnd="@dimen/half_spacing"
                 android:text="@{String.valueOf(transaction.value)}"
                 android:textAlignment="textStart"
