@@ -96,7 +96,11 @@ fun TextView.bindTransactionValue(transaction: Transaction?) {
 @BindingAdapter("transactionDetails")
 fun TextView.bindTransactionDetails(transaction: Transaction?) {
     val defaultText = { amount: Int, itemName: String ->
-        context.getString(R.string.transaction_item_details, itemName, amount)
+        if (amount > 1) {
+            context.getString(R.string.transaction_item_details, itemName, amount)
+        } else {
+            itemName
+        }
     }
     val newText = when (transaction) {
         is Transaction.Purchase -> defaultText(transaction.amount, transaction.itemName)
