@@ -1,14 +1,13 @@
 package eu.yeger.koffee.repository
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.getDatabase
 import eu.yeger.koffee.domain.JWT
 import eu.yeger.koffee.network.ApiCredentials
 import eu.yeger.koffee.network.NetworkService
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -23,11 +22,10 @@ class AdminRepository(private val database: KoffeeDatabase) {
         }
     }
 
-    fun isAuthenticatedAsLiveData(): LiveData<Boolean> {
+    fun isAuthenticatedFlow(): Flow<Boolean> {
         return database.jwtDao.getAsFlow()
             .distinctUntilChanged()
             .map { it !== null }
-            .asLiveData()
     }
 
     suspend fun loginRequired(): Boolean {

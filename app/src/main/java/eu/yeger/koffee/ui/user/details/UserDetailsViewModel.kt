@@ -3,6 +3,7 @@ package eu.yeger.koffee.ui.user.details
 import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.paging.toLiveData
 import eu.yeger.koffee.BuildConfig
@@ -25,12 +26,12 @@ class UserDetailsViewModel(
     private val userRepository: UserRepository
 ) : CoroutineViewModel() {
 
-    private val isAuthenticated = adminRepository.isAuthenticatedAsLiveData()
+    private val isAuthenticated = adminRepository.isAuthenticatedFlow().asLiveData()
 
-    val user = userRepository.getUserByIdAsLiveData(userId)
+    val user = userRepository.getUserByIdFlow(userId).asLiveData()
     val hasUser = user.map { it != null }
 
-    val transactions = transactionRepository.getTransactionsByUserIdPaged(userId).toLiveData(PAGE_SIZE)
+    val transactions = transactionRepository.getTransactionsByUserId(userId).toLiveData(PAGE_SIZE)
     val hasTransactions = transactions.map { it.isNotEmpty() }
 
     private var refundTimer: CountDownTimer? = null
@@ -38,26 +39,28 @@ class UserDetailsViewModel(
     private val isWithinRefundInterval = MutableLiveData(true)
 
     private val hasRefundable =
-        transactionRepository.getLastRefundableTransactionByUserIdAsLiveData(userId).map {
-            refundTimer?.cancel()
-            when {
-                it === null || !isActiveUser -> false // no refundable
-                else -> {
-                    val elapsedTime = System.currentTimeMillis() - it.timestamp
-                    val remainingTime = BuildConfig.REFUND_INTERVAL - elapsedTime
-                    when {
-                        remainingTime > 0 -> {
-                            isWithinRefundInterval.postValue(true)
-                            refundTimer = singleTickTimer(remainingTime) {
-                                isWithinRefundInterval.postValue(false)
-                            }.start()
-                            true
+        transactionRepository.getLastRefundableTransactionByUserIdFlow(userId)
+            .asLiveData()
+            .map {
+                refundTimer?.cancel()
+                when {
+                    it === null || !isActiveUser -> false // no refundable
+                    else -> {
+                        val elapsedTime = System.currentTimeMillis() - it.timestamp
+                        val remainingTime = BuildConfig.REFUND_INTERVAL - elapsedTime
+                        when {
+                            remainingTime > 0 -> {
+                                isWithinRefundInterval.postValue(true)
+                                refundTimer = singleTickTimer(remainingTime) {
+                                    isWithinRefundInterval.postValue(false)
+                                }.start()
+                                true
+                            }
+                            else -> false
                         }
-                        else -> false
                     }
                 }
             }
-        }
 
     val canRefund = sourcedLiveData(isWithinRefundInterval, hasRefundable) {
         isWithinRefundInterval.value == true && hasRefundable.value == true

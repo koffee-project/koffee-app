@@ -2,6 +2,7 @@ package eu.yeger.koffee.ui.user.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import eu.yeger.koffee.database.Filter
@@ -17,9 +18,9 @@ private const val PAGE_SIZE = 50
 class UserListViewModel(
     private val userRepository: UserRepository,
     adminRepository: AdminRepository
-) : SearchViewModel<User>(userRepository.getAllUsersPaged().toLiveData(PAGE_SIZE)) {
+) : SearchViewModel<User>(userRepository.getAllUser().toLiveData(PAGE_SIZE)) {
 
-    val isAuthenticated = adminRepository.isAuthenticatedAsLiveData()
+    val isAuthenticated = adminRepository.isAuthenticatedFlow().asLiveData()
 
     private val _refreshing = MutableLiveData(false)
     val refreshing: LiveData<Boolean> = _refreshing
@@ -42,6 +43,6 @@ class UserListViewModel(
         userSelectedAction.activateWith((isAuthenticated.value ?: false) to user)
 
     override fun getSource(filter: Filter): LiveData<PagedList<User>> {
-        return userRepository.getFilteredUsersPaged(filter).toLiveData(PAGE_SIZE)
+        return userRepository.getFilteredUsers(filter).toLiveData(PAGE_SIZE)
     }
 }

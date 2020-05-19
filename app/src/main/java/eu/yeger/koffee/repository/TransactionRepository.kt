@@ -1,8 +1,6 @@
 package eu.yeger.koffee.repository
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
 import androidx.paging.DataSource
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.asDomainModel
@@ -13,6 +11,7 @@ import eu.yeger.koffee.network.NetworkService
 import eu.yeger.koffee.network.asDatabaseModel
 import eu.yeger.koffee.utility.onNotFound
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -21,12 +20,12 @@ class TransactionRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    fun getTransactionsByUserIdPaged(userId: String?): DataSource.Factory<Int, Transaction> {
+    fun getTransactionsByUserId(userId: String?): DataSource.Factory<Int, Transaction> {
         return database.transactionDao.getAllByUserIdPaged(userId)
             .map { it.asDomainModel() }
     }
 
-    fun getTransactionsByUserIdAndItemIdPaged(
+    fun getTransactionsByUserIdAndItemId(
         userId: String?,
         itemId: String
     ): DataSource.Factory<Int, Transaction> {
@@ -36,7 +35,7 @@ class TransactionRepository(private val database: KoffeeDatabase) {
         ).map { it.asDomainModel() }
     }
 
-    fun getLastRefundableTransactionByUserIdAsLiveData(userId: String?): LiveData<Transaction.Purchase?> {
+    fun getLastRefundableTransactionByUserIdFlow(userId: String?): Flow<Transaction.Purchase?> {
         return database.transactionDao.getRefundableByUserIdAsFlow(userId)
             .distinctUntilChanged()
             .map {
@@ -45,7 +44,6 @@ class TransactionRepository(private val database: KoffeeDatabase) {
                     else -> null
                 }
             }
-            .asLiveData()
     }
 
     suspend fun fetchTransactionsByUserId(userId: String) {

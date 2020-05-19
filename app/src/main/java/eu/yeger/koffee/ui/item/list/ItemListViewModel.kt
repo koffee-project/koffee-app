@@ -15,9 +15,9 @@ private const val PAGE_SIZE = 50
 class ItemListViewModel(
     private val itemRepository: ItemRepository,
     adminRepository: AdminRepository
-) : SearchViewModel<Item>(itemRepository.getAllItemsPaged().toLiveData(PAGE_SIZE)) {
+) : SearchViewModel<Item>(itemRepository.getAllItems().toLiveData(PAGE_SIZE)) {
 
-    val isAuthenticated = adminRepository.isAuthenticatedAsLiveData()
+    val isAuthenticated = adminRepository.isAuthenticatedFlow().asLiveData()
 
     private val _refreshing = MutableLiveData(false)
     val refreshing: LiveData<Boolean> = _refreshing
@@ -36,6 +36,6 @@ class ItemListViewModel(
     fun activateCreateItemAction() = createItemAction.activate()
 
     override fun getSource(filter: Filter): LiveData<PagedList<Item>> {
-        return itemRepository.getFilteredItemsPaged(filter).toLiveData(PAGE_SIZE)
+        return itemRepository.getFilteredItems(filter).toLiveData(PAGE_SIZE)
     }
 }

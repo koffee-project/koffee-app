@@ -1,8 +1,6 @@
 package eu.yeger.koffee.repository
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
 import androidx.paging.DataSource
 import eu.yeger.koffee.database.Filter
 import eu.yeger.koffee.database.KoffeeDatabase
@@ -15,6 +13,7 @@ import eu.yeger.koffee.network.asDomainModel
 import eu.yeger.koffee.network.formatToken
 import eu.yeger.koffee.utility.onNotFound
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.withContext
 
@@ -22,11 +21,11 @@ class ItemRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    fun getAllItemsPaged(): DataSource.Factory<Int, Item> {
+    fun getAllItems(): DataSource.Factory<Int, Item> {
         return database.itemDao.getAllPaged()
     }
 
-    fun getFilteredItemsPaged(filter: Filter): DataSource.Factory<Int, Item> {
+    fun getFilteredItems(filter: Filter): DataSource.Factory<Int, Item> {
         return database.itemDao.getFilteredPaged(filter.nameFragment)
     }
 
@@ -40,10 +39,9 @@ class ItemRepository(private val database: KoffeeDatabase) {
         }
     }
 
-    fun getItemByIdAsLiveData(id: String?): LiveData<Item?> {
+    fun getItemByIdFlow(id: String?): Flow<Item?> {
         return database.itemDao.getByIdAsFlow(id)
             .distinctUntilChanged()
-            .asLiveData()
     }
 
     suspend fun fetchItems() {

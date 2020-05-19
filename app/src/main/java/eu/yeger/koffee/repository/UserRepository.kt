@@ -1,8 +1,6 @@
 package eu.yeger.koffee.repository
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
 import androidx.paging.DataSource
 import eu.yeger.koffee.database.Filter
 import eu.yeger.koffee.database.KoffeeDatabase
@@ -12,6 +10,7 @@ import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.network.*
 import eu.yeger.koffee.utility.onNotFound
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.withContext
 
@@ -19,12 +18,29 @@ class UserRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    fun getAllUsersPaged(): DataSource.Factory<Int, User> {
+    fun getAllUser(): DataSource.Factory<Int, User> {
         return database.userDao.getAllPaged()
     }
 
-    fun getFilteredUsersPaged(filter: Filter): DataSource.Factory<Int, User> {
+    fun getFilteredUsers(filter: Filter): DataSource.Factory<Int, User> {
         return database.userDao.getFilteredPaged(filter.nameFragment)
+    }
+
+    suspend fun hasUserWithId(id: String?): Boolean {
+        return withContext(Dispatchers.IO) {
+            database.userDao.getById(id) !== null
+        }
+    }
+
+    suspend fun getUserById(id: String?): User? {
+        return withContext(Dispatchers.IO) {
+            database.userDao.getById(id)
+        }
+    }
+
+    fun getUserByIdFlow(id: String?): Flow<User?> {
+        return database.userDao.getByIdAsFlow(id)
+            .distinctUntilChanged()
     }
 
     suspend fun fetchUsers() {
@@ -43,24 +59,6 @@ class UserRepository(private val database: KoffeeDatabase) {
                 database.userDao.insert(user)
             }
         }
-    }
-
-    suspend fun hasUserWithId(id: String?): Boolean {
-        return withContext(Dispatchers.IO) {
-            database.userDao.getById(id) !== null
-        }
-    }
-
-    suspend fun getUserById(id: String?): User? {
-        return withContext(Dispatchers.IO) {
-            database.userDao.getById(id)
-        }
-    }
-
-    fun getUserByIdAsLiveData(id: String?): LiveData<User?> {
-        return database.userDao.getByIdAsFlow(id)
-            .distinctUntilChanged()
-            .asLiveData()
     }
 
     suspend fun createUser(
