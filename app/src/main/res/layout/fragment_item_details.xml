@@ -112,13 +112,12 @@
                 android:layout_marginStart="@dimen/half_spacing"
                 android:layout_marginTop="@dimen/default_spacing"
                 android:layout_marginEnd="@dimen/half_spacing"
+                app:items="@{itemDetailsViewModel.transactions}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/transactions_title_text"
-                app:items="@{itemDetailsViewModel.transactions}"
-                app:visible="@{itemDetailsViewModel.hasTransactions}" />
+                app:layout_constraintTop_toBottomOf="@+id/transactions_title_text" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/delete_item_button"
