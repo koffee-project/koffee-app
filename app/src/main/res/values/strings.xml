@@ -5,17 +5,14 @@
     <string name="title_admin">Admin</string>
     <string name="title_user_selection">User Selection</string>
     <string name="name">Name</string>
-    <string name="user_name_id_format">%s (%s)</string>
+    <string name="user_name_id_format">%1$s (%2$s)</string>
     <string name="no_results">No results</string>
-    <string name="set_active_user_format">Set %s (%s) as your active user?</string>
+    <string name="set_active_user_format">Set %1$s (%2$s) as your active user?</string>
     <string name="set_as_active_user">Set As Active User</string>
     <string name="cancel">Cancel</string>
     <string name="no_user_selected">Looks like no user has been selected yet!</string>
     <string name="currency_format">%.2f€</string>
     <string name="title_item_list">Items</string>
-    <string name="funding_format">Funding: %.2f€</string>
-    <string name="purchase_format">Purchase: %d %s for %.2f€</string>
-    <string name="refund_format">Refund: %d %s for %.2f€</string>
     <string name="title_item_details">Item Details</string>
     <string name="buy">Buy</string>
     <string name="transactions_title">Transactions</string>
@@ -58,4 +55,10 @@
     <string name="active_user_deleted">The previously active user has been deleted.</string>
     <string name="item">Item</string>
     <string name="no_transactions">No transactions available</string>
+    <string name="none">None</string>
+    <string name="funding">Funding</string>
+    <string name="purchase">Purchase</string>
+    <string name="no_data">N/D</string>
+    <string name="positive_currency_format">+%.2f€</string>
+    <string name="transaction_item_details">%1$s (%2$d)</string>
 </resources>

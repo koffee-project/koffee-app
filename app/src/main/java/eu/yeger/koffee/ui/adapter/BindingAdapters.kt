@@ -1,6 +1,7 @@
 package eu.yeger.koffee.ui.adapter
 
 import android.view.View
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
@@ -66,4 +67,39 @@ fun ShapeableImageView.bindTransaction(transaction: Transaction?) {
         }
         setImageResource(resourceId)
     }
+}
+
+@BindingAdapter("transactionType")
+fun TextView.bindTransactionType(transaction: Transaction?) {
+    val resId = when (transaction) {
+        null -> R.string.none
+        is Transaction.Funding -> R.string.funding
+        is Transaction.Purchase -> R.string.purchase
+        is Transaction.Refund -> R.string.refund
+    }
+    setText(resId)
+}
+
+@BindingAdapter("transactionValue")
+fun TextView.bindTransactionValue(transaction: Transaction?) {
+    val resId = when {
+        transaction == null -> R.string.no_data
+        transaction.value > 0 -> R.string.positive_currency_format
+        else -> R.string.currency_format
+    }
+    text = context.getString(resId, transaction?.value)
+}
+
+@BindingAdapter("transactionDetails")
+fun TextView.bindTransactionDetails(transaction: Transaction?) {
+    val defaultText = { amount: Int, itemName: String ->
+        context.getString(R.string.transaction_item_details, itemName, amount)
+    }
+    val newText = when (transaction) {
+        null -> ""
+        is Transaction.Funding -> ""
+        is Transaction.Purchase -> defaultText(transaction.amount, transaction.itemId)
+        is Transaction.Refund -> defaultText(transaction.amount, transaction.itemId)
+    }
+    text = newText
 }

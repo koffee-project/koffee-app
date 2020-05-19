@@ -25,7 +25,7 @@
         android:onClick="@{() -> onClickListener.onClick(transaction)}"
         app:cardCornerRadius="@dimen/card_corner_radius"
         app:cardElevation="@dimen/card_elevation"
-        app:contentPadding="@dimen/default_spacing">
+        app:contentPadding="@dimen/half_spacing">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -34,36 +34,63 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/type_image_view"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:contentDescription="@string/refund_image_description"
-                app:transaction="@{transaction}"
-                app:layout_constraintBottom_toBottomOf="@+id/transaction_text"
+                app:layout_constraintBottom_toBottomOf="@+id/details_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/transaction_text" />
+                app:layout_constraintTop_toTopOf="@+id/type_text"
+                app:transaction="@{transaction}"
+                tools:src="@drawable/ic_attach_money_24dp" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/transaction_text"
+                android:id="@+id/type_text"
+                style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/half_spacing"
+                android:layout_marginEnd="@dimen/half_spacing"
                 android:text="@{String.valueOf(transaction.value)}"
                 android:textAlignment="textStart"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/timestamp_text"
+                app:layout_constraintEnd_toStartOf="@+id/value_text"
                 app:layout_constraintStart_toEndOf="@+id/type_image_view"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="CardPurchaseTransaction" />
+                app:transactionType="@{transaction}"
+                tools:text="TransactionType" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/details_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/half_spacing"
+                android:layout_marginTop="@dimen/half_spacing"
+                android:layout_marginEnd="@dimen/half_spacing"
+                android:text="@{String.valueOf(transaction.value)}"
+                android:textAlignment="textStart"
+                app:layout_constraintEnd_toStartOf="@+id/timestamp_text"
+                app:layout_constraintStart_toEndOf="@+id/type_image_view"
+                app:layout_constraintTop_toBottomOf="@+id/type_text"
+                app:transactionDetails="@{transaction}"
+                tools:text="TransactionDetails" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/value_text"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                app:layout_constraintBaseline_toBaselineOf="@+id/type_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:transactionValue="@{transaction}"
+                tools:text="+30Euro" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/timestamp_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/half_spacing"
                 android:text="@{timestamp}"
                 android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@+id/details_text"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Timestamp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
