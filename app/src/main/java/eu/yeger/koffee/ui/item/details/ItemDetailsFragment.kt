@@ -13,6 +13,7 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
+import eu.yeger.koffee.ui.RefundViewModel
 import eu.yeger.koffee.ui.adapter.transactionListAdapter
 import eu.yeger.koffee.utility.*
 
@@ -25,6 +26,16 @@ class ItemDetailsFragment : Fragment() {
             userId = context.getUserIdFromSharedPreferences(),
             adminRepository = AdminRepository(context),
             itemRepository = ItemRepository(context),
+            transactionRepository = TransactionRepository(context),
+            userRepository = UserRepository(context)
+        )
+    }
+
+    private val refundViewModel: RefundViewModel by viewModelFactories {
+        val context = requireContext()
+        RefundViewModel(
+            itemId = ItemDetailsFragmentArgs.fromBundle(requireArguments()).itemId,
+            userId = context.getUserIdFromSharedPreferences(),
             transactionRepository = TransactionRepository(context),
             userRepository = UserRepository(context)
         )
@@ -61,7 +72,8 @@ class ItemDetailsFragment : Fragment() {
         }
 
         return FragmentItemDetailsBinding.inflate(inflater).apply {
-            viewModel = itemDetailsViewModel
+            itemDetailsViewModel = this@ItemDetailsFragment.itemDetailsViewModel
+            refundViewModel = this@ItemDetailsFragment.refundViewModel
             transactionRecyclerView.adapter = transactionListAdapter()
             lifecycleOwner = viewLifecycleOwner
         }.root

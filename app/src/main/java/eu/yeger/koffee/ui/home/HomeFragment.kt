@@ -14,6 +14,7 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
+import eu.yeger.koffee.ui.RefundViewModel
 import eu.yeger.koffee.ui.adapter.transactionListAdapter
 import eu.yeger.koffee.ui.user.details.UserDetailsViewModel
 import eu.yeger.koffee.utility.*
@@ -30,6 +31,15 @@ class HomeFragment : Fragment() {
             isActiveUser = true,
             userId = userId,
             adminRepository = AdminRepository(context),
+            transactionRepository = TransactionRepository(context),
+            userRepository = UserRepository(context)
+        )
+    }
+
+    private val refundViewModel: RefundViewModel by viewModelFactories {
+        val context = requireContext()
+        RefundViewModel(
+            userId = userId,
             transactionRepository = TransactionRepository(context),
             userRepository = UserRepository(context)
         )
@@ -59,7 +69,8 @@ class HomeFragment : Fragment() {
         }
 
         return FragmentUserDetailsBinding.inflate(inflater).apply {
-            viewModel = userDetailsViewModel
+            userDetailsViewModel = this@HomeFragment.userDetailsViewModel
+            refundViewModel = this@HomeFragment.refundViewModel
             transactionRecyclerView.adapter =
                 transactionListAdapter(OnClickListener { selectedTransaction ->
                     when (selectedTransaction) {

@@ -14,7 +14,7 @@ interface TransactionDao : BaseDao<DatabaseTransaction> {
     @Query("SELECT * FROM databasetransaction WHERE userId == :userId AND itemId == :itemId ORDER BY timestamp DESC")
     fun getAllByUserIdAndItemIdPaged(userId: String?, itemId: String): DataSource.Factory<Int, DatabaseTransaction>
 
-    @Query("SELECT * FROM (SELECT * FROM databasetransaction WHERE userId == :userId AND type != 'funding' ORDER BY timestamp DESC LIMIT 1) WHERE type == 'purchase'")
+    @Query("SELECT * FROM (SELECT * FROM databasetransaction WHERE userId == :userId AND type != 'Funding' ORDER BY timestamp DESC LIMIT 1) WHERE type == 'Purchase'")
     fun getRefundableByUserIdAsFlow(userId: String?): Flow<DatabaseTransaction?>
 
     @Query("DELETE FROM databasetransaction")

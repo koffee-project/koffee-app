@@ -70,7 +70,7 @@ class UserDetailsFragment : Fragment() {
         }
 
         return FragmentUserDetailsBinding.inflate(inflater).apply {
-            viewModel = userDetailsViewModel
+            userDetailsViewModel = this@UserDetailsFragment.userDetailsViewModel
             transactionRecyclerView.adapter = transactionListAdapter()
             lifecycleOwner = viewLifecycleOwner
         }.root

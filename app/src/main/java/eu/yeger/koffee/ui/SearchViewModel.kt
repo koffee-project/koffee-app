@@ -26,7 +26,7 @@ abstract class SearchViewModel<T>(private val entries: LiveData<PagedList<T>>) :
         _isBusy.value = true
         getSource(filter)
     }
-    val onFilteredEntriesApplied = Runnable { _isBusy.postValue(false) }
+    val onFilteredEntriesApplied = { _isBusy.postValue(false) }
 
     val hasResults: LiveData<Boolean> = sourcedLiveData(filteredEntries) {
         filteredEntries.value?.size ?: 0 > 0
