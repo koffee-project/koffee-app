@@ -50,11 +50,13 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
  * @author Jan Müller
  */
 @BindingAdapter(value = ["items", "callback"], requireAll = false)
-fun <T> RecyclerView.bindItems(items: PagedList<T>?, callback: Runnable? = Runnable { }) {
+fun <T> RecyclerView.bindItems(items: PagedList<T>?, callback: (() -> Unit)?) {
     @Suppress("UNCHECKED_CAST")
     val adapter = adapter as GenericPagedListAdapter<T>
-    adapter.submitList(items, callback)
-    smoothScrollToPosition(0)
+    adapter.submitList(items) {
+        callback?.invoke()
+        layoutManager?.scrollToPosition(0)
+    }
 }
 
 @BindingAdapter("transaction")
