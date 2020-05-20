@@ -34,6 +34,9 @@ interface KoffeeApi {
     @PUT("users")
     suspend fun updateUser(@Body userDTO: ApiUserDTO, @Header("Authorization") token: String)
 
+    @POST("users/{id}/funding")
+    suspend fun creditUser(@Path("id") id: String, @Body fundingRequest: ApiFundingRequest, @Header("Authorization") token: String)
+
     @DELETE("users/{id}")
     suspend fun deleteUser(@Path("id") id: String, @Header("Authorization") token: String)
 

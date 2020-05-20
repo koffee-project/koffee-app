@@ -56,6 +56,11 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(direction)
             }
 
+            observeAction(creditUserAction) { userId ->
+                val direction = HomeFragmentDirections.toUserCrediting(userId)
+                findNavController().navigate(direction)
+            }
+
             observeAction(userNotFoundAction) {
                 val message = when (userId) {
                     null -> R.string.no_user_selected

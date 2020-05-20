@@ -38,15 +38,16 @@ class UserEditingViewModel(
 
     fun updateUser() {
         onViewModelScope {
-            val jwt = adminRepository.getJWT()!!
-            userRepository.updateUser(
-                userId = userId,
-                userName = userName.value!!,
-                password = userPassword.value.nullIfBlank(),
-                isAdmin = isAdmin.value!!,
-                jwt = jwt
-            )
-            userUpdatedAction.activateWith(userId)
+            adminRepository.getJWT()?.let {
+                userRepository.updateUser(
+                    userId = userId,
+                    userName = userName.value!!,
+                    password = userPassword.value.nullIfBlank(),
+                    isAdmin = isAdmin.value!!,
+                    jwt = it
+                )
+                userUpdatedAction.activateWith(userId)
+            }
         }
     }
 }

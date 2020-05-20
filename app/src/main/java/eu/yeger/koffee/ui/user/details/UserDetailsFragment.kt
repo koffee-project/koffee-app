@@ -50,6 +50,11 @@ class UserDetailsFragment : Fragment() {
                 findNavController().navigate(direction)
             }
 
+            observeAction(creditUserAction) { userId ->
+                val direction = UserDetailsFragmentDirections.toUserCrediting(userId)
+                findNavController().navigate(direction)
+            }
+
             observeAction(deleteUserAction) { userId ->
                 showDeleteDialog(userId) {
                     userDetailsViewModel.deleteUser()

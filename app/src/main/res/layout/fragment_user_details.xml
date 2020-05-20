@@ -109,18 +109,29 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/delete_item_button"
+                android:id="@+id/delete_user_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/default_spacing"
                 android:onClick="@{() -> userDetailsViewModel.activateDeleteUserAction()}"
-                app:layout_constraintBottom_toTopOf="@+id/edit_item_button"
-                app:layout_constraintEnd_toEndOf="@+id/edit_item_button"
+                app:layout_constraintBottom_toTopOf="@+id/credit_user_button"
+                app:layout_constraintEnd_toEndOf="@+id/credit_user_button"
                 app:srcCompat="@drawable/ic_delete_forever_24dp"
                 app:visible="@{userDetailsViewModel.canDelete}" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/edit_item_button"
+                android:id="@+id/credit_user_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/default_spacing"
+                android:onClick="@{() -> userDetailsViewModel.activateCreditUserAction()}"
+                app:layout_constraintBottom_toTopOf="@+id/edit_user_button"
+                app:layout_constraintEnd_toEndOf="@+id/edit_user_button"
+                app:srcCompat="@drawable/ic_attach_money_24dp"
+                app:visible="@{userDetailsViewModel.canModify}" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/edit_user_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/default_spacing"
@@ -129,7 +140,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_edit_24dp"
-                app:visible="@{userDetailsViewModel.canEdit}" />
+                app:visible="@{userDetailsViewModel.canModify}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

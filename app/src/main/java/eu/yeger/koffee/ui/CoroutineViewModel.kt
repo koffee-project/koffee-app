@@ -12,6 +12,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import timber.log.Timber
 
 abstract class CoroutineViewModel : ViewModel() {
     private val errorAction = DataAction<Throwable>()
@@ -21,6 +22,7 @@ abstract class CoroutineViewModel : ViewModel() {
     }
 
     private val defaultErrorFormatter: Fragment.(Throwable) -> String = { error ->
+        Timber.d(error)
         when (error) {
             is UnknownHostException -> getString(R.string.no_connection)
             is HttpException -> {

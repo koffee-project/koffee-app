@@ -31,16 +31,17 @@ class UserDetailsViewModel(
     val transactions = transactionRepository.getTransactionsByUserId(userId).toLiveData(PAGE_SIZE)
     val hasTransactions = transactions.map { it.isNotEmpty() }
 
-    val canEdit = sourcedLiveData(isAuthenticated, hasUser) {
+    val canModify = sourcedLiveData(isAuthenticated, hasUser) {
         isAuthenticated.value == true && hasUser.value == true
     }
 
-    val canDelete = canEdit.map { !isActiveUser && it }
+    val canDelete = canModify.map { !isActiveUser && it }
 
     private val _refreshing = MutableLiveData(false)
     val refreshing: LiveData<Boolean> = _refreshing
 
     val editUserAction = DataAction<String>()
+    val creditUserAction = DataAction<String>()
     val deleteUserAction = DataAction<String>()
     val userDeletedAction = SimpleAction()
     val userNotFoundAction = SimpleAction()
@@ -78,6 +79,8 @@ class UserDetailsViewModel(
     }
 
     fun activateEditUserAction() = editUserAction.activateWith(user.value?.id)
+
+    fun activateCreditUserAction() = creditUserAction.activateWith(user.value?.id)
 
     fun activateDeleteUserAction() = deleteUserAction.activateWith(user.value?.id)
 }

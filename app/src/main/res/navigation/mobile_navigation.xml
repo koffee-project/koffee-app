@@ -21,6 +21,9 @@
         <action
             android:id="@+id/to_user_editing"
             app:destination="@id/navigation_user_editing" />
+        <action
+            android:id="@+id/to_user_crediting"
+            app:destination="@id/navigation_user_crediting" />
     </fragment>
 
     <fragment
@@ -156,6 +159,9 @@
             app:destination="@id/navigation_home"
             app:popUpTo="@id/navigation_user_details"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_user_crediting"
+            app:destination="@id/navigation_user_crediting" />
     </fragment>
 
     <fragment
@@ -170,6 +176,21 @@
             android:id="@+id/to_user_details"
             app:destination="@id/navigation_user_details"
             app:popUpTo="@id/navigation_user_editing"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_user_crediting"
+        android:name="eu.yeger.koffee.ui.user.crediting.UserCreditingFragment"
+        android:label="@string/credit_user"
+        tools:layout="@layout/fragment_user_crediting">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+        <action
+            android:id="@+id/to_user_details"
+            app:destination="@id/navigation_user_details"
+            app:popUpTo="@id/navigation_user_crediting"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

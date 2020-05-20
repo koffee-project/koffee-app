@@ -99,6 +99,15 @@ class UserRepository(private val database: KoffeeDatabase) {
         }
     }
 
+    suspend fun creditUser(userId: String, amount: Double, jwt: JWT) {
+        withContext(Dispatchers.IO) {
+            onNotFound({ database.purgeUserById(userId) }) {
+                val fundingRequest = ApiFundingRequest(amount)
+                NetworkService.koffeeApi.creditUser(userId, fundingRequest, jwt.formatToken())
+            }
+        }
+    }
+
     suspend fun deleteUser(userId: String, jwt: JWT) {
         withContext(Dispatchers.IO) {
             onNotFound({ database.purgeUserById(userId) }) {

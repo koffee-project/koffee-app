@@ -5,7 +5,7 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.CoroutineViewModel
 import eu.yeger.koffee.ui.DataAction
-import eu.yeger.koffee.utility.isValidPrice
+import eu.yeger.koffee.utility.isValidCurrencyAmount
 import eu.yeger.koffee.utility.sourcedLiveData
 
 class ItemCreationViewModel(
@@ -24,7 +24,7 @@ class ItemCreationViewModel(
     val canCreateItem = sourcedLiveData(itemId, itemName, itemPrice, itemAmount) {
         itemId.value.isNullOrBlank().not() &&
                 itemName.value.isNullOrBlank().not() &&
-                itemPrice.value?.toDoubleOrNull().isValidPrice() &&
+                itemPrice.value?.toDoubleOrNull().isValidCurrencyAmount() &&
                 (itemAmount.value.isNullOrBlank() || itemAmount.value?.toIntOrNull() ?: -1 >= 0)
     }
 
