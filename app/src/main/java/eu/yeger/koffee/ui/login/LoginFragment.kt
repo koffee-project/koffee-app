@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentLoginBinding
 import eu.yeger.koffee.repository.AdminRepository
+import eu.yeger.koffee.utility.hideKeyboard
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
@@ -26,6 +27,7 @@ class LoginFragment : Fragment() {
     ): View {
         loginViewModel.apply {
             observeAction(loggedInAction) {
+                hideKeyboard()
                 requireActivity().showSnackbar(getString(R.string.login_success))
                 val direction = LoginFragmentDirections.toAdmin()
                 findNavController().navigate(direction)

@@ -11,6 +11,7 @@ import eu.yeger.koffee.databinding.FragmentUserCreditingBinding
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.user.editing.UserEditingFragmentArgs
+import eu.yeger.koffee.utility.hideKeyboard
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
@@ -33,6 +34,7 @@ class UserCreditingFragment : Fragment() {
     ): View {
         userCreditingViewModel.apply {
             observeAction(userCreditedAction) { userId ->
+                hideKeyboard()
                 requireActivity().showSnackbar(getString(R.string.user_crediting_success))
                 val direction = UserCreditingFragmentDirections.toUserDetails(userId)
                 findNavController().navigate(direction)

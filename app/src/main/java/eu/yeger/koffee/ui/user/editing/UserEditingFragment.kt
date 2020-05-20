@@ -10,6 +10,7 @@ import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserEditingBinding
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.UserRepository
+import eu.yeger.koffee.utility.hideKeyboard
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
@@ -32,6 +33,7 @@ class UserEditingFragment : Fragment() {
     ): View {
         userEditingViewModel.apply {
             observeAction(userUpdatedAction) { userId ->
+                hideKeyboard()
                 requireActivity().showSnackbar(getString(R.string.user_editing_success))
                 val direction = UserEditingFragmentDirections.toUserDetails(userId)
                 findNavController().navigate(direction)

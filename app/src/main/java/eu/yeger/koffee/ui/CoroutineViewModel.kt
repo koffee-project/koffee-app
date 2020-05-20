@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import eu.yeger.koffee.R
+import eu.yeger.koffee.utility.hideKeyboard
 import eu.yeger.koffee.utility.nullIfBlank
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
@@ -12,7 +13,6 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import timber.log.Timber
 
 abstract class CoroutineViewModel : ViewModel() {
     private val errorAction = DataAction<Throwable>()
@@ -22,7 +22,6 @@ abstract class CoroutineViewModel : ViewModel() {
     }
 
     private val defaultErrorFormatter: Fragment.(Throwable) -> String = { error ->
-        Timber.d(error)
         when (error) {
             is UnknownHostException -> getString(R.string.no_connection)
             is HttpException -> {
@@ -43,6 +42,7 @@ abstract class CoroutineViewModel : ViewModel() {
         block: (Fragment.(Throwable) -> String?)? = null
     ) {
         onError {
+            hideKeyboard()
             val message = block?.invoke(this, it).nullIfBlank() ?: defaultErrorFormatter(it)
             requireActivity().showSnackbar(message)
         }
