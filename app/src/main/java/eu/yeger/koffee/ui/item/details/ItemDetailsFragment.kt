@@ -68,6 +68,14 @@ class ItemDetailsFragment : Fragment() {
                 showItemNotFoundDialog()
             }
 
+            onAuthorizationException {
+                hideKeyboard()
+                requireActivity().showSnackbar(R.string.login_expired)
+                val direction = ItemDetailsFragmentDirections.toAdmin()
+                direction.loginExpired = true
+                findNavController().navigate(direction)
+            }
+
             onErrorShowSnackbar()
         }
 

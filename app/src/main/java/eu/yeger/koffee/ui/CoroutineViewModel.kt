@@ -17,8 +17,13 @@ import retrofit2.HttpException
 abstract class CoroutineViewModel : ViewModel() {
     private val errorAction = DataAction<Throwable>()
 
+    private val unauthorizedAction = SimpleAction()
+
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         errorAction.activateWith(throwable)
+        if (throwable is HttpException && throwable.code() == 401) {
+            unauthorizedAction.activate()
+        }
     }
 
     private val defaultErrorFormatter: Fragment.(Throwable) -> String = { error ->
@@ -46,5 +51,9 @@ abstract class CoroutineViewModel : ViewModel() {
             val message = block?.invoke(this, it).nullIfBlank() ?: defaultErrorFormatter(it)
             requireActivity().showSnackbar(message)
         }
+    }
+
+    fun Fragment.onAuthorizationException(block: () -> Unit) {
+        observeAction(unauthorizedAction, block)
     }
 }

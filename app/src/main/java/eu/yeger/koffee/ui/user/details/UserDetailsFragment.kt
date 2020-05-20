@@ -71,6 +71,14 @@ class UserDetailsFragment : Fragment() {
                 showUserNotFoundDialog()
             }
 
+            onAuthorizationException {
+                hideKeyboard()
+                requireActivity().showSnackbar(R.string.login_expired)
+                val direction = UserDetailsFragmentDirections.toAdmin()
+                direction.loginExpired = true
+                findNavController().navigate(direction)
+            }
+
             onErrorShowSnackbar()
         }
 

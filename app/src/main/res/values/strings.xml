@@ -64,4 +64,5 @@
     <string name="credit_user">Credit User</string>
     <string name="title_user_crediting">Credit User</string>
     <string name="user_crediting_success">User credited successfully.</string>
+    <string name="login_expired">Your login has expired.</string>
 </resources>

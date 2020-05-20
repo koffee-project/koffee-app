@@ -54,6 +54,10 @@
             app:destination="@id/navigation_login"
             app:popUpTo="@id/navigation_admin"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="loginExpired"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 
     <fragment
@@ -85,6 +89,11 @@
             app:destination="@id/navigation_item_list"
             app:popUpTo="@id/navigation_item_details"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_admin"
+            app:destination="@id/navigation_admin"
+            app:popUpTo="@id/navigation_item_details"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -109,6 +118,11 @@
             app:destination="@id/navigation_user_details"
             app:popUpTo="@id/navigation_user_creation"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_admin"
+            app:destination="@id/navigation_admin"
+            app:popUpTo="@id/navigation_user_creation"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -119,6 +133,11 @@
         <action
             android:id="@+id/to_item_details"
             app:destination="@id/navigation_item_details"
+            app:popUpTo="@id/navigation_item_creation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_admin"
+            app:destination="@id/navigation_admin"
             app:popUpTo="@id/navigation_item_creation"
             app:popUpToInclusive="true" />
     </fragment>
@@ -134,6 +153,11 @@
         <action
             android:id="@+id/to_item_details"
             app:destination="@id/navigation_item_details"
+            app:popUpTo="@id/navigation_item_editing"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_admin"
+            app:destination="@id/navigation_admin"
             app:popUpTo="@id/navigation_item_editing"
             app:popUpToInclusive="true" />
     </fragment>
@@ -162,6 +186,11 @@
         <action
             android:id="@+id/to_user_crediting"
             app:destination="@id/navigation_user_crediting" />
+        <action
+            android:id="@+id/to_admin"
+            app:destination="@id/navigation_admin"
+            app:popUpTo="@id/navigation_user_details"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -177,6 +206,11 @@
             app:destination="@id/navigation_user_details"
             app:popUpTo="@id/navigation_user_editing"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_admin"
+            app:destination="@id/navigation_admin"
+            app:popUpTo="@id/navigation_user_editing"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -190,6 +224,11 @@
         <action
             android:id="@+id/to_user_details"
             app:destination="@id/navigation_user_details"
+            app:popUpTo="@id/navigation_user_crediting"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_admin"
+            app:destination="@id/navigation_admin"
             app:popUpTo="@id/navigation_user_crediting"
             app:popUpToInclusive="true" />
     </fragment>

@@ -15,6 +15,7 @@ class AdminFragment : Fragment() {
 
     private val adminViewModel: AdminViewModel by viewModelFactories {
         AdminViewModel(
+            loginExpired = AdminFragmentArgs.fromBundle(requireArguments()).loginExpired,
             adminRepository = AdminRepository(requireContext())
         )
     }
