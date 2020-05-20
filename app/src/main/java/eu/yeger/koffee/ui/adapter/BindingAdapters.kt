@@ -15,13 +15,26 @@ import eu.yeger.koffee.domain.Transaction
  * Sets the visibility of a [View](https://developer.android.com/reference/android/view/View).
  *
  * @receiver The target view.
- * @param visible true for View.VISIBLE and false for View.GONE.
+ * @param present true for View.VISIBLE and false for View.GONE.
+ *
+ * @author Jan Müller
+ */
+@BindingAdapter("present")
+fun View.bindPresence(present: Boolean?) {
+    visibility = if (present == true) View.VISIBLE else View.GONE
+}
+
+/**
+ * Sets the visibility of a [View](https://developer.android.com/reference/android/view/View).
+ *
+ * @receiver The target view.
+ * @param visible true for View.VISIBLE and false for View.INVISIBLE.
  *
  * @author Jan Müller
  */
 @BindingAdapter("visible")
 fun View.bindVisibility(visible: Boolean?) {
-    visibility = if (visible == true) View.VISIBLE else View.GONE
+    visibility = if (visible == true) View.VISIBLE else View.INVISIBLE
 }
 
 /**

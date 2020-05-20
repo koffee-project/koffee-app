@@ -45,14 +45,14 @@
                 app:layout_constraintEnd_toEndOf="@+id/user_recycler_view"
                 app:layout_constraintStart_toStartOf="@+id/user_recycler_view"
                 app:layout_constraintTop_toTopOf="@+id/user_recycler_view"
-                app:visible="@{viewModel.hasNoResults}" />
+                app:present="@{viewModel.hasNoResults}" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/user_recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="@dimen/half_spacing"
-                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/half_spacing"
                 android:layout_marginEnd="@dimen/half_spacing"
                 app:callback="@{viewModel.onFilteredEntriesApplied}"
                 app:items="@{viewModel.filteredEntries}"
@@ -69,7 +69,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/user_recycler_view"
                 app:layout_constraintStart_toStartOf="@+id/user_recycler_view"
                 app:layout_constraintTop_toTopOf="@+id/user_recycler_view"
-                app:visible="@{viewModel.isBusy}" />
+                app:present="@{viewModel.isBusy}" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_person_add_24dp"
-                app:visible="@{viewModel.isAuthenticated()}" />
+                app:present="@{viewModel.isAuthenticated()}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

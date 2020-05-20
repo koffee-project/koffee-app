@@ -23,7 +23,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:visible="@{itemDetailsViewModel.hasItem}">
+            app:present="@{itemDetailsViewModel.hasItem}">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/item_name_text"
@@ -64,19 +64,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/item_name_text"
-                app:visible="@{itemDetailsViewModel.hasUser}" />
+                app:present="@{itemDetailsViewModel.hasUser}" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/refund_button"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/default_spacing"
                 android:layout_marginTop="@dimen/default_spacing"
                 android:layout_marginEnd="@dimen/default_spacing"
                 android:onClick="@{() -> refundViewModel.refundPurchase()}"
                 android:text="@string/refund"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buy_button"
                 app:visible="@{refundViewModel.canRefund}" />
 
@@ -86,12 +84,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/default_spacing"
-                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
                 android:text="@{@string/transactions_title_format(itemDetailsViewModel.user.name)}"
+                app:layout_constraintBottom_toBottomOf="@+id/refund_button"
+                app:layout_constraintEnd_toStartOf="@+id/refund_button"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/refund_button"
-                app:visible="@{itemDetailsViewModel.hasUser}"
-                tools:text="Transaction of UserName" />
+                app:layout_constraintTop_toTopOf="@+id/refund_button"
+                app:present="@{itemDetailsViewModel.hasUser}"
+                tools:text="Transactions of UserName" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/state_text"
@@ -103,21 +103,21 @@
                 app:layout_constraintEnd_toEndOf="@+id/transaction_recycler_view"
                 app:layout_constraintStart_toStartOf="@+id/transaction_recycler_view"
                 app:layout_constraintTop_toTopOf="@+id/transaction_recycler_view"
-                app:visible="@{!itemDetailsViewModel.hasTransactions}" />
+                app:present="@{!itemDetailsViewModel.hasTransactions}" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/transaction_recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="@dimen/half_spacing"
-                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/half_spacing"
                 android:layout_marginEnd="@dimen/half_spacing"
                 app:items="@{itemDetailsViewModel.transactions}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/transactions_title_text" />
+                app:layout_constraintTop_toBottomOf="@+id/refund_button" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/delete_item_button"
@@ -127,8 +127,8 @@
                 android:onClick="@{() -> itemDetailsViewModel.activateDeleteItemAction()}"
                 app:layout_constraintBottom_toTopOf="@+id/edit_item_button"
                 app:layout_constraintEnd_toEndOf="@+id/edit_item_button"
-                app:srcCompat="@drawable/ic_delete_forever_24dp"
-                app:visible="@{itemDetailsViewModel.canModify}" />
+                app:present="@{itemDetailsViewModel.canModify}"
+                app:srcCompat="@drawable/ic_delete_forever_24dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/edit_item_button"
@@ -139,8 +139,8 @@
                 android:onClick="@{() -> itemDetailsViewModel.activateEditItemAction()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_edit_24dp"
-                app:visible="@{itemDetailsViewModel.canModify}" />
+                app:present="@{itemDetailsViewModel.canModify}"
+                app:srcCompat="@drawable/ic_edit_24dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
