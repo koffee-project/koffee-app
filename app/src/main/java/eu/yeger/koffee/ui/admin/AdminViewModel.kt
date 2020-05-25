@@ -16,7 +16,7 @@ class AdminViewModel(
 
     val token = adminRepository.getJWTFlow().asLiveData()
 
-    val tokenExpiration = token.map { it?.let { token -> formatTimestamp(token.expiration)} }
+    val tokenExpiration = token.map { it?.let { token -> formatTimestamp(token.expiration) } }
 
     init {
         if (loginExpired) {

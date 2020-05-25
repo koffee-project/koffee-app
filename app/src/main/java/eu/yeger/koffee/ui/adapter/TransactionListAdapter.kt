@@ -7,7 +7,6 @@ import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.utility.formatTimestamp
 import java.util.*
-import org.ocpsoft.prettytime.PrettyTime
 
 class TransactionViewHolder(
     private val binding: CardTransactionBinding

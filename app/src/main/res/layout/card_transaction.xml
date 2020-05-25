@@ -38,12 +38,12 @@
                 android:contentDescription="@string/refund_image_description"
                 app:layout_constraintBottom_toBottomOf="@+id/details_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/type_text"
+                app:layout_constraintTop_toTopOf="@+id/details_text"
                 app:transaction="@{transaction}"
                 tools:src="@drawable/ic_attach_money_24dp" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/type_text"
+                android:id="@+id/details_text"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -51,23 +51,10 @@
                 android:layout_marginEnd="@dimen/half_spacing"
                 android:text="@{String.valueOf(transaction.value)}"
                 android:textAlignment="textStart"
-                app:layout_constraintEnd_toStartOf="@+id/value_text"
-                app:layout_constraintStart_toEndOf="@+id/type_image_view"
-                app:layout_constraintTop_toTopOf="parent"
-                app:transactionType="@{transaction}"
-                tools:text="TransactionType" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/details_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/half_spacing"
-                android:layout_marginEnd="@dimen/half_spacing"
-                android:text="@{String.valueOf(transaction.value)}"
-                android:textAlignment="textStart"
+                app:layout_constraintBottom_toBottomOf="@+id/timestamp_text"
                 app:layout_constraintEnd_toStartOf="@+id/timestamp_text"
                 app:layout_constraintStart_toEndOf="@+id/type_image_view"
-                app:layout_constraintTop_toBottomOf="@+id/type_text"
+                app:layout_constraintTop_toTopOf="@+id/value_text"
                 app:transactionDetails="@{transaction}"
                 tools:text="TransactionDetails" />
 
@@ -77,8 +64,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                app:layout_constraintBaseline_toBaselineOf="@+id/type_text"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:transactionValue="@{transaction}"
                 tools:text="+30Euro" />
 
@@ -88,8 +75,8 @@
                 android:layout_height="wrap_content"
                 android:text="@{timestamp}"
                 android:textAlignment="center"
-                app:layout_constraintBaseline_toBaselineOf="@+id/details_text"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/value_text"
                 tools:text="Timestamp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.circularreveal.cardview.CircularRevealCardView>

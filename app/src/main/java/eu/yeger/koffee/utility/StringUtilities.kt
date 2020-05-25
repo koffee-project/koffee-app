@@ -1,7 +1,7 @@
 package eu.yeger.koffee.utility
 
-import org.ocpsoft.prettytime.PrettyTime
 import java.util.*
+import org.ocpsoft.prettytime.PrettyTime
 
 fun String?.nullIfBlank(): String? = when {
     isNullOrBlank() -> null

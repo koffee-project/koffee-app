@@ -84,17 +84,6 @@ fun ShapeableImageView.bindTransaction(transaction: Transaction?) {
     }
 }
 
-@BindingAdapter("transactionType")
-fun TextView.bindTransactionType(transaction: Transaction?) {
-    val resId = when (transaction) {
-        null -> R.string.none
-        is Transaction.Funding -> R.string.funding
-        is Transaction.Purchase -> R.string.purchase
-        is Transaction.Refund -> R.string.refund
-    }
-    setText(resId)
-}
-
 @BindingAdapter("transactionValue")
 fun TextView.bindTransactionValue(transaction: Transaction?) {
     setTextColor(resources.getColor(R.color.design_default_color_on_primary, context.theme))
@@ -121,7 +110,7 @@ fun TextView.bindTransactionDetails(transaction: Transaction?) {
     val newText = when (transaction) {
         is Transaction.Purchase -> defaultText(transaction.amount, transaction.itemName)
         is Transaction.Refund -> defaultText(transaction.amount, transaction.itemName)
-        else -> context.getString(R.string.no_transaction_details)
+        else -> context.getString(R.string.funding)
     }
     text = newText
 }
