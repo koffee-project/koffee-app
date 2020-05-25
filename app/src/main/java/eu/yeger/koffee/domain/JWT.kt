@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class JWT(
     @PrimaryKey
     val userId: String,
-    val token: String
+    val token: String,
+    val expiration: Long
 )

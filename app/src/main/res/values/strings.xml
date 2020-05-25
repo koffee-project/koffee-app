@@ -47,8 +47,8 @@
     <string name="view_user_as_admin">View As Admin</string>
     <string name="title_user_editing">Edit User</string>
     <string name="update_user">Update User</string>
-    <string name="unknown_error">Unknown Error</string>
-    <string name="no_connection">No Connection</string>
+    <string name="unknown_error">Unknown error.</string>
+    <string name="no_connection">No connection.</string>
     <string name="user_not_found">This user no longer exists.</string>
     <string name="active_user_deleted">The previously active user has been deleted.</string>
     <string name="item">Item</string>
@@ -65,4 +65,6 @@
     <string name="title_user_crediting">Credit User</string>
     <string name="user_crediting_success">User credited successfully.</string>
     <string name="login_expired">Your login has expired.</string>
+    <string name="logged_in_as_format">Logged in as %s</string>
+    <string name="expiry_format">Expiry: %s</string>
 </resources>

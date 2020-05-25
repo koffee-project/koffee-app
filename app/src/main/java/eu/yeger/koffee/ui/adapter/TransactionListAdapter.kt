@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import eu.yeger.koffee.databinding.CardTransactionBinding
 import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.ui.OnClickListener
+import eu.yeger.koffee.utility.formatTimestamp
 import java.util.*
 import org.ocpsoft.prettytime.PrettyTime
 
@@ -23,11 +24,6 @@ class TransactionViewHolder(
                 )
             )
         }
-    }
-
-    private fun formatTimestamp(timestamp: Long): String {
-        val prettyTime = PrettyTime(Locale.getDefault())
-        return prettyTime.format(Date(timestamp - 1000)) // subtract one second to prevent edge case issues
     }
 
     override fun bind(item: Transaction, onClickListener: OnClickListener<Transaction>) {

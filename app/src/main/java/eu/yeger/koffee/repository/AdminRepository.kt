@@ -6,6 +6,7 @@ import eu.yeger.koffee.database.getDatabase
 import eu.yeger.koffee.domain.JWT
 import eu.yeger.koffee.network.ApiCredentials
 import eu.yeger.koffee.network.NetworkService
+import eu.yeger.koffee.network.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -20,6 +21,10 @@ class AdminRepository(private val database: KoffeeDatabase) {
         return withContext(Dispatchers.IO) {
             database.jwtDao.get()
         }
+    }
+
+    fun getJWTFlow(): Flow<JWT?> {
+        return database.jwtDao.getAsFlow().distinctUntilChanged()
     }
 
     fun isAuthenticatedFlow(): Flow<Boolean> {
@@ -37,8 +42,8 @@ class AdminRepository(private val database: KoffeeDatabase) {
     suspend fun login(userId: String, password: String) {
         withContext(Dispatchers.IO) {
             val credentials = ApiCredentials(id = userId, password = password)
-            val token = NetworkService.koffeeApi.login(credentials)
-            val jwt = JWT(userId = userId, token = token)
+            val apiToken = NetworkService.koffeeApi.login(credentials)
+            val jwt = apiToken.asDomainModel(userId)
             database.jwtDao.upsert(jwt)
         }
     }

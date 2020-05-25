@@ -10,7 +10,6 @@ import eu.yeger.koffee.domain.JWT
 import eu.yeger.koffee.domain.User
 
 // TODO add worker for periodically cleaning the database
-// TODO add worker for periodically deleting jwts
 @Database(
     entities = [
         DatabaseTransaction::class,
@@ -18,7 +17,7 @@ import eu.yeger.koffee.domain.User
         JWT::class,
         User::class
     ],
-    version = 11,
+    version = 12,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

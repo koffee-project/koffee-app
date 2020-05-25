@@ -26,7 +26,7 @@ interface KoffeeApi {
     suspend fun refundPurchase(@Path("userId") userId: String)
 
     @POST("login")
-    suspend fun login(@Body credentials: ApiCredentials): String
+    suspend fun login(@Body credentials: ApiCredentials): ApiToken
 
     @POST("users")
     suspend fun createUser(@Body userDTO: ApiUserDTO, @Header("Authorization") token: String)

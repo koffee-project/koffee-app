@@ -76,4 +76,10 @@ class TransactionRepository(private val database: KoffeeDatabase) {
             }
         }
     }
+
+    suspend fun deleteAllTransactionsExceptWithUserId(userId: String?) {
+        withContext(Dispatchers.IO) {
+            database.transactionDao.deleteAllExceptWithUserId(userId)
+        }
+    }
 }

@@ -20,6 +20,9 @@ interface TransactionDao : BaseDao<DatabaseTransaction> {
     @Query("DELETE FROM databasetransaction")
     suspend fun deleteAll()
 
+    @Query("DELETE FROM databasetransaction WHERE userId != :userId")
+    suspend fun deleteAllExceptWithUserId(userId: String?)
+
     @Query("DELETE FROM databasetransaction WHERE userId == :userId")
     suspend fun deleteByUserId(userId: String)
 }
