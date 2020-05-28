@@ -21,11 +21,11 @@ class UserCreationViewModel(
 
     val isAdmin = MutableLiveData(false)
 
-    val canCreateUser = sourcedLiveData(userId, userName, userPassword, isAdmin) {
-        userId.value.isNullOrBlank().not() &&
-                userName.value.isNullOrBlank().not() &&
+    val canCreateUser = sourcedLiveData(userName, userPassword, isAdmin) {
+        userName.value.isNullOrBlank().not() &&
                 (isAdmin.value!!.not() ||
-                userPassword.value.isNullOrBlank().not() && userPassword.value!!.length >= 8)
+                        userPassword.value.isNullOrBlank().not() &&
+                        userPassword.value!!.length >= 8)
     }
 
     val userCreatedAction = DataAction<String>()
@@ -33,9 +33,8 @@ class UserCreationViewModel(
     fun createUser() {
         onViewModelScope {
             val jwt = adminRepository.getJWT()!!
-            val userId = userId.value!!
-            userRepository.createUser(
-                userId = userId,
+            val userId = userRepository.createUser(
+                userId = userId.value?.nullIfBlank(),
                 userName = userName.value!!,
                 password = userPassword.value.nullIfBlank(),
                 isAdmin = isAdmin.value!!,

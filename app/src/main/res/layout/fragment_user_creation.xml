@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/large_spacing"
                 android:labelFor="@id/user_id_input"
-                android:text="@string/id"
+                android:text="@string/id_optional"
                 app:layout_constraintStart_toStartOf="@+id/user_id_input"
                 app:layout_constraintTop_toBottomOf="@+id/user_creation_title_text" />
 

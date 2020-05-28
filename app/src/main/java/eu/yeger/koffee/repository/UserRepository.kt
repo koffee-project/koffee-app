@@ -62,13 +62,13 @@ class UserRepository(private val database: KoffeeDatabase) {
     }
 
     suspend fun createUser(
-        userId: String,
+        userId: String?,
         userName: String,
         password: String?,
         isAdmin: Boolean,
         jwt: JWT
-    ) {
-        withContext(Dispatchers.IO) {
+    ): String {
+        return withContext(Dispatchers.IO) {
             val userDTO = ApiUserDTO(
                 id = userId,
                 name = userName,

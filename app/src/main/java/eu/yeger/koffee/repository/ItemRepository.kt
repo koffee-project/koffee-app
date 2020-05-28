@@ -63,13 +63,13 @@ class ItemRepository(private val database: KoffeeDatabase) {
     }
 
     suspend fun createItem(
-        itemId: String,
+        itemId: String?,
         itemName: String,
         itemPrice: Double,
         itemAmount: Int?,
         jwt: JWT
-    ) {
-        withContext(Dispatchers.IO) {
+    ): String {
+        return withContext(Dispatchers.IO) {
             val itemDTO = ApiItemDTO(
                 id = itemId,
                 name = itemName,

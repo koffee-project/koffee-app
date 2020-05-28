@@ -67,4 +67,6 @@
     <string name="login_expired">Your login has expired.</string>
     <string name="logged_in_as_format">Logged in as %s</string>
     <string name="expiry_format">Expiry: %s</string>
+    <string name="id_optional">ID (optional)</string>
+    <string name="amount_optional">Amount (optional)</string>
 </resources>

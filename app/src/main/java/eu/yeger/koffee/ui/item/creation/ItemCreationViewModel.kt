@@ -1,11 +1,12 @@
 package eu.yeger.koffee.ui.item.creation
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.CoroutineViewModel
 import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.utility.isValidCurrencyAmount
+import eu.yeger.koffee.utility.nullIfBlank
 import eu.yeger.koffee.utility.sourcedLiveData
 
 class ItemCreationViewModel(
@@ -21,9 +22,8 @@ class ItemCreationViewModel(
 
     val itemAmount = MutableLiveData("")
 
-    val canCreateItem = sourcedLiveData(itemId, itemName, itemPrice, itemAmount) {
-        itemId.value.isNullOrBlank().not() &&
-                itemName.value.isNullOrBlank().not() &&
+    val canCreateItem = sourcedLiveData(itemName, itemPrice, itemAmount) {
+        itemName.value.isNullOrBlank().not() &&
                 itemPrice.value?.toDoubleOrNull().isValidCurrencyAmount() &&
                 (itemAmount.value.isNullOrBlank() || itemAmount.value?.toIntOrNull() ?: -1 >= 0)
     }
@@ -33,9 +33,8 @@ class ItemCreationViewModel(
     fun createItem() {
         onViewModelScope {
             val jwt = adminRepository.getJWT()!!
-            val itemId = itemId.value!!
-            itemRepository.createItem(
-                itemId = itemId,
+            val itemId = itemRepository.createItem(
+                itemId = itemId.value?.nullIfBlank(),
                 itemName = itemName.value!!,
                 itemPrice = itemPrice.value!!.toDouble(),
                 itemAmount = itemAmount.value?.toIntOrNull(),

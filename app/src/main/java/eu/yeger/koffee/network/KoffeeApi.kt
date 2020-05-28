@@ -29,7 +29,7 @@ interface KoffeeApi {
     suspend fun login(@Body credentials: ApiCredentials): ApiToken
 
     @POST("users")
-    suspend fun createUser(@Body userDTO: ApiUserDTO, @Header("Authorization") token: String)
+    suspend fun createUser(@Body userDTO: ApiUserDTO, @Header("Authorization") token: String): String
 
     @PUT("users")
     suspend fun updateUser(@Body userDTO: ApiUserDTO, @Header("Authorization") token: String)
@@ -41,7 +41,7 @@ interface KoffeeApi {
     suspend fun deleteUser(@Path("id") id: String, @Header("Authorization") token: String)
 
     @POST("items")
-    suspend fun createItem(@Body itemDTO: ApiItemDTO, @Header("Authorization") token: String)
+    suspend fun createItem(@Body itemDTO: ApiItemDTO, @Header("Authorization") token: String): String
 
     @PUT("items")
     suspend fun updateItem(@Body itemDTO: ApiItemDTO, @Header("Authorization") token: String)
