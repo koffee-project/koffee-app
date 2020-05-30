@@ -1,12 +1,16 @@
 package eu.yeger.koffee.ui.adapter
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
+import eu.yeger.koffee.BuildConfig
 import eu.yeger.koffee.R
 import eu.yeger.koffee.domain.Item
 import eu.yeger.koffee.domain.Transaction
@@ -113,4 +117,25 @@ fun TextView.bindTransactionDetails(transaction: Transaction?) {
         else -> context.getString(R.string.funding)
     }
     text = newText
+}
+
+@BindingAdapter("imageUrl")
+fun ImageView.bindImage(imageUrl: String?) {
+    imageUrl?.let {
+        val scheme = BuildConfig.KOFFEE_BACKEND_URL.substringBefore(":")
+        val imgUri = imageUrl.toUri().buildUpon().scheme(scheme).build()
+        Glide.with(context)
+            .load(imgUri)
+            .fitCenter()
+            .circleCrop()
+            .placeholder(R.drawable.ic_person_add_24dp)
+            .into(this)
+    }
+}
+
+@BindingAdapter("koffeeUserId")
+fun ImageView.bindProfileImage(userId: String?) {
+    userId?.let {
+        bindImage("${BuildConfig.KOFFEE_BACKEND_URL}/users/$userId/image")
+    }
 }
