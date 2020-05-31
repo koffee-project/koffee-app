@@ -14,7 +14,6 @@ import eu.yeger.koffee.R
 import eu.yeger.koffee.domain.Item
 import eu.yeger.koffee.domain.ProfileImage
 import eu.yeger.koffee.domain.Transaction
-import java.util.*
 
 /**
  * Sets the visibility of a [View](https://developer.android.com/reference/android/view/View).
@@ -122,8 +121,9 @@ fun TextView.bindTransactionDetails(transaction: Transaction?) {
 
 @BindingAdapter("profileImage")
 fun ImageView.bindImage(profileImage: ProfileImage?) {
-    profileImage?.let {
-        Glide.with(context)
+    when (profileImage) {
+        null -> setImageResource(R.drawable.ic_person_24dp)
+        else -> Glide.with(context)
             .load(profileImage.bytes)
             .signature(ObjectKey(profileImage.timestamp))
             .fitCenter()

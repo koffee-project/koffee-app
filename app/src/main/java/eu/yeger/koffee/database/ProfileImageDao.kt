@@ -15,7 +15,7 @@ interface ProfileImageDao : BaseDao<ProfileImage> {
     fun getByIdAsFlow(userId: String?): Flow<ProfileImage?>
 
     @Query("DELETE FROM profileimage WHERE userId == :userId")
-    suspend fun deleteByUserId(userId: String)
+    suspend fun deleteByUserId(userId: String?)
 
     @Query("DELETE FROM profileimage WHERE userId != :userId")
     suspend fun deleteAllExceptWithUserId(userId: String?)

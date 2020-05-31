@@ -32,7 +32,8 @@ class UserDetailsViewModel(
     val hasUser = user.map { it !== null }
 
     val profileImage = profileImageRepository.getProfileImageByUserId(userId).asLiveData()
-    val hasProfileImage = profileImage.map { it !== null }
+    val canEditProfileImage = isActiveUser
+    val canDeleteProfileImage = profileImage.map { isActiveUser && it !== null }
 
     val transactions = transactionRepository.getTransactionsByUserId(userId).toLiveData(PAGE_SIZE)
     val hasTransactions = transactions.map { it.isNotEmpty() }
@@ -51,6 +52,9 @@ class UserDetailsViewModel(
     val deleteUserAction = DataAction<String>()
     val userDeletedAction = SimpleAction()
     val userNotFoundAction = SimpleAction()
+
+    val editProfileImageAction = SimpleAction()
+    val deleteProfileImageAction = SimpleAction()
 
     fun refreshUser() {
         if (userId == null) {
@@ -95,9 +99,21 @@ class UserDetailsViewModel(
         }
     }
 
+    fun deleteProfileImage() {
+        userId?.let {
+            onViewModelScope {
+                profileImageRepository.deleteProfileImageByUserId(userId)
+            }
+        }
+    }
+
     fun activateEditUserAction() = editUserAction.activateWith(user.value?.id)
 
     fun activateCreditUserAction() = creditUserAction.activateWith(user.value?.id)
 
     fun activateDeleteUserAction() = deleteUserAction.activateWith(user.value?.id)
+
+    fun activateEditProfileImageAction() = editProfileImageAction.activate()
+
+    fun activateDeleteProfileImageAction() = deleteProfileImageAction.activate()
 }

@@ -29,11 +29,31 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="@dimen/default_spacing"
-                app:profileImage="@{userDetailsViewModel.profileImage}"
                 app:layout_constraintBottom_toBottomOf="@+id/user_account_text"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/user_name_text" />
+                app:layout_constraintTop_toTopOf="@+id/user_name_text"
+                app:profileImage="@{userDetailsViewModel.profileImage}" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profile_image_edit_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> userDetailsViewModel.activateEditProfileImageAction()}"
+                app:layout_constraintStart_toEndOf="@+id/user_profile_image"
+                app:layout_constraintTop_toTopOf="@+id/user_profile_image"
+                app:present="@{userDetailsViewModel.canEditProfileImage}"
+                app:srcCompat="@drawable/ic_edit_24dp" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profile_image_delete_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> userDetailsViewModel.activateDeleteProfileImageAction()}"
+                app:layout_constraintBottom_toBottomOf="@+id/user_profile_image"
+                app:layout_constraintStart_toEndOf="@+id/user_profile_image"
+                app:present="@{userDetailsViewModel.canDeleteProfileImage}"
+                app:srcCompat="@drawable/ic_delete_forever_24dp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/user_name_text"

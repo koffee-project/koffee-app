@@ -74,6 +74,31 @@ class HomeFragment : Fragment() {
                 showUserSelectionRequiredDialog(message)
             }
 
+            observeAction(editProfileImageAction) {
+                ImagePicker.with(this@HomeFragment)
+                    .compress(8 * 1024) // Limit size to 8MB
+                    .start { resultCode, data ->
+                        when (resultCode) {
+                            Activity.RESULT_OK -> {
+                                val image = ImagePicker.getFile(data)!!
+                                userDetailsViewModel.uploadProfileImage(image)
+                            }
+                            ImagePicker.RESULT_ERROR -> requireActivity().showSnackbar(ImagePicker.getError(data))
+                        }
+                    }
+            }
+
+            observeAction(deleteProfileImageAction) {
+                AlertDialog.Builder(requireContext())
+                    .setMessage(R.string.delete_profile_image_confirmation)
+                    .setPositiveButton(R.string.delete) { _, _ ->
+                        userDetailsViewModel.deleteProfileImage()
+                    }
+                    .setNegativeButton(R.string.cancel) { _, _ -> /*ignore*/ }
+                    .create()
+                    .show()
+            }
+
             onErrorShowSnackbar()
         }
 
@@ -92,19 +117,6 @@ class HomeFragment : Fragment() {
                     }
                 })
             lifecycleOwner = viewLifecycleOwner
-            userProfileImage.setOnClickListener {
-                ImagePicker.with(this@HomeFragment)
-                    .compress(8 * 1024) // Limit size to 8MB
-                    .start { resultCode, data ->
-                        when (resultCode) {
-                            Activity.RESULT_OK -> {
-                                val image = ImagePicker.getFile(data)!!
-                                userDetailsViewModel?.uploadProfileImage(image)
-                            }
-                            ImagePicker.RESULT_ERROR -> requireActivity().showSnackbar(ImagePicker.getError(data))
-                        }
-                    }
-            }
         }.root
     }
 

@@ -59,4 +59,7 @@ interface KoffeeApi {
     @Multipart
     @POST("users/{id}/image")
     suspend fun uploadProfileImage(@Path("id") id: String, @Part image: MultipartBody.Part)
+
+    @DELETE("users/{id}/image")
+    suspend fun deleteProfilePicture(@Path("id") id: String)
 }

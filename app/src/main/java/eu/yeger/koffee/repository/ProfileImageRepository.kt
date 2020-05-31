@@ -26,21 +26,18 @@ class ProfileImageRepository(private val database: KoffeeDatabase) {
 
     suspend fun fetchProfileImageByUserId(userId: String) {
         withContext(Dispatchers.IO) {
-            database.profileImageDao.run {
-                getById(userId)?.let { currentImage ->
-                    val newTimestamp = NetworkService.koffeeApi.getProfileImageTimestamp(userId)
-                    if (currentImage.timestamp >= newTimestamp) return@withContext // no new image
+            try {
+                database.profileImageDao.run {
+                    getById(userId)?.let { currentImage ->
+                        val newTimestamp = NetworkService.koffeeApi.getProfileImageTimestamp(userId)
+                        if (currentImage.timestamp >= newTimestamp) return@withContext // no new image
+                    }
+
+                    val newImage = NetworkService.koffeeApi.getProfileImage(userId)
+                    insert(newImage.asDomainModel())
                 }
-
-                val newImage = NetworkService.koffeeApi.getProfileImage(userId)
-                insert(newImage.asDomainModel())
+            } catch (e: Exception) { /*ignore*/
             }
-        }
-    }
-
-    suspend fun deleteAllImagesExceptWithUserId(userId: String?) {
-        withContext(Dispatchers.IO) {
-            database.profileImageDao.deleteAllExceptWithUserId(userId)
         }
     }
 
@@ -56,6 +53,19 @@ class ProfileImageRepository(private val database: KoffeeDatabase) {
             val part = MultipartBody.Part.createFormData("image", image.name, body)
             NetworkService.koffeeApi.uploadProfileImage(userId, part)
             fetchProfileImageByUserId(userId)
+        }
+    }
+
+    suspend fun deleteProfileImageByUserId(userId: String) {
+        withContext(Dispatchers.IO) {
+            NetworkService.koffeeApi.deleteProfilePicture(userId)
+            database.profileImageDao.deleteByUserId(userId)
+        }
+    }
+
+    suspend fun deleteAllImagesExceptWithUserId(userId: String?) {
+        withContext(Dispatchers.IO) {
+            database.profileImageDao.deleteAllExceptWithUserId(userId)
         }
     }
 }
