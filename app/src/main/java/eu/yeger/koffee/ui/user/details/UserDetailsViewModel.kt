@@ -90,7 +90,7 @@ class UserDetailsViewModel(
     fun uploadProfileImage(image: File) {
         userId?.let {
             onViewModelScope {
-                userRepository.uploadProfileImage(userId, image)
+                profileImageRepository.uploadProfileImage(userId, image)
             }
         }
     }

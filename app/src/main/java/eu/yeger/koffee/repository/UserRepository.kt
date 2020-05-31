@@ -9,14 +9,10 @@ import eu.yeger.koffee.domain.JWT
 import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.network.*
 import eu.yeger.koffee.utility.onNotFound
-import java.io.File
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
 class UserRepository(private val database: KoffeeDatabase) {
 
@@ -119,18 +115,6 @@ class UserRepository(private val database: KoffeeDatabase) {
                 database.userDao.deleteById(userId)
                 database.transactionDao.deleteByUserId(userId)
             }
-        }
-    }
-
-    suspend fun uploadProfileImage(userId: String, image: File) {
-        withContext(Dispatchers.IO) {
-            val imagePart = MultipartBody.Part.create(
-                RequestBody.create(
-                    MediaType.parse("image/*"),
-                    image.readBytes()
-                )
-            )
-            NetworkService.koffeeApi.uploadProfileImage(userId, imagePart)
         }
     }
 }
