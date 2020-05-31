@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserDetailsBinding
 import eu.yeger.koffee.repository.AdminRepository
+import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.adapter.transactionListAdapter
@@ -27,6 +28,7 @@ class UserDetailsFragment : Fragment() {
             isActiveUser = false,
             userId = userId,
             adminRepository = AdminRepository(context),
+            profileImageRepository = ProfileImageRepository(context),
             transactionRepository = TransactionRepository(context),
             userRepository = UserRepository(context)
         )

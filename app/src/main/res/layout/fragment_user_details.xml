@@ -29,7 +29,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="@dimen/default_spacing"
-                app:koffeeUserId="@{userDetailsViewModel.user.id}"
+                app:profileImage="@{userDetailsViewModel.profileImage}"
                 app:layout_constraintBottom_toBottomOf="@+id/user_account_text"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintStart_toStartOf="parent"

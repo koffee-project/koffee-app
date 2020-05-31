@@ -1,5 +1,6 @@
 package eu.yeger.koffee.ui.home
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.github.dhaval2404.imagepicker.ImagePicker
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserDetailsBinding
 import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.repository.AdminRepository
+import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
@@ -31,6 +34,7 @@ class HomeFragment : Fragment() {
             isActiveUser = true,
             userId = userId,
             adminRepository = AdminRepository(context),
+            profileImageRepository = ProfileImageRepository(context),
             transactionRepository = TransactionRepository(context),
             userRepository = UserRepository(context)
         )
@@ -88,6 +92,19 @@ class HomeFragment : Fragment() {
                     }
                 })
             lifecycleOwner = viewLifecycleOwner
+            userProfileImage.setOnClickListener {
+                ImagePicker.with(this@HomeFragment)
+                    .compress(8 * 1024) // Limit size to 8MB
+                    .start { resultCode, data ->
+                        when (resultCode) {
+                            Activity.RESULT_OK -> {
+                                val image = ImagePicker.getFile(data)!!
+                                userDetailsViewModel?.uploadProfileImage(image)
+                            }
+                            ImagePicker.RESULT_ERROR -> requireActivity().showSnackbar(ImagePicker.getError(data))
+                        }
+                    }
+            }
         }.root
     }
 

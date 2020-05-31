@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import eu.yeger.koffee.domain.Item
 import eu.yeger.koffee.domain.JWT
+import eu.yeger.koffee.domain.ProfileImage
 import eu.yeger.koffee.domain.User
 
 // TODO add worker for periodically cleaning the database
@@ -15,9 +16,10 @@ import eu.yeger.koffee.domain.User
         DatabaseTransaction::class,
         Item::class,
         JWT::class,
+        ProfileImage::class,
         User::class
     ],
-    version = 12,
+    version = 14,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -26,6 +28,8 @@ abstract class KoffeeDatabase : RoomDatabase() {
     abstract val itemDao: ItemDao
 
     abstract val jwtDao: JWTDao
+
+    abstract val profileImageDao: ProfileImageDao
 
     abstract val transactionDao: TransactionDao
 

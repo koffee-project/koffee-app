@@ -1,5 +1,6 @@
 package eu.yeger.koffee.network
 
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 interface KoffeeApi {
@@ -48,4 +49,14 @@ interface KoffeeApi {
 
     @DELETE("items/{id}")
     suspend fun deleteItem(@Path("id") id: String, @Header("Authorization") token: String)
+
+    @GET("users/{id}/image")
+    suspend fun getProfileImage(@Path("id") id: String): ApiProfileImage
+
+    @GET("users/{id}/image/timestamp")
+    suspend fun getProfileImageTimestamp(@Path("id") id: String): Long
+
+    @Multipart
+    @POST("users/{id}/image")
+    suspend fun uploadProfileImage(@Path("id") id: String, @Part image: MultipartBody.Part)
 }
