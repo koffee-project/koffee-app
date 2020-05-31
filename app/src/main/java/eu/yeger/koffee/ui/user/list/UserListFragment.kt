@@ -11,8 +11,10 @@ import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserListBinding
 import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.repository.AdminRepository
+import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
+import eu.yeger.koffee.ui.adapter.UserViewHolder
 import eu.yeger.koffee.ui.adapter.userListAdapter
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.saveUserIdToSharedPreferences
@@ -28,11 +30,14 @@ class UserListFragment : Fragment() {
         )
     }
 
+    private var userViewHolderFactory: UserViewHolder.Factory? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        userViewHolderFactory = UserViewHolder.Factory(ProfileImageRepository(requireContext()))
         userListViewModel.apply {
             observeAction(createUserAction) {
                 val direction = UserListFragmentDirections.toUserCreation()
@@ -49,7 +54,7 @@ class UserListFragment : Fragment() {
 
         return FragmentUserListBinding.inflate(inflater).apply {
             viewModel = userListViewModel
-            userRecyclerView.adapter = userListAdapter(OnClickListener { selectedUser ->
+            userRecyclerView.adapter = userListAdapter(userViewHolderFactory!!, OnClickListener { selectedUser ->
                 userListViewModel.activateUserSelectedAction(selectedUser)
             })
             lifecycleOwner = viewLifecycleOwner
@@ -59,6 +64,11 @@ class UserListFragment : Fragment() {
     override fun onResume() {
         userListViewModel.refreshUsers()
         super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        userViewHolderFactory?.clear()
     }
 
     private fun showUserSelectionDialog(user: User, isAuthenticated: Boolean) {

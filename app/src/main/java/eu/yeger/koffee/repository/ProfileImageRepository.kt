@@ -6,6 +6,7 @@ import eu.yeger.koffee.database.getDatabase
 import eu.yeger.koffee.domain.ProfileImage
 import eu.yeger.koffee.network.NetworkService
 import eu.yeger.koffee.network.asDomainModel
+import eu.yeger.koffee.utility.onNotFound
 import java.io.File
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -14,19 +15,26 @@ import kotlinx.coroutines.withContext
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.HttpException
 
 class ProfileImageRepository(private val database: KoffeeDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    fun getProfileImageByUserId(userId: String?): Flow<ProfileImage?> {
+    suspend fun getProfileImageByUserId(userId: String?): ProfileImage? {
+        return withContext(Dispatchers.IO) {
+            database.profileImageDao.getById(userId)
+        }
+    }
+
+    fun getProfileImageByUserIdAsFlow(userId: String?): Flow<ProfileImage?> {
         return database.profileImageDao.getByIdAsFlow(userId)
             .distinctUntilChanged()
     }
 
     suspend fun fetchProfileImageByUserId(userId: String) {
         withContext(Dispatchers.IO) {
-            try {
+            onNotFound({ deleteProfileImageByUserId(userId) }, rethrow = false) {
                 database.profileImageDao.run {
                     getById(userId)?.let { currentImage ->
                         val newTimestamp = NetworkService.koffeeApi.getProfileImageTimestamp(userId)
@@ -36,7 +44,6 @@ class ProfileImageRepository(private val database: KoffeeDatabase) {
                     val newImage = NetworkService.koffeeApi.getProfileImage(userId)
                     insert(newImage.asDomainModel())
                 }
-            } catch (e: Exception) { /*ignore*/
             }
         }
     }
@@ -58,7 +65,11 @@ class ProfileImageRepository(private val database: KoffeeDatabase) {
 
     suspend fun deleteProfileImageByUserId(userId: String) {
         withContext(Dispatchers.IO) {
-            NetworkService.koffeeApi.deleteProfilePicture(userId)
+            try {
+                NetworkService.koffeeApi.deleteProfilePicture(userId)
+            } catch (exception: HttpException) {
+                if (exception.code() != 404) throw exception
+            }
             database.profileImageDao.deleteByUserId(userId)
         }
     }

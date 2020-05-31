@@ -31,8 +31,8 @@ class UserDetailsViewModel(
     val user = userRepository.getUserByIdFlow(userId).asLiveData()
     val hasUser = user.map { it !== null }
 
-    val profileImage = profileImageRepository.getProfileImageByUserId(userId).asLiveData()
-    val canEditProfileImage = isActiveUser
+    val profileImage = profileImageRepository.getProfileImageByUserIdAsFlow(userId).asLiveData()
+    val canEditProfileImage = user.map { isActiveUser && it !== null }
     val canDeleteProfileImage = profileImage.map { isActiveUser && it !== null }
 
     val transactions = transactionRepository.getTransactionsByUserId(userId).toLiveData(PAGE_SIZE)

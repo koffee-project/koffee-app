@@ -10,6 +10,10 @@
             type="eu.yeger.koffee.domain.User" />
 
         <variable
+            name="profileImage"
+            type="eu.yeger.koffee.domain.ProfileImage" />
+
+        <variable
             name="onClickListener"
             type="eu.yeger.koffee.ui.OnClickListener" />
     </data>
@@ -21,13 +25,45 @@
         android:onClick="@{() -> onClickListener.onClick(user)}"
         app:cardCornerRadius="@dimen/card_corner_radius"
         app:cardElevation="@dimen/card_elevation"
-        app:contentPadding="@dimen/default_spacing">
+        app:contentPadding="@dimen/half_spacing">
 
-        <com.google.android.material.textview.MaterialTextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{@string/user_name_id_format(user.name, user.id)}"
-            android:textAlignment="center"
-            tools:text="Name" />
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/user_profile_image"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:profileImage="@{profileImage}" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/user_name_text"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/half_spacing"
+                android:text="@{user.name}"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/user_profile_image"
+                app:layout_constraintTop_toTopOf="@+id/user_profile_image"
+                tools:text="Name" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/user_id_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/half_spacing"
+                android:text="@{user.id}"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/user_profile_image"
+                app:layout_constraintBottom_toBottomOf="@+id/user_profile_image"
+                tools:text="Id" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 </layout>
