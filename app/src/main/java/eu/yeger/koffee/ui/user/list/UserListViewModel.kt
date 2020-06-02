@@ -22,6 +22,8 @@ abstract class UserListViewModel(
 
     abstract val isAuthenticated: LiveData<Boolean>
 
+    abstract fun activateLaunchAlternativeActivityAction()
+
     abstract fun activateUserSelectedAction(user: User)
 
     abstract fun activateCreateUserAction()

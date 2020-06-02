@@ -18,6 +18,8 @@ class AlternativeUserListViewModel(
     override val isAuthenticated: LiveData<Boolean>
         get() = MutableLiveData(false)
 
+    override fun activateLaunchAlternativeActivityAction() = Unit
+
     override fun activateUserSelectedAction(user: User) = userSelectedAction.activateWith(user.id)
 
     override fun activateCreateUserAction() = Unit

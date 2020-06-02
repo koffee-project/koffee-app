@@ -12,12 +12,14 @@ class MainUserListViewModel(
     userRepository: UserRepository
 ) : UserListViewModel(userRepository) {
 
+    override val showAlternativeActivityButton = true
+    override val isAuthenticated = adminRepository.isAuthenticatedFlow().asLiveData()
+
     val createUserAction = SimpleAction()
     val userSelectedAction = DataAction<Pair<Boolean, User>>()
+    val launchAlternativeActivityAction = SimpleAction()
 
-    override val showAlternativeActivityButton = true
-
-    override val isAuthenticated = adminRepository.isAuthenticatedFlow().asLiveData()
+    override fun activateLaunchAlternativeActivityAction() = launchAlternativeActivityAction.activate()
 
     override fun activateCreateUserAction() = createUserAction.activate()
 

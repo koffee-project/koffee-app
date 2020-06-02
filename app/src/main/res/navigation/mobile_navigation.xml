@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/navigation_user_list"
-        android:name="eu.yeger.koffee.ui.user.list.UserListFragment"
+        android:name="eu.yeger.koffee.ui.user.list.MainUserListFragment"
         android:label="@string/title_user_list"
         tools:layout="@layout/fragment_user_list">
         <action

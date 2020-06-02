@@ -26,6 +26,7 @@
                 android:layout_marginStart="@dimen/default_spacing"
                 android:layout_marginTop="@dimen/default_spacing"
                 android:layout_marginEnd="@dimen/default_spacing"
+                android:onClick="@{() -> viewModel.activateLaunchAlternativeActivityAction()}"
                 android:text="@string/launch_alternative_activity"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
