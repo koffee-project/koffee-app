@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
+import eu.yeger.koffee.ui.SimpleAction
 import eu.yeger.koffee.ui.user.details.UserDetailsViewModel
 
 class AlternativeUserDetailsViewModel(
@@ -19,11 +20,18 @@ class AlternativeUserDetailsViewModel(
     transactionRepository = transactionRepository,
     userRepository = userRepository
 ) {
+
     override val canModify: LiveData<Boolean>
         get() = MutableLiveData(false)
 
     override val canDelete: LiveData<Boolean>
         get() = MutableLiveData(false)
+
+    override val showItemsButton = true
+
+    val showItemsAction = SimpleAction()
+
+    override fun activateShowItemsAction() = showItemsAction.activate()
 
     override fun activateEditUserAction() = Unit
 

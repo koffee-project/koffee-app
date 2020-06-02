@@ -33,6 +33,8 @@ class MainUserDetailsViewModel(
 
     override val canDelete = canModify.map { !isActiveUser && it }
 
+    override val showItemsButton = false
+
     val editUserAction = DataAction<String>()
     val creditUserAction = DataAction<String>()
     val deleteUserAction = DataAction<String>()
@@ -47,6 +49,8 @@ class MainUserDetailsViewModel(
             }
         }
     }
+
+    override fun activateShowItemsAction() = Unit
 
     override fun activateEditUserAction() = editUserAction.activateWith(user.value?.id)
 

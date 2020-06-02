@@ -24,6 +24,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/show_items_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:text="@string/browse_items"
+                android:onClick="@{() -> userDetailsViewModel.activateShowItemsAction()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:present="@{userDetailsViewModel.showItemsButton}" />
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/user_profile_image"
                 android:layout_width="0dp"
@@ -67,7 +81,7 @@
                 android:textAlignment="viewEnd"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/profile_image_edit_image"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/show_items_button"
                 app:present="@{userDetailsViewModel.hasUser}"
                 tools:text="UserName" />
 

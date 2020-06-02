@@ -42,6 +42,8 @@ abstract class UserDetailsViewModel(
     val deleteProfileImageAction = SimpleAction()
     val userNotFoundAction = SimpleAction()
 
+    abstract val showItemsButton: Boolean
+
     fun refreshUser() {
         if (userId == null) {
             userNotFoundAction.activate()
@@ -86,6 +88,8 @@ abstract class UserDetailsViewModel(
     fun activateEditProfileImageAction() = editProfileImageAction.activate()
 
     fun activateDeleteProfileImageAction() = deleteProfileImageAction.activate()
+
+    abstract fun activateShowItemsAction()
 
     abstract fun activateEditUserAction()
 
