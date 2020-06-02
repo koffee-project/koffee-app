@@ -13,7 +13,7 @@ import eu.yeger.koffee.utility.*
 
 class MainUserDetailsFragment : UserDetailsFragment() {
 
-    private val userId by lazy {
+    override val userId by lazy {
         MainUserDetailsFragmentArgs.fromBundle(requireArguments()).userId
     }
 
@@ -70,6 +70,7 @@ class MainUserDetailsFragment : UserDetailsFragment() {
     }
 
     override fun FragmentUserDetailsBinding.initializeBinding() {
+        refundViewModel = null
         transactionRecyclerView.adapter = transactionListAdapter()
     }
 

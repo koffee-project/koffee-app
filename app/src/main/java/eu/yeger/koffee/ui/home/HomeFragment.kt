@@ -10,25 +10,18 @@ import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
-import eu.yeger.koffee.ui.RefundViewModel
 import eu.yeger.koffee.ui.adapter.transactionListAdapter
 import eu.yeger.koffee.ui.user.details.MainUserDetailsViewModel
 import eu.yeger.koffee.ui.user.details.UserDetailsFragment
-import eu.yeger.koffee.utility.*
+import eu.yeger.koffee.utility.deleteUserIdFromSharedPreferences
+import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
+import eu.yeger.koffee.utility.observeAction
+import eu.yeger.koffee.utility.viewModelFactories
 
 class HomeFragment : UserDetailsFragment() {
 
-    private val userId by lazy {
+    override val userId by lazy {
         requireContext().getUserIdFromSharedPreferences()
-    }
-
-    private val refundViewModel: RefundViewModel by viewModelFactories {
-        val context = requireContext()
-        RefundViewModel(
-            userId = userId,
-            transactionRepository = TransactionRepository(context),
-            userRepository = UserRepository(context)
-        )
     }
 
     override val userDetailsViewModel: MainUserDetailsViewModel by viewModelFactories {
@@ -58,7 +51,6 @@ class HomeFragment : UserDetailsFragment() {
     }
 
     override fun FragmentUserDetailsBinding.initializeBinding() {
-        refundViewModel = this@HomeFragment.refundViewModel
         transactionRecyclerView.adapter =
             transactionListAdapter(OnClickListener { selectedTransaction ->
                 when (selectedTransaction) {
@@ -87,10 +79,5 @@ class HomeFragment : UserDetailsFragment() {
             .setCancelable(false)
             .create()
             .show()
-    }
-
-    override fun onResume() {
-        userDetailsViewModel.refreshUser()
-        super.onResume()
     }
 }

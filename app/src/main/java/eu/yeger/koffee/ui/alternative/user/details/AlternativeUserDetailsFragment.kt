@@ -9,7 +9,6 @@ import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
-import eu.yeger.koffee.ui.RefundViewModel
 import eu.yeger.koffee.ui.adapter.transactionListAdapter
 import eu.yeger.koffee.ui.user.details.UserDetailsFragment
 import eu.yeger.koffee.utility.observeAction
@@ -17,7 +16,7 @@ import eu.yeger.koffee.utility.viewModelFactories
 
 class AlternativeUserDetailsFragment : UserDetailsFragment() {
 
-    private val userId by lazy {
+    override val userId by lazy {
         AlternativeUserDetailsFragmentArgs.fromBundle(requireArguments()).userId
     }
 
@@ -26,15 +25,6 @@ class AlternativeUserDetailsFragment : UserDetailsFragment() {
         AlternativeUserDetailsViewModel(
             userId = userId,
             profileImageRepository = ProfileImageRepository(context),
-            transactionRepository = TransactionRepository(context),
-            userRepository = UserRepository(context)
-        )
-    }
-
-    private val refundViewModel: RefundViewModel by viewModelFactories {
-        val context = requireContext()
-        RefundViewModel(
-            userId = userId,
             transactionRepository = TransactionRepository(context),
             userRepository = UserRepository(context)
         )
@@ -62,7 +52,6 @@ class AlternativeUserDetailsFragment : UserDetailsFragment() {
     }
 
     override fun FragmentUserDetailsBinding.initializeBinding() {
-        refundViewModel = this@AlternativeUserDetailsFragment.refundViewModel
         transactionRecyclerView.adapter =
             transactionListAdapter(OnClickListener { selectedTransaction ->
                 when (selectedTransaction) {

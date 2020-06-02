@@ -6,9 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import eu.yeger.koffee.databinding.FragmentUserDetailsBinding
+import eu.yeger.koffee.repository.TransactionRepository
+import eu.yeger.koffee.repository.UserRepository
+import eu.yeger.koffee.ui.RefundViewModel
 import eu.yeger.koffee.utility.observeAction
+import eu.yeger.koffee.utility.viewModelFactories
 
 abstract class UserDetailsFragment : Fragment() {
+
+    protected abstract val userId: String?
+
+    private val refundViewModel: RefundViewModel by viewModelFactories {
+        val context = requireContext()
+        RefundViewModel(
+            userId = userId,
+            transactionRepository = TransactionRepository(context),
+            userRepository = UserRepository(context)
+        )
+    }
 
     protected abstract val userDetailsViewModel: UserDetailsViewModel
 
@@ -25,19 +40,15 @@ abstract class UserDetailsFragment : Fragment() {
     ): View? {
         userDetailsViewModel.apply {
             initializeViewModel()
-
-            observeAction(userNotFoundAction) {
-                onNotFound()
-            }
-
+            observeAction(userNotFoundAction) { onNotFound() }
             observeProfileImageActions()
-
             onErrorShowSnackbar()
         }
 
         return FragmentUserDetailsBinding.inflate(inflater).apply {
             initializeBinding()
             userDetailsViewModel = this@UserDetailsFragment.userDetailsViewModel
+            refundViewModel = this@UserDetailsFragment.refundViewModel
             lifecycleOwner = viewLifecycleOwner
         }.root
     }

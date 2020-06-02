@@ -44,11 +44,7 @@ abstract class ItemDetailsFragment : Fragment() {
     ): View {
         itemDetailsViewModel.apply {
             initializeViewModel()
-
-            observeAction(itemNotFoundAction) {
-                showItemNotFoundDialog()
-            }
-
+            observeAction(itemNotFoundAction) { showItemNotFoundDialog() }
             onErrorShowSnackbar()
         }
 
