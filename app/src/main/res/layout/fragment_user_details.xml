@@ -7,7 +7,7 @@
 
         <variable
             name="userDetailsViewModel"
-            type="eu.yeger.koffee.ui.user.details.BaseUserDetailsViewModel" />
+            type="eu.yeger.koffee.ui.user.details.UserDetailsViewModel" />
 
         <variable
             name="refundViewModel"

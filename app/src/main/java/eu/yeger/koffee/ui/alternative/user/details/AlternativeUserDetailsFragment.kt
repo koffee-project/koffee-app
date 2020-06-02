@@ -12,11 +12,11 @@ import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.transactionListAdapter
-import eu.yeger.koffee.ui.user.details.BaseUserDetailsFragment
+import eu.yeger.koffee.ui.user.details.UserDetailsFragment
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.viewModelFactories
 
-class AlternativeUserDetailsFragment : BaseUserDetailsFragment() {
+class AlternativeUserDetailsFragment : UserDetailsFragment() {
 
     private val userId by lazy {
         AlternativeUserDetailsFragmentArgs.fromBundle(requireArguments()).userId
@@ -61,5 +61,10 @@ class AlternativeUserDetailsFragment : BaseUserDetailsFragment() {
                 })
             lifecycleOwner = viewLifecycleOwner
         }.root
+    }
+
+    override fun onNotFoundConfirmed() {
+        val direction = AlternativeUserDetailsFragmentDirections.toAltUserList()
+        findNavController().navigate(direction)
     }
 }

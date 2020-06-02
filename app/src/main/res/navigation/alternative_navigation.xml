@@ -29,6 +29,9 @@
         <argument
             android:name="userId"
             app:argType="string" />
+        <action
+            android:id="@+id/to_alt_user_list"
+            app:destination="@id/navigation_alt_user_list" />
     </fragment>
 
     <fragment

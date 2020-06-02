@@ -164,7 +164,7 @@
 
     <fragment
         android:id="@+id/navigation_user_details"
-        android:name="eu.yeger.koffee.ui.user.details.UserDetailsFragment"
+        android:name="eu.yeger.koffee.ui.user.details.MainUserDetailsFragment"
         android:label="@string/title_user_details"
         tools:layout="@layout/fragment_user_details">
         <argument

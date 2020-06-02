@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.user.details.BaseUserDetailsViewModel
+import eu.yeger.koffee.ui.user.details.UserDetailsViewModel
 
 class AlternativeUserDetailsViewModel(
     userId: String,
     userRepository: UserRepository,
     profileImageRepository: ProfileImageRepository,
     transactionRepository: TransactionRepository
-) : BaseUserDetailsViewModel(
+) : UserDetailsViewModel(
     isActiveUser = true,
     userId = userId,
     profileImageRepository = profileImageRepository,

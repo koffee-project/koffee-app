@@ -19,7 +19,7 @@ import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.RefundViewModel
 import eu.yeger.koffee.ui.adapter.transactionListAdapter
-import eu.yeger.koffee.ui.user.details.UserDetailsViewModel
+import eu.yeger.koffee.ui.user.details.MainUserDetailsViewModel
 import eu.yeger.koffee.utility.*
 
 class HomeFragment : Fragment() {
@@ -28,9 +28,9 @@ class HomeFragment : Fragment() {
         requireContext().getUserIdFromSharedPreferences()
     }
 
-    private val userDetailsViewModel: UserDetailsViewModel by viewModelFactories {
+    private val userDetailsViewModel: MainUserDetailsViewModel by viewModelFactories {
         val context = requireContext()
-        UserDetailsViewModel(
+        MainUserDetailsViewModel(
             isActiveUser = true,
             userId = userId,
             adminRepository = AdminRepository(context),
