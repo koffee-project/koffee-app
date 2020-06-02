@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.alternative.user.details
+package eu.yeger.koffee.ui.user.details
 
 import android.app.AlertDialog
 import androidx.navigation.fragment.findNavController
@@ -10,14 +10,15 @@ import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.transactionListAdapter
-import eu.yeger.koffee.ui.user.details.UserDetailsFragment
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.viewModelFactories
 
 class AlternativeUserDetailsFragment : UserDetailsFragment() {
 
     override val userId by lazy {
-        AlternativeUserDetailsFragmentArgs.fromBundle(requireArguments()).userId
+        AlternativeUserDetailsFragmentArgs.fromBundle(
+            requireArguments()
+        ).userId
     }
 
     override val userDetailsViewModel: AlternativeUserDetailsViewModel by viewModelFactories {
@@ -34,7 +35,8 @@ class AlternativeUserDetailsFragment : UserDetailsFragment() {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.user_not_found)
             .setPositiveButton(R.string.go_back) { _, _ ->
-                val direction = AlternativeUserDetailsFragmentDirections.toAltUserList()
+                val direction =
+                    AlternativeUserDetailsFragmentDirections.toAltUserList()
                 findNavController().navigate(direction)
             }
             .setCancelable(false)
@@ -45,7 +47,8 @@ class AlternativeUserDetailsFragment : UserDetailsFragment() {
     override fun initializeViewModel() {
         userDetailsViewModel.apply {
             observeAction(showItemsAction) {
-                val direction = AlternativeUserDetailsFragmentDirections.toAltItemList()
+                val direction =
+                    AlternativeUserDetailsFragmentDirections.toAltItemList()
                 findNavController().navigate(direction)
             }
         }
@@ -60,7 +63,10 @@ class AlternativeUserDetailsFragment : UserDetailsFragment() {
                     else -> null
                 }?.let { itemId ->
                     val direction =
-                        AlternativeUserDetailsFragmentDirections.toAltItemDetails(itemId, userId)
+                        AlternativeUserDetailsFragmentDirections.toAltItemDetails(
+                            itemId,
+                            userId
+                        )
                     findNavController().navigate(direction)
                 }
             })

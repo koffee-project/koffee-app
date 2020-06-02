@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.alternative.user.details
+package eu.yeger.koffee.ui.user.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,6 @@ import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.SimpleAction
-import eu.yeger.koffee.ui.user.details.UserDetailsViewModel
 
 class AlternativeUserDetailsViewModel(
     userId: String,

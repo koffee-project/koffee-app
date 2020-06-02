@@ -1,11 +1,10 @@
-package eu.yeger.koffee.ui.alternative.item.details
+package eu.yeger.koffee.ui.item.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.item.details.ItemDetailsViewModel
 
 class AlternativeItemDetailsViewModel(
     itemId: String,

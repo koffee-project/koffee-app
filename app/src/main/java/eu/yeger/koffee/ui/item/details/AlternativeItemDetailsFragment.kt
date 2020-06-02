@@ -1,21 +1,23 @@
-package eu.yeger.koffee.ui.alternative.item.details
+package eu.yeger.koffee.ui.item.details
 
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.item.details.ItemDetailsFragment
-import eu.yeger.koffee.ui.item.details.ItemDetailsViewModel
 import eu.yeger.koffee.utility.viewModelFactories
 
 class AlternativeItemDetailsFragment : ItemDetailsFragment() {
 
     override val itemId: String by lazy {
-        AlternativeItemDetailsFragmentArgs.fromBundle(requireArguments()).itemId
+        AlternativeItemDetailsFragmentArgs.fromBundle(
+            requireArguments()
+        ).itemId
     }
 
     override val userId: String by lazy {
-        AlternativeItemDetailsFragmentArgs.fromBundle(requireArguments()).userId
+        AlternativeItemDetailsFragmentArgs.fromBundle(
+            requireArguments()
+        ).userId
     }
 
     override val itemDetailsViewModel: ItemDetailsViewModel by viewModelFactories {

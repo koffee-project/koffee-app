@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.alternative.item.list
+package eu.yeger.koffee.ui.item.list
 
 import androidx.fragment.app.Fragment
 

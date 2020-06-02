@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_alt_user_list"
-        android:name="eu.yeger.koffee.ui.alternative.user.list.AlternativeUserListFragment"
+        android:name="eu.yeger.koffee.ui.user.list.AlternativeUserListFragment"
         android:label="@string/title_user_list"
         tools:layout="@layout/fragment_user_list">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/navigation_alt_user_details"
-        android:name="eu.yeger.koffee.ui.alternative.user.details.AlternativeUserDetailsFragment"
+        android:name="eu.yeger.koffee.ui.user.details.AlternativeUserDetailsFragment"
         android:label="@string/title_user_details"
         tools:layout="@layout/fragment_user_details">
         <action
@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/navigation_alt_item_list"
-        android:name="eu.yeger.koffee.ui.alternative.item.list.AlternativeItemListFragment"
+        android:name="eu.yeger.koffee.ui.item.list.AlternativeItemListFragment"
         android:label="@string/title_item_list"
         tools:layout="@layout/fragment_item_list">
         <action
@@ -46,7 +46,7 @@
 
     <fragment
         android:id="@+id/navigation_alt_item_details"
-        android:name="eu.yeger.koffee.ui.alternative.item.details.AlternativeItemDetailsFragment"
+        android:name="eu.yeger.koffee.ui.item.details.AlternativeItemDetailsFragment"
         android:label="@string/title_item_details"
         tools:layout="@layout/fragment_item_details">
         <argument

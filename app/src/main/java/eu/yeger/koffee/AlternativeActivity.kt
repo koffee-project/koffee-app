@@ -1,11 +1,10 @@
-package eu.yeger.koffee.ui.alternative
+package eu.yeger.koffee
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import eu.yeger.koffee.R
 
 class AlternativeActivity : AppCompatActivity() {
 
