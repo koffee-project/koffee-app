@@ -1,11 +1,9 @@
 package eu.yeger.koffee.ui.user.details
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserDetailsBinding
@@ -16,13 +14,13 @@ import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.adapter.transactionListAdapter
 import eu.yeger.koffee.utility.*
 
-class UserDetailsFragment : Fragment() {
+class UserDetailsFragment : BaseUserDetailsFragment() {
 
     private val userId by lazy {
         UserDetailsFragmentArgs.fromBundle(requireArguments()).userId
     }
 
-    private val userDetailsViewModel: UserDetailsViewModel by viewModelFactories {
+    override val userDetailsViewModel: UserDetailsViewModel by viewModelFactories {
         val context = requireContext()
         UserDetailsViewModel(
             isActiveUser = false,
@@ -89,22 +87,5 @@ class UserDetailsFragment : Fragment() {
             transactionRecyclerView.adapter = transactionListAdapter()
             lifecycleOwner = viewLifecycleOwner
         }.root
-    }
-
-    override fun onResume() {
-        userDetailsViewModel.refreshUser()
-        super.onResume()
-    }
-
-    private fun showUserNotFoundDialog() {
-        AlertDialog.Builder(requireContext())
-            .setMessage(R.string.user_not_found)
-            .setPositiveButton(R.string.go_back) { _, _ ->
-                val direction = UserDetailsFragmentDirections.toUserList()
-                findNavController().navigate(direction)
-            }
-            .setCancelable(false)
-            .create()
-            .show()
     }
 }
