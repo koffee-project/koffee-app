@@ -5,6 +5,10 @@
     <data>
 
         <variable
+            name="isMainActivty"
+            type="Boolean" />
+
+        <variable
             name="viewModel"
             type="eu.yeger.koffee.ui.user.list.UserListViewModel" />
     </data>
@@ -18,6 +22,19 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/alternative_activity_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:text="@string/launch_alternative_activity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:present="@{isMainActivty}" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/search_query_edit_text"
@@ -33,7 +50,7 @@
                 android:text="@={viewModel.searchQuery}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/alternative_activity_button" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/state_text"
@@ -79,8 +96,8 @@
                 android:onClick="@{() -> viewModel.activateCreateUserAction()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_person_add_24dp"
-                app:present="@{viewModel.isAuthenticated()}" />
+                app:present="@{viewModel.isAuthenticated}"
+                app:srcCompat="@drawable/ic_person_add_24dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

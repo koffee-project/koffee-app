@@ -70,4 +70,5 @@
     <string name="id_optional">ID (optional)</string>
     <string name="amount_optional">Amount (optional)</string>
     <string name="delete_profile_image_confirmation">Are you sure that you want to delete the profile picture? This action cannot be undone.</string>
+    <string name="launch_alternative_activity">Launch alternative activity</string>
 </resources>
