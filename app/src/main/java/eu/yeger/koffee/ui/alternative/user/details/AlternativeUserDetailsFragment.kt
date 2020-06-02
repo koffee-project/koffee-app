@@ -11,6 +11,7 @@ import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.OnClickListener
+import eu.yeger.koffee.ui.RefundViewModel
 import eu.yeger.koffee.ui.adapter.transactionListAdapter
 import eu.yeger.koffee.ui.user.details.UserDetailsFragment
 import eu.yeger.koffee.utility.observeAction
@@ -32,6 +33,15 @@ class AlternativeUserDetailsFragment : UserDetailsFragment() {
         )
     }
 
+    private val refundViewModel: RefundViewModel by viewModelFactories {
+        val context = requireContext()
+        RefundViewModel(
+            userId = userId,
+            transactionRepository = TransactionRepository(context),
+            userRepository = UserRepository(context)
+        )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,6 +57,7 @@ class AlternativeUserDetailsFragment : UserDetailsFragment() {
 
         return FragmentUserDetailsBinding.inflate(inflater).apply {
             userDetailsViewModel = this@AlternativeUserDetailsFragment.userDetailsViewModel
+            refundViewModel = this@AlternativeUserDetailsFragment.refundViewModel
             transactionRecyclerView.adapter =
                 transactionListAdapter(OnClickListener { selectedTransaction ->
                     when (selectedTransaction) {
@@ -55,7 +66,7 @@ class AlternativeUserDetailsFragment : UserDetailsFragment() {
                         else -> null
                     }?.let { itemId ->
                         val direction =
-                            AlternativeUserDetailsFragmentDirections.toAltItemDetails(itemId)
+                            AlternativeUserDetailsFragmentDirections.toAltItemDetails(itemId, userId)
                         findNavController().navigate(direction)
                     }
                 })

@@ -1,90 +1,29 @@
 package eu.yeger.koffee.ui.item.details
 
 import android.app.AlertDialog
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
-import eu.yeger.koffee.databinding.FragmentItemDetailsBinding
-import eu.yeger.koffee.repository.AdminRepository
-import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.RefundViewModel
-import eu.yeger.koffee.ui.adapter.transactionListAdapter
-import eu.yeger.koffee.utility.*
+import eu.yeger.koffee.utility.viewModelFactories
 
-class ItemDetailsFragment : Fragment() {
+abstract class ItemDetailsFragment : Fragment() {
 
-    private val itemDetailsViewModel: ItemDetailsViewModel by viewModelFactories {
-        val context = requireContext()
-        ItemDetailsViewModel(
-            itemId = ItemDetailsFragmentArgs.fromBundle(requireArguments()).itemId,
-            userId = context.getUserIdFromSharedPreferences(),
-            adminRepository = AdminRepository(context),
-            itemRepository = ItemRepository(context),
-            transactionRepository = TransactionRepository(context),
-            userRepository = UserRepository(context)
-        )
-    }
+    protected abstract val itemId: String
 
-    private val refundViewModel: RefundViewModel by viewModelFactories {
+    protected abstract val userId: String?
+
+    protected abstract val itemDetailsViewModel: ItemDetailsViewModel
+
+    protected val refundViewModel: RefundViewModel by viewModelFactories {
         val context = requireContext()
         RefundViewModel(
-            itemId = ItemDetailsFragmentArgs.fromBundle(requireArguments()).itemId,
-            userId = context.getUserIdFromSharedPreferences(),
+            itemId = itemId,
+            userId = userId,
             transactionRepository = TransactionRepository(context),
             userRepository = UserRepository(context)
         )
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        itemDetailsViewModel.apply {
-            observeAction(editItemAction) { itemId ->
-                val direction = ItemDetailsFragmentDirections.toItemEditing(itemId)
-                findNavController().navigate(direction)
-            }
-
-            observeAction(deleteItemAction) { itemId ->
-                showDeleteDialog(itemId) {
-                    itemDetailsViewModel.deleteItem()
-                }
-            }
-
-            observeAction(itemDeletedAction) {
-                requireActivity().showSnackbar(getString(R.string.item_deletion_success))
-                val direction = ItemDetailsFragmentDirections.toItemList()
-                findNavController().navigate(direction)
-            }
-
-            observeAction(itemNotFoundAction) {
-                showItemNotFoundDialog()
-            }
-
-            onAuthorizationException {
-                hideKeyboard()
-                requireActivity().showSnackbar(R.string.login_expired)
-                val direction = ItemDetailsFragmentDirections.toAdmin()
-                direction.loginExpired = true
-                findNavController().navigate(direction)
-            }
-
-            onErrorShowSnackbar()
-        }
-
-        return FragmentItemDetailsBinding.inflate(inflater).apply {
-            itemDetailsViewModel = this@ItemDetailsFragment.itemDetailsViewModel
-            refundViewModel = this@ItemDetailsFragment.refundViewModel
-            transactionRecyclerView.adapter = transactionListAdapter()
-            lifecycleOwner = viewLifecycleOwner
-        }.root
     }
 
     override fun onResume() {
@@ -92,15 +31,16 @@ class ItemDetailsFragment : Fragment() {
         super.onResume()
     }
 
-    private fun showItemNotFoundDialog() {
+    protected fun showItemNotFoundDialog() {
         AlertDialog.Builder(requireContext())
             .setMessage(getString(R.string.item_not_found))
             .setPositiveButton(R.string.go_back) { _, _ ->
-                val direction = ItemDetailsFragmentDirections.toItemList()
-                findNavController().navigate(direction)
+                onNotFoundConfirmed()
             }
             .setCancelable(false)
             .create()
             .show()
     }
+
+    protected abstract fun onNotFoundConfirmed()
 }

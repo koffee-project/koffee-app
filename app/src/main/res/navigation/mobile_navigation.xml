@@ -75,7 +75,7 @@
 
     <fragment
         android:id="@+id/navigation_item_details"
-        android:name="eu.yeger.koffee.ui.item.details.ItemDetailsFragment"
+        android:name="eu.yeger.koffee.ui.item.details.MainItemDetailsFragment"
         android:label="@string/title_item_details"
         tools:layout="@layout/fragment_item_details">
         <argument

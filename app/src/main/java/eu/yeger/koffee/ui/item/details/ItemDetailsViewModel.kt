@@ -5,27 +5,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.paging.toLiveData
-import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.CoroutineViewModel
-import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.ui.SimpleAction
-import eu.yeger.koffee.utility.sourcedLiveData
 
 private const val PAGE_SIZE = 50
 
-class ItemDetailsViewModel(
+abstract class ItemDetailsViewModel(
     private val itemId: String,
     private val userId: String?,
-    private val adminRepository: AdminRepository,
     private val itemRepository: ItemRepository,
     private val transactionRepository: TransactionRepository,
     userRepository: UserRepository
 ) : CoroutineViewModel() {
-
-    private val isAuthenticated = adminRepository.isAuthenticatedFlow().asLiveData()
 
     val user = userRepository.getUserByIdFlow(userId).asLiveData()
     val hasUser = user.map { it != null }
@@ -37,16 +31,11 @@ class ItemDetailsViewModel(
         .toLiveData(PAGE_SIZE)
     val hasTransactions = transactions.map { it.isNotEmpty() }
 
-    val canModify = sourcedLiveData(isAuthenticated, hasItem) {
-        isAuthenticated.value == true && hasItem.value == true
-    }
+    abstract val canModify: LiveData<Boolean>
 
     private val _refreshing = MutableLiveData(false)
     val refreshing: LiveData<Boolean> = _refreshing
 
-    val editItemAction = DataAction<String>()
-    val deleteItemAction = DataAction<String>()
-    val itemDeletedAction = SimpleAction()
     val itemNotFoundAction = SimpleAction()
 
     fun refreshItem() {
@@ -83,15 +72,7 @@ class ItemDetailsViewModel(
         }
     }
 
-    fun deleteItem() {
-        onViewModelScope {
-            val jwt = adminRepository.getJWT()!!
-            itemRepository.deleteItem(itemId, jwt)
-            itemDeletedAction.activate()
-        }
-    }
+    abstract fun activateEditItemAction()
 
-    fun activateEditItemAction() = editItemAction.activateWith(item.value?.id)
-
-    fun activateDeleteItemAction() = deleteItemAction.activateWith(item.value?.id)
+    abstract fun activateDeleteItemAction()
 }
