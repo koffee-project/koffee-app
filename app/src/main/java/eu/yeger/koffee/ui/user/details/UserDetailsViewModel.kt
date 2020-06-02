@@ -1,15 +1,22 @@
 package eu.yeger.koffee.ui.user.details
 
+import android.app.Activity
+import android.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.paging.toLiveData
+import com.github.dhaval2404.imagepicker.ImagePicker
+import eu.yeger.koffee.R
 import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.CoroutineViewModel
 import eu.yeger.koffee.ui.SimpleAction
+import eu.yeger.koffee.utility.observeAction
+import eu.yeger.koffee.utility.showSnackbar
 import java.io.File
 
 private const val PAGE_SIZE = 50
@@ -37,8 +44,8 @@ abstract class UserDetailsViewModel(
     private val _refreshing = MutableLiveData(false)
     val refreshing: LiveData<Boolean> = _refreshing
 
-    val editProfileImageAction = SimpleAction()
-    val deleteProfileImageAction = SimpleAction()
+    private val editProfileImageAction = SimpleAction()
+    private val deleteProfileImageAction = SimpleAction()
     val userNotFoundAction = SimpleAction()
 
     abstract val showItemsButton: Boolean
@@ -68,7 +75,7 @@ abstract class UserDetailsViewModel(
         }
     }
 
-    fun uploadProfileImage(image: File) {
+    private fun uploadProfileImage(image: File) {
         userId?.let {
             onViewModelScope {
                 profileImageRepository.uploadProfileImage(userId, image)
@@ -76,7 +83,7 @@ abstract class UserDetailsViewModel(
         }
     }
 
-    fun deleteProfileImage() {
+    private fun deleteProfileImage() {
         userId?.let {
             onViewModelScope {
                 profileImageRepository.deleteProfileImageByUserId(userId)
@@ -95,4 +102,33 @@ abstract class UserDetailsViewModel(
     abstract fun activateCreditUserAction()
 
     abstract fun activateDeleteUserAction()
+
+    fun Fragment.observeProfileImageActions() {
+        observeAction(editProfileImageAction) {
+            ImagePicker.with(this)
+                .compress(8 * 1024) // Limit size to 8MB
+                .start { resultCode, data ->
+                    when (resultCode) {
+                        Activity.RESULT_OK -> {
+                            val image = ImagePicker.getFile(data)!!
+                            uploadProfileImage(image)
+                        }
+                        ImagePicker.RESULT_ERROR -> requireActivity().showSnackbar(
+                            ImagePicker.getError(data)
+                        )
+                    }
+                }
+        }
+
+        observeAction(deleteProfileImageAction) {
+            AlertDialog.Builder(requireContext())
+                .setMessage(R.string.delete_profile_image_confirmation)
+                .setPositiveButton(R.string.delete) { _, _ ->
+                    deleteProfileImage()
+                }
+                .setNegativeButton(R.string.cancel) { _, _ -> /*ignore*/ }
+                .create()
+                .show()
+        }
+    }
 }

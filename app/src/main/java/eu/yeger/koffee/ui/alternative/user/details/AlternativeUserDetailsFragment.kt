@@ -1,6 +1,8 @@
 package eu.yeger.koffee.ui.alternative.user.details
 
+import android.app.AlertDialog
 import androidx.navigation.fragment.findNavController
+import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserDetailsBinding
 import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.repository.ProfileImageRepository
@@ -38,9 +40,16 @@ class AlternativeUserDetailsFragment : UserDetailsFragment() {
         )
     }
 
-    override fun onNotFoundConfirmed() {
-        val direction = AlternativeUserDetailsFragmentDirections.toAltUserList()
-        findNavController().navigate(direction)
+    override fun onNotFound() {
+        AlertDialog.Builder(requireContext())
+            .setMessage(R.string.user_not_found)
+            .setPositiveButton(R.string.go_back) { _, _ ->
+                val direction = AlternativeUserDetailsFragmentDirections.toAltUserList()
+                findNavController().navigate(direction)
+            }
+            .setCancelable(false)
+            .create()
+            .show()
     }
 
     override fun initializeViewModel() {

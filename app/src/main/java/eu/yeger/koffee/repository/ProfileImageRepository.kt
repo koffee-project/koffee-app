@@ -42,6 +42,7 @@ class ProfileImageRepository(private val database: KoffeeDatabase) {
                     }
 
                     val newImage = NetworkService.koffeeApi.getProfileImage(userId)
+
                     insert(newImage.asDomainModel())
                 }
             }
@@ -50,12 +51,6 @@ class ProfileImageRepository(private val database: KoffeeDatabase) {
 
     suspend fun uploadProfileImage(userId: String, image: File) {
         withContext(Dispatchers.IO) {
-            val imagePart = MultipartBody.Part.create(
-                RequestBody.create(
-                    MediaType.parse("image/*"),
-                    image.readBytes()
-                )
-            )
             val body = RequestBody.create(MediaType.parse("image/*"), image)
             val part = MultipartBody.Part.createFormData("image", image.name, body)
             NetworkService.koffeeApi.uploadProfileImage(userId, part)

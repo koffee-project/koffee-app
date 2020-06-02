@@ -1,14 +1,7 @@
 package eu.yeger.koffee.ui.home
 
-import android.app.Activity
 import android.app.AlertDialog
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.github.dhaval2404.imagepicker.ImagePicker
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserDetailsBinding
 import eu.yeger.koffee.domain.Transaction
@@ -20,24 +13,13 @@ import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.RefundViewModel
 import eu.yeger.koffee.ui.adapter.transactionListAdapter
 import eu.yeger.koffee.ui.user.details.MainUserDetailsViewModel
+import eu.yeger.koffee.ui.user.details.UserDetailsFragment
 import eu.yeger.koffee.utility.*
 
-class HomeFragment : Fragment() {
+class HomeFragment : UserDetailsFragment() {
 
     private val userId by lazy {
         requireContext().getUserIdFromSharedPreferences()
-    }
-
-    private val userDetailsViewModel: MainUserDetailsViewModel by viewModelFactories {
-        val context = requireContext()
-        MainUserDetailsViewModel(
-            isActiveUser = true,
-            userId = userId,
-            adminRepository = AdminRepository(context),
-            profileImageRepository = ProfileImageRepository(context),
-            transactionRepository = TransactionRepository(context),
-            userRepository = UserRepository(context)
-        )
     }
 
     private val refundViewModel: RefundViewModel by viewModelFactories {
@@ -49,11 +31,19 @@ class HomeFragment : Fragment() {
         )
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override val userDetailsViewModel: MainUserDetailsViewModel by viewModelFactories {
+        val context = requireContext()
+        MainUserDetailsViewModel(
+            isActiveUser = true,
+            userId = userId,
+            adminRepository = AdminRepository(context),
+            profileImageRepository = ProfileImageRepository(context),
+            transactionRepository = TransactionRepository(context),
+            userRepository = UserRepository(context)
+        )
+    }
+
+    override fun initializeViewModel() {
         userDetailsViewModel.apply {
             observeAction(editUserAction) { userId ->
                 val direction = HomeFragmentDirections.toUserEditing(userId)
@@ -64,68 +54,30 @@ class HomeFragment : Fragment() {
                 val direction = HomeFragmentDirections.toUserCrediting(userId)
                 findNavController().navigate(direction)
             }
-
-            observeAction(userNotFoundAction) {
-                val message = when (userId) {
-                    null -> R.string.no_user_selected
-                    else -> R.string.active_user_deleted
-                }
-                requireContext().deleteUserIdFromSharedPreferences()
-                showUserSelectionRequiredDialog(message)
-            }
-
-            observeAction(editProfileImageAction) {
-                ImagePicker.with(this@HomeFragment)
-                    .compress(8 * 1024) // Limit size to 8MB
-                    .start { resultCode, data ->
-                        when (resultCode) {
-                            Activity.RESULT_OK -> {
-                                val image = ImagePicker.getFile(data)!!
-                                userDetailsViewModel.uploadProfileImage(image)
-                            }
-                            ImagePicker.RESULT_ERROR -> requireActivity().showSnackbar(ImagePicker.getError(data))
-                        }
-                    }
-            }
-
-            observeAction(deleteProfileImageAction) {
-                AlertDialog.Builder(requireContext())
-                    .setMessage(R.string.delete_profile_image_confirmation)
-                    .setPositiveButton(R.string.delete) { _, _ ->
-                        userDetailsViewModel.deleteProfileImage()
-                    }
-                    .setNegativeButton(R.string.cancel) { _, _ -> /*ignore*/ }
-                    .create()
-                    .show()
-            }
-
-            onErrorShowSnackbar()
         }
-
-        return FragmentUserDetailsBinding.inflate(inflater).apply {
-            userDetailsViewModel = this@HomeFragment.userDetailsViewModel
-            refundViewModel = this@HomeFragment.refundViewModel
-            transactionRecyclerView.adapter =
-                transactionListAdapter(OnClickListener { selectedTransaction ->
-                    when (selectedTransaction) {
-                        is Transaction.Purchase -> selectedTransaction.itemId
-                        is Transaction.Refund -> selectedTransaction.itemId
-                        else -> null
-                    }?.let { itemId ->
-                        val direction = HomeFragmentDirections.toItemDetails(itemId)
-                        findNavController().navigate(direction)
-                    }
-                })
-            lifecycleOwner = viewLifecycleOwner
-        }.root
     }
 
-    override fun onResume() {
-        userDetailsViewModel.refreshUser()
-        super.onResume()
+    override fun FragmentUserDetailsBinding.initializeBinding() {
+        refundViewModel = this@HomeFragment.refundViewModel
+        transactionRecyclerView.adapter =
+            transactionListAdapter(OnClickListener { selectedTransaction ->
+                when (selectedTransaction) {
+                    is Transaction.Purchase -> selectedTransaction.itemId
+                    is Transaction.Refund -> selectedTransaction.itemId
+                    else -> null
+                }?.let { itemId ->
+                    val direction = HomeFragmentDirections.toItemDetails(itemId)
+                    findNavController().navigate(direction)
+                }
+            })
     }
 
-    private fun showUserSelectionRequiredDialog(message: Int) {
+    override fun onNotFound() {
+        val message = when (userId) {
+            null -> R.string.no_user_selected
+            else -> R.string.active_user_deleted
+        }
+        requireContext().deleteUserIdFromSharedPreferences()
         AlertDialog.Builder(requireContext())
             .setMessage(message)
             .setPositiveButton(R.string.got_to_selection) { _, _ ->
@@ -135,5 +87,10 @@ class HomeFragment : Fragment() {
             .setCancelable(false)
             .create()
             .show()
+    }
+
+    override fun onResume() {
+        userDetailsViewModel.refreshUser()
+        super.onResume()
     }
 }

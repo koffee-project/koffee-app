@@ -1,17 +1,11 @@
 package eu.yeger.koffee.ui.item.details
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
-import eu.yeger.koffee.databinding.FragmentItemDetailsBinding
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.adapter.transactionListAdapter
 import eu.yeger.koffee.utility.*
 
 class MainItemDetailsFragment : ItemDetailsFragment() {
@@ -36,11 +30,7 @@ class MainItemDetailsFragment : ItemDetailsFragment() {
         )
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun initializeViewModel() {
         itemDetailsViewModel.apply {
             observeAction(editItemAction) { itemId ->
                 val direction = MainItemDetailsFragmentDirections.toItemEditing(itemId)
@@ -59,10 +49,6 @@ class MainItemDetailsFragment : ItemDetailsFragment() {
                 findNavController().navigate(direction)
             }
 
-            observeAction(itemNotFoundAction) {
-                showItemNotFoundDialog()
-            }
-
             onAuthorizationException {
                 hideKeyboard()
                 requireActivity().showSnackbar(R.string.login_expired)
@@ -70,16 +56,7 @@ class MainItemDetailsFragment : ItemDetailsFragment() {
                 direction.loginExpired = true
                 findNavController().navigate(direction)
             }
-
-            onErrorShowSnackbar()
         }
-
-        return FragmentItemDetailsBinding.inflate(inflater).apply {
-            itemDetailsViewModel = this@MainItemDetailsFragment.itemDetailsViewModel
-            refundViewModel = this@MainItemDetailsFragment.refundViewModel
-            transactionRecyclerView.adapter = transactionListAdapter()
-            lifecycleOwner = viewLifecycleOwner
-        }.root
     }
 
     override fun onNotFoundConfirmed() {

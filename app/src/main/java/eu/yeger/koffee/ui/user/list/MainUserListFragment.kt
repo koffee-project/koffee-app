@@ -30,7 +30,6 @@ class MainUserListFragment : UserListFragment() {
                     startActivity(intent)
                     finish()
                 }
-
             }
 
             observeAction(createUserAction) {
