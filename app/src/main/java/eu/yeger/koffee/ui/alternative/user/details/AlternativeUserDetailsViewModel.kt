@@ -14,7 +14,6 @@ class AlternativeUserDetailsViewModel(
     profileImageRepository: ProfileImageRepository,
     transactionRepository: TransactionRepository
 ) : UserDetailsViewModel(
-    isActiveUser = true,
     userId = userId,
     profileImageRepository = profileImageRepository,
     transactionRepository = transactionRepository,

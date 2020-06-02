@@ -18,7 +18,6 @@ class MainUserDetailsViewModel(
     profileImageRepository: ProfileImageRepository,
     transactionRepository: TransactionRepository
 ) : UserDetailsViewModel(
-    isActiveUser = isActiveUser,
     userId = userId,
     profileImageRepository = profileImageRepository,
     transactionRepository = transactionRepository,

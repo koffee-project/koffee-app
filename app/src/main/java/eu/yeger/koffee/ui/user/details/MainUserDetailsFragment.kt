@@ -1,9 +1,5 @@
 package eu.yeger.koffee.ui.user.details
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentUserDetailsBinding
@@ -32,16 +28,11 @@ class MainUserDetailsFragment : UserDetailsFragment() {
         )
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun initializeViewModel() {
         if (userId == requireContext().getUserIdFromSharedPreferences()) {
             // current user is active user, so we navigate to home instead
             val direction = MainUserDetailsFragmentDirections.toHome()
             findNavController().navigate(direction)
-            return null
         }
 
         userDetailsViewModel.apply {
@@ -67,10 +58,6 @@ class MainUserDetailsFragment : UserDetailsFragment() {
                 findNavController().navigate(direction)
             }
 
-            observeAction(userNotFoundAction) {
-                showUserNotFoundDialog()
-            }
-
             onAuthorizationException {
                 hideKeyboard()
                 requireActivity().showSnackbar(R.string.login_expired)
@@ -78,15 +65,11 @@ class MainUserDetailsFragment : UserDetailsFragment() {
                 direction.loginExpired = true
                 findNavController().navigate(direction)
             }
-
-            onErrorShowSnackbar()
         }
+    }
 
-        return FragmentUserDetailsBinding.inflate(inflater).apply {
-            userDetailsViewModel = this@MainUserDetailsFragment.userDetailsViewModel
-            transactionRecyclerView.adapter = transactionListAdapter()
-            lifecycleOwner = viewLifecycleOwner
-        }.root
+    override fun FragmentUserDetailsBinding.initializeBinding() {
+        transactionRecyclerView.adapter = transactionListAdapter()
     }
 
     override fun onNotFoundConfirmed() {

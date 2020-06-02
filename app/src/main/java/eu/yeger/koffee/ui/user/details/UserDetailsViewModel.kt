@@ -15,7 +15,6 @@ import java.io.File
 private const val PAGE_SIZE = 50
 
 abstract class UserDetailsViewModel(
-    private val isActiveUser: Boolean,
     private val userId: String?,
     private val profileImageRepository: ProfileImageRepository,
     private val transactionRepository: TransactionRepository,
@@ -26,8 +25,8 @@ abstract class UserDetailsViewModel(
     val hasUser = user.map { it !== null }
 
     val profileImage = profileImageRepository.getProfileImageByUserIdAsFlow(userId).asLiveData()
-    val canEditProfileImage = user.map { isActiveUser && it !== null }
-    val canDeleteProfileImage = profileImage.map { isActiveUser && it !== null }
+    val canEditProfileImage = user.map { it !== null }
+    val canDeleteProfileImage = profileImage.map { it !== null }
 
     val transactions = transactionRepository.getTransactionsByUserId(userId).toLiveData(PAGE_SIZE)
     val hasTransactions = transactions.map { it.isNotEmpty() }
