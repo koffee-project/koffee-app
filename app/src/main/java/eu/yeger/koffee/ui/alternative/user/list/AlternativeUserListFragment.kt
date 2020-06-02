@@ -42,7 +42,6 @@ class AlternativeUserListFragment : Fragment() {
         }
 
         return FragmentUserListBinding.inflate(inflater).apply {
-            isMainActivty = false
             viewModel = userListViewModel
             userRecyclerView.adapter = userListAdapter(userViewHolderFactory!!, OnClickListener { selectedUser ->
                 userListViewModel.activateUserSelectedAction(selectedUser)
