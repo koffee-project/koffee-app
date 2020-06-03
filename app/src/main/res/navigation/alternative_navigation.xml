@@ -31,7 +31,9 @@
             app:argType="string" />
         <action
             android:id="@+id/to_alt_user_list"
-            app:destination="@id/navigation_alt_user_list" />
+            app:destination="@id/navigation_alt_user_list"
+            app:popUpTo="@id/navigation_alt_user_details"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
