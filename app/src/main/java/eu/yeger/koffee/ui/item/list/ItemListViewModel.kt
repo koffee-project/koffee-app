@@ -5,24 +5,19 @@ import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import eu.yeger.koffee.database.Filter
 import eu.yeger.koffee.domain.Item
-import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.SearchViewModel
-import eu.yeger.koffee.ui.SimpleAction
 
 private const val PAGE_SIZE = 50
 
-class ItemListViewModel(
-    private val itemRepository: ItemRepository,
-    adminRepository: AdminRepository
+abstract class ItemListViewModel(
+    private val itemRepository: ItemRepository
 ) : SearchViewModel<Item>(itemRepository.getAllItems().toLiveData(PAGE_SIZE)) {
 
-    val isAuthenticated = adminRepository.isAuthenticatedFlow().asLiveData()
+    abstract val isAuthenticated: LiveData<Boolean>
 
     private val _refreshing = MutableLiveData(false)
     val refreshing: LiveData<Boolean> = _refreshing
-
-    val createItemAction = SimpleAction()
 
     fun refreshItems() {
         onViewModelScope {
@@ -33,7 +28,7 @@ class ItemListViewModel(
         }
     }
 
-    fun activateCreateItemAction() = createItemAction.activate()
+    abstract fun activateCreateItemAction()
 
     override fun getSource(filter: Filter): LiveData<PagedList<Item>> {
         return itemRepository.getFilteredItems(filter).toLiveData(PAGE_SIZE)

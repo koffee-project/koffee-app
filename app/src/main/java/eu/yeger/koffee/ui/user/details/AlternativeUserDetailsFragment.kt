@@ -16,9 +16,7 @@ import eu.yeger.koffee.utility.viewModelFactories
 class AlternativeUserDetailsFragment : UserDetailsFragment() {
 
     override val userId by lazy {
-        AlternativeUserDetailsFragmentArgs.fromBundle(
-            requireArguments()
-        ).userId
+        AlternativeUserDetailsFragmentArgs.fromBundle(requireArguments()).userId
     }
 
     override val userDetailsViewModel: AlternativeUserDetailsViewModel by viewModelFactories {
@@ -48,7 +46,7 @@ class AlternativeUserDetailsFragment : UserDetailsFragment() {
         userDetailsViewModel.apply {
             observeAction(showItemsAction) {
                 val direction =
-                    AlternativeUserDetailsFragmentDirections.toAltItemList()
+                    AlternativeUserDetailsFragmentDirections.toAltItemList(userId)
                 findNavController().navigate(direction)
             }
         }

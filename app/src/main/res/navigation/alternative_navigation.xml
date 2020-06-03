@@ -42,6 +42,9 @@
         <action
             android:id="@+id/to_alt_item_details"
             app:destination="@id/navigation_alt_item_details" />
+        <argument
+            android:name="userId"
+            app:argType="string" />
     </fragment>
 
     <fragment

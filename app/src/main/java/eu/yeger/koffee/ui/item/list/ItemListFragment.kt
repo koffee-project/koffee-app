@@ -5,24 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.databinding.FragmentItemListBinding
-import eu.yeger.koffee.repository.AdminRepository
-import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.itemListAdapter
-import eu.yeger.koffee.utility.observeAction
-import eu.yeger.koffee.utility.viewModelFactories
 
-class ItemListFragment : Fragment() {
+abstract class ItemListFragment : Fragment() {
 
-    private val itemListViewModel: ItemListViewModel by viewModelFactories {
-        val context = requireContext()
-        ItemListViewModel(
-            adminRepository = AdminRepository(context),
-            itemRepository = ItemRepository(context)
-        )
-    }
+    protected abstract val itemListViewModel: ItemListViewModel
+
+    protected abstract fun initializeViewModel()
+
+    protected abstract fun onItemSelected(itemId: String)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,20 +23,14 @@ class ItemListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         itemListViewModel.apply {
-            observeAction(createItemAction) {
-                val direction = ItemListFragmentDirections.toItemCreation()
-                findNavController().navigate(direction)
-            }
-
+            initializeViewModel()
             onErrorShowSnackbar()
         }
 
         return FragmentItemListBinding.inflate(inflater).apply {
             viewModel = itemListViewModel
             itemRecyclerView.adapter = itemListAdapter(OnClickListener { selectedItem ->
-                val direction =
-                    ItemListFragmentDirections.toItemDetails(selectedItem.id)
-                findNavController().navigate(direction)
+                onItemSelected(selectedItem.id)
             })
             lifecycleOwner = viewLifecycleOwner
         }.root
