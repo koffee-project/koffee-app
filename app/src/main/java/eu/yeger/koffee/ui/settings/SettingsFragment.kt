@@ -38,6 +38,16 @@ class SettingsFragment : Fragment() {
                 findNavController().navigate(direction)
             }
 
+            observeAction(manageItemsAction) {
+                val direction = SettingsFragmentDirections.toItemList()
+                findNavController().navigate(direction)
+            }
+
+            observeAction(manageUsersAction) {
+                val direction = SettingsFragmentDirections.toUserList()
+                findNavController().navigate(direction)
+            }
+
             onErrorShowSnackbar()
         }
 

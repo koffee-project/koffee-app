@@ -1,9 +1,7 @@
 package eu.yeger.koffee.ui.user.list
 
 import android.app.AlertDialog
-import android.content.Intent
 import androidx.navigation.fragment.findNavController
-import eu.yeger.koffee.AlternativeActivity
 import eu.yeger.koffee.R
 import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.repository.AdminRepository
@@ -24,14 +22,6 @@ class MainUserListFragment : UserListFragment() {
 
     override fun initializeViewModel() {
         userListViewModel.apply {
-            observeAction(launchAlternativeActivityAction) {
-                requireActivity().run {
-                    val intent = Intent(this, AlternativeActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-            }
-
             observeAction(createUserAction) {
                 val direction = MainUserListFragmentDirections.toUserCreation()
                 findNavController().navigate(direction)

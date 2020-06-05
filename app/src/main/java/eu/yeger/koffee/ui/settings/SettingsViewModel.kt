@@ -18,6 +18,8 @@ class SettingsViewModel(
 
     val selectUserAction = SimpleAction()
     val loginAction = SimpleAction()
+    val manageItemsAction = SimpleAction()
+    val manageUsersAction = SimpleAction()
 
     init {
         if (loginExpired) {
@@ -34,4 +36,8 @@ class SettingsViewModel(
     fun activateSelectUserAction() = selectUserAction.activate()
 
     fun activateLoginAction() = loginAction.activate()
+
+    fun activateManageItemsAction() = manageItemsAction.activate()
+
+    fun activateManageUsersAction() = manageUsersAction.activate()
 }

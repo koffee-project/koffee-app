@@ -19,20 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/alternative_activity_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/default_spacing"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:layout_marginEnd="@dimen/default_spacing"
-                android:onClick="@{() -> viewModel.activateLaunchAlternativeActivityAction()}"
-                android:text="@string/launch_alternative_activity"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:present="@{viewModel.showAlternativeActivityButton}" />
-
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/search_query_edit_text"
                 android:layout_width="0dp"
@@ -47,7 +33,7 @@
                 android:text="@={viewModel.searchQuery}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/alternative_activity_button" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/state_text"

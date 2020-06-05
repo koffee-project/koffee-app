@@ -57,12 +57,17 @@
         <action
             android:id="@+id/to_login"
             app:destination="@id/navigation_login"
-            app:popUpTo="@id/navigation_admin"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
         <argument
             android:name="loginExpired"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/to_item_list"
+            app:destination="@id/navigation_item_list" />
+        <action
+            android:id="@+id/to_user_list"
+            app:destination="@id/navigation_user_list" />
     </fragment>
 
     <fragment

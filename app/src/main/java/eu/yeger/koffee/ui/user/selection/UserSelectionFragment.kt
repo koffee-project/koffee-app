@@ -1,7 +1,6 @@
 package eu.yeger.koffee.ui.user.selection
 
 import android.app.AlertDialog
-import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.goToMainActivity

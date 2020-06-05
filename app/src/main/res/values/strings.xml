@@ -80,4 +80,6 @@
     <string name="admin_login">Admin Login</string>
     <string name="select_your_user">Select your user</string>
     <string name="change_user">Change User</string>
+    <string name="manage_users">Manage Users</string>
+    <string name="manage_items">Manage Items</string>
 </resources>

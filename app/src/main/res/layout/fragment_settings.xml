@@ -135,7 +135,27 @@
                     android:text="@string/logout"
                     app:layout_constraintBottom_toBottomOf="@id/login_expiry_text"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/logged_in_as_text" />
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/manage_items_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> settingsViewModel.activateManageItemsAction()}"
+                    android:text="@string/manage_items"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/logout_button" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/manage_users_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> settingsViewModel.activateManageUsersAction()}"
+                    android:text="@string/manage_users"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/logout_button" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
     </LinearLayout>
