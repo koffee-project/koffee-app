@@ -71,12 +71,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_item_list"
-        android:name="eu.yeger.koffee.ui.item.list.MainItemListFragment"
-        android:label="@string/title_item_list"
-        tools:layout="@layout/fragment_item_list"/>
-
-    <fragment
         android:id="@+id/navigation_item_details"
         android:name="eu.yeger.koffee.ui.item.details.MainItemDetailsFragment"
         android:label="@string/title_item_details"
