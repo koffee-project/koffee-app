@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="eu.yeger.koffee.ui.home.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textInputEditText"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_spacing"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:layout_marginEnd="@dimen/default_spacing"
+            android:text="@string/title_user"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+            android:id="@+id/circularRevealCardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_spacing"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:layout_marginEnd="@dimen/default_spacing"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation"
+            app:contentPadding="@dimen/half_spacing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputEditText">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/user_profile_image"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:profileImage="@{viewModel.profileImage}"
+                    app:srcCompat="@drawable/ic_edit_24dp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/user_name_text"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_spacing"
+                    android:layout_marginEnd="@dimen/default_spacing"
+                    android:text="@{viewModel.user.name}"
+                    app:layout_constraintEnd_toStartOf="@id/user_balance_text"
+                    app:layout_constraintStart_toEndOf="@id/user_profile_image"
+                    app:layout_constraintTop_toTopOf="@id/user_profile_image"
+                    tools:text="UserName" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/user_id_text"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_spacing"
+                    android:layout_marginEnd="@dimen/default_spacing"
+                    android:text="@{viewModel.user.id}"
+                    app:layout_constraintBottom_toBottomOf="@id/user_profile_image"
+                    app:layout_constraintEnd_toStartOf="@id/user_balance_text"
+                    app:layout_constraintStart_toEndOf="@id/user_profile_image"
+                    tools:text="UserID" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/user_balance_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/currency_format(viewModel.user.balance)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="40,45€" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/materialTextView"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_spacing"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:text="@string/title_item_list"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circularRevealCardView" />
+
+        <fragment
+            android:id="@+id/item_list_fragment"
+            android:name="eu.yeger.koffee.ui.item.list.MainItemListFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextView"
+            tools:layout="@layout/fragment_item_list" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

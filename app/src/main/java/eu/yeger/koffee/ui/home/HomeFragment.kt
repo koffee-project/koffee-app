@@ -1,70 +1,51 @@
 package eu.yeger.koffee.ui.home
 
-import android.app.AlertDialog
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
-import eu.yeger.koffee.databinding.FragmentUserDetailsBinding
-import eu.yeger.koffee.domain.Transaction
-import eu.yeger.koffee.repository.AdminRepository
+import eu.yeger.koffee.databinding.FragmentHomeBinding
 import eu.yeger.koffee.repository.ProfileImageRepository
-import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.OnClickListener
-import eu.yeger.koffee.ui.adapter.transactionListAdapter
-import eu.yeger.koffee.ui.user.details.MainUserDetailsViewModel
-import eu.yeger.koffee.ui.user.details.UserDetailsFragment
 import eu.yeger.koffee.utility.deleteUserIdFromSharedPreferences
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
-import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.viewModelFactories
 
-class HomeFragment : UserDetailsFragment() {
+class HomeFragment : Fragment() {
 
-    override val userId by lazy {
+    private val userId by lazy {
         requireContext().getUserIdFromSharedPreferences()
     }
 
-    override val userDetailsViewModel: MainUserDetailsViewModel by viewModelFactories {
+    private val homeViewModel: HomeViewModel by viewModelFactories {
         val context = requireContext()
-        MainUserDetailsViewModel(
-            isActiveUser = true,
-            userId = userId,
-            adminRepository = AdminRepository(context),
-            profileImageRepository = ProfileImageRepository(context),
-            transactionRepository = TransactionRepository(context),
-            userRepository = UserRepository(context)
+        HomeViewModel(
+            userId!!,
+            UserRepository(context),
+            ProfileImageRepository(context)
         )
     }
 
-    override fun initializeViewModel() {
-        userDetailsViewModel.apply {
-            observeAction(editUserAction) { userId ->
-                val direction = HomeFragmentDirections.toUserEditing(userId)
-                findNavController().navigate(direction)
-            }
-
-            observeAction(creditUserAction) { userId ->
-                val direction = HomeFragmentDirections.toUserCrediting(userId)
-                findNavController().navigate(direction)
-            }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        if (userId == null) {
+            onNotFound()
+            return null
         }
+        return FragmentHomeBinding.inflate(inflater).apply {
+            viewModel = homeViewModel
+            lifecycleOwner = viewLifecycleOwner
+        }.root
     }
 
-    override fun FragmentUserDetailsBinding.initializeBinding() {
-        transactionRecyclerView.adapter =
-            transactionListAdapter(OnClickListener { selectedTransaction ->
-                when (selectedTransaction) {
-                    is Transaction.Purchase -> selectedTransaction.itemId
-                    is Transaction.Refund -> selectedTransaction.itemId
-                    else -> null
-                }?.let { itemId ->
-                    val direction = HomeFragmentDirections.toItemDetails(itemId)
-                    findNavController().navigate(direction)
-                }
-            })
-    }
-
-    override fun onNotFound() {
+    private fun onNotFound() {
         val message = when (userId) {
             null -> R.string.no_user_selected
             else -> R.string.active_user_deleted
@@ -73,7 +54,7 @@ class HomeFragment : UserDetailsFragment() {
         AlertDialog.Builder(requireContext())
             .setMessage(message)
             .setPositiveButton(R.string.got_to_selection) { _, _ ->
-                val direction = HomeFragmentDirections.toUserList()
+                val direction = HomeFragmentDirections.toUserSelection()
                 findNavController().navigate(direction)
             }
             .setCancelable(false)
