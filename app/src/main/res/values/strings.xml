@@ -78,4 +78,6 @@
     <string name="title_history">History</string>
     <string name="login_info">Login to access admin tools</string>
     <string name="admin_login">Admin Login</string>
+    <string name="select_your_user">Select your user</string>
+    <string name="change_user">Change User</string>
 </resources>

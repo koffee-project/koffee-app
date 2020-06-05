@@ -13,11 +13,10 @@ class SettingsViewModel(
 ) : CoroutineViewModel() {
 
     val isAuthenticated = adminRepository.isAuthenticatedFlow().asLiveData()
-
     val token = adminRepository.getJWTFlow().asLiveData()
-
     val tokenExpiration = token.map { it?.let { token -> formatTimestamp(token.expiration) } }
 
+    val selectUserAction = SimpleAction()
     val loginAction = SimpleAction()
 
     init {
@@ -31,6 +30,8 @@ class SettingsViewModel(
             adminRepository.logout()
         }
     }
+
+    fun activateSelectUserAction() = selectUserAction.activate()
 
     fun activateLoginAction() = loginAction.activate()
 }

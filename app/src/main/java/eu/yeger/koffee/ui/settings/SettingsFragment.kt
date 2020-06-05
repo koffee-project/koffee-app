@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.databinding.FragmentSettingsBinding
+import eu.yeger.koffee.goToUserSelection
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.viewModelFactories
@@ -28,6 +29,10 @@ class SettingsFragment : Fragment() {
         setHasOptionsMenu(true)
 
         settingsViewModel.apply {
+            observeAction(selectUserAction) {
+                requireActivity().goToUserSelection()
+            }
+
             observeAction(loginAction) {
                 val direction = SettingsFragmentDirections.toLogin()
                 findNavController().navigate(direction)
