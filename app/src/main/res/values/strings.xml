@@ -76,4 +76,6 @@
     <string name="edit">Edit</string>
     <string name="last_transaction">Last Transaction</string>
     <string name="title_history">History</string>
+    <string name="login_info">Login to access admin tools</string>
+    <string name="admin_login">Admin Login</string>
 </resources>

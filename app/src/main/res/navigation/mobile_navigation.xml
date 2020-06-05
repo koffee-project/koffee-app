@@ -51,9 +51,9 @@
 
     <fragment
         android:id="@+id/navigation_admin"
-        android:name="eu.yeger.koffee.ui.admin.AdminFragment"
+        android:name="eu.yeger.koffee.ui.settings.SettingsFragment"
         android:label="@string/title_admin"
-        tools:layout="@layout/fragment_admin">
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/to_login"
             app:destination="@id/navigation_login"

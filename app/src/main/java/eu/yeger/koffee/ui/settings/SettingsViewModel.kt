@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.admin
+package eu.yeger.koffee.ui.settings
 
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
@@ -7,16 +7,18 @@ import eu.yeger.koffee.ui.CoroutineViewModel
 import eu.yeger.koffee.ui.SimpleAction
 import eu.yeger.koffee.utility.formatTimestamp
 
-class AdminViewModel(
+class SettingsViewModel(
     private val adminRepository: AdminRepository,
     loginExpired: Boolean
 ) : CoroutineViewModel() {
 
-    val loginRequiredAction = SimpleAction()
+    val isAuthenticated = adminRepository.isAuthenticatedFlow().asLiveData()
 
     val token = adminRepository.getJWTFlow().asLiveData()
 
     val tokenExpiration = token.map { it?.let { token -> formatTimestamp(token.expiration) } }
+
+    val loginAction = SimpleAction()
 
     init {
         if (loginExpired) {
@@ -24,18 +26,11 @@ class AdminViewModel(
         }
     }
 
-    fun refresh() {
-        onViewModelScope {
-            if (adminRepository.loginRequired()) {
-                loginRequiredAction.activate()
-            }
-        }
-    }
-
     fun logout() {
         onViewModelScope {
             adminRepository.logout()
-            loginRequiredAction.activate()
         }
     }
+
+    fun activateLoginAction() = loginAction.activate()
 }
