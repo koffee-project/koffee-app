@@ -44,7 +44,7 @@ class SettingsFragment : Fragment() {
             }
 
             observeAction(manageItemsAction) {
-                val direction = SettingsFragmentDirections.toItemList()
+                val direction = SettingsFragmentDirections.toAdminItemList()
                 findNavController().navigate(direction)
             }
 

@@ -45,7 +45,7 @@ class MainItemDetailsFragment : ItemDetailsFragment() {
 
             observeAction(itemDeletedAction) {
                 requireActivity().showSnackbar(getString(R.string.item_deletion_success))
-                val direction = MainItemDetailsFragmentDirections.toItemList()
+                val direction = MainItemDetailsFragmentDirections.toAdminItemList()
                 findNavController().navigate(direction)
             }
 
@@ -60,7 +60,7 @@ class MainItemDetailsFragment : ItemDetailsFragment() {
     }
 
     override fun onNotFoundConfirmed() {
-        val direction = MainItemDetailsFragmentDirections.toItemList()
+        val direction = MainItemDetailsFragmentDirections.toHome()
         findNavController().navigate(direction)
     }
 }
