@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.recent
+package eu.yeger.koffee.ui.history
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -36,5 +36,10 @@ class HistoryFragment : Fragment() {
             transactionRecyclerView.adapter = transactionListAdapter()
             lifecycleOwner = viewLifecycleOwner
         }.root
+    }
+
+    override fun onResume() {
+        historyViewModel.refresh()
+        super.onResume()
     }
 }

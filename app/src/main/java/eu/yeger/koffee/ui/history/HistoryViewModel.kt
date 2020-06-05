@@ -1,4 +1,4 @@
-package eu.yeger.koffee.ui.recent
+package eu.yeger.koffee.ui.history
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

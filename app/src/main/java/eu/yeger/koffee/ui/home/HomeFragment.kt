@@ -31,8 +31,9 @@ class HomeFragment : Fragment() {
         val context = requireContext()
         HomeViewModel(
             userId!!,
-            UserRepository(context),
-            ProfileImageRepository(context)
+            ProfileImageRepository(context),
+            TransactionRepository(context),
+            UserRepository(context)
         )
     }
 
@@ -58,6 +59,10 @@ class HomeFragment : Fragment() {
         homeViewModel.apply {
             observeAction(editProfileImageAction) { canDelete ->
                 showModifyImageDialog(canDelete)
+            }
+
+            observeAction(userNotFoundAction) {
+                onNotFound()
             }
 
             onErrorShowSnackbar()
@@ -115,5 +120,10 @@ class HomeFragment : Fragment() {
             .setCancelable(false)
             .create()
             .show()
+    }
+
+    override fun onResume() {
+        homeViewModel.refreshUser()
+        super.onResume()
     }
 }

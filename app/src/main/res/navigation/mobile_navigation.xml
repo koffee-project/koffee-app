@@ -249,6 +249,6 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_history"
-        android:name="eu.yeger.koffee.ui.recent.HistoryFragment"
+        android:name="eu.yeger.koffee.ui.history.HistoryFragment"
         android:label="@string/title_history" />
 </navigation>
