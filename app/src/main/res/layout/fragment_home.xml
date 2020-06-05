@@ -54,6 +54,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:profileImage="@{viewModel.profileImage}"
+                    android:onClick="@{() -> viewModel.activateEditProfileImageAction()}"
                     app:srcCompat="@drawable/ic_edit_24dp" />
 
                 <com.google.android.material.textview.MaterialTextView

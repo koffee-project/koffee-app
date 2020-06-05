@@ -128,7 +128,7 @@ fun ImageView.bindImage(profileImage: ProfileImage?) {
             .signature(ObjectKey(profileImage.timestamp))
             .fitCenter()
             .circleCrop()
-            .placeholder(R.drawable.ic_person_add_24dp)
+            .placeholder(R.drawable.ic_edit_24dp)
             .into(this)
     }
 }

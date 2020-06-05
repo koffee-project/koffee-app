@@ -1,17 +1,43 @@
 package eu.yeger.koffee.ui.home
 
+import android.app.Activity
+import android.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.map
+import com.github.dhaval2404.imagepicker.ImagePicker
+import eu.yeger.koffee.R
 import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.CoroutineViewModel
+import eu.yeger.koffee.ui.DataAction
+import java.io.File
 
 class HomeViewModel(
     private val userId: String,
     private val userRepository: UserRepository,
-    profileImageRepository: ProfileImageRepository
+    private val profileImageRepository: ProfileImageRepository
 ) : CoroutineViewModel() {
 
     val user = userRepository.getUserByIdFlow(userId).asLiveData()
-
     val profileImage = profileImageRepository.getProfileImageByUserIdAsFlow(userId).asLiveData()
+
+    val editProfileImageAction = DataAction<Boolean>()
+
+    fun activateEditProfileImageAction() {
+        if (user.value == null) return
+        editProfileImageAction.activateWith(profileImage.value != null)
+    }
+
+    fun uploadProfileImage(image: File) {
+        onViewModelScope {
+            profileImageRepository.uploadProfileImage(userId, image)
+        }
+    }
+
+    fun deleteProfileImage() {
+        onViewModelScope {
+            profileImageRepository.deleteProfileImageByUserId(userId)
+        }
+    }
 }

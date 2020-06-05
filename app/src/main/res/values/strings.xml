@@ -73,4 +73,5 @@
     <string name="launch_alternative_activity">Launch alternative activity</string>
     <string name="browse_items">Browse items</string>
     <string name="title_user">User</string>
+    <string name="edit">Edit</string>
 </resources>
