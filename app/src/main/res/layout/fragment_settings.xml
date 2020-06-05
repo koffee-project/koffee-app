@@ -53,6 +53,43 @@
         </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
         <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+            android:id="@+id/shared_activity_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_spacing"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation"
+            app:contentPadding="@dimen/half_spacing" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ui.settings.SettingsFragment">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/shared_activity_text"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_spacing"
+                    android:text="@string/launch_shared_activity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/to_shared_activity_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> settingsViewModel.activateLaunchSharedActivityAction()}"
+                    android:text="@string/launch"
+                    app:layout_constraintBottom_toBottomOf="@id/shared_activity_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/shared_activity_text" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
             android:id="@+id/login_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

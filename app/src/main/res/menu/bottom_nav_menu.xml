@@ -12,8 +12,8 @@
         android:title="@string/title_history" />
 
     <item
-        android:id="@+id/navigation_admin"
-        android:icon="@drawable/ic_poll_24dp"
-        android:title="@string/title_admin" />
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings_24dp"
+        android:title="@string/title_settings" />
 
 </menu>

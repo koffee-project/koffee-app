@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.databinding.FragmentSettingsBinding
+import eu.yeger.koffee.goToSharedActivity
 import eu.yeger.koffee.goToUserSelection
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.utility.observeAction
@@ -31,6 +32,10 @@ class SettingsFragment : Fragment() {
         settingsViewModel.apply {
             observeAction(selectUserAction) {
                 requireActivity().goToUserSelection()
+            }
+
+            observeAction(launchSharedActivityAction) {
+                requireActivity().goToSharedActivity()
             }
 
             observeAction(loginAction) {

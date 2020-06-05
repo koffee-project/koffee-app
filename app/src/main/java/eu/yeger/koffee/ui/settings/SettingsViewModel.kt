@@ -17,6 +17,7 @@ class SettingsViewModel(
     val tokenExpiration = token.map { it?.let { token -> formatTimestamp(token.expiration) } }
 
     val selectUserAction = SimpleAction()
+    val launchSharedActivityAction = SimpleAction()
     val loginAction = SimpleAction()
     val manageItemsAction = SimpleAction()
     val manageUsersAction = SimpleAction()
@@ -34,6 +35,8 @@ class SettingsViewModel(
     }
 
     fun activateSelectUserAction() = selectUserAction.activate()
+
+    fun activateLaunchSharedActivityAction() = launchSharedActivityAction.activate()
 
     fun activateLoginAction() = loginAction.activate()
 

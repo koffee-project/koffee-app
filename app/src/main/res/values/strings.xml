@@ -82,4 +82,7 @@
     <string name="change_user">Change User</string>
     <string name="manage_users">Manage Users</string>
     <string name="manage_items">Manage Items</string>
+    <string name="launch">Launch</string>
+    <string name="launch_shared_activity">Start shared mode</string>
+    <string name="title_settings">Settings</string>
 </resources>
