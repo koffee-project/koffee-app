@@ -26,6 +26,9 @@
             app:destination="@id/navigation_user_selection"
             app:popUpTo="@id/navigation_home"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_item_details"
+            app:destination="@id/navigation_item_details" />
     </fragment>
 
     <fragment
@@ -71,11 +74,7 @@
         android:id="@+id/navigation_item_list"
         android:name="eu.yeger.koffee.ui.item.list.MainItemListFragment"
         android:label="@string/title_item_list"
-        tools:layout="@layout/fragment_item_list">
-        <action
-            android:id="@+id/to_item_details"
-            app:destination="@id/navigation_item_details" />
-    </fragment>
+        tools:layout="@layout/fragment_item_list"/>
 
     <fragment
         android:id="@+id/navigation_item_details"

@@ -2,6 +2,7 @@ package eu.yeger.koffee.ui.item.list
 
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.repository.ItemRepository
+import eu.yeger.koffee.ui.home.HomeFragmentDirections
 import eu.yeger.koffee.utility.viewModelFactories
 
 class MainItemListFragment : ItemListFragment() {
@@ -13,7 +14,7 @@ class MainItemListFragment : ItemListFragment() {
     override fun initializeViewModel() = Unit
 
     override fun onItemSelected(itemId: String) {
-        val direction = MainItemListFragmentDirections.toItemDetails(itemId)
+        val direction = HomeFragmentDirections.toItemDetails(itemId)
         findNavController().navigate(direction)
     }
 }
