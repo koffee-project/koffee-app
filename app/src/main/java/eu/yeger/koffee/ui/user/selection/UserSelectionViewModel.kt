@@ -11,7 +11,7 @@ class UserSelectionViewModel(userRepository: UserRepository) : UserListViewModel
 
     val userSelectedAction = DataAction<User>()
 
-    override val showAlternativeActivityButton = true
+    override val showAlternativeActivityButton = false
 
     override val isAuthenticated: LiveData<Boolean>
         get() = MutableLiveData(false)

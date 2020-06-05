@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.R
 import eu.yeger.koffee.domain.User
+import eu.yeger.koffee.goToMainActivity
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.user.list.UserListFragment
 import eu.yeger.koffee.utility.observeAction
@@ -30,8 +31,7 @@ class UserSelectionFragment : UserListFragment() {
             .setMessage(message)
             .setPositiveButton(R.string.set_as_active_user) { _, _ ->
                 requireContext().saveUserIdToSharedPreferences(userId = user.id)
-                val direction = UserSelectionFragmentDirections.toHome()
-                findNavController().navigate(direction)
+                requireActivity().goToMainActivity()
             }
             .create()
             .show()

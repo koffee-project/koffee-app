@@ -1,6 +1,7 @@
 package eu.yeger.koffee.ui.home
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
+import eu.yeger.koffee.AlternativeActivity
 import eu.yeger.koffee.R
+import eu.yeger.koffee.UserSelectionActivity
 import eu.yeger.koffee.databinding.FragmentHomeBinding
+import eu.yeger.koffee.goToUserSelection
 import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
@@ -106,8 +110,7 @@ class HomeFragment : Fragment() {
         AlertDialog.Builder(requireContext())
             .setMessage(message)
             .setPositiveButton(R.string.got_to_selection) { _, _ ->
-                val direction = HomeFragmentDirections.toUserSelection()
-                findNavController().navigate(direction)
+                requireActivity().goToUserSelection()
             }
             .setCancelable(false)
             .create()
