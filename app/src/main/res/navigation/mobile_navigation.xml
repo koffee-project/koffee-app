@@ -247,4 +247,8 @@
             app:popUpTo="@id/navigation_user_selection"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="eu.yeger.koffee.ui.recent.HistoryFragment"
+        android:label="@string/title_history" />
 </navigation>
