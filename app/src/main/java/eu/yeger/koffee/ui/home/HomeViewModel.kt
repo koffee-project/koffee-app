@@ -1,12 +1,6 @@
 package eu.yeger.koffee.ui.home
 
-import android.app.Activity
-import android.app.AlertDialog
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.map
-import com.github.dhaval2404.imagepicker.ImagePicker
-import eu.yeger.koffee.R
 import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.CoroutineViewModel

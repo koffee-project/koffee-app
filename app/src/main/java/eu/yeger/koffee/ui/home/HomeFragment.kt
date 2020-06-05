@@ -12,7 +12,9 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentHomeBinding
 import eu.yeger.koffee.repository.ProfileImageRepository
+import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
+import eu.yeger.koffee.ui.RefundViewModel
 import eu.yeger.koffee.utility.*
 
 class HomeFragment : Fragment() {
@@ -27,6 +29,15 @@ class HomeFragment : Fragment() {
             userId!!,
             UserRepository(context),
             ProfileImageRepository(context)
+        )
+    }
+
+    private val refundViewModel: RefundViewModel by viewModelFactories {
+        val context = requireContext()
+        RefundViewModel(
+            userId = userId,
+            userRepository = UserRepository(context),
+            transactionRepository = TransactionRepository(context)
         )
     }
 
@@ -49,7 +60,8 @@ class HomeFragment : Fragment() {
         }
 
         return FragmentHomeBinding.inflate(inflater).apply {
-            viewModel = homeViewModel
+            homeViewModel = this@HomeFragment.homeViewModel
+            refundViewModel = this@HomeFragment.refundViewModel
             lifecycleOwner = viewLifecycleOwner
         }.root
     }

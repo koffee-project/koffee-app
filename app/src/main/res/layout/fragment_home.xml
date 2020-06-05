@@ -6,8 +6,12 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="homeViewModel"
             type="eu.yeger.koffee.ui.home.HomeViewModel" />
+
+        <variable
+            name="refundViewModel"
+            type="eu.yeger.koffee.ui.RefundViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-            android:id="@+id/circularRevealCardView"
+            android:id="@+id/user_details_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_spacing"
@@ -49,12 +53,12 @@
                     android:id="@+id/user_profile_image"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
+                    android:onClick="@{() -> homeViewModel.activateEditProfileImageAction()}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:profileImage="@{viewModel.profileImage}"
-                    android:onClick="@{() -> viewModel.activateEditProfileImageAction()}"
+                    app:profileImage="@{homeViewModel.profileImage}"
                     app:srcCompat="@drawable/ic_edit_24dp" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -64,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_spacing"
                     android:layout_marginEnd="@dimen/default_spacing"
-                    android:text="@{viewModel.user.name}"
+                    android:text="@{homeViewModel.user.name}"
                     app:layout_constraintEnd_toStartOf="@id/user_balance_text"
                     app:layout_constraintStart_toEndOf="@id/user_profile_image"
                     app:layout_constraintTop_toTopOf="@id/user_profile_image"
@@ -77,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_spacing"
                     android:layout_marginEnd="@dimen/default_spacing"
-                    android:text="@{viewModel.user.id}"
+                    android:text="@{homeViewModel.user.id}"
                     app:layout_constraintBottom_toBottomOf="@id/user_profile_image"
                     app:layout_constraintEnd_toStartOf="@id/user_balance_text"
                     app:layout_constraintStart_toEndOf="@id/user_profile_image"
@@ -87,12 +91,79 @@
                     android:id="@+id/user_balance_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{@string/currency_format(viewModel.user.balance)}"
+                    android:text="@{@string/currency_format(homeViewModel.user.balance)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="40,45€" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
+        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+            android:id="@+id/transaction_details_card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_spacing"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:layout_marginEnd="@dimen/default_spacing"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation"
+            app:contentPadding="@dimen/half_spacing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_details_card"
+            app:present="@{refundViewModel.canRefund}">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/last_transaction_text"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/last_transaction"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_goneMarginStart="@dimen/half_spacing" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/transaction_value_text"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/half_spacing"
+                    android:layout_marginTop="@dimen/half_spacing"
+                    android:layout_marginBottom="@dimen/half_spacing"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/last_transaction_text"
+                    app:transactionValue="@{refundViewModel.refundable}"
+                    tools:text="-0,30€" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/transaction_item_name_text"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_spacing"
+                    android:text="@{refundViewModel.refundable.itemName}"
+                    app:layout_constraintBottom_toBottomOf="@+id/transaction_value_text"
+                    app:layout_constraintStart_toEndOf="@id/transaction_value_text"
+                    app:layout_constraintTop_toTopOf="@id/transaction_value_text"
+                    tools:text="Wasser" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/refund_button"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> refundViewModel.refundPurchase()}"
+                    android:text="@string/refund"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
@@ -105,7 +176,7 @@
             android:layout_marginTop="@dimen/default_spacing"
             android:text="@string/title_item_list"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/circularRevealCardView" />
+            app:layout_constraintTop_toBottomOf="@id/transaction_details_card" />
 
         <fragment
             android:id="@+id/item_list_fragment"
