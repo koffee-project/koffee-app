@@ -7,6 +7,7 @@ import eu.yeger.koffee.repository.ItemRepository
 class MainItemListViewModel(
     itemRepository: ItemRepository
 ) : ItemListViewModel(itemRepository) {
+
     override val isAuthenticated: LiveData<Boolean>
         get() = MutableLiveData(false)
 
