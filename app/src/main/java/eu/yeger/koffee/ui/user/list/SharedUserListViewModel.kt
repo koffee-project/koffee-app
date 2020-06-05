@@ -6,7 +6,7 @@ import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.DataAction
 
-class AlternativeUserListViewModel(
+class SharedUserListViewModel(
     userRepository: UserRepository
 ) : UserListViewModel(userRepository) {
     override val isAuthenticated: LiveData<Boolean>

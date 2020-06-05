@@ -12,5 +12,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/alternative_navigation" />
+        app:navGraph="@navigation/shared_navigation" />
 </com.google.android.material.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout>

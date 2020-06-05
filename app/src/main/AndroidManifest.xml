@@ -32,7 +32,7 @@
         </activity>
 
         <activity
-            android:name=".AlternativeActivity"
+            android:name=".SharedActivity"
             android:theme="@style/AlternativeTheme"
             android:label="@string/app_name">
         </activity>

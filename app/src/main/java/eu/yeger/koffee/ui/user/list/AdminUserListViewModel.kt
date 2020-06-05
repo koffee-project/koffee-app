@@ -7,7 +7,7 @@ import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.ui.SimpleAction
 
-class MainUserListViewModel(
+class AdminUserListViewModel(
     adminRepository: AdminRepository,
     userRepository: UserRepository
 ) : UserListViewModel(userRepository) {

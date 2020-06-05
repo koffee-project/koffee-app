@@ -13,15 +13,15 @@ import eu.yeger.koffee.ui.adapter.transactionListAdapter
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.viewModelFactories
 
-class AlternativeUserDetailsFragment : UserDetailsFragment() {
+class SharedUserDetailsFragment : UserDetailsFragment() {
 
     override val userId by lazy {
-        AlternativeUserDetailsFragmentArgs.fromBundle(requireArguments()).userId
+        SharedUserDetailsFragmentArgs.fromBundle(requireArguments()).userId
     }
 
-    override val userDetailsViewModel: AlternativeUserDetailsViewModel by viewModelFactories {
+    override val userDetailsViewModel: SharedUserDetailsViewModel by viewModelFactories {
         val context = requireContext()
-        AlternativeUserDetailsViewModel(
+        SharedUserDetailsViewModel(
             userId = userId,
             profileImageRepository = ProfileImageRepository(context),
             transactionRepository = TransactionRepository(context),
@@ -33,8 +33,7 @@ class AlternativeUserDetailsFragment : UserDetailsFragment() {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.user_not_found)
             .setPositiveButton(R.string.go_back) { _, _ ->
-                val direction =
-                    AlternativeUserDetailsFragmentDirections.toAltUserList()
+                val direction = SharedUserDetailsFragmentDirections.toSharedUserList()
                 findNavController().navigate(direction)
             }
             .setCancelable(false)
@@ -46,7 +45,7 @@ class AlternativeUserDetailsFragment : UserDetailsFragment() {
         userDetailsViewModel.apply {
             observeAction(showItemsAction) {
                 val direction =
-                    AlternativeUserDetailsFragmentDirections.toAltItemList(userId)
+                    SharedUserDetailsFragmentDirections.toSharedItemList(userId)
                 findNavController().navigate(direction)
             }
         }
@@ -61,7 +60,7 @@ class AlternativeUserDetailsFragment : UserDetailsFragment() {
                     else -> null
                 }?.let { itemId ->
                     val direction =
-                        AlternativeUserDetailsFragmentDirections.toAltItemDetails(
+                        SharedUserDetailsFragmentDirections.toSharedItemDetails(
                             itemId,
                             userId
                         )

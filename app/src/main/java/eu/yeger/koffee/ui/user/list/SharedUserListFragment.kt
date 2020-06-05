@@ -5,10 +5,10 @@ import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.viewModelFactories
 
-class AlternativeUserListFragment : UserListFragment() {
+class SharedUserListFragment : UserListFragment() {
 
-    override val userListViewModel: AlternativeUserListViewModel by viewModelFactories {
-        AlternativeUserListViewModel(
+    override val userListViewModel: SharedUserListViewModel by viewModelFactories {
+        SharedUserListViewModel(
             UserRepository(requireContext())
         )
     }
@@ -17,7 +17,7 @@ class AlternativeUserListFragment : UserListFragment() {
         userListViewModel.apply {
             observeAction(userSelectedAction) { userId ->
                 val direction =
-                    AlternativeUserListFragmentDirections.toAltUserDetails(
+                    SharedUserListFragmentDirections.toSharedUserDetails(
                         userId
                     )
                 findNavController().navigate(direction)

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import eu.yeger.koffee.repository.ItemRepository
 
-class AlternativeItemListViewModel(
+class SharedItemListViewModel(
     itemRepository: ItemRepository
 ) : ItemListViewModel(itemRepository) {
 

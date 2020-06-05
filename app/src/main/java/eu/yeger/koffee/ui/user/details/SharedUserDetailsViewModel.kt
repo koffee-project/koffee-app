@@ -7,7 +7,7 @@ import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.SimpleAction
 
-class AlternativeUserDetailsViewModel(
+class SharedUserDetailsViewModel(
     userId: String,
     userRepository: UserRepository,
     profileImageRepository: ProfileImageRepository,

@@ -4,20 +4,20 @@ import androidx.navigation.fragment.findNavController
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.utility.viewModelFactories
 
-class AlternativeItemListFragment : ItemListFragment() {
+class SharedItemListFragment : ItemListFragment() {
 
     private val userId by lazy {
-        AlternativeItemListFragmentArgs.fromBundle(requireArguments()).userId
+        SharedItemListFragmentArgs.fromBundle(requireArguments()).userId
     }
 
-    override val itemListViewModel: AlternativeItemListViewModel by viewModelFactories {
-        AlternativeItemListViewModel(ItemRepository(requireContext()))
+    override val itemListViewModel: SharedItemListViewModel by viewModelFactories {
+        SharedItemListViewModel(ItemRepository(requireContext()))
     }
 
     override fun initializeViewModel() = Unit
 
     override fun onItemSelected(itemId: String) {
-        val direction = AlternativeItemListFragmentDirections.toAltItemDetails(itemId, userId)
+        val direction = SharedItemListFragmentDirections.toSharedItemDetails(itemId, userId)
         findNavController().navigate(direction)
     }
 }

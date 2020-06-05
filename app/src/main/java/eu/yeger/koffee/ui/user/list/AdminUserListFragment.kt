@@ -10,11 +10,11 @@ import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.saveUserIdToSharedPreferences
 import eu.yeger.koffee.utility.viewModelFactories
 
-class MainUserListFragment : UserListFragment() {
+class AdminUserListFragment : UserListFragment() {
 
-    override val userListViewModel: MainUserListViewModel by viewModelFactories {
+    override val userListViewModel: AdminUserListViewModel by viewModelFactories {
         val context = requireContext()
-        MainUserListViewModel(
+        AdminUserListViewModel(
             adminRepository = AdminRepository(context),
             userRepository = UserRepository(context)
         )
@@ -23,7 +23,7 @@ class MainUserListFragment : UserListFragment() {
     override fun initializeViewModel() {
         userListViewModel.apply {
             observeAction(createUserAction) {
-                val direction = MainUserListFragmentDirections.toUserCreation()
+                val direction = AdminUserListFragmentDirections.toUserCreation()
                 findNavController().navigate(direction)
             }
 
@@ -40,12 +40,12 @@ class MainUserListFragment : UserListFragment() {
             .setMessage(message)
             .setPositiveButton(R.string.set_as_active_user) { _, _ ->
                 requireContext().saveUserIdToSharedPreferences(userId = user.id)
-                val direction = MainUserListFragmentDirections.toHome()
+                val direction = AdminUserListFragmentDirections.toHome()
                 findNavController().navigate(direction)
             }.apply {
                 if (isAuthenticated)
                     setNeutralButton(R.string.view_user_as_admin) { _, _ ->
-                        val direction = MainUserListFragmentDirections.toUserDetails(user.id)
+                        val direction = AdminUserListFragmentDirections.toUserDetails(user.id)
                         findNavController().navigate(direction)
                     }
             }

@@ -6,14 +6,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 
-class AlternativeActivity : AppCompatActivity() {
+class SharedActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_alternative)
+        setContentView(R.layout.activity_shared)
 
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_alt_user_list))
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_shared_user_list))
 
         val navController = findNavController(R.id.nav_host_fragment)
         setupActionBarWithNavController(navController, appBarConfiguration)
