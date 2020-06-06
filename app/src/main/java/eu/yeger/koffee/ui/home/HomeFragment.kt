@@ -14,7 +14,10 @@ import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.RefundViewModel
-import eu.yeger.koffee.utility.*
+import eu.yeger.koffee.ui.item.list.ItemListFragment
+import eu.yeger.koffee.utility.observeAction
+import eu.yeger.koffee.utility.showSnackbar
+import eu.yeger.koffee.utility.viewModelFactories
 
 abstract class HomeFragment : Fragment() {
 
@@ -39,7 +42,9 @@ abstract class HomeFragment : Fragment() {
         )
     }
 
-    abstract fun onNotFound()
+    protected abstract fun getItemListFragment(): ItemListFragment
+
+    protected abstract fun onNotFound()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,7 +72,7 @@ abstract class HomeFragment : Fragment() {
             homeViewModel = this@HomeFragment.homeViewModel
             refundViewModel = this@HomeFragment.refundViewModel
             lifecycleOwner = viewLifecycleOwner
-        }.root
+        }.root.also { setItemListFragment() }
     }
 
     override fun onResume() {
@@ -76,6 +81,16 @@ abstract class HomeFragment : Fragment() {
         }
 
         super.onResume()
+    }
+
+    private fun setItemListFragment() {
+        requireActivity()
+            .supportFragmentManager
+            .beginTransaction()
+            .run {
+                replace(R.id.item_list_fragment, getItemListFragment())
+                commit()
+            }
     }
 
     private fun showModifyImageDialog(canDelete: Boolean) {

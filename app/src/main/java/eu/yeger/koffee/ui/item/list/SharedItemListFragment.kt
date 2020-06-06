@@ -5,12 +5,7 @@ import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.ui.home.SharedHomeFragmentDirections
 import eu.yeger.koffee.utility.viewModelFactories
 
-class SharedItemListFragment : ItemListFragment() {
-
-    private val userId by lazy {
-        TODO()
-        "test"
-    }
+class SharedItemListFragment(private val userId: String) : ItemListFragment() {
 
     override val itemListViewModel by viewModelFactories {
         MainItemListViewModel(itemRepository = ItemRepository(requireContext()))

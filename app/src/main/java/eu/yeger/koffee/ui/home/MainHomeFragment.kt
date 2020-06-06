@@ -1,10 +1,10 @@
 package eu.yeger.koffee.ui.home
 
-
 import androidx.appcompat.app.AlertDialog
 import eu.yeger.koffee.R
 import eu.yeger.koffee.goToSharedActivity
 import eu.yeger.koffee.goToUserSelection
+import eu.yeger.koffee.ui.item.list.MainItemListFragment
 import eu.yeger.koffee.utility.deleteUserIdFromSharedPreferences
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
 
@@ -13,6 +13,8 @@ class MainHomeFragment : HomeFragment() {
     override val userId by lazy {
         requireContext().getUserIdFromSharedPreferences()
     }
+
+    override fun getItemListFragment() = MainItemListFragment()
 
     override fun onNotFound() {
         val message = when (userId) {
