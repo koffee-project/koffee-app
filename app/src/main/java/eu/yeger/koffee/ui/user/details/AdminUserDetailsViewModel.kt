@@ -10,7 +10,7 @@ import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.ui.SimpleAction
 import eu.yeger.koffee.utility.sourcedLiveData
 
-class MainUserDetailsViewModel(
+class AdminUserDetailsViewModel(
     private val isActiveUser: Boolean,
     private val userId: String?,
     private val adminRepository: AdminRepository,

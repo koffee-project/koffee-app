@@ -27,29 +27,10 @@ class AdminUserListFragment : UserListFragment() {
                 findNavController().navigate(direction)
             }
 
-            observeAction(userSelectedAction) { pair ->
-                val (isAuthenticated, user) = pair
-                showUserSelectionDialog(user, isAuthenticated)
+            observeAction(userSelectedAction) { user ->
+                val direction = AdminUserListFragmentDirections.toUserDetails(user.id)
+                findNavController().navigate(direction)
             }
         }
-    }
-
-    private fun showUserSelectionDialog(user: User, isAuthenticated: Boolean) {
-        val message = getString(R.string.set_active_user_format, user.name, user.id)
-        AlertDialog.Builder(requireContext())
-            .setMessage(message)
-            .setPositiveButton(R.string.set_as_active_user) { _, _ ->
-                requireContext().saveUserIdToSharedPreferences(userId = user.id)
-                val direction = AdminUserListFragmentDirections.toHome()
-                findNavController().navigate(direction)
-            }.apply {
-                if (isAuthenticated)
-                    setNeutralButton(R.string.view_user_as_admin) { _, _ ->
-                        val direction = AdminUserListFragmentDirections.toUserDetails(user.id)
-                        findNavController().navigate(direction)
-                    }
-            }
-            .create()
-            .show()
     }
 }

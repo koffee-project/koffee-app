@@ -11,17 +11,6 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_user_details">
         <action
-            android:id="@+id/to_user_list"
-            app:destination="@id/navigation_user_list"
-            app:popUpTo="@id/navigation_home"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/to_user_editing"
-            app:destination="@id/navigation_user_editing" />
-        <action
-            android:id="@+id/to_user_crediting"
-            app:destination="@id/navigation_user_crediting" />
-        <action
             android:id="@+id/to_user_selection"
             app:destination="@id/navigation_user_selection"
             app:popUpTo="@id/navigation_home"
@@ -32,15 +21,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_user_list"
+        android:id="@+id/navigation_admin_user_list"
         android:name="eu.yeger.koffee.ui.user.list.AdminUserListFragment"
         android:label="@string/title_user_list"
         tools:layout="@layout/fragment_user_list">
-        <action
-            android:id="@+id/to_home"
-            app:destination="@id/navigation_home"
-            app:popUpTo="@id/navigation_user_list"
-            app:popUpToInclusive="true" />
         <action
             android:id="@+id/to_user_creation"
             app:destination="@id/navigation_user_creation" />
@@ -64,7 +48,7 @@
             android:defaultValue="false" />
         <action
             android:id="@+id/to_user_list"
-            app:destination="@id/navigation_user_list" />
+            app:destination="@id/navigation_admin_user_list" />
         <action
             android:id="@+id/to_admin_item_list"
             app:destination="@id/navigation_admin_item_list" />
@@ -162,7 +146,7 @@
 
     <fragment
         android:id="@+id/navigation_user_details"
-        android:name="eu.yeger.koffee.ui.user.details.MainUserDetailsFragment"
+        android:name="eu.yeger.koffee.ui.user.details.AdminUserDetailsFragment"
         android:label="@string/title_user_details"
         tools:layout="@layout/fragment_user_details">
         <argument
@@ -173,12 +157,7 @@
             app:destination="@id/navigation_user_editing" />
         <action
             android:id="@+id/to_user_list"
-            app:destination="@id/navigation_user_list"
-            app:popUpTo="@id/navigation_user_details"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/to_home"
-            app:destination="@id/navigation_home"
+            app:destination="@id/navigation_admin_user_list"
             app:popUpTo="@id/navigation_user_details"
             app:popUpToInclusive="true" />
         <action

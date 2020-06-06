@@ -14,10 +14,9 @@ class AdminUserListViewModel(
     override val isAuthenticated = adminRepository.isAuthenticatedFlow().asLiveData()
 
     val createUserAction = SimpleAction()
-    val userSelectedAction = DataAction<Pair<Boolean, User>>()
+    val userSelectedAction = DataAction<User>()
 
     override fun activateCreateUserAction() = createUserAction.activate()
 
-    override fun activateUserSelectedAction(user: User) =
-        userSelectedAction.activateWith((isAuthenticated.value ?: false) to user)
+    override fun activateUserSelectedAction(user: User) = userSelectedAction.activateWith(user)
 }

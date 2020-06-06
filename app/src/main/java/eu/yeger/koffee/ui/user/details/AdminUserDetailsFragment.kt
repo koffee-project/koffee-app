@@ -11,15 +11,15 @@ import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.adapter.transactionListAdapter
 import eu.yeger.koffee.utility.*
 
-class MainUserDetailsFragment : UserDetailsFragment() {
+class AdminUserDetailsFragment : UserDetailsFragment() {
 
     override val userId by lazy {
-        MainUserDetailsFragmentArgs.fromBundle(requireArguments()).userId
+        AdminUserDetailsFragmentArgs.fromBundle(requireArguments()).userId
     }
 
-    override val userDetailsViewModel: MainUserDetailsViewModel by viewModelFactories {
+    override val userDetailsViewModel: AdminUserDetailsViewModel by viewModelFactories {
         val context = requireContext()
-        MainUserDetailsViewModel(
+        AdminUserDetailsViewModel(
             isActiveUser = false,
             userId = userId,
             adminRepository = AdminRepository(context),
@@ -30,20 +30,14 @@ class MainUserDetailsFragment : UserDetailsFragment() {
     }
 
     override fun initializeViewModel() {
-        if (userId == requireContext().getUserIdFromSharedPreferences()) {
-            // current user is active user, so we navigate to home instead
-            val direction = MainUserDetailsFragmentDirections.toHome()
-            findNavController().navigate(direction)
-        }
-
         userDetailsViewModel.apply {
             observeAction(editUserAction) { userId ->
-                val direction = MainUserDetailsFragmentDirections.toUserEditing(userId)
+                val direction = AdminUserDetailsFragmentDirections.toUserEditing(userId)
                 findNavController().navigate(direction)
             }
 
             observeAction(creditUserAction) { userId ->
-                val direction = MainUserDetailsFragmentDirections.toUserCrediting(userId)
+                val direction = AdminUserDetailsFragmentDirections.toUserCrediting(userId)
                 findNavController().navigate(direction)
             }
 
@@ -55,14 +49,14 @@ class MainUserDetailsFragment : UserDetailsFragment() {
 
             observeAction(userDeletedAction) {
                 requireActivity().showSnackbar(getString(R.string.user_deletion_success))
-                val direction = MainUserDetailsFragmentDirections.toUserList()
+                val direction = AdminUserDetailsFragmentDirections.toUserList()
                 findNavController().navigate(direction)
             }
 
             onAuthorizationException {
                 hideKeyboard()
                 requireActivity().showSnackbar(R.string.login_expired)
-                val direction = MainUserDetailsFragmentDirections.toSettings()
+                val direction = AdminUserDetailsFragmentDirections.toSettings()
                 direction.loginExpired = true
                 findNavController().navigate(direction)
             }
@@ -78,7 +72,7 @@ class MainUserDetailsFragment : UserDetailsFragment() {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.user_not_found)
             .setPositiveButton(R.string.go_back) { _, _ ->
-                val direction = MainUserDetailsFragmentDirections.toUserList()
+                val direction = AdminUserDetailsFragmentDirections.toUserList()
                 findNavController().navigate(direction)
             }
             .setCancelable(false)
