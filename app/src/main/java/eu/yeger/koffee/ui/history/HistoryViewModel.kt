@@ -22,7 +22,10 @@ class HistoryViewModel(
 
     fun refresh() {
         onViewModelScope {
+            _refreshing.value = true
             transactionRepository.fetchTransactionsByUserId(userId)
+        }.invokeOnCompletion {
+            _refreshing.postValue(false)
         }
     }
 }
