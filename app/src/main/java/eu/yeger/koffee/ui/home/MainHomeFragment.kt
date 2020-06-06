@@ -25,7 +25,10 @@ class MainHomeFragment : HomeFragment() {
         AlertDialog.Builder(requireContext())
             .setMessage(message)
             .setPositiveButton(R.string.got_to_selection) { _, _ ->
-                requireActivity().goToUserSelection()
+                requireActivity().run {
+                    goToUserSelection()
+                    finish()
+                }
             }
             .apply {
                 if (userId === null) {

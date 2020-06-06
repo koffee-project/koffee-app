@@ -17,5 +17,4 @@ class UserSelectionActivity : AppCompatActivity() {
 fun Activity.goToUserSelection() {
     val intent = Intent(this, UserSelectionActivity::class.java)
     startActivity(intent)
-    finish()
 }

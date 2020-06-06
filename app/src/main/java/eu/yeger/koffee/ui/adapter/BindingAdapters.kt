@@ -119,10 +119,9 @@ fun TextView.bindTransactionDetails(transaction: Transaction?) {
     text = newText
 }
 
-@BindingAdapter("profileImage")
-fun ImageView.bindImage(profileImage: ProfileImage?) {
+fun ImageView.bindProfileImage(profileImage: ProfileImage?, placeholder: Int) {
     when (profileImage) {
-        null -> setImageResource(R.drawable.ic_edit_24dp)
+        null -> setImageResource(placeholder)
         else -> Glide.with(context)
             .load(profileImage.bytes)
             .signature(ObjectKey(profileImage.timestamp))
@@ -132,3 +131,9 @@ fun ImageView.bindImage(profileImage: ProfileImage?) {
             .into(this)
     }
 }
+
+@BindingAdapter("regularProfileImage")
+fun ImageView.bindRegularProfileImage(profileImage: ProfileImage?) = bindProfileImage(profileImage, R.drawable.ic_person_24dp)
+
+@BindingAdapter("editableProfileImage")
+fun ImageView.bindEditableProfileImage(profileImage: ProfileImage?) = bindProfileImage(profileImage, R.drawable.ic_edit_24dp)
