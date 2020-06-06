@@ -122,7 +122,7 @@ fun TextView.bindTransactionDetails(transaction: Transaction?) {
 @BindingAdapter("profileImage")
 fun ImageView.bindImage(profileImage: ProfileImage?) {
     when (profileImage) {
-        null -> setImageResource(R.drawable.ic_person_24dp)
+        null -> setImageResource(R.drawable.ic_edit_24dp)
         else -> Glide.with(context)
             .load(profileImage.bytes)
             .signature(ObjectKey(profileImage.timestamp))

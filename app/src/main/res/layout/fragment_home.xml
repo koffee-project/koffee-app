@@ -59,7 +59,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:profileImage="@{homeViewModel.profileImage}"
-                    app:srcCompat="@drawable/ic_edit_24dp" />
+                    tools:srcCompat="@drawable/ic_edit_24dp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/user_name_text"
@@ -185,8 +185,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialTextView"
-            tools:layout="@layout/fragment_item_list" />
-
+            app:layout_constraintTop_toBottomOf="@+id/materialTextView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
