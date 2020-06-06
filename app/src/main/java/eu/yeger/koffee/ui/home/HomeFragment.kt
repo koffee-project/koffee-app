@@ -10,18 +10,15 @@ import androidx.fragment.app.Fragment
 import com.github.dhaval2404.imagepicker.ImagePicker
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentHomeBinding
-import eu.yeger.koffee.goToUserSelection
 import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.RefundViewModel
 import eu.yeger.koffee.utility.*
 
-class HomeFragment : Fragment() {
+abstract class HomeFragment : Fragment() {
 
-    private val userId by lazy {
-        requireContext().getUserIdFromSharedPreferences()
-    }
+    protected abstract val userId: String?
 
     private val homeViewModel: HomeViewModel by viewModelFactories {
         val context = requireContext()
@@ -42,12 +39,14 @@ class HomeFragment : Fragment() {
         )
     }
 
+    abstract fun onNotFound()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (userId == null) {
+        if (userId === null) {
             onNotFound()
             return null
         }
@@ -69,6 +68,14 @@ class HomeFragment : Fragment() {
             refundViewModel = this@HomeFragment.refundViewModel
             lifecycleOwner = viewLifecycleOwner
         }.root
+    }
+
+    override fun onResume() {
+        if (userId !== null) {
+            homeViewModel.refreshUser()
+        }
+
+        super.onResume()
     }
 
     private fun showModifyImageDialog(canDelete: Boolean) {
@@ -100,26 +107,5 @@ class HomeFragment : Fragment() {
                     )
                 }
             }
-    }
-
-    private fun onNotFound() {
-        val message = when (userId) {
-            null -> R.string.no_user_selected
-            else -> R.string.active_user_deleted
-        }
-        requireContext().deleteUserIdFromSharedPreferences()
-        AlertDialog.Builder(requireContext())
-            .setMessage(message)
-            .setPositiveButton(R.string.got_to_selection) { _, _ ->
-                requireActivity().goToUserSelection()
-            }
-            .setCancelable(false)
-            .create()
-            .show()
-    }
-
-    override fun onResume() {
-        homeViewModel.refreshUser()
-        super.onResume()
     }
 }
