@@ -91,7 +91,7 @@
                     style="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{@string/currency_format(homeViewModel.user.balance)}"
+                    app:currencyValue="@{homeViewModel.user.balance}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -111,8 +111,7 @@
             app:contentPadding="@dimen/half_spacing"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_details_card"
-            app:present="@{refundViewModel.canRefund}">
+            app:layout_constraintTop_toBottomOf="@id/user_details_card">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -139,7 +138,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/last_transaction_text"
-                    app:transactionValue="@{refundViewModel.refundable}"
+                    app:currencyValue="@{refundViewModel.refundable.value}"
                     tools:text="-0,30€" />
 
                 <com.google.android.material.textview.MaterialTextView

@@ -132,6 +132,21 @@ fun ImageView.bindProfileImage(profileImage: ProfileImage?, placeholder: Int) {
     }
 }
 
+@BindingAdapter("currencyValue")
+fun TextView.bindCurrencyValue(value: Double?) {
+    when (value) {
+        null -> {
+            text = ""
+            background = null
+        }
+        else -> {
+            text = resources.getString(R.string.currency_format, value)
+            background = resources.getDrawable(R.drawable.rounded_rectangle, context.theme)
+            setTextColor(R.color.design_default_color_on_primary)
+        }
+    }
+}
+
 @BindingAdapter("regularProfileImage")
 fun ImageView.bindRegularProfileImage(profileImage: ProfileImage?) = bindProfileImage(profileImage, R.drawable.ic_person_24dp)
 
