@@ -13,6 +13,8 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import timber.log.Timber
+import java.net.SocketTimeoutException
 
 abstract class CoroutineViewModel : ViewModel() {
     private val errorAction = DataAction<Throwable>()
@@ -27,11 +29,11 @@ abstract class CoroutineViewModel : ViewModel() {
     }
 
     private val defaultErrorFormatter: Fragment.(Throwable) -> String = { error ->
+        Timber.e(error)
         when (error) {
+            is HttpException -> error.response()?.errorBody()?.string().nullIfBlank() ?: error.message()
+            is SocketTimeoutException -> getString(R.string.no_connection)
             is UnknownHostException -> getString(R.string.no_connection)
-            is HttpException -> {
-                error.response()?.errorBody()?.string().nullIfBlank() ?: error.message()
-            }
             else -> error.localizedMessage
         }.nullIfBlank() ?: getString(R.string.unknown_error)
     }

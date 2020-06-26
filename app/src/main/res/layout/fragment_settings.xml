@@ -156,10 +156,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_spacing"
-                    android:layout_marginBottom="@dimen/default_spacing"
                     android:text="@{@string/logged_in_as_format(settingsViewModel.token.userId)}"
+                    app:layout_constraintBottom_toBottomOf="@+id/logout_button"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/logout_button"
                     tools:text="Logged in as userId" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -168,19 +168,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{@string/expiry_format(settingsViewModel.tokenExpiration)}"
+                    app:layout_constraintBottom_toBottomOf="@+id/manage_users_button"
                     app:layout_constraintStart_toStartOf="@id/logged_in_as_text"
-                    app:layout_constraintTop_toBottomOf="@id/logged_in_as_text"
+                    app:layout_constraintTop_toBottomOf="@+id/logout_button"
                     tools:text="Expiry: Timestamp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/logout_button"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:onClick="@{() -> settingsViewModel.logout()}"
                     android:text="@string/logout"
-                    app:layout_constraintBottom_toBottomOf="@id/login_expiry_text"
+                    app:layout_constraintBottom_toTopOf="@+id/manage_users_button"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@id/manage_users_button"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="spread_inside" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/manage_users_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> settingsViewModel.activateManageUsersAction()}"
+                    android:text="@string/manage_users"
+                    app:layout_constraintBottom_toTopOf="@+id/manage_items_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/logout_button" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/manage_items_button"
@@ -189,18 +203,9 @@
                     android:onClick="@{() -> settingsViewModel.activateManageItemsAction()}"
                     android:text="@string/manage_items"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/logout_button" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/manage_users_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> settingsViewModel.activateManageUsersAction()}"
-                    android:text="@string/manage_users"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/logout_button" />
+                    app:layout_constraintStart_toStartOf="@id/manage_users_button"
+                    app:layout_constraintTop_toBottomOf="@+id/manage_users_button" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
     </LinearLayout>

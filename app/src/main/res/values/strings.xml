@@ -48,7 +48,7 @@
     <string name="title_user_editing">Edit User</string>
     <string name="update_user">Update User</string>
     <string name="unknown_error">Unknown error.</string>
-    <string name="no_connection">No connection.</string>
+    <string name="no_connection">Unable to reach the server.</string>
     <string name="user_not_found">This user no longer exists.</string>
     <string name="active_user_deleted">The previously active user has been deleted.</string>
     <string name="item">Item</string>
@@ -76,7 +76,7 @@
     <string name="edit">Edit</string>
     <string name="last_transaction">Last Transaction</string>
     <string name="title_history">History</string>
-    <string name="login_info">Login to access admin tools</string>
+    <string name="login_info">Access admin tools</string>
     <string name="admin_login">Admin Login</string>
     <string name="select_your_user">Select your user</string>
     <string name="change_user">Change User</string>
