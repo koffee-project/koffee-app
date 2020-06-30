@@ -208,7 +208,14 @@
         android:id="@+id/navigation_history"
         android:name="eu.yeger.koffee.ui.history.HistoryFragment"
         android:label="@string/title_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/to_item_details"
+            app:destination="@id/navigation_item_details" />
+        <action
+            android:id="@+id/to_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_admin_item_list"
         android:name="eu.yeger.koffee.ui.item.list.AdminItemListFragment"
