@@ -91,5 +91,6 @@
     <string name="select_image_action">Edit or delete your profile image.</string>
     <string name="amount_format">%d in stock</string>
     <string name="title_statistics">Statistics</string>
-    <string name="purchased_amount_format">You purchased %d units.</string>
+    <string name="purchased_amount_format">%d units purchased</string>
+    <string name="last_purchase_format">Last purchase %s</string>
 </resources>

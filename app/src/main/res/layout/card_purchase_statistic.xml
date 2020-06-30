@@ -10,6 +10,10 @@
             type="eu.yeger.koffee.domain.PurchaseStatistic" />
 
         <variable
+            name="lastPurchaseTimestamp"
+            type="String" />
+
+        <variable
             name="onClickListener"
             type="eu.yeger.koffee.ui.OnClickListener" />
     </data>
@@ -46,11 +50,24 @@
                 android:layout_marginStart="@dimen/default_spacing"
                 android:text="@{@string/purchased_amount_format(purchaseStatistic.amount)}"
                 android:textAlignment="viewEnd"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/item_name_text"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="You purchased 42 units." />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/last_purchase_timestamp_text"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:text="@{@string/last_purchase_format(lastPurchaseTimestamp)}"
+                android:textAlignment="viewEnd"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/item_name_text"
+                app:layout_constraintTop_toBottomOf="@id/amount_text"
+                tools:text="Last purchase 2 days ago." />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 </layout>
