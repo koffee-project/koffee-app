@@ -48,7 +48,7 @@ class TransactionRepository(private val database: KoffeeDatabase) {
     }
 
     suspend fun getPurchaseStatsByUserId(userId: String?): List<PurchaseStatistic> {
-        return withContext(Dispatchers.IO)  {
+        return withContext(Dispatchers.IO) {
             database.transactionDao.getPurchaseStats(userId)
         }
     }

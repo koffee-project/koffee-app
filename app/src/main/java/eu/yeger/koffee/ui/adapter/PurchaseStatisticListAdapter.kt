@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import eu.yeger.koffee.databinding.CardPurchaseStatisticBinding
 import eu.yeger.koffee.domain.PurchaseStatistic
 import eu.yeger.koffee.ui.OnClickListener
-import eu.yeger.koffee.utility.formatTimestamp
 
 class PurchaseStatisticListAdapter(
     private val onClickListener: OnClickListener<PurchaseStatistic>
