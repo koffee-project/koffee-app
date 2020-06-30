@@ -111,7 +111,8 @@
             app:contentPadding="@dimen/half_spacing"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_details_card">
+            app:layout_constraintTop_toBottomOf="@id/user_details_card"
+            app:present="@{refundViewModel.canRefund}">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -135,10 +136,10 @@
                     android:layout_marginStart="@dimen/half_spacing"
                     android:layout_marginTop="@dimen/half_spacing"
                     android:layout_marginBottom="@dimen/half_spacing"
+                    app:currencyValue="@{refundViewModel.refundable.value}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/last_transaction_text"
-                    app:currencyValue="@{refundViewModel.refundable.value}"
                     tools:text="-0,30€" />
 
                 <com.google.android.material.textview.MaterialTextView
