@@ -71,7 +71,7 @@
                     android:text="@{homeViewModel.user.name}"
                     app:layout_constraintEnd_toStartOf="@id/user_balance_text"
                     app:layout_constraintStart_toEndOf="@id/user_profile_image"
-                    app:layout_constraintTop_toTopOf="@id/user_profile_image"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="UserName" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -79,9 +79,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@{homeViewModel.user.id}"
-                    app:layout_constraintBottom_toBottomOf="@id/user_profile_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/user_name_text"
-                    app:layout_constraintStart_toEndOf="@id/user_profile_image"
                     app:layout_constraintStart_toStartOf="@+id/user_name_text"
                     app:layout_constraintTop_toBottomOf="@+id/user_name_text"
                     tools:text="UserID" />

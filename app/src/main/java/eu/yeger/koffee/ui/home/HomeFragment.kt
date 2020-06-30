@@ -95,7 +95,7 @@ abstract class HomeFragment : Fragment() {
 
     private fun showModifyImageDialog(canDelete: Boolean) {
         AlertDialog.Builder(requireContext())
-            .setMessage("Select an action") // TODO change
+            .setMessage(R.string.select_image_action)
             .setPositiveButton(R.string.edit) { _, _ ->
                 showImageSelectionDialog()
             }

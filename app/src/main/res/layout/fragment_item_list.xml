@@ -37,6 +37,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/state_text"
+                style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/no_results"
@@ -80,8 +81,8 @@
                 android:onClick="@{() -> viewModel.activateCreateItemAction()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_add_24dp"
-                app:present="@{viewModel.isAuthenticated()}" />
+                app:present="@{viewModel.isAuthenticated()}"
+                app:srcCompat="@drawable/ic_add_24dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

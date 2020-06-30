@@ -20,7 +20,6 @@ class HistoryFragment : Fragment() {
         requireContext().getUserIdFromSharedPreferences()
     }
 
-    // TODO change
     private val historyViewModel: HistoryViewModel by viewModelFactories {
         HistoryViewModel(userId!!, TransactionRepository(requireContext()))
     }
