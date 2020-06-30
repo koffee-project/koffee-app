@@ -13,6 +13,7 @@ import com.google.android.material.imageview.ShapeableImageView
 import eu.yeger.koffee.R
 import eu.yeger.koffee.domain.Item
 import eu.yeger.koffee.domain.ProfileImage
+import eu.yeger.koffee.domain.PurchaseStatistic
 import eu.yeger.koffee.domain.Transaction
 
 /**
@@ -72,6 +73,14 @@ fun <T> RecyclerView.bindItems(items: PagedList<T>?, callback: (() -> Unit)?) {
     val adapter = adapter as GenericPagedListAdapter<T>
     adapter.submitList(items) {
         callback?.invoke()
+        layoutManager?.scrollToPosition(0)
+    }
+}
+
+@BindingAdapter("statistics")
+fun <T> RecyclerView.bindStatistics(statistics: List<PurchaseStatistic>?) {
+    val adapter = adapter as PurchaseStatisticListAdapter
+    adapter.submitList(statistics) {
         layoutManager?.scrollToPosition(0)
     }
 }

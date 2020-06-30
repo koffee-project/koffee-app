@@ -5,6 +5,7 @@ import androidx.paging.DataSource
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.asDomainModel
 import eu.yeger.koffee.database.getDatabase
+import eu.yeger.koffee.domain.PurchaseStatistic
 import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.network.ApiPurchaseRequest
 import eu.yeger.koffee.network.NetworkService
@@ -46,6 +47,12 @@ class TransactionRepository(private val database: KoffeeDatabase) {
             }
     }
 
+    suspend fun getPurchaseStatsByUserId(userId: String?): List<PurchaseStatistic> {
+        return withContext(Dispatchers.IO)  {
+            database.transactionDao.getPurchaseStats(userId)
+        }
+    }
+
     suspend fun fetchTransactionsByUserId(userId: String) {
         withContext(Dispatchers.IO) {
             onNotFound({ database.purgeUserById(userId) }) {
@@ -71,9 +78,9 @@ class TransactionRepository(private val database: KoffeeDatabase) {
 
     suspend fun refundPurchase(userId: String) {
         withContext(Dispatchers.IO) {
-             onNotFound({ database.purgeUserById(userId) }) {
+            onNotFound({ database.purgeUserById(userId) }) {
                 NetworkService.koffeeApi.refundPurchase(userId)
-             }
+            }
         }
     }
 

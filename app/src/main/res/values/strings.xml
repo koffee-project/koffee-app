@@ -53,6 +53,7 @@
     <string name="active_user_deleted">The previously active user has been deleted.</string>
     <string name="item">Item</string>
     <string name="no_transactions">No transactions available</string>
+    <string name="no_statistics">No statistics available</string>
     <string name="none">None</string>
     <string name="funding">Funding</string>
     <string name="purchase">Purchase</string>
@@ -89,4 +90,6 @@
     <string name="selected_user_deleted">The selected user has been deleted.</string>
     <string name="select_image_action">Edit or delete your profile image.</string>
     <string name="amount_format">%d in stock</string>
+    <string name="title_statistics">Statistics</string>
+    <string name="purchased_amount_format">You purchased %d units.</string>
 </resources>
