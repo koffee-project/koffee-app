@@ -141,14 +141,19 @@ fun TextView.bindCurrencyValue(value: Double?) {
         }
         else -> {
             text = resources.getString(R.string.currency_format, value)
-            background = resources.getDrawable(R.drawable.rounded_rectangle, context.theme)
-            setTextColor(R.color.design_default_color_on_primary)
+            background = when {
+                value >= 0 -> resources.getDrawable(R.drawable.green_rectangle, context.theme)
+                else -> resources.getDrawable(R.drawable.red_rectangle, context.theme)
+            }
+            setTextColor(resources.getColor(R.color.dark_grey, context.theme))
         }
     }
 }
 
 @BindingAdapter("regularProfileImage")
-fun ImageView.bindRegularProfileImage(profileImage: ProfileImage?) = bindProfileImage(profileImage, R.drawable.ic_person_24dp)
+fun ImageView.bindRegularProfileImage(profileImage: ProfileImage?) =
+    bindProfileImage(profileImage, R.drawable.ic_person_24dp)
 
 @BindingAdapter("editableProfileImage")
-fun ImageView.bindEditableProfileImage(profileImage: ProfileImage?) = bindProfileImage(profileImage, R.drawable.ic_edit_24dp)
+fun ImageView.bindEditableProfileImage(profileImage: ProfileImage?) =
+    bindProfileImage(profileImage, R.drawable.ic_edit_24dp)
