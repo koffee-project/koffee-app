@@ -56,18 +56,8 @@ abstract class ItemDetailsViewModel(
         userId?.let {
             onViewModelScope {
                 transactionRepository.buyItem(userId, itemId, 1)
+                itemRepository.fetchItemById(itemId)
                 transactionRepository.fetchTransactionsByUserId(userId)
-            }
-        }
-    }
-
-    fun refundPurchase() {
-        userId?.let {
-            onViewModelScope {
-                transactionRepository.run {
-                    refundPurchase(userId)
-                    fetchTransactionsByUserId(userId)
-                }
             }
         }
     }

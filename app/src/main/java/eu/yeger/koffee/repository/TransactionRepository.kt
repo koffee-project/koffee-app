@@ -61,7 +61,7 @@ class TransactionRepository(private val database: KoffeeDatabase) {
 
     suspend fun buyItem(userId: String, itemId: String, amount: Int) {
         withContext(Dispatchers.IO) {
-            // Disabled because uncertainty of userId or itemId do not exist
+            // Disabled because uncertainty of userId or itemId not existing
             // onNotFound({ database.purgeUserById(userId) }) {
             val purchaseRequest = ApiPurchaseRequest(itemId, amount)
             NetworkService.koffeeApi.purchaseItem(userId, purchaseRequest)
@@ -71,9 +71,9 @@ class TransactionRepository(private val database: KoffeeDatabase) {
 
     suspend fun refundPurchase(userId: String) {
         withContext(Dispatchers.IO) {
-            onNotFound({ database.purgeUserById(userId) }) {
+             onNotFound({ database.purgeUserById(userId) }) {
                 NetworkService.koffeeApi.refundPurchase(userId)
-            }
+             }
         }
     }
 

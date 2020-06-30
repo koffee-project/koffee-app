@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import eu.yeger.koffee.BuildConfig
+import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.utility.SimpleTimer
@@ -12,6 +13,7 @@ import eu.yeger.koffee.utility.sourcedLiveData
 class RefundViewModel(
     private val itemId: String? = null,
     private val userId: String?,
+    private val itemRepository: ItemRepository,
     private val transactionRepository: TransactionRepository,
     private val userRepository: UserRepository
 ) : CoroutineViewModel() {
@@ -50,7 +52,9 @@ class RefundViewModel(
     }
 
     fun refundPurchase() {
-        if (userId === null) return
+        val itemId = refundable.value?.itemId
+
+        if (userId === null || itemId === null) return
 
         onViewModelScope {
             transactionRepository.run {
@@ -58,6 +62,7 @@ class RefundViewModel(
                 fetchTransactionsByUserId(userId)
             }
             userRepository.fetchUserById(userId)
+            itemRepository.fetchItemById(itemId)
         }
     }
 

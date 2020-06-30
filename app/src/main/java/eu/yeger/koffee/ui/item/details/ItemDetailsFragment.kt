@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentItemDetailsBinding
+import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.RefundViewModel
@@ -28,6 +29,7 @@ abstract class ItemDetailsFragment : Fragment() {
         RefundViewModel(
             itemId = itemId,
             userId = userId,
+            itemRepository = ItemRepository(context),
             transactionRepository = TransactionRepository(context),
             userRepository = UserRepository(context)
         )

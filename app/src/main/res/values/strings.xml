@@ -88,4 +88,5 @@
     <string name="item_name">Item Name</string>
     <string name="selected_user_deleted">The selected user has been deleted.</string>
     <string name="select_image_action">Edit or delete your profile image.</string>
+    <string name="amount_format">%d in stock</string>
 </resources>

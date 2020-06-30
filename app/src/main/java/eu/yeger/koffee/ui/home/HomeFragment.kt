@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.github.dhaval2404.imagepicker.ImagePicker
 import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentHomeBinding
+import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
@@ -37,6 +38,7 @@ abstract class HomeFragment : Fragment() {
         val context = requireContext()
         RefundViewModel(
             userId = userId,
+            itemRepository = ItemRepository(context),
             userRepository = UserRepository(context),
             transactionRepository = TransactionRepository(context)
         )
