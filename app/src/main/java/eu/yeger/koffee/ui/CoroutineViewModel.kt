@@ -8,11 +8,13 @@ import eu.yeger.koffee.utility.hideKeyboard
 import eu.yeger.koffee.utility.nullIfBlank
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
+import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import timber.log.Timber
 
 abstract class CoroutineViewModel : ViewModel() {
     private val errorAction = DataAction<Throwable>()
@@ -28,10 +30,10 @@ abstract class CoroutineViewModel : ViewModel() {
 
     private val defaultErrorFormatter: Fragment.(Throwable) -> String = { error ->
         when (error) {
+            is HttpException -> error.response()?.errorBody()?.string().nullIfBlank()
+                ?: error.message()
+            is SocketTimeoutException -> getString(R.string.no_connection)
             is UnknownHostException -> getString(R.string.no_connection)
-            is HttpException -> {
-                error.response()?.errorBody()?.string().nullIfBlank() ?: error.message()
-            }
             else -> error.localizedMessage
         }.nullIfBlank() ?: getString(R.string.unknown_error)
     }
@@ -47,6 +49,7 @@ abstract class CoroutineViewModel : ViewModel() {
         block: (Fragment.(Throwable) -> String?)? = null
     ) {
         onError {
+            Timber.e(it)
             hideKeyboard()
             val message = block?.invoke(this, it).nullIfBlank() ?: defaultErrorFormatter(it)
             requireActivity().showSnackbar(message)

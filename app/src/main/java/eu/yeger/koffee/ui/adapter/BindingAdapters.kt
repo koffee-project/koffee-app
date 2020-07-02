@@ -13,6 +13,7 @@ import com.google.android.material.imageview.ShapeableImageView
 import eu.yeger.koffee.R
 import eu.yeger.koffee.domain.Item
 import eu.yeger.koffee.domain.ProfileImage
+import eu.yeger.koffee.domain.PurchaseStatistic
 import eu.yeger.koffee.domain.Transaction
 
 /**
@@ -76,6 +77,14 @@ fun <T> RecyclerView.bindItems(items: PagedList<T>?, callback: (() -> Unit)?) {
     }
 }
 
+@BindingAdapter("statistics")
+fun <T> RecyclerView.bindStatistics(statistics: List<PurchaseStatistic>?) {
+    val adapter = adapter as PurchaseStatisticListAdapter
+    adapter.submitList(statistics) {
+        layoutManager?.scrollToPosition(0)
+    }
+}
+
 @BindingAdapter("transaction")
 fun ShapeableImageView.bindTransaction(transaction: Transaction?) {
     transaction?.let {
@@ -119,16 +128,41 @@ fun TextView.bindTransactionDetails(transaction: Transaction?) {
     text = newText
 }
 
-@BindingAdapter("profileImage")
-fun ImageView.bindImage(profileImage: ProfileImage?) {
+fun ImageView.bindProfileImage(profileImage: ProfileImage?, placeholder: Int) {
     when (profileImage) {
-        null -> setImageResource(R.drawable.ic_person_24dp)
+        null -> setImageResource(placeholder)
         else -> Glide.with(context)
             .load(profileImage.bytes)
             .signature(ObjectKey(profileImage.timestamp))
             .fitCenter()
             .circleCrop()
-            .placeholder(R.drawable.ic_person_add_24dp)
+            .placeholder(R.drawable.ic_edit_24dp)
             .into(this)
     }
 }
+
+@BindingAdapter("currencyValue")
+fun TextView.bindCurrencyValue(value: Double?) {
+    when (value) {
+        null -> {
+            text = ""
+            background = null
+        }
+        else -> {
+            text = resources.getString(R.string.currency_format, value)
+            background = when {
+                value >= 0 -> resources.getDrawable(R.drawable.green_rectangle, context.theme)
+                else -> resources.getDrawable(R.drawable.red_rectangle, context.theme)
+            }
+            setTextColor(resources.getColor(R.color.dark_grey, context.theme))
+        }
+    }
+}
+
+@BindingAdapter("regularProfileImage")
+fun ImageView.bindRegularProfileImage(profileImage: ProfileImage?) =
+    bindProfileImage(profileImage, R.drawable.ic_person_24dp)
+
+@BindingAdapter("editableProfileImage")
+fun ImageView.bindEditableProfileImage(profileImage: ProfileImage?) =
+    bindProfileImage(profileImage, R.drawable.ic_edit_24dp)

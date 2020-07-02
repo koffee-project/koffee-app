@@ -6,18 +6,13 @@ import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.DataAction
 
-class AlternativeUserListViewModel(
+class SharedUserListViewModel(
     userRepository: UserRepository
 ) : UserListViewModel(userRepository) {
-
-    val userSelectedAction = DataAction<String>()
-
-    override val showAlternativeActivityButton = false
-
     override val isAuthenticated: LiveData<Boolean>
         get() = MutableLiveData(false)
 
-    override fun activateLaunchAlternativeActivityAction() = Unit
+    val userSelectedAction = DataAction<String>()
 
     override fun activateUserSelectedAction(user: User) = userSelectedAction.activateWith(user.id)
 

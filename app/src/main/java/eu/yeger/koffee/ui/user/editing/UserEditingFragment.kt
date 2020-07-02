@@ -42,7 +42,7 @@ class UserEditingFragment : Fragment() {
             onAuthorizationException {
                 hideKeyboard()
                 requireActivity().showSnackbar(R.string.login_expired)
-                val direction = UserEditingFragmentDirections.toAdmin()
+                val direction = UserEditingFragmentDirections.toSettings()
                 direction.loginExpired = true
                 findNavController().navigate(direction)
             }

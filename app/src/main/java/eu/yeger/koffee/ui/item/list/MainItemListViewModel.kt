@@ -1,18 +1,15 @@
 package eu.yeger.koffee.ui.item.list
 
-import androidx.lifecycle.asLiveData
-import eu.yeger.koffee.repository.AdminRepository
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import eu.yeger.koffee.repository.ItemRepository
-import eu.yeger.koffee.ui.SimpleAction
 
 class MainItemListViewModel(
-    adminRepository: AdminRepository,
     itemRepository: ItemRepository
 ) : ItemListViewModel(itemRepository) {
 
-    override val isAuthenticated = adminRepository.isAuthenticatedFlow().asLiveData()
+    override val isAuthenticated: LiveData<Boolean>
+        get() = MutableLiveData(false)
 
-    val createItemAction = SimpleAction()
-
-    override fun activateCreateItemAction() = createItemAction.activate()
+    override fun activateCreateItemAction() = Unit
 }

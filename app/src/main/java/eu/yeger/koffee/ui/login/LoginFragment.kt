@@ -29,7 +29,7 @@ class LoginFragment : Fragment() {
             observeAction(loggedInAction) {
                 hideKeyboard()
                 requireActivity().showSnackbar(getString(R.string.login_success))
-                val direction = LoginFragmentDirections.toAdmin()
+                val direction = LoginFragmentDirections.toSettings()
                 findNavController().navigate(direction)
             }
 

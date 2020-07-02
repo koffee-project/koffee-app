@@ -10,7 +10,6 @@ import eu.yeger.koffee.domain.JWT
 import eu.yeger.koffee.domain.ProfileImage
 import eu.yeger.koffee.domain.User
 
-// TODO add worker for periodically cleaning the database
 @Database(
     entities = [
         DatabaseTransaction::class,

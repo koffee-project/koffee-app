@@ -18,11 +18,7 @@ abstract class UserListViewModel(
     private val _refreshing = MutableLiveData(false)
     val refreshing: LiveData<Boolean> = _refreshing
 
-    abstract val showAlternativeActivityButton: Boolean
-
     abstract val isAuthenticated: LiveData<Boolean>
-
-    abstract fun activateLaunchAlternativeActivityAction()
 
     abstract fun activateUserSelectedAction(user: User)
 

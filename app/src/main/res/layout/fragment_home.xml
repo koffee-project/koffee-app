@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="homeViewModel"
+            type="eu.yeger.koffee.ui.home.HomeViewModel" />
+
+        <variable
+            name="refundViewModel"
+            type="eu.yeger.koffee.ui.RefundViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textInputEditText"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_spacing"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:layout_marginEnd="@dimen/default_spacing"
+            android:text="@string/title_user"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+            android:id="@+id/user_details_card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_spacing"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:layout_marginEnd="@dimen/default_spacing"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation"
+            app:contentPadding="@dimen/half_spacing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputEditText">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/user_profile_image"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:onClick="@{() -> homeViewModel.activateEditProfileImageAction()}"
+                    app:editableProfileImage="@{homeViewModel.profileImage}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@drawable/ic_edit_24dp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/user_name_text"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/half_spacing"
+                    android:layout_marginEnd="@dimen/half_spacing"
+                    android:text="@{homeViewModel.user.name}"
+                    app:layout_constraintEnd_toStartOf="@id/user_balance_text"
+                    app:layout_constraintStart_toEndOf="@id/user_profile_image"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="UserName" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/user_id_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{homeViewModel.user.id}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/user_name_text"
+                    app:layout_constraintStart_toStartOf="@+id/user_name_text"
+                    app:layout_constraintTop_toBottomOf="@+id/user_name_text"
+                    tools:text="UserID" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/user_balance_text"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:currencyValue="@{homeViewModel.user.balance}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="40,45€" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+            android:id="@+id/transaction_details_card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_spacing"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:layout_marginEnd="@dimen/default_spacing"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation"
+            app:contentPadding="@dimen/half_spacing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_details_card"
+            app:present="@{refundViewModel.canRefund}">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/last_transaction_text"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/last_transaction"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_goneMarginStart="@dimen/half_spacing" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/transaction_value_text"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/half_spacing"
+                    android:layout_marginTop="@dimen/half_spacing"
+                    android:layout_marginBottom="@dimen/half_spacing"
+                    app:currencyValue="@{refundViewModel.refundable.value}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/last_transaction_text"
+                    tools:text="-0,30€" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/transaction_item_name_text"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_spacing"
+                    android:text="@{refundViewModel.refundable.itemName}"
+                    app:layout_constraintBottom_toBottomOf="@+id/transaction_value_text"
+                    app:layout_constraintStart_toEndOf="@id/transaction_value_text"
+                    app:layout_constraintTop_toTopOf="@id/transaction_value_text"
+                    tools:text="Wasser" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/refund_button"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> refundViewModel.refundPurchase()}"
+                    android:text="@string/refund"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/materialTextView"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_spacing"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:text="@string/title_item_list"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/transaction_details_card" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/item_list_fragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

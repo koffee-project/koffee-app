@@ -27,7 +27,7 @@
                 android:layout_marginTop="@dimen/default_spacing"
                 android:layout_marginEnd="@dimen/default_spacing"
                 android:ems="10"
-                android:hint="@string/item"
+                android:hint="@string/item_name"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:text="@={viewModel.searchQuery}"
@@ -37,6 +37,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/state_text"
+                style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/no_results"
@@ -61,7 +62,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
-                app:spanCount="2" />
+                app:spanCount="3" />
 
             <ProgressBar
                 android:layout_width="wrap_content"
@@ -80,8 +81,8 @@
                 android:onClick="@{() -> viewModel.activateCreateItemAction()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_add_24dp"
-                app:present="@{viewModel.isAuthenticated()}" />
+                app:present="@{viewModel.isAuthenticated()}"
+                app:srcCompat="@drawable/ic_add_24dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

@@ -47,7 +47,7 @@
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/user_name_text"
-                app:profileImage="@{userDetailsViewModel.profileImage}" />
+                app:regularProfileImage="@{userDetailsViewModel.profileImage}" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/profile_image_edit_image"

@@ -5,6 +5,7 @@ import androidx.paging.DataSource
 import eu.yeger.koffee.database.KoffeeDatabase
 import eu.yeger.koffee.database.asDomainModel
 import eu.yeger.koffee.database.getDatabase
+import eu.yeger.koffee.domain.PurchaseStatistic
 import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.network.ApiPurchaseRequest
 import eu.yeger.koffee.network.NetworkService
@@ -46,6 +47,12 @@ class TransactionRepository(private val database: KoffeeDatabase) {
             }
     }
 
+    suspend fun getPurchaseStatsByUserId(userId: String?): List<PurchaseStatistic> {
+        return withContext(Dispatchers.IO) {
+            database.transactionDao.getPurchaseStats(userId)
+        }
+    }
+
     suspend fun fetchTransactionsByUserId(userId: String) {
         withContext(Dispatchers.IO) {
             onNotFound({ database.purgeUserById(userId) }) {
@@ -61,7 +68,7 @@ class TransactionRepository(private val database: KoffeeDatabase) {
 
     suspend fun buyItem(userId: String, itemId: String, amount: Int) {
         withContext(Dispatchers.IO) {
-            // Disabled because uncertainty of userId or itemId do not exist
+            // Disabled because uncertainty of userId or itemId not existing
             // onNotFound({ database.purgeUserById(userId) }) {
             val purchaseRequest = ApiPurchaseRequest(itemId, amount)
             NetworkService.koffeeApi.purchaseItem(userId, purchaseRequest)

@@ -6,7 +6,7 @@ import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 
-class AlternativeItemDetailsViewModel(
+class SharedItemDetailsViewModel(
     itemId: String,
     userId: String,
     itemRepository: ItemRepository,

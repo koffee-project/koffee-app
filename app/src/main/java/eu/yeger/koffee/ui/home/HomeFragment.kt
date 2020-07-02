@@ -1,83 +1,128 @@
 package eu.yeger.koffee.ui.home
 
-import android.app.AlertDialog
-import androidx.navigation.fragment.findNavController
+import android.app.Activity
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
+import com.github.dhaval2404.imagepicker.ImagePicker
 import eu.yeger.koffee.R
-import eu.yeger.koffee.databinding.FragmentUserDetailsBinding
-import eu.yeger.koffee.domain.Transaction
-import eu.yeger.koffee.repository.AdminRepository
+import eu.yeger.koffee.databinding.FragmentHomeBinding
+import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
-import eu.yeger.koffee.ui.OnClickListener
-import eu.yeger.koffee.ui.adapter.transactionListAdapter
-import eu.yeger.koffee.ui.user.details.MainUserDetailsViewModel
-import eu.yeger.koffee.ui.user.details.UserDetailsFragment
-import eu.yeger.koffee.utility.deleteUserIdFromSharedPreferences
-import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
+import eu.yeger.koffee.ui.RefundViewModel
+import eu.yeger.koffee.ui.item.list.ItemListFragment
 import eu.yeger.koffee.utility.observeAction
+import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
-class HomeFragment : UserDetailsFragment() {
+abstract class HomeFragment : Fragment() {
 
-    override val userId by lazy {
-        requireContext().getUserIdFromSharedPreferences()
-    }
+    protected abstract val userId: String?
 
-    override val userDetailsViewModel: MainUserDetailsViewModel by viewModelFactories {
+    private val homeViewModel: HomeViewModel by viewModelFactories {
         val context = requireContext()
-        MainUserDetailsViewModel(
-            isActiveUser = true,
-            userId = userId,
-            adminRepository = AdminRepository(context),
-            profileImageRepository = ProfileImageRepository(context),
-            transactionRepository = TransactionRepository(context),
-            userRepository = UserRepository(context)
+        HomeViewModel(
+            userId!!,
+            ProfileImageRepository(context),
+            TransactionRepository(context),
+            UserRepository(context)
         )
     }
 
-    override fun initializeViewModel() {
-        userDetailsViewModel.apply {
-            observeAction(editUserAction) { userId ->
-                val direction = HomeFragmentDirections.toUserEditing(userId)
-                findNavController().navigate(direction)
-            }
-
-            observeAction(creditUserAction) { userId ->
-                val direction = HomeFragmentDirections.toUserCrediting(userId)
-                findNavController().navigate(direction)
-            }
-        }
+    private val refundViewModel: RefundViewModel by viewModelFactories {
+        val context = requireContext()
+        RefundViewModel(
+            userId = userId,
+            itemRepository = ItemRepository(context),
+            userRepository = UserRepository(context),
+            transactionRepository = TransactionRepository(context)
+        )
     }
 
-    override fun FragmentUserDetailsBinding.initializeBinding() {
-        transactionRecyclerView.adapter =
-            transactionListAdapter(OnClickListener { selectedTransaction ->
-                when (selectedTransaction) {
-                    is Transaction.Purchase -> selectedTransaction.itemId
-                    is Transaction.Refund -> selectedTransaction.itemId
-                    else -> null
-                }?.let { itemId ->
-                    val direction = HomeFragmentDirections.toItemDetails(itemId)
-                    findNavController().navigate(direction)
-                }
-            })
+    protected abstract fun getItemListFragment(): ItemListFragment
+
+    protected abstract fun onNotFound()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        if (userId === null) {
+            onNotFound()
+            return null
+        }
+
+        homeViewModel.apply {
+            observeAction(editProfileImageAction) { canDelete ->
+                showModifyImageDialog(canDelete)
+            }
+
+            observeAction(userNotFoundAction) {
+                onNotFound()
+            }
+
+            onErrorShowSnackbar()
+        }
+
+        return FragmentHomeBinding.inflate(inflater).apply {
+            homeViewModel = this@HomeFragment.homeViewModel
+            refundViewModel = this@HomeFragment.refundViewModel
+            lifecycleOwner = viewLifecycleOwner
+        }.root.also { setItemListFragment() }
     }
 
-    override fun onNotFound() {
-        val message = when (userId) {
-            null -> R.string.no_user_selected
-            else -> R.string.active_user_deleted
+    override fun onResume() {
+        if (userId !== null) {
+            homeViewModel.refreshUser()
         }
-        requireContext().deleteUserIdFromSharedPreferences()
+
+        super.onResume()
+    }
+
+    private fun setItemListFragment() {
+        requireActivity()
+            .supportFragmentManager
+            .beginTransaction()
+            .run {
+                replace(R.id.item_list_fragment, getItemListFragment())
+                commit()
+            }
+    }
+
+    private fun showModifyImageDialog(canDelete: Boolean) {
         AlertDialog.Builder(requireContext())
-            .setMessage(message)
-            .setPositiveButton(R.string.got_to_selection) { _, _ ->
-                val direction = HomeFragmentDirections.toUserList()
-                findNavController().navigate(direction)
+            .setMessage(R.string.select_image_action)
+            .setPositiveButton(R.string.edit) { _, _ ->
+                showImageSelectionDialog()
             }
-            .setCancelable(false)
+            .apply {
+                if (canDelete) {
+                    setNeutralButton(R.string.delete) { _, _ -> homeViewModel.deleteProfileImage() }
+                }
+            }
             .create()
             .show()
+    }
+
+    private fun showImageSelectionDialog() {
+        ImagePicker.with(this)
+            .compress(8 * 1024) // Limit size to 8MB
+            .start { resultCode, data ->
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        val image = ImagePicker.getFile(data)!!
+                        homeViewModel.uploadProfileImage(image)
+                    }
+                    ImagePicker.RESULT_ERROR -> requireActivity().showSnackbar(
+                        ImagePicker.getError(data)
+                    )
+                }
+            }
     }
 }

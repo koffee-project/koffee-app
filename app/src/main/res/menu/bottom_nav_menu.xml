@@ -7,18 +7,18 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_item_list"
-        android:icon="@drawable/ic_add_shopping_cart_24dp"
-        android:title="@string/title_item_list" />
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/ic_history_24dp"
+        android:title="@string/title_history" />
 
     <item
-        android:id="@+id/navigation_user_list"
-        android:icon="@drawable/ic_group_24dp"
-        android:title="@string/title_user_list" />
-
-    <item
-        android:id="@+id/navigation_admin"
+        android:id="@+id/navigation_statistics"
         android:icon="@drawable/ic_poll_24dp"
-        android:title="@string/title_admin" />
+        android:title="@string/title_statistics" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings_24dp"
+        android:title="@string/title_settings" />
 
 </menu>

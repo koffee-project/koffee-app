@@ -6,23 +6,23 @@ import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.utility.viewModelFactories
 
-class AlternativeItemDetailsFragment : ItemDetailsFragment() {
+class SharedItemDetailsFragment : ItemDetailsFragment() {
 
     override val itemId: String by lazy {
-        AlternativeItemDetailsFragmentArgs.fromBundle(
+        SharedItemDetailsFragmentArgs.fromBundle(
             requireArguments()
         ).itemId
     }
 
     override val userId: String by lazy {
-        AlternativeItemDetailsFragmentArgs.fromBundle(
+        SharedItemDetailsFragmentArgs.fromBundle(
             requireArguments()
         ).userId
     }
 
     override val itemDetailsViewModel: ItemDetailsViewModel by viewModelFactories {
         val context = requireContext()
-        AlternativeItemDetailsViewModel(
+        SharedItemDetailsViewModel(
             itemId = itemId,
             userId = userId,
             itemRepository = ItemRepository(context),

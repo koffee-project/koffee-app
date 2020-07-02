@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/alternative_navigation"
+    app:startDestination="@id/navigation_shared_user_list">
+
+    <fragment
+        android:id="@+id/navigation_shared_user_list"
+        android:name="eu.yeger.koffee.ui.user.list.SharedUserListFragment"
+        android:label="@string/title_user_list"
+        tools:layout="@layout/fragment_user_list">
+        <action
+            android:id="@+id/to_shared_user_details"
+            app:destination="@id/navigation_shared_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_shared_home"
+        android:name="eu.yeger.koffee.ui.home.SharedHomeFragment"
+        android:label="@string/title_user_details"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/to_shared_item_details"
+            app:destination="@id/navigation_shared_item_details" />
+        <argument
+            android:name="userId"
+            app:argType="string" />
+        <action
+            android:id="@+id/to_shared_user_list"
+            app:destination="@id/navigation_shared_user_list"
+            app:popUpTo="@id/navigation_shared_home"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_shared_item_details"
+        android:name="eu.yeger.koffee.ui.item.details.SharedItemDetailsFragment"
+        android:label="@string/title_item_details"
+        tools:layout="@layout/fragment_item_details">
+        <argument
+            android:name="itemId"
+            app:argType="string" />
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
+</navigation>

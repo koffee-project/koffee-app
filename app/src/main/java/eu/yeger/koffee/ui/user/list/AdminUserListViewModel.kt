@@ -7,22 +7,16 @@ import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.ui.SimpleAction
 
-class MainUserListViewModel(
+class AdminUserListViewModel(
     adminRepository: AdminRepository,
     userRepository: UserRepository
 ) : UserListViewModel(userRepository) {
-
-    override val showAlternativeActivityButton = true
     override val isAuthenticated = adminRepository.isAuthenticatedFlow().asLiveData()
 
     val createUserAction = SimpleAction()
-    val userSelectedAction = DataAction<Pair<Boolean, User>>()
-    val launchAlternativeActivityAction = SimpleAction()
-
-    override fun activateLaunchAlternativeActivityAction() = launchAlternativeActivityAction.activate()
+    val userSelectedAction = DataAction<User>()
 
     override fun activateCreateUserAction() = createUserAction.activate()
 
-    override fun activateUserSelectedAction(user: User) =
-        userSelectedAction.activateWith((isAuthenticated.value ?: false) to user)
+    override fun activateUserSelectedAction(user: User) = userSelectedAction.activateWith(user)
 }
