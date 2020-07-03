@@ -56,7 +56,7 @@ class ItemRepository(private val database: KoffeeDatabase) {
         withContext(Dispatchers.IO) {
             onNotFound({ database.purgeItemById(itemId) }) {
                 val response = NetworkService.koffeeApi.getItemById(itemId)
-                val item = response!!.asDomainModel()
+                val item = response.asDomainModel()
                 database.itemDao.insertAll(item)
             }
         }
