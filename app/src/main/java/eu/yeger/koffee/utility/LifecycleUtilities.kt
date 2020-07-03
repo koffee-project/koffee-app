@@ -41,10 +41,30 @@ fun <T> sourcedLiveData(vararg sources: LiveData<*>, block: () -> T?): LiveData<
 inline fun <T> mediatedLiveData(block: MediatorLiveData<T>.() -> Unit): MediatorLiveData<T> =
     MediatorLiveData<T>().apply(block)
 
+/**
+ * Utility method for simpler [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) observation.
+ *
+ * @receiver The observing Fragment.
+ * @param T The type of the [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+ * @param source The [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+ * @param block Lambda called on value changes.
+ *
+ * @author Jan Müller
+ */
 fun <T> Fragment.observe(source: LiveData<T>, block: (T) -> Unit) {
     source.observe(viewLifecycleOwner, Observer(block))
 }
 
+/**
+ * Utility method for simpler [Action] observing. Completes the [Action] after value changes.
+ *
+ * @receiver The [Action].
+ * @param T The type of the [Action].
+ * @param source The [Action].
+ * @param block Lambda called on non-null value changes.
+ *
+ * @author Jan Müller
+ */
 fun <T> Fragment.observeAction(source: Action<T?>, block: (T) -> Unit) {
     observe(source) {
         it?.let {
@@ -54,6 +74,15 @@ fun <T> Fragment.observeAction(source: Action<T?>, block: (T) -> Unit) {
     }
 }
 
+/**
+ * Utility method for simpler [Boolean] [Action] observing. Completes the [Action] after value changes.
+ *
+ * @receiver The [Action].
+ * @param source The [Boolean] [Action].
+ * @param block Lambda called when the value changes to true.
+ *
+ * @author Jan Müller
+ */
 fun Fragment.observeAction(source: Action<Boolean?>, block: () -> Unit) {
     observe(source) {
         if (it == true) {

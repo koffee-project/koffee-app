@@ -16,6 +16,7 @@
 <h4><a href="-simple-timer/index.html">SimpleTimer</a></h4>
 </td>
 <td>
+<p>Utility class for abstracting starting and restarting of count down timers with a single tick.</p>
 <code><span class="keyword">class </span><span class="identifier">SimpleTimer</span></code></td>
 </tr>
 </tbody>
@@ -68,6 +69,7 @@
 <h4><a href="format-timestamp.html">formatTimestamp</a></h4>
 </td>
 <td>
+<p>Formats a UNIX-time timestamp into a human readable <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>.</p>
 <code><span class="keyword">fun </span><span class="identifier">formatTimestamp</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.utility$formatTimestamp(kotlin.Long)/timestamp">timestamp</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
 </tr>
 <tr>
@@ -83,14 +85,8 @@
 <h4><a href="on-not-found.html">onNotFound</a></h4>
 </td>
 <td>
+<p>Runs a lambda and catches 404 HTTP exceptions, running a second lambda.</p>
 <code><span class="keyword">fun </span><span class="identifier">onNotFound</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.utility$onNotFound(kotlin.Function0((kotlin.Unit)), kotlin.Boolean, kotlin.Function0((kotlin.Unit)))/onNotFound">onNotFound</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.utility$onNotFound(kotlin.Function0((kotlin.Unit)), kotlin.Boolean, kotlin.Function0((kotlin.Unit)))/rethrow">rethrow</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a>&nbsp;<span class="symbol">=</span>&nbsp;true<span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.utility$onNotFound(kotlin.Function0((kotlin.Unit)), kotlin.Boolean, kotlin.Function0((kotlin.Unit)))/block">block</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="single-tick-timer.html">singleTickTimer</a></h4>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">singleTickTimer</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.utility$singleTickTimer(kotlin.Long, kotlin.Function0((kotlin.Unit)))/duration">duration</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.utility$singleTickTimer(kotlin.Long, kotlin.Function0((kotlin.Unit)))/onFinish">onFinish</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/os/CountDownTimer.html"><span class="identifier">CountDownTimer</span></a></code></td>
 </tr>
 <tr>
 <td>
