@@ -13,9 +13,9 @@ import eu.yeger.koffee.domain.User
  * @property type The type of this [Transaction].
  * @property value The value of this [Transaction].
  * @property timestamp The timestamp of this [Transaction].
- * @property itemId The id of the item belonging to this [Transaction]. Null for [Transaction.Funding]s.
- * @property itemName The name of the item belonging to this [Transaction]. Null for [Transaction.Funding]s.
- * @property amount The amount of the item belonging to this [Transaction]. Null for [Transaction.Funding]s.
+ * @property itemId The id of the item belonging to this [Transaction]. Null for [Transaction.Type.Funding]s.
+ * @property itemName The name of the item belonging to this [Transaction]. Null for [Transaction.Type.Funding]s.
+ * @property amount The amount of the item belonging to this [Transaction]. Null for [Transaction.Type.Funding]s.
  *
  * @author Jan Müller
  */

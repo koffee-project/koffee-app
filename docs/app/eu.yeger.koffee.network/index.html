@@ -16,6 +16,7 @@
 <h4><a href="-api-credentials/index.html">ApiCredentials</a></h4>
 </td>
 <td>
+<p>API class for login-credentials.</p>
 <code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ApiCredentials</span></code></td>
 </tr>
 <tr>
@@ -23,6 +24,7 @@
 <h4><a href="-api-funding-request/index.html">ApiFundingRequest</a></h4>
 </td>
 <td>
+<p>API class for funding.</p>
 <code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ApiFundingRequest</span></code></td>
 </tr>
 <tr>
@@ -30,6 +32,7 @@
 <h4><a href="-api-item/index.html">ApiItem</a></h4>
 </td>
 <td>
+<p>API class for <a href="../eu.yeger.koffee.domain/-item/index.html">Item</a>s.</p>
 <code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ApiItem</span></code></td>
 </tr>
 <tr>
@@ -37,6 +40,7 @@
 <h4><a href="-api-item-d-t-o/index.html">ApiItemDTO</a></h4>
 </td>
 <td>
+<p>DTO API class for creating and updating <a href="../eu.yeger.koffee.domain/-item/index.html">Item</a>s.</p>
 <code><span class="keyword">class </span><span class="identifier">ApiItemDTO</span></code></td>
 </tr>
 <tr>
@@ -44,6 +48,7 @@
 <h4><a href="-api-profile-image/index.html">ApiProfileImage</a></h4>
 </td>
 <td>
+<p>API class for <a href="../eu.yeger.koffee.domain/-profile-image/index.html">ProfileImage</a>s.</p>
 <code><span class="keyword">class </span><span class="identifier">ApiProfileImage</span></code></td>
 </tr>
 <tr>
@@ -51,6 +56,7 @@
 <h4><a href="-api-purchase-request/index.html">ApiPurchaseRequest</a></h4>
 </td>
 <td>
+<p>API class for purchases.</p>
 <code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ApiPurchaseRequest</span></code></td>
 </tr>
 <tr>
@@ -58,6 +64,7 @@
 <h4><a href="-api-token/index.html">ApiToken</a></h4>
 </td>
 <td>
+<p>API class for <a href="../eu.yeger.koffee.domain/-j-w-t/index.html">JWT</a>s.</p>
 <code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ApiToken</span></code></td>
 </tr>
 <tr>
@@ -65,6 +72,7 @@
 <h4><a href="-api-transaction/index.html">ApiTransaction</a></h4>
 </td>
 <td>
+<p>API class for <a href="../eu.yeger.koffee.domain/-transaction/index.html">Transaction</a>s.</p>
 <code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ApiTransaction</span></code></td>
 </tr>
 <tr>
@@ -72,6 +80,7 @@
 <h4><a href="-api-user-d-t-o/index.html">ApiUserDTO</a></h4>
 </td>
 <td>
+<p>DTO API class for creating and updating <a href="../eu.yeger.koffee.domain/-user/index.html">User</a>s.</p>
 <code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ApiUserDTO</span></code></td>
 </tr>
 <tr>
@@ -79,6 +88,7 @@
 <h4><a href="-api-user-entry/index.html">ApiUserEntry</a></h4>
 </td>
 <td>
+<p>API class for metadata of <a href="../eu.yeger.koffee.domain/-user/index.html">User</a>s.</p>
 <code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ApiUserEntry</span></code></td>
 </tr>
 <tr>
@@ -86,6 +96,7 @@
 <h4><a href="-api-user-profile/index.html">ApiUserProfile</a></h4>
 </td>
 <td>
+<p>API class for metadata and balance of <a href="../eu.yeger.koffee.domain/-user/index.html">User</a>s.</p>
 <code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ApiUserProfile</span></code></td>
 </tr>
 <tr>
@@ -124,6 +135,7 @@
 <h4><a href="as-database-model.html">asDatabaseModel</a></h4>
 </td>
 <td>
+<p>Extension method for transforming <a href="-api-transaction/index.html">ApiTransaction</a>s into <a href="../eu.yeger.koffee.database/-database-transaction/index.html">DatabaseTransaction</a>s.</p>
 <code><span class="keyword">fun </span><a href="-api-transaction/index.html"><span class="identifier">ApiTransaction</span></a><span class="symbol">.</span><span class="identifier">asDatabaseModel</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network$asDatabaseModel(eu.yeger.koffee.network.ApiTransaction, kotlin.String)/userId">userId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../eu.yeger.koffee.database/-database-transaction/index.html"><span class="identifier">DatabaseTransaction</span></a></code></td>
 </tr>
 <tr>
@@ -131,10 +143,15 @@
 <h4><a href="as-domain-model.html">asDomainModel</a></h4>
 </td>
 <td>
-<code><span class="keyword">fun </span><a href="-api-item/index.html"><span class="identifier">ApiItem</span></a><span class="symbol">.</span><span class="identifier">asDomainModel</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../eu.yeger.koffee.domain/-item/index.html"><span class="identifier">Item</span></a></code><br/>
-<code><span class="keyword">fun </span><a href="-api-profile-image/index.html"><span class="identifier">ApiProfileImage</span></a><span class="symbol">.</span><span class="identifier">asDomainModel</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../eu.yeger.koffee.domain/-profile-image/index.html"><span class="identifier">ProfileImage</span></a></code><br/>
-<code><span class="keyword">fun </span><a href="-api-token/index.html"><span class="identifier">ApiToken</span></a><span class="symbol">.</span><span class="identifier">asDomainModel</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network$asDomainModel(eu.yeger.koffee.network.ApiToken, kotlin.String)/userId">userId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../eu.yeger.koffee.domain/-j-w-t/index.html"><span class="identifier">JWT</span></a></code><br/>
-<code><span class="keyword">fun </span><a href="-api-user-entry/index.html"><span class="identifier">ApiUserEntry</span></a><span class="symbol">.</span><span class="identifier">asDomainModel</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../eu.yeger.koffee.domain/-user/index.html"><span class="identifier">User</span></a></code><br/>
+<p>Extension method for transforming <a href="-api-item/index.html">ApiItem</a>s into <a href="../eu.yeger.koffee.domain/-item/index.html">Item</a>s.</p>
+<code><span class="keyword">fun </span><a href="-api-item/index.html"><span class="identifier">ApiItem</span></a><span class="symbol">.</span><span class="identifier">asDomainModel</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../eu.yeger.koffee.domain/-item/index.html"><span class="identifier">Item</span></a></code>
+<p>Extension method for transforming <a href="-api-profile-image/index.html">ApiProfileImage</a>s into <a href="../eu.yeger.koffee.domain/-profile-image/index.html">ProfileImage</a>s.</p>
+<code><span class="keyword">fun </span><a href="-api-profile-image/index.html"><span class="identifier">ApiProfileImage</span></a><span class="symbol">.</span><span class="identifier">asDomainModel</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../eu.yeger.koffee.domain/-profile-image/index.html"><span class="identifier">ProfileImage</span></a></code>
+<p>Extension method for transforming <a href="-api-token/index.html">ApiToken</a>s into <a href="../eu.yeger.koffee.domain/-j-w-t/index.html">JWT</a>s.</p>
+<code><span class="keyword">fun </span><a href="-api-token/index.html"><span class="identifier">ApiToken</span></a><span class="symbol">.</span><span class="identifier">asDomainModel</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network$asDomainModel(eu.yeger.koffee.network.ApiToken, kotlin.String)/userId">userId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../eu.yeger.koffee.domain/-j-w-t/index.html"><span class="identifier">JWT</span></a></code>
+<p>Extension method for transforming <a href="-api-user-entry/index.html">ApiUserEntry</a>s into <a href="../eu.yeger.koffee.domain/-user/index.html">User</a>s.</p>
+<code><span class="keyword">fun </span><a href="-api-user-entry/index.html"><span class="identifier">ApiUserEntry</span></a><span class="symbol">.</span><span class="identifier">asDomainModel</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../eu.yeger.koffee.domain/-user/index.html"><span class="identifier">User</span></a></code>
+<p>Extension method for transforming <a href="-api-user-profile/index.html">ApiUserProfile</a>s into <a href="../eu.yeger.koffee.domain/-user/index.html">User</a>s.</p>
 <code><span class="keyword">fun </span><a href="-api-user-profile/index.html"><span class="identifier">ApiUserProfile</span></a><span class="symbol">.</span><span class="identifier">asDomainModel</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../eu.yeger.koffee.domain/-user/index.html"><span class="identifier">User</span></a></code></td>
 </tr>
 <tr>
@@ -142,6 +159,7 @@
 <h4><a href="format-token.html">formatToken</a></h4>
 </td>
 <td>
+<p>Transforms a <a href="../eu.yeger.koffee.domain/-j-w-t/index.html">JWT</a> into the correct header format.</p>
 <code><span class="keyword">fun </span><a href="../eu.yeger.koffee.domain/-j-w-t/index.html"><span class="identifier">JWT</span></a><span class="symbol">.</span><span class="identifier">formatToken</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
 </tr>
 </tbody>
