@@ -7,11 +7,17 @@ import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import eu.yeger.koffee.worker.CleanupWorker
-import java.util.concurrent.TimeUnit
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 private const val WORKER_TAG = "KOFFEE_WORKER"
 
+/**
+ * This app's application.
+ * Enables dark mode, configures logging and schedules background work.
+ *
+ * @author Jan Müller
+ */
 class KoffeeApplication : Application() {
 
     override fun onCreate() {

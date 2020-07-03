@@ -8,8 +8,18 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 
+/**
+ * [Activity](https://developer.android.com/reference/androidx/appcompat/app/AppCompatActivity) for shared multi user mode.
+ *
+ * @author Jan Müller
+ */
 class SharedActivity : AppCompatActivity() {
 
+    /**
+     * Inflates the view and initializes the nav controller.
+     *
+     * @param savedInstanceState Unused.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -21,11 +31,21 @@ class SharedActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
+    /**
+     * Delegates navigation to the nav controller.
+     *
+     * @return true if navigation was performed.
+     */
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.nav_host_fragment).navigateUp()
     }
 }
 
+/**
+ * Finished the current activity and starts [SharedActivity].
+ *
+ * @receiver The current activity, that will be finished.
+ */
 fun Activity.goToSharedActivity() {
     val intent = Intent(this, SharedActivity::class.java)
     startActivity(intent)
