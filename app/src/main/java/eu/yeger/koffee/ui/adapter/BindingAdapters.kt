@@ -58,7 +58,7 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
 }
 
 /**
- * Submits an [Item] [PagedList] to the [GenericPagedListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ * Submits an [Item] PagedList to the [GenericPagedListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  *
  * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  * @param T Type of the items.

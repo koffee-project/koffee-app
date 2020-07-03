@@ -9,6 +9,7 @@
 <br/>
 <h1>AdminRepository</h1>
 <code><span class="keyword">class </span><span class="identifier">AdminRepository</span></code>
+<p>Repository for admin-related information.</p>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -17,7 +18,9 @@
 <h4><a href="-init-.html">&lt;init&gt;</a></h4>
 </td>
 <td>
-<code><span class="identifier">AdminRepository</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.repository.AdminRepository$<init>(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span></code><br/>
+<p>Utility constructor for improved readability.</p>
+<code><span class="identifier">AdminRepository</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.repository.AdminRepository$<init>(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span></code>
+<p>Repository for admin-related information.</p>
 <code><span class="identifier">AdminRepository</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.repository.AdminRepository$<init>(eu.yeger.koffee.database.KoffeeDatabase)/database">database</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.database/-koffee-database/index.html"><span class="identifier">KoffeeDatabase</span></a><span class="symbol">)</span></code></td>
 </tr>
 </tbody>
@@ -30,6 +33,7 @@
 <h4><a href="get-j-w-t.html">getJWT</a></h4>
 </td>
 <td>
+<p>Returns the <a href="../../eu.yeger.koffee.domain/-j-w-t/index.html">JWT</a> stored in <a href="../../eu.yeger.koffee.database/-koffee-database/index.html">KoffeeDatabase</a>.</p>
 <code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">getJWT</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.domain/-j-w-t/index.html"><span class="identifier">JWT</span></a><span class="symbol">?</span></code></td>
 </tr>
 <tr>
@@ -37,6 +41,7 @@
 <h4><a href="get-j-w-t-flow.html">getJWTFlow</a></h4>
 </td>
 <td>
+<p>Returns a distinct Flow of the <a href="../../eu.yeger.koffee.domain/-j-w-t/index.html">JWT</a> stored in <a href="../../eu.yeger.koffee.database/-koffee-database/index.html">KoffeeDatabase</a>.</p>
 <code><span class="keyword">fun </span><span class="identifier">getJWTFlow</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Flow</span><span class="symbol">&lt;</span><a href="../../eu.yeger.koffee.domain/-j-w-t/index.html"><span class="identifier">JWT</span></a><span class="symbol">?</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -44,6 +49,7 @@
 <h4><a href="is-authenticated-flow.html">isAuthenticatedFlow</a></h4>
 </td>
 <td>
+<p>Returns a distinct Flow that indicates if a <a href="../../eu.yeger.koffee.domain/-j-w-t/index.html">JWT</a> is stored in <a href="../../eu.yeger.koffee.database/-koffee-database/index.html">KoffeeDatabase</a>.</p>
 <code><span class="keyword">fun </span><span class="identifier">isAuthenticatedFlow</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Flow</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -51,20 +57,15 @@
 <h4><a href="login.html">login</a></h4>
 </td>
 <td>
+<p>Performs a login using the provided credentials and stores the resulting <a href="../../eu.yeger.koffee.domain/-j-w-t/index.html">JWT</a> in <a href="../../eu.yeger.koffee.database/-koffee-database/index.html">KoffeeDatabase</a>.</p>
 <code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">login</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.repository.AdminRepository$login(kotlin.String, kotlin.String)/userId">userId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.repository.AdminRepository$login(kotlin.String, kotlin.String)/password">password</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="login-required.html">loginRequired</a></h4>
-</td>
-<td>
-<code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">loginRequired</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
 </tr>
 <tr>
 <td>
 <h4><a href="logout.html">logout</a></h4>
 </td>
 <td>
+<p>Performs a logout by deleting the <a href="../../eu.yeger.koffee.domain/-j-w-t/index.html">JWT</a> from <a href="../../eu.yeger.koffee.database/-koffee-database/index.html">KoffeeDatabase</a>.</p>
 <code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">logout</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 </tbody>

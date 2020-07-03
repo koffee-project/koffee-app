@@ -13,32 +13,57 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
+/**
+ * Repository for admin-related information.
+ *
+ * @property database The [KoffeeDatabase] used by this repository.
+ *
+ * @author Jan Müller
+ */
 class AdminRepository(private val database: KoffeeDatabase) {
 
+    /**
+     * Utility constructor for improved readability.
+     */
     constructor(context: Context) : this(getDatabase(context))
 
+    /**
+     * Returns the [JWT] stored in [KoffeeDatabase].
+     *
+     * @return The [JWT].
+     */
     suspend fun getJWT(): JWT? {
         return withContext(Dispatchers.IO) {
             database.jwtDao.get()
         }
     }
 
+    /**
+     * Returns a distinct Flow of the [JWT] stored in [KoffeeDatabase].
+     *
+     * @return The Flow.
+     */
     fun getJWTFlow(): Flow<JWT?> {
         return database.jwtDao.getAsFlow().distinctUntilChanged()
     }
 
+    /**
+     * Returns a distinct Flow that indicates if a [JWT] is stored in [KoffeeDatabase].
+     *
+     * @return The Flow.
+     */
     fun isAuthenticatedFlow(): Flow<Boolean> {
         return database.jwtDao.getAsFlow()
             .distinctUntilChanged()
             .map { it !== null }
     }
 
-    suspend fun loginRequired(): Boolean {
-        return withContext(Dispatchers.IO) {
-            database.jwtDao.get() === null
-        }
-    }
-
+    /**
+     * Performs a login using the provided credentials and stores the resulting [JWT] in [KoffeeDatabase].
+     *
+     * @param userId The user id used for the login.
+     * @param password The password used for the login.
+     */
     suspend fun login(userId: String, password: String) {
         withContext(Dispatchers.IO) {
             val credentials = ApiCredentials(id = userId, password = password)
@@ -48,6 +73,9 @@ class AdminRepository(private val database: KoffeeDatabase) {
         }
     }
 
+    /**
+     * Performs a logout by deleting the [JWT] from [KoffeeDatabase].
+     */
     suspend fun logout() {
         withContext(Dispatchers.IO) {
             database.jwtDao.deleteAll()
