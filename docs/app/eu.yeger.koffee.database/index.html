@@ -24,6 +24,7 @@
 <h4><a href="-converters/index.html">Converters</a></h4>
 </td>
 <td>
+<p>Converter methods for enum types.</p>
 <code><span class="keyword">class </span><span class="identifier">Converters</span></code></td>
 </tr>
 <tr>
@@ -31,6 +32,7 @@
 <h4><a href="-database-transaction/index.html">DatabaseTransaction</a></h4>
 </td>
 <td>
+<p>Entity class for <a href="../eu.yeger.koffee.domain/-transaction/index.html">Transaction</a>s.</p>
 <code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">DatabaseTransaction</span></code></td>
 </tr>
 <tr>
@@ -54,7 +56,8 @@
 <h4><a href="-j-w-t-dao/index.html">JWTDao</a></h4>
 </td>
 <td>
-<p><a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a> that manages <a href="../eu.yeger.koffee.domain/-j-w-t/index.html">JWT</a>s in the database.</p>
+<p><a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a> that manages <a href="../eu.yeger.koffee.domain/-j-w-t/index.html">JWT</a>s in the database.
+Should only contain one <a href="../eu.yeger.koffee.domain/-j-w-t/index.html">JWT</a> at a time.</p>
 <code><span class="keyword">interface </span><span class="identifier">JWTDao</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-dao/index.html"><span class="identifier">BaseDao</span></a><span class="symbol">&lt;</span><a href="../eu.yeger.koffee.domain/-j-w-t/index.html"><span class="identifier">JWT</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -62,6 +65,7 @@
 <h4><a href="-koffee-database/index.html">KoffeeDatabase</a></h4>
 </td>
 <td>
+<p>The <a href="https://developer.android.com/jetpack/androidx/releases/room">Room</a> database with all its <a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a>s.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">KoffeeDatabase</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RoomDatabase</span></code></td>
 </tr>
 <tr>
@@ -98,6 +102,7 @@
 <h4><a href="as-domain-model.html">asDomainModel</a></h4>
 </td>
 <td>
+<p>Extension method for turning <a href="-database-transaction/index.html">DatabaseTransaction</a>s into <a href="../eu.yeger.koffee.domain/-transaction/index.html">Transaction</a>s.</p>
 <code><span class="keyword">fun </span><a href="-database-transaction/index.html"><span class="identifier">DatabaseTransaction</span></a><span class="symbol">.</span><span class="identifier">asDomainModel</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../eu.yeger.koffee.domain/-transaction/index.html"><span class="identifier">Transaction</span></a></code></td>
 </tr>
 <tr>
@@ -105,6 +110,7 @@
 <h4><a href="get-database.html">getDatabase</a></h4>
 </td>
 <td>
+<p>Creates or returns this app's <a href="-koffee-database/index.html">KoffeeDatabase</a>.</p>
 <code><span class="keyword">fun </span><span class="identifier">getDatabase</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.database$getDatabase(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-koffee-database/index.html"><span class="identifier">KoffeeDatabase</span></a></code></td>
 </tr>
 </tbody>

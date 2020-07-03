@@ -10,9 +10,19 @@ import androidx.room.OnConflictStrategy
  */
 interface BaseDao<T> {
 
+    /**
+     * Inserts a single entity into the database. Replaces conflicting entities.
+     *
+     * @param entity The entity to be inserted.
+     */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: T)
 
+    /**
+     * Inserts multiple entities into the database. Replaces conflicting entities.
+     *
+     * @param entities The entities to be inserted.
+     */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg entities: T)
 }

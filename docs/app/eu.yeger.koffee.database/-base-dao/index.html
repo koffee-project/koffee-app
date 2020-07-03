@@ -20,6 +20,7 @@ Jan Müller</p>
 <h4><a href="insert.html">insert</a></h4>
 </td>
 <td>
+<p>Inserts a single entity into the database. Replaces conflicting entities.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">insert</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.database.BaseDao$insert(eu.yeger.koffee.database.BaseDao.T)/entity">entity</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -27,6 +28,7 @@ Jan Müller</p>
 <h4><a href="insert-all.html">insertAll</a></h4>
 </td>
 <td>
+<p>Inserts multiple entities into the database. Replaces conflicting entities.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">insertAll</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="eu.yeger.koffee.database.BaseDao$insertAll(kotlin.Array((eu.yeger.koffee.database.BaseDao.T)))/entities">entities</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 </tbody>
@@ -47,7 +49,8 @@ Jan Müller</p>
 <h4><a href="../-j-w-t-dao/index.html">JWTDao</a></h4>
 </td>
 <td>
-<p><a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a> that manages <a href="../../eu.yeger.koffee.domain/-j-w-t/index.html">JWT</a>s in the database.</p>
+<p><a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a> that manages <a href="../../eu.yeger.koffee.domain/-j-w-t/index.html">JWT</a>s in the database.
+Should only contain one <a href="../../eu.yeger.koffee.domain/-j-w-t/index.html">JWT</a> at a time.</p>
 <code><span class="keyword">interface </span><span class="identifier">JWTDao</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">BaseDao</span></a><span class="symbol">&lt;</span><a href="../../eu.yeger.koffee.domain/-j-w-t/index.html"><span class="identifier">JWT</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
