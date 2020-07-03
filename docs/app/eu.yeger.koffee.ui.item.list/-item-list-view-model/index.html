@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ItemListViewModel - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">eu.yeger.koffee.ui.item.list</a>&nbsp;/&nbsp;<a href="./index.html">ItemListViewModel</a><br/>
+<br/>
+<h1>ItemListViewModel</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ItemListViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.ui/-search-view-model/index.html"><span class="identifier">SearchViewModel</span></a><span class="symbol">&lt;</span><a href="../../eu.yeger.koffee.domain/-item/index.html"><span class="identifier">Item</span></a><span class="symbol">&gt;</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<code><span class="identifier">ItemListViewModel</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.item.list.ItemListViewModel$<init>(eu.yeger.koffee.repository.ItemRepository)/itemRepository">itemRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-item-repository/index.html"><span class="identifier">ItemRepository</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="is-authenticated.html">isAuthenticated</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">isAuthenticated</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="refreshing.html">refreshing</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">refreshing</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="activate-create-item-action.html">activateCreateItemAction</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">activateCreateItemAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-source.html">getSource</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getSource</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.item.list.ItemListViewModel$getSource(eu.yeger.koffee.database.Filter)/filter">filter</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.database/-filter/index.html"><span class="identifier">Filter</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><span class="identifier">PagedList</span><span class="symbol">&lt;</span><a href="../../eu.yeger.koffee.domain/-item/index.html"><span class="identifier">Item</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="refresh-items.html">refreshItems</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">refreshItems</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../-admin-item-list-view-model/index.html">AdminItemListViewModel</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">AdminItemListViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ItemListViewModel</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-main-item-list-view-model/index.html">MainItemListViewModel</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MainItemListViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ItemListViewModel</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

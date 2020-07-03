@@ -1,10 +1,17 @@
 package eu.yeger.koffee.database
 
 import androidx.paging.DataSource
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Query
+import androidx.room.Transaction
 import eu.yeger.koffee.domain.User
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages [User]s in the database.
+ *
+ * @author Jan Müller
+ */
 @Dao
 interface UserDao : BaseDao<User> {
 

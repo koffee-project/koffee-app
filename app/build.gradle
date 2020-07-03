@@ -111,10 +111,10 @@ dependencies {
 }
 
 dokka {
-    outputFormat = 'html'
-    outputDirectory = "$buildDir/dokka"
+    outputFormat = "html"
+    outputDirectory = "./../docs"
 
     configuration {
-        reportUndocumented = true
+        reportUndocumented = false
     }
 }

@@ -1,0 +1,113 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>eu.yeger.koffee.database - app</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">app</a>&nbsp;/&nbsp;<a href="./index.html">eu.yeger.koffee.database</a><br/>
+<br/>
+<h2>Package eu.yeger.koffee.database</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-base-dao/index.html">BaseDao</a></h4>
+</td>
+<td>
+<p>Base <a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a> that supports <a href="-base-dao/insert.html">insert</a> and <a href="-base-dao/insert-all.html">insertAll</a> operation.</p>
+<code><span class="keyword">interface </span><span class="identifier">BaseDao</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-converters/index.html">Converters</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Converters</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-database-transaction/index.html">DatabaseTransaction</a></h4>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">DatabaseTransaction</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-filter/index.html">Filter</a></h4>
+</td>
+<td>
+<p>Utility class for creating and passing database <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> filters.</p>
+<code><span class="keyword">class </span><span class="identifier">Filter</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-item-dao/index.html">ItemDao</a></h4>
+</td>
+<td>
+<p><a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a> that manages <a href="../eu.yeger.koffee.domain/-item/index.html">Item</a>s in the database.</p>
+<code><span class="keyword">interface </span><span class="identifier">ItemDao</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-dao/index.html"><span class="identifier">BaseDao</span></a><span class="symbol">&lt;</span><a href="../eu.yeger.koffee.domain/-item/index.html"><span class="identifier">Item</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-j-w-t-dao/index.html">JWTDao</a></h4>
+</td>
+<td>
+<p><a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a> that manages <a href="../eu.yeger.koffee.domain/-j-w-t/index.html">JWT</a>s in the database.</p>
+<code><span class="keyword">interface </span><span class="identifier">JWTDao</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-dao/index.html"><span class="identifier">BaseDao</span></a><span class="symbol">&lt;</span><a href="../eu.yeger.koffee.domain/-j-w-t/index.html"><span class="identifier">JWT</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-koffee-database/index.html">KoffeeDatabase</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">KoffeeDatabase</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RoomDatabase</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-profile-image-dao/index.html">ProfileImageDao</a></h4>
+</td>
+<td>
+<p><a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a> that manages <a href="../eu.yeger.koffee.domain/-profile-image/index.html">ProfileImage</a>s in the database.</p>
+<code><span class="keyword">interface </span><span class="identifier">ProfileImageDao</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-dao/index.html"><span class="identifier">BaseDao</span></a><span class="symbol">&lt;</span><a href="../eu.yeger.koffee.domain/-profile-image/index.html"><span class="identifier">ProfileImage</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-transaction-dao/index.html">TransactionDao</a></h4>
+</td>
+<td>
+<p><a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a> that manages <a href="-database-transaction/index.html">DatabaseTransaction</a>s.</p>
+<code><span class="keyword">interface </span><span class="identifier">TransactionDao</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-dao/index.html"><span class="identifier">BaseDao</span></a><span class="symbol">&lt;</span><a href="-database-transaction/index.html"><span class="identifier">DatabaseTransaction</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-user-dao/index.html">UserDao</a></h4>
+</td>
+<td>
+<p><a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a> that manages <a href="../eu.yeger.koffee.domain/-user/index.html">User</a>s in the database.</p>
+<code><span class="keyword">interface </span><span class="identifier">UserDao</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-dao/index.html"><span class="identifier">BaseDao</span></a><span class="symbol">&lt;</span><a href="../eu.yeger.koffee.domain/-user/index.html"><span class="identifier">User</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="as-domain-model.html">asDomainModel</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-database-transaction/index.html"><span class="identifier">DatabaseTransaction</span></a><span class="symbol">.</span><span class="identifier">asDomainModel</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../eu.yeger.koffee.domain/-transaction/index.html"><span class="identifier">Transaction</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-database.html">getDatabase</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getDatabase</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.database$getDatabase(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-koffee-database/index.html"><span class="identifier">KoffeeDatabase</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

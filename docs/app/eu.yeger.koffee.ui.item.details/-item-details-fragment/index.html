@@ -1,0 +1,110 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ItemDetailsFragment - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">eu.yeger.koffee.ui.item.details</a>&nbsp;/&nbsp;<a href="./index.html">ItemDetailsFragment</a><br/>
+<br/>
+<h1>ItemDetailsFragment</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ItemDetailsFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Fragment</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<code><span class="identifier">ItemDetailsFragment</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="item-details-view-model.html">itemDetailsViewModel</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">itemDetailsViewModel</span><span class="symbol">: </span><a href="../-item-details-view-model/index.html"><span class="identifier">ItemDetailsViewModel</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="item-id.html">itemId</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">itemId</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="refund-view-model.html">refundViewModel</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">refundViewModel</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-refund-view-model/index.html"><span class="identifier">RefundViewModel</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="user-id.html">userId</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">userId</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="initialize-view-model.html">initializeViewModel</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">initializeViewModel</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-create-view.html">onCreateView</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onCreateView</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.item.details.ItemDetailsFragment$onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)/inflater">inflater</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/LayoutInflater.html"><span class="identifier">LayoutInflater</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.item.details.ItemDetailsFragment$onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)/container">container</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/ViewGroup.html"><span class="identifier">ViewGroup</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.item.details.ItemDetailsFragment$onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-not-found-confirmed.html">onNotFoundConfirmed</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onNotFoundConfirmed</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-resume.html">onResume</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onResume</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../-main-item-details-fragment/index.html">MainItemDetailsFragment</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MainItemDetailsFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ItemDetailsFragment</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-shared-item-details-fragment/index.html">SharedItemDetailsFragment</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">SharedItemDetailsFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ItemDetailsFragment</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

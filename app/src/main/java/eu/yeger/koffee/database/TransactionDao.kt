@@ -6,6 +6,11 @@ import androidx.room.Query
 import eu.yeger.koffee.domain.PurchaseStatistic
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages [DatabaseTransaction]s.
+ *
+ * @author Jan Müller
+ */
 @Dao
 interface TransactionDao : BaseDao<DatabaseTransaction> {
 

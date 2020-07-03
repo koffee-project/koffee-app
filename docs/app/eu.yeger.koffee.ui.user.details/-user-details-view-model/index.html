@@ -1,0 +1,187 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>UserDetailsViewModel - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">eu.yeger.koffee.ui.user.details</a>&nbsp;/&nbsp;<a href="./index.html">UserDetailsViewModel</a><br/>
+<br/>
+<h1>UserDetailsViewModel</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">UserDetailsViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.ui/-coroutine-view-model/index.html"><span class="identifier">CoroutineViewModel</span></a></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<code><span class="identifier">UserDetailsViewModel</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.user.details.UserDetailsViewModel$<init>(kotlin.String, eu.yeger.koffee.repository.ProfileImageRepository, eu.yeger.koffee.repository.TransactionRepository, eu.yeger.koffee.repository.UserRepository)/userId">userId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.user.details.UserDetailsViewModel$<init>(kotlin.String, eu.yeger.koffee.repository.ProfileImageRepository, eu.yeger.koffee.repository.TransactionRepository, eu.yeger.koffee.repository.UserRepository)/profileImageRepository">profileImageRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-profile-image-repository/index.html"><span class="identifier">ProfileImageRepository</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.user.details.UserDetailsViewModel$<init>(kotlin.String, eu.yeger.koffee.repository.ProfileImageRepository, eu.yeger.koffee.repository.TransactionRepository, eu.yeger.koffee.repository.UserRepository)/transactionRepository">transactionRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-transaction-repository/index.html"><span class="identifier">TransactionRepository</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.user.details.UserDetailsViewModel$<init>(kotlin.String, eu.yeger.koffee.repository.ProfileImageRepository, eu.yeger.koffee.repository.TransactionRepository, eu.yeger.koffee.repository.UserRepository)/userRepository">userRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-user-repository/index.html"><span class="identifier">UserRepository</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="can-delete.html">canDelete</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">canDelete</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="can-delete-profile-image.html">canDeleteProfileImage</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">canDeleteProfileImage</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="can-edit-profile-image.html">canEditProfileImage</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">canEditProfileImage</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="can-modify.html">canModify</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">canModify</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="has-transactions.html">hasTransactions</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">hasTransactions</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="has-user.html">hasUser</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">hasUser</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="profile-image.html">profileImage</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">profileImage</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../eu.yeger.koffee.domain/-profile-image/index.html"><span class="identifier">ProfileImage</span></a><span class="symbol">?</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="refreshing.html">refreshing</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">refreshing</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="show-items-button.html">showItemsButton</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">showItemsButton</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="transactions.html">transactions</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">transactions</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><span class="identifier">PagedList</span><span class="symbol">&lt;</span><a href="../../eu.yeger.koffee.domain/-transaction/index.html"><span class="identifier">Transaction</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="user.html">user</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">user</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../eu.yeger.koffee.domain/-user/index.html"><span class="identifier">User</span></a><span class="symbol">?</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="user-not-found-action.html">userNotFoundAction</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">userNotFoundAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-simple-action/index.html"><span class="identifier">SimpleAction</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="activate-credit-user-action.html">activateCreditUserAction</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">activateCreditUserAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="activate-delete-profile-image-action.html">activateDeleteProfileImageAction</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">activateDeleteProfileImageAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="activate-delete-user-action.html">activateDeleteUserAction</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">activateDeleteUserAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="activate-edit-profile-image-action.html">activateEditProfileImageAction</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">activateEditProfileImageAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="activate-edit-user-action.html">activateEditUserAction</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">activateEditUserAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="activate-show-items-action.html">activateShowItemsAction</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">activateShowItemsAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="observe-profile-image-actions.html">observeProfileImageActions</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">Fragment</span><span class="symbol">.</span><span class="identifier">observeProfileImageActions</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="refresh-user.html">refreshUser</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">refreshUser</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../-admin-user-details-view-model/index.html">AdminUserDetailsViewModel</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">AdminUserDetailsViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">UserDetailsViewModel</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

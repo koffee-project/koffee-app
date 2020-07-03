@@ -5,6 +5,11 @@ import androidx.room.Query
 import eu.yeger.koffee.domain.ProfileImage
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages [ProfileImage]s in the database.
+ *
+ * @author Jan Müller
+ */
 @Dao
 interface ProfileImageDao : BaseDao<ProfileImage> {
 

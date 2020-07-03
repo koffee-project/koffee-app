@@ -6,6 +6,11 @@ import androidx.room.Transaction
 import eu.yeger.koffee.domain.JWT
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages [JWT]s in the database.
+ *
+ * @author Jan Müller
+ */
 @Dao
 interface JWTDao : BaseDao<JWT> {
 
