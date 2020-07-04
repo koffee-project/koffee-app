@@ -10,12 +10,23 @@ import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.saveUserIdToSharedPreferences
 import eu.yeger.koffee.utility.viewModelFactories
 
+/**
+ * [UserListFragment] for selecting the user of the single user mode.
+ * Supports searching.
+ *
+ * @property userListViewModel The [UserSelectionViewModel] used for accessing the user list.
+ *
+ * @author Jan Müller
+ */
 class UserSelectionFragment : UserListFragment() {
 
     override val userListViewModel: UserSelectionViewModel by viewModelFactories {
         UserSelectionViewModel(UserRepository(requireContext()))
     }
 
+    /**
+     * Initializes the [UserSelectionViewModel].
+     */
     override fun initializeViewModel() {
         userListViewModel.apply {
             observeAction(userSelectedAction) { selectedUser ->

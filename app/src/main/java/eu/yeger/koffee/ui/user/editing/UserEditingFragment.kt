@@ -15,6 +15,11 @@ import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
+/**
+ * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for the user editing screen.
+ *
+ * @author Jan Müller
+ */
 class UserEditingFragment : Fragment() {
 
     private val userEditingViewModel: UserEditingViewModel by viewModelFactories {
@@ -26,6 +31,14 @@ class UserEditingFragment : Fragment() {
         )
     }
 
+    /**
+     * Inflates and initializes the layout.
+     *
+     * @param inflater Used for layout inflation.
+     * @param container Unused.
+     * @param savedInstanceState Unused.
+     * @return The user editing view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

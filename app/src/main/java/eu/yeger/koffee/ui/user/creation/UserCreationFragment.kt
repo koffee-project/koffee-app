@@ -15,6 +15,11 @@ import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
+/**
+ * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for the user creation screen.
+ *
+ * @author Jan Müller
+ */
 class UserCreationFragment : Fragment() {
 
     private val userCreationViewModel: UserCreationViewModel by viewModelFactories {
@@ -25,6 +30,14 @@ class UserCreationFragment : Fragment() {
         )
     }
 
+    /**
+     * Inflates and initializes the layout.
+     *
+     * @param inflater Used for layout inflation.
+     * @param container Unused.
+     * @param savedInstanceState Unused.
+     * @return The user creation view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

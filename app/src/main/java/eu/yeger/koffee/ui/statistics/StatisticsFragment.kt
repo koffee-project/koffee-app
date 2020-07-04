@@ -55,7 +55,6 @@ class StatisticsFragment : Fragment() {
         }.root
     }
 
-
     /**
      * Refreshes the [StatisticsViewModel].
      */

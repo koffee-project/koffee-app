@@ -11,6 +11,14 @@ import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.ui.adapter.transactionListAdapter
 import eu.yeger.koffee.utility.*
 
+/**
+ * [UserDetailsFragment] for management.
+ *
+ * @property userId The id of the user from the arguments.
+ * @property userDetailsViewModel The [AdminUserDetailsViewModel] used for accessing user information.
+ *
+ * @author Jan Müller
+ */
 class AdminUserDetailsFragment : UserDetailsFragment() {
 
     override val userId by lazy {
@@ -29,6 +37,9 @@ class AdminUserDetailsFragment : UserDetailsFragment() {
         )
     }
 
+    /**
+     * Initializes the [AdminUserDetailsViewModel].
+     */
     override fun initializeViewModel() {
         userDetailsViewModel.apply {
             observeAction(editUserAction) { userId ->
@@ -63,11 +74,17 @@ class AdminUserDetailsFragment : UserDetailsFragment() {
         }
     }
 
+    /**
+     * Initializes the view binding.
+     */
     override fun FragmentUserDetailsBinding.initializeBinding() {
         refundViewModel = null
         transactionRecyclerView.adapter = transactionListAdapter()
     }
 
+    /**
+     * Shows an info dialogue.
+     */
     override fun onNotFound() {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.user_not_found)

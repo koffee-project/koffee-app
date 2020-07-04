@@ -6,6 +6,14 @@ import eu.yeger.koffee.repository.UserRepository
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.viewModelFactories
 
+/**
+ * [UserListFragment] for user management.
+ * Supports searching.
+ *
+ * @property userListViewModel The [AdminUserListViewModel] used for accessing the item list.
+ *
+ * @author Jan Müller
+ */
 class AdminUserListFragment : UserListFragment() {
 
     override val userListViewModel: AdminUserListViewModel by viewModelFactories {
@@ -16,6 +24,9 @@ class AdminUserListFragment : UserListFragment() {
         )
     }
 
+    /**
+     * Initializes the [AdminUserListViewModel].
+     */
     override fun initializeViewModel() {
         userListViewModel.apply {
             observeAction(createUserAction) {

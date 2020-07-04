@@ -16,6 +16,11 @@ import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
+/**
+ * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for the user crediting screen.
+ *
+ * @author Jan Müller
+ */
 class UserCreditingFragment : Fragment() {
 
     private val userCreditingViewModel: UserCreditingViewModel by viewModelFactories {
@@ -27,6 +32,14 @@ class UserCreditingFragment : Fragment() {
         )
     }
 
+    /**
+     * Inflates and initializes the layout.
+     *
+     * @param inflater Used for layout inflation.
+     * @param container Unused.
+     * @param savedInstanceState Unused.
+     * @return The user crediting view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

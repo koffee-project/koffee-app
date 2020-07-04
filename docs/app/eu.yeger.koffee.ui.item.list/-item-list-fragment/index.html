@@ -9,6 +9,8 @@
 <br/>
 <h1>ItemListFragment</h1>
 <code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ItemListFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Fragment</span></code>
+<p>Abstract <a href="https://developer.android.com/jetpack/androidx/releases/fragment">Fragment</a> for the item list screen.
+Supports searching.</p>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -17,6 +19,8 @@
 <h4><a href="-init-.html">&lt;init&gt;</a></h4>
 </td>
 <td>
+<p>Abstract <a href="https://developer.android.com/jetpack/androidx/releases/fragment">Fragment</a> for the item list screen.
+Supports searching.</p>
 <code><span class="identifier">ItemListFragment</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
 </tr>
 </tbody>
@@ -29,6 +33,7 @@
 <h4><a href="item-list-view-model.html">itemListViewModel</a></h4>
 </td>
 <td>
+<p>The <a href="../-item-list-view-model/index.html">ItemListViewModel</a> used for accessing the item list.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">itemListViewModel</span><span class="symbol">: </span><a href="../-item-list-view-model/index.html"><span class="identifier">ItemListViewModel</span></a></code></td>
 </tr>
 </tbody>
@@ -41,6 +46,7 @@
 <h4><a href="initialize-view-model.html">initializeViewModel</a></h4>
 </td>
 <td>
+<p>Called when the <a href="../-item-list-view-model/index.html">ItemListViewModel</a> is initialized.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">initializeViewModel</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -48,6 +54,7 @@
 <h4><a href="on-create-view.html">onCreateView</a></h4>
 </td>
 <td>
+<p>Inflates and initializes the layout.</p>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onCreateView</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.item.list.ItemListFragment$onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)/inflater">inflater</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/LayoutInflater.html"><span class="identifier">LayoutInflater</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.item.list.ItemListFragment$onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)/container">container</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/ViewGroup.html"><span class="identifier">ViewGroup</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.item.list.ItemListFragment$onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a></code></td>
 </tr>
 <tr>
@@ -55,6 +62,7 @@
 <h4><a href="on-item-selected.html">onItemSelected</a></h4>
 </td>
 <td>
+<p>Called when an item has been selected.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onItemSelected</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.item.list.ItemListFragment$onItemSelected(kotlin.String)/itemId">itemId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -62,6 +70,7 @@
 <h4><a href="on-resume.html">onResume</a></h4>
 </td>
 <td>
+<p>Refreshes the <a href="../-item-list-view-model/index.html">ItemListViewModel</a>.</p>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onResume</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 </tbody>
@@ -74,6 +83,8 @@
 <h4><a href="../-admin-item-list-fragment/index.html">AdminItemListFragment</a></h4>
 </td>
 <td>
+<p><a href="./index.html">ItemListFragment</a> for item management.
+Supports searching.</p>
 <code><span class="keyword">class </span><span class="identifier">AdminItemListFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ItemListFragment</span></a></code></td>
 </tr>
 <tr>
@@ -81,6 +92,8 @@
 <h4><a href="../-main-item-list-fragment/index.html">MainItemListFragment</a></h4>
 </td>
 <td>
+<p><a href="./index.html">ItemListFragment</a> for the single user mode.
+Supports searching.</p>
 <code><span class="keyword">class </span><span class="identifier">MainItemListFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ItemListFragment</span></a></code></td>
 </tr>
 <tr>
@@ -88,6 +101,8 @@
 <h4><a href="../-shared-item-list-fragment/index.html">SharedItemListFragment</a></h4>
 </td>
 <td>
+<p><a href="./index.html">ItemListFragment</a> for the multi user mode.
+Supports searching.</p>
 <code><span class="keyword">class </span><span class="identifier">SharedItemListFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ItemListFragment</span></a></code></td>
 </tr>
 </tbody>

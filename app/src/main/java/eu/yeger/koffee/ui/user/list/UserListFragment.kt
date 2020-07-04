@@ -11,14 +11,33 @@ import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.ui.adapter.UserViewHolder
 import eu.yeger.koffee.ui.adapter.userListAdapter
 
+/**
+ * Abstract [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for the user list screen.
+ * Supports searching.
+ *
+ * @property userListViewModel The [UserListViewModel] used for accessing the user list.
+ *
+ * @author Jan Müller
+ */
 abstract class UserListFragment : Fragment() {
 
     protected abstract val userListViewModel: UserListViewModel
 
     private var userViewHolderFactory: UserViewHolder.Factory? = null
 
+    /**
+     * Called when the [UserListViewModel] is initialized.
+     */
     protected abstract fun initializeViewModel()
 
+    /**
+     * Inflates and initializes the layout.
+     *
+     * @param inflater Used for layout inflation.
+     * @param container Unused.
+     * @param savedInstanceState Unused.
+     * @return The user list view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,11 +59,17 @@ abstract class UserListFragment : Fragment() {
         }.root
     }
 
+    /**
+     * Refreshes the [UserListViewModel].
+     */
     override fun onResume() {
         userListViewModel.refreshUsers()
         super.onResume()
     }
 
+    /**
+     * Cancels the asynchronous loading of profile images.
+     */
     override fun onPause() {
         super.onPause()
         userViewHolderFactory?.clear()
