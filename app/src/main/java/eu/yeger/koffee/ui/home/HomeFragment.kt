@@ -20,6 +20,14 @@ import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
+/**
+ * Abstract [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for the home screen.
+ * Supports refunds.
+ *
+ * @property userId The id of the user this [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) is for.
+ *
+ * @author Jan Müller
+ */
 abstract class HomeFragment : Fragment() {
 
     protected abstract val userId: String?
@@ -44,10 +52,26 @@ abstract class HomeFragment : Fragment() {
         )
     }
 
+    /**
+     * Creates the [ItemListFragment] used by the home view.
+     *
+     * @return The [ItemListFragment] used by the home view.
+     */
     protected abstract fun getItemListFragment(): ItemListFragment
 
+    /**
+     * Called when the user with the given id does no longer exist.
+     */
     protected abstract fun onNotFound()
 
+    /**
+     * Inflates and initializes the layout.
+     *
+     * @param inflater Used for layout inflation.
+     * @param container Unused.
+     * @param savedInstanceState Unused.
+     * @return The home view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -77,6 +101,9 @@ abstract class HomeFragment : Fragment() {
         }.root.also { setItemListFragment() }
     }
 
+    /**
+     * Refreshes the [HomeViewModel].
+     */
     override fun onResume() {
         if (userId !== null) {
             homeViewModel.refreshUser()

@@ -13,6 +13,11 @@ import eu.yeger.koffee.ui.adapter.PurchaseStatisticListAdapter
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
 import eu.yeger.koffee.utility.viewModelFactories
 
+/**
+ * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for the statistics screen.
+ *
+ * @author Jan Müller
+ */
 class StatisticsFragment : Fragment() {
 
     private val userId by lazy {
@@ -23,6 +28,14 @@ class StatisticsFragment : Fragment() {
         StatisticsViewModel(userId!!, TransactionRepository(requireContext()))
     }
 
+    /**
+     * Inflates and initializes the layout.
+     *
+     * @param inflater Used for layout inflation.
+     * @param container Unused.
+     * @param savedInstanceState Unused.
+     * @return The login view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,6 +55,10 @@ class StatisticsFragment : Fragment() {
         }.root
     }
 
+
+    /**
+     * Refreshes the [StatisticsViewModel].
+     */
     override fun onResume() {
         statisticsViewModel.refresh()
         super.onResume()

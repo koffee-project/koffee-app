@@ -14,6 +14,11 @@ import eu.yeger.koffee.ui.adapter.transactionListAdapter
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
 import eu.yeger.koffee.utility.viewModelFactories
 
+/**
+ * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for the transaction history screen.
+ *
+ * @author Jan Müller
+ */
 class HistoryFragment : Fragment() {
 
     private val userId by lazy {
@@ -24,6 +29,14 @@ class HistoryFragment : Fragment() {
         HistoryViewModel(userId!!, TransactionRepository(requireContext()))
     }
 
+    /**
+     * Inflates and initializes the layout.
+     *
+     * @param inflater Used for layout inflation.
+     * @param container Unused.
+     * @param savedInstanceState Unused.
+     * @return The history view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,6 +61,9 @@ class HistoryFragment : Fragment() {
         }.root
     }
 
+    /**
+     * Refreshes the [HistoryViewModel].
+     */
     override fun onResume() {
         historyViewModel.refresh()
         super.onResume()

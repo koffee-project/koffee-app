@@ -8,6 +8,13 @@ import eu.yeger.koffee.ui.item.list.MainItemListFragment
 import eu.yeger.koffee.utility.deleteUserIdFromSharedPreferences
 import eu.yeger.koffee.utility.getUserIdFromSharedPreferences
 
+/**
+ * [HomeFragment] for the single user mode.
+ *
+ * @property userId The id of the active user stored in the shared preferences.
+ *
+ * @author Jan Müller
+ */
 class MainHomeFragment : HomeFragment() {
 
     override val userId by lazy {
@@ -16,6 +23,9 @@ class MainHomeFragment : HomeFragment() {
 
     override fun getItemListFragment() = MainItemListFragment()
 
+    /**
+     * Removes the id of the active user from the shares preference and shows an info dialogue.
+     */
     override fun onNotFound() {
         val message = when (userId) {
             null -> R.string.no_user_selected

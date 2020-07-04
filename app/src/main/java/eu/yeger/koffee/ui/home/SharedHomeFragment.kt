@@ -6,6 +6,13 @@ import eu.yeger.koffee.R
 import eu.yeger.koffee.ui.item.list.SharedItemListFragment
 import eu.yeger.koffee.utility.deleteUserIdFromSharedPreferences
 
+/**
+ * [HomeFragment] for the multi user mode.
+ *
+ * @property userId The id of the user from the arguments.
+ *
+ * @author Jan Müller
+ */
 class SharedHomeFragment : HomeFragment() {
 
     override val userId by lazy {
@@ -14,6 +21,9 @@ class SharedHomeFragment : HomeFragment() {
 
     override fun getItemListFragment() = SharedItemListFragment(userId)
 
+    /**
+     * Shows an info dialogue.
+     */
     override fun onNotFound() {
         requireContext().deleteUserIdFromSharedPreferences()
         AlertDialog.Builder(requireContext())
