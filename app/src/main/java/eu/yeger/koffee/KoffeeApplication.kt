@@ -7,8 +7,8 @@ import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import eu.yeger.koffee.worker.CleanupWorker
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
+import timber.log.Timber
 
 private const val WORKER_TAG = "KOFFEE_WORKER"
 

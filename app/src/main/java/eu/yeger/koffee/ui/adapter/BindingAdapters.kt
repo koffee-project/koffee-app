@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.signature.ObjectKey
-import com.google.android.material.imageview.ShapeableImageView
 import eu.yeger.koffee.R
 import eu.yeger.koffee.domain.Item
 import eu.yeger.koffee.domain.ProfileImage
@@ -77,16 +76,32 @@ fun <T> RecyclerView.bindItems(items: PagedList<T>?, callback: (() -> Unit)?) {
     }
 }
 
+/**
+ * Submits a [List] of [PurchaseStatistic]s to the [PurchaseStatisticListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ *
+ * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ * @param statistics The [List] of [PurchaseStatistic]s that will be submitted.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("statistics")
-fun <T> RecyclerView.bindStatistics(statistics: List<PurchaseStatistic>?) {
+fun RecyclerView.bindStatistics(statistics: List<PurchaseStatistic>?) {
     val adapter = adapter as PurchaseStatisticListAdapter
     adapter.submitList(statistics) {
         layoutManager?.scrollToPosition(0)
     }
 }
 
+/**
+ * Sets the resource of an [ImageView](https://developer.android.com/reference/android/widget/ImageView) depending on the type of a [Transaction].
+ *
+ * @receiver The target [ImageView](https://developer.android.com/reference/android/widget/ImageView).
+ * @param transaction The source [Transaction].
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("transaction")
-fun ShapeableImageView.bindTransaction(transaction: Transaction?) {
+fun ImageView.bindTransaction(transaction: Transaction?) {
     transaction?.let {
         val resourceId = when (transaction) {
             is Transaction.Funding -> R.drawable.ic_attach_money_24dp
@@ -97,6 +112,14 @@ fun ShapeableImageView.bindTransaction(transaction: Transaction?) {
     }
 }
 
+/**
+ * Sets the text and color of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on the value of a [Transaction].
+ *
+ * @receiver The target [TextView](https://developer.android.com/reference/android/widget/TextView).
+ * @param transaction The source [Transaction].
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("transactionValue")
 fun TextView.bindTransactionValue(transaction: Transaction?) {
     setTextColor(resources.getColor(R.color.design_default_color_on_primary, context.theme))
@@ -111,6 +134,14 @@ fun TextView.bindTransactionValue(transaction: Transaction?) {
     text = context.getString(resId, transaction?.value)
 }
 
+/**
+ * Sets the text of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on the details of a [Transaction].
+ *
+ * @receiver The target [TextView](https://developer.android.com/reference/android/widget/TextView).
+ * @param transaction The source [Transaction].
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("transactionDetails")
 fun TextView.bindTransactionDetails(transaction: Transaction?) {
     val defaultText = { amount: Int, itemName: String ->
@@ -128,19 +159,14 @@ fun TextView.bindTransactionDetails(transaction: Transaction?) {
     text = newText
 }
 
-fun ImageView.bindProfileImage(profileImage: ProfileImage?, placeholder: Int) {
-    when (profileImage) {
-        null -> setImageResource(placeholder)
-        else -> Glide.with(context)
-            .load(profileImage.bytes)
-            .signature(ObjectKey(profileImage.timestamp))
-            .fitCenter()
-            .circleCrop()
-            .placeholder(R.drawable.ic_edit_24dp)
-            .into(this)
-    }
-}
-
+/**
+ * Binds a currency [Double]-value to a [TextView](https://developer.android.com/reference/android/widget/TextView) and sets its background depending on the sign.
+ *
+ * @receiver The target [TextView](https://developer.android.com/reference/android/widget/TextView).
+ * @param value The source value.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("currencyValue")
 fun TextView.bindCurrencyValue(value: Double?) {
     when (value) {
@@ -159,10 +185,48 @@ fun TextView.bindCurrencyValue(value: Double?) {
     }
 }
 
+/**
+ * Binds a [ProfileImage] to an [ImageView](https://developer.android.com/reference/android/widget/ImageView) with a placeholder.
+ *
+ * @receiver The target [ImageView](https://developer.android.com/reference/android/widget/ImageView).
+ * @param profileImage The [ProfileImage] to be used.
+ * @param placeholder The placeholder resource, if the image is null.
+ *
+ * @author Jan Müller
+ */
+fun ImageView.bindProfileImage(profileImage: ProfileImage?, placeholder: Int) {
+    when (profileImage) {
+        null -> setImageResource(placeholder)
+        else -> Glide.with(context)
+            .load(profileImage.bytes)
+            .signature(ObjectKey(profileImage.timestamp))
+            .fitCenter()
+            .circleCrop()
+            .placeholder(R.drawable.ic_edit_24dp)
+            .into(this)
+    }
+}
+
+/**
+ * Binds a [ProfileImage] to an [ImageView](https://developer.android.com/reference/android/widget/ImageView) with a person-icon as a placeholder.
+ *
+ * @receiver The target [ImageView](https://developer.android.com/reference/android/widget/ImageView).
+ * @param profileImage The [ProfileImage] to be used.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("regularProfileImage")
 fun ImageView.bindRegularProfileImage(profileImage: ProfileImage?) =
     bindProfileImage(profileImage, R.drawable.ic_person_24dp)
 
+/**
+ * Binds a [ProfileImage] to an [ImageView](https://developer.android.com/reference/android/widget/ImageView) with an edit-icon as a placeholder.
+ *
+ * @receiver The target [ImageView](https://developer.android.com/reference/android/widget/ImageView).
+ * @param profileImage The [ProfileImage] to be used.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("editableProfileImage")
 fun ImageView.bindEditableProfileImage(profileImage: ProfileImage?) =
     bindProfileImage(profileImage, R.drawable.ic_edit_24dp)

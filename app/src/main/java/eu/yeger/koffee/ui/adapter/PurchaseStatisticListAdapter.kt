@@ -9,6 +9,13 @@ import eu.yeger.koffee.domain.PurchaseStatistic
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.utility.formatTimestamp
 
+/**
+ * Simple list adapter for [PurchaseStatistic]s.
+ *
+ * @property onClickListener [OnClickListener] for [PurchaseStatistic]s.
+ *
+ * @author Jan Müller
+ */
 class PurchaseStatisticListAdapter(
     private val onClickListener: OnClickListener<PurchaseStatistic>
 ) : ListAdapter<PurchaseStatistic, PurchaseStatisticListAdapter.ViewHolder>(

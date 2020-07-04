@@ -8,6 +8,7 @@ import eu.yeger.koffee.domain.User
 import eu.yeger.koffee.network.NetworkService
 import eu.yeger.koffee.network.asDomainModel
 import eu.yeger.koffee.utility.onNotFound
+import java.io.File
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -16,7 +17,6 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.HttpException
-import java.io.File
 
 /**
  * Repository for [ProfileImage]s.

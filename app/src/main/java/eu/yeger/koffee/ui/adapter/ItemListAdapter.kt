@@ -6,6 +6,13 @@ import eu.yeger.koffee.databinding.CardItemBinding
 import eu.yeger.koffee.domain.Item
 import eu.yeger.koffee.ui.OnClickListener
 
+/**
+ * [GenericPagedListAdapter.ViewHolder] for [Item]s.
+ *
+ * @property binding The view binding used by this [GenericPagedListAdapter.ViewHolder].
+ *
+ * @author Jan Müller
+ */
 class ItemViewHolder(
     private val binding: CardItemBinding
 ) : GenericPagedListAdapter.ViewHolder<Item>(binding.root) {
@@ -30,6 +37,14 @@ class ItemViewHolder(
     }
 }
 
+/**
+ * Utility function for creating a [GenericPagedListAdapter] for [Item]s.
+ *
+ * @param onClickListener [OnClickListener] for [Item]s.
+ * @return The created [GenericPagedListAdapter].
+ *
+ * @author Jan Müller
+ */
 fun itemListAdapter(onClickListener: OnClickListener<Item>): GenericPagedListAdapter<Item> {
     return GenericPagedListAdapter(
         onClickListener,

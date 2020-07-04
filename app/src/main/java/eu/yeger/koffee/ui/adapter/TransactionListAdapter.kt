@@ -6,8 +6,14 @@ import eu.yeger.koffee.databinding.CardTransactionBinding
 import eu.yeger.koffee.domain.Transaction
 import eu.yeger.koffee.ui.OnClickListener
 import eu.yeger.koffee.utility.formatTimestamp
-import java.util.*
 
+/**
+ * [GenericPagedListAdapter.ViewHolder] for [Transaction]s.
+ *
+ * @property binding The view binding used by this [GenericPagedListAdapter.ViewHolder].
+ *
+ * @author Jan Müller
+ */
 class TransactionViewHolder(
     private val binding: CardTransactionBinding
 ) : GenericPagedListAdapter.ViewHolder<Transaction>(binding.root) {
@@ -34,6 +40,14 @@ class TransactionViewHolder(
     }
 }
 
+/**
+ * Utility function for creating a [GenericPagedListAdapter] for [Transaction]s.
+ *
+ * @param onClickListener [OnClickListener] for [Transaction]s.
+ * @return The created [GenericPagedListAdapter].
+ *
+ * @author Jan Müller
+ */
 fun transactionListAdapter(
     onClickListener: OnClickListener<Transaction> = OnClickListener { }
 ): GenericPagedListAdapter<Transaction> {

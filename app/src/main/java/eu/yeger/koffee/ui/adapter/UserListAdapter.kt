@@ -8,6 +8,14 @@ import eu.yeger.koffee.repository.ProfileImageRepository
 import eu.yeger.koffee.ui.OnClickListener
 import kotlinx.coroutines.*
 
+/**
+ * [GenericPagedListAdapter.ViewHolder] for [User]s.
+ * Asynchronously loads profile images as required.
+ *
+ * @property binding The view binding used by this [GenericPagedListAdapter.ViewHolder].
+ *
+ * @author Jan Müller
+ */
 class UserViewHolder(
     private val binding: CardUserBinding,
     private val profileImageRepository: ProfileImageRepository,
@@ -55,6 +63,14 @@ class UserViewHolder(
     }
 }
 
+/**
+ * Utility function for creating a [GenericPagedListAdapter] for [User]s.
+ *
+ * @param onClickListener [OnClickListener] for [User]s.
+ * @return The created [GenericPagedListAdapter].
+ *
+ * @author Jan Müller
+ */
 fun userListAdapter(
     factory: UserViewHolder.Factory,
     onClickListener: OnClickListener<User>

@@ -8,13 +8,13 @@ import eu.yeger.koffee.utility.hideKeyboard
 import eu.yeger.koffee.utility.nullIfBlank
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import timber.log.Timber
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 
 /**
  * Abstract ViewModel that supports automatic error handling for Coroutines.
