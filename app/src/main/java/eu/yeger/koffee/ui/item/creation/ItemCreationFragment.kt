@@ -15,6 +15,11 @@ import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
+/**
+ * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for the item creation screen.
+ *
+ * @author Jan Müller
+ */
 class ItemCreationFragment : Fragment() {
 
     private val itemCreationViewModel: ItemCreationViewModel by viewModelFactories {
@@ -25,6 +30,14 @@ class ItemCreationFragment : Fragment() {
         )
     }
 
+    /**
+     * Inflates and initializes the layout.
+     *
+     * @param inflater Used for layout inflation.
+     * @param container Unused.
+     * @param savedInstanceState Unused.
+     * @return The item creation view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

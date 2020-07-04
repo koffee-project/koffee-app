@@ -6,8 +6,18 @@ import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.repository.ItemRepository
 import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.repository.UserRepository
+import eu.yeger.koffee.ui.home.MainHomeFragment
 import eu.yeger.koffee.utility.*
 
+/**
+ * [ItemDetailsFragment] for the single user mode.
+ *
+ * @property itemId The id of the item from the arguments.
+ * @property userId The id of the active user stored in the shared preferences.
+ * @property itemDetailsViewModel The [MainItemDetailsViewModel] used for accessing item information.
+ *
+ * @author Jan Müller
+ */
 class MainItemDetailsFragment : ItemDetailsFragment() {
 
     override val itemId: String by lazy {
@@ -30,6 +40,9 @@ class MainItemDetailsFragment : ItemDetailsFragment() {
         )
     }
 
+    /**
+     * Initializes the [MainItemDetailsViewModel].
+     */
     override fun initializeViewModel() {
         itemDetailsViewModel.apply {
             observeAction(editItemAction) { itemId ->
@@ -59,6 +72,9 @@ class MainItemDetailsFragment : ItemDetailsFragment() {
         }
     }
 
+    /**
+     * Navigates to the [MainHomeFragment].
+     */
     override fun onNotFoundConfirmed() {
         val direction = MainItemDetailsFragmentDirections.toHome()
         findNavController().navigate(direction)

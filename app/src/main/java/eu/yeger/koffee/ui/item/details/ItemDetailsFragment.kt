@@ -16,6 +16,16 @@ import eu.yeger.koffee.ui.adapter.transactionListAdapter
 import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.viewModelFactories
 
+/**
+ * Abstract [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for the item details screen.
+ * Supports refunds.
+ *
+ * @property itemId The id of the item this [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) is for.
+ * @property userId The optional id of the user this [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) is for.
+ * @property itemDetailsViewModel The [ItemDetailsViewModel] used for accessing item information.
+ *
+ * @author Jan Müller
+ */
 abstract class ItemDetailsFragment : Fragment() {
 
     protected abstract val itemId: String
@@ -24,7 +34,7 @@ abstract class ItemDetailsFragment : Fragment() {
 
     protected abstract val itemDetailsViewModel: ItemDetailsViewModel
 
-    protected val refundViewModel: RefundViewModel by viewModelFactories {
+    private val refundViewModel: RefundViewModel by viewModelFactories {
         val context = requireContext()
         RefundViewModel(
             itemId = itemId,
@@ -35,10 +45,24 @@ abstract class ItemDetailsFragment : Fragment() {
         )
     }
 
+    /**
+     * Called when the [ItemDetailsViewModel] is initialized.
+     */
     protected abstract fun initializeViewModel()
 
+    /**
+     * Called when the not-found dialogue is confirmed.
+     */
     protected abstract fun onNotFoundConfirmed()
 
+    /**
+     * Inflates and initializes the layout.
+     *
+     * @param inflater Used for layout inflation.
+     * @param container Unused.
+     * @param savedInstanceState Unused.
+     * @return The item details view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,6 +82,9 @@ abstract class ItemDetailsFragment : Fragment() {
         }.root
     }
 
+    /**
+     * Refreshes the [ItemDetailsViewModel].
+     */
     override fun onResume() {
         itemDetailsViewModel.refreshItem()
         super.onResume()

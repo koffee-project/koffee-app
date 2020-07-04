@@ -15,6 +15,11 @@ import eu.yeger.koffee.utility.observeAction
 import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
+/**
+ * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for the item editing screen.
+ *
+ * @author Jan Müller
+ */
 class ItemEditingFragment : Fragment() {
 
     private val itemEditingViewModel: ItemEditingViewModel by viewModelFactories {
@@ -26,6 +31,14 @@ class ItemEditingFragment : Fragment() {
         )
     }
 
+    /**
+     * Inflates and initializes the layout.
+     *
+     * @param inflater Used for layout inflation.
+     * @param container Unused.
+     * @param savedInstanceState Unused.
+     * @return The login view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
