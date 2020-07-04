@@ -8,6 +8,20 @@ import eu.yeger.koffee.database.Filter
 import eu.yeger.koffee.utility.mediatedLiveData
 import eu.yeger.koffee.utility.sourcedLiveData
 
+/**
+ * Abstract ViewModel that supports searching a PagedList [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+ *
+ * @param T The type of the elements.
+ * @property entries The [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing all searchable elements.
+ * @property searchQuery Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the search query.
+ * @property isBusy Indicates that a search is in progress.
+ * @property filteredEntries The filtered elements.
+ * @property onFilteredEntriesApplied Must be called after the filtered elements have changed and the changes have been applied.
+ * @property hasResults Indicates that there are filtered elements.
+ * @property hasNoResults Indicates that there are no filtered elements.
+ *
+ * @author Jan Müller
+ */
 abstract class SearchViewModel<T>(private val entries: LiveData<PagedList<T>>) : CoroutineViewModel() {
 
     val searchQuery = MutableLiveData<String>()
@@ -35,5 +49,11 @@ abstract class SearchViewModel<T>(private val entries: LiveData<PagedList<T>>) :
         filteredEntries.value?.size == 0 && !(isBusy.value ?: false)
     }
 
+    /**
+     * Get the filteredElements for the given filter.
+     *
+     * @param filter The filter derived from the search query.
+     * @return The filtered elements.
+     */
     protected abstract fun getSource(filter: Filter): LiveData<PagedList<T>>
 }

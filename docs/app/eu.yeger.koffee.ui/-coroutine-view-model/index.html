@@ -9,6 +9,9 @@
 <br/>
 <h1>CoroutineViewModel</h1>
 <code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">CoroutineViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ViewModel</span></code>
+<p>Abstract ViewModel that supports automatic error handling for Coroutines.</p>
+<p><strong>Author</strong><br/>
+Jan Müller</p>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -17,6 +20,7 @@
 <h4><a href="-init-.html">&lt;init&gt;</a></h4>
 </td>
 <td>
+<p>Abstract ViewModel that supports automatic error handling for Coroutines.</p>
 <code><span class="identifier">CoroutineViewModel</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
 </tr>
 </tbody>
@@ -29,6 +33,7 @@
 <h4><a href="on-authorization-exception.html">onAuthorizationException</a></h4>
 </td>
 <td>
+<p>Observes the authorization error <a href="../-data-action/index.html">DataAction</a> of this <a href="./index.html">CoroutineViewModel</a> with the given lambda.</p>
 <code><span class="keyword">fun </span><span class="identifier">Fragment</span><span class="symbol">.</span><span class="identifier">onAuthorizationException</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.CoroutineViewModel$onAuthorizationException(androidx.fragment.app.Fragment, kotlin.Function0((kotlin.Unit)))/block">block</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -36,6 +41,7 @@
 <h4><a href="on-error.html">onError</a></h4>
 </td>
 <td>
+<p>Observes the error <a href="../-data-action/index.html">DataAction</a> of this <a href="./index.html">CoroutineViewModel</a> with the given lambda.</p>
 <code><span class="keyword">fun </span><span class="identifier">Fragment</span><span class="symbol">.</span><span class="identifier">onError</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.CoroutineViewModel$onError(androidx.fragment.app.Fragment, kotlin.Function1((kotlin.Throwable, kotlin.Unit)))/block">block</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -43,6 +49,8 @@
 <h4><a href="on-error-show-snackbar.html">onErrorShowSnackbar</a></h4>
 </td>
 <td>
+<p>Observes the error <a href="../-data-action/index.html">DataAction</a> of this <a href="./index.html">CoroutineViewModel</a> and shows the formatted error message as a snackbar.
+Also hides any active keyboards.</p>
 <code><span class="keyword">fun </span><span class="identifier">Fragment</span><span class="symbol">.</span><span class="identifier">onErrorShowSnackbar</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.CoroutineViewModel$onErrorShowSnackbar(androidx.fragment.app.Fragment, kotlin.Function2((androidx.fragment.app.Fragment, kotlin.Throwable, kotlin.String)))/block">block</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">Fragment</span><span class="symbol">.</span><span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -50,6 +58,7 @@
 <h4><a href="on-view-model-scope.html">onViewModelScope</a></h4>
 </td>
 <td>
+<p>Executes a suspending lambda on the viewModelScope and handles all errors.</p>
 <code><span class="keyword">fun </span><span class="identifier">onViewModelScope</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.CoroutineViewModel$onViewModelScope(kotlin.coroutines.SuspendFunction1((kotlinx.coroutines.CoroutineScope, kotlin.Unit)))/block">block</span><span class="symbol">:</span>&nbsp;<span class="keyword">suspend </span><span class="identifier">CoroutineScope</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Job</span></code></td>
 </tr>
 </tbody>
@@ -104,6 +113,7 @@
 <h4><a href="../-refund-view-model/index.html">RefundViewModel</a></h4>
 </td>
 <td>
+<p>ViewModel that enables refunding of purchases.</p>
 <code><span class="keyword">class </span><span class="identifier">RefundViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">CoroutineViewModel</span></a></code></td>
 </tr>
 <tr>
@@ -111,6 +121,7 @@
 <h4><a href="../-search-view-model/index.html">SearchViewModel</a></h4>
 </td>
 <td>
+<p>Abstract ViewModel that supports searching a PagedList <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a>.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">SearchViewModel</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">CoroutineViewModel</span></a></code></td>
 </tr>
 <tr>
