@@ -9,6 +9,7 @@
 <br/>
 <h1>SettingsViewModel</h1>
 <code><span class="keyword">class </span><span class="identifier">SettingsViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.ui/-coroutine-view-model/index.html"><span class="identifier">CoroutineViewModel</span></a></code>
+<p>ViewModel for various options like navigating to user selection, launching the shared mode as well as admin tools.</p>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -17,6 +18,7 @@
 <h4><a href="-init-.html">&lt;init&gt;</a></h4>
 </td>
 <td>
+<p>Performs a logout if the previous session expired.</p>
 <code><span class="identifier">SettingsViewModel</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.settings.SettingsViewModel$<init>(eu.yeger.koffee.repository.AdminRepository, kotlin.Boolean)/adminRepository">adminRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-admin-repository/index.html"><span class="identifier">AdminRepository</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.settings.SettingsViewModel$<init>(eu.yeger.koffee.repository.AdminRepository, kotlin.Boolean)/loginExpired">loginExpired</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span></code></td>
 </tr>
 </tbody>
@@ -29,6 +31,7 @@
 <h4><a href="is-authenticated.html">isAuthenticated</a></h4>
 </td>
 <td>
+<p>Indicates that a user is currently authenticated.</p>
 <code><span class="keyword">val </span><span class="identifier">isAuthenticated</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -36,6 +39,7 @@
 <h4><a href="launch-shared-activity-action.html">launchSharedActivityAction</a></h4>
 </td>
 <td>
+<p><a href="../../eu.yeger.koffee.ui/-simple-action/index.html">SimpleAction</a> that is activated when the launch of the multi user mode activity is requested.</p>
 <code><span class="keyword">val </span><span class="identifier">launchSharedActivityAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-simple-action/index.html"><span class="identifier">SimpleAction</span></a></code></td>
 </tr>
 <tr>
@@ -43,6 +47,7 @@
 <h4><a href="login-action.html">loginAction</a></h4>
 </td>
 <td>
+<p><a href="../../eu.yeger.koffee.ui/-simple-action/index.html">SimpleAction</a> that is activated when a login is requested.</p>
 <code><span class="keyword">val </span><span class="identifier">loginAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-simple-action/index.html"><span class="identifier">SimpleAction</span></a></code></td>
 </tr>
 <tr>
@@ -50,6 +55,7 @@
 <h4><a href="manage-items-action.html">manageItemsAction</a></h4>
 </td>
 <td>
+<p><a href="../../eu.yeger.koffee.ui/-simple-action/index.html">SimpleAction</a> that is activated when navigation to the item management is requested.</p>
 <code><span class="keyword">val </span><span class="identifier">manageItemsAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-simple-action/index.html"><span class="identifier">SimpleAction</span></a></code></td>
 </tr>
 <tr>
@@ -57,6 +63,7 @@
 <h4><a href="manage-users-action.html">manageUsersAction</a></h4>
 </td>
 <td>
+<p><a href="../../eu.yeger.koffee.ui/-simple-action/index.html">SimpleAction</a> that is activated when navigation to the user management is requested.</p>
 <code><span class="keyword">val </span><span class="identifier">manageUsersAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-simple-action/index.html"><span class="identifier">SimpleAction</span></a></code></td>
 </tr>
 <tr>
@@ -64,6 +71,7 @@
 <h4><a href="select-user-action.html">selectUserAction</a></h4>
 </td>
 <td>
+<p><a href="../../eu.yeger.koffee.ui/-simple-action/index.html">SimpleAction</a> that is activated when the launch of the user selection activity is requested.</p>
 <code><span class="keyword">val </span><span class="identifier">selectUserAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-simple-action/index.html"><span class="identifier">SimpleAction</span></a></code></td>
 </tr>
 <tr>
@@ -71,6 +79,7 @@
 <h4><a href="token.html">token</a></h4>
 </td>
 <td>
+<p>A <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a> that contains the current token.</p>
 <code><span class="keyword">val </span><span class="identifier">token</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../eu.yeger.koffee.domain/-j-w-t/index.html"><span class="identifier">JWT</span></a><span class="symbol">?</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -78,6 +87,7 @@
 <h4><a href="token-expiration.html">tokenExpiration</a></h4>
 </td>
 <td>
+<p>A <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a> that contains the formatted expiration timestamp of the token.</p>
 <code><span class="keyword">val </span><span class="identifier">tokenExpiration</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">&gt;</span></code></td>
 </tr>
 </tbody>
@@ -90,6 +100,7 @@
 <h4><a href="activate-launch-shared-activity-action.html">activateLaunchSharedActivityAction</a></h4>
 </td>
 <td>
+<p>Requests the launch of the multi user mode activity.</p>
 <code><span class="keyword">fun </span><span class="identifier">activateLaunchSharedActivityAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -97,6 +108,7 @@
 <h4><a href="activate-login-action.html">activateLoginAction</a></h4>
 </td>
 <td>
+<p>Requests navigation to the login screen.</p>
 <code><span class="keyword">fun </span><span class="identifier">activateLoginAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -104,6 +116,7 @@
 <h4><a href="activate-manage-items-action.html">activateManageItemsAction</a></h4>
 </td>
 <td>
+<p>Requests navigation to the item management screen.</p>
 <code><span class="keyword">fun </span><span class="identifier">activateManageItemsAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -111,6 +124,7 @@
 <h4><a href="activate-manage-users-action.html">activateManageUsersAction</a></h4>
 </td>
 <td>
+<p>Requests navigation to the user management screen.</p>
 <code><span class="keyword">fun </span><span class="identifier">activateManageUsersAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -118,6 +132,7 @@
 <h4><a href="activate-select-user-action.html">activateSelectUserAction</a></h4>
 </td>
 <td>
+<p>Requests the launch of the user selection activity.</p>
 <code><span class="keyword">fun </span><span class="identifier">activateSelectUserAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -125,6 +140,7 @@
 <h4><a href="logout.html">logout</a></h4>
 </td>
 <td>
+<p>Performs a logout.</p>
 <code><span class="keyword">fun </span><span class="identifier">logout</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 </tbody>

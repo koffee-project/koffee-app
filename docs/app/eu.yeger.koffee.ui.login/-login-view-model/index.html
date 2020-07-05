@@ -9,6 +9,7 @@
 <br/>
 <h1>LoginViewModel</h1>
 <code><span class="keyword">class </span><span class="identifier">LoginViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.ui/-coroutine-view-model/index.html"><span class="identifier">CoroutineViewModel</span></a></code>
+<p>ViewModel for performing logins.</p>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -17,6 +18,7 @@
 <h4><a href="-init-.html">&lt;init&gt;</a></h4>
 </td>
 <td>
+<p>ViewModel for performing logins.</p>
 <code><span class="identifier">LoginViewModel</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.login.LoginViewModel$<init>(eu.yeger.koffee.repository.AdminRepository)/adminRepository">adminRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-admin-repository/index.html"><span class="identifier">AdminRepository</span></a><span class="symbol">)</span></code></td>
 </tr>
 </tbody>
@@ -29,6 +31,7 @@
 <h4><a href="can-login.html">canLogin</a></h4>
 </td>
 <td>
+<p>Indicates that a login is possible with the current input values.</p>
 <code><span class="keyword">val </span><span class="identifier">canLogin</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -36,6 +39,7 @@
 <h4><a href="logged-in-action.html">loggedInAction</a></h4>
 </td>
 <td>
+<p>Indicates that a login was successful.</p>
 <code><span class="keyword">val </span><span class="identifier">loggedInAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-simple-action/index.html"><span class="identifier">SimpleAction</span></a></code></td>
 </tr>
 <tr>
@@ -43,6 +47,7 @@
 <h4><a href="password.html">password</a></h4>
 </td>
 <td>
+<p>Bidirectional <a href="https://developer.android.com/reference/androidx/lifecycle/MutableLiveData">MutableLiveData</a> for binding the password.</p>
 <code><span class="keyword">val </span><span class="identifier">password</span><span class="symbol">: </span><span class="identifier">MutableLiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -50,6 +55,7 @@
 <h4><a href="user-id.html">userId</a></h4>
 </td>
 <td>
+<p>Bidirectional <a href="https://developer.android.com/reference/androidx/lifecycle/MutableLiveData">MutableLiveData</a> for binding the user id.</p>
 <code><span class="keyword">val </span><span class="identifier">userId</span><span class="symbol">: </span><span class="identifier">MutableLiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span><span class="symbol">&gt;</span></code></td>
 </tr>
 </tbody>
@@ -62,6 +68,7 @@
 <h4><a href="login.html">login</a></h4>
 </td>
 <td>
+<p>Performs a login with the current user id and password.</p>
 <code><span class="keyword">fun </span><span class="identifier">login</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 </tbody>
