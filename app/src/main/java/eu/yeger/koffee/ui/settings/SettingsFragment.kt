@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import eu.yeger.koffee.R
 import eu.yeger.koffee.databinding.FragmentSettingsBinding
 import eu.yeger.koffee.goToSharedActivity
 import eu.yeger.koffee.goToUserSelection
 import eu.yeger.koffee.repository.AdminRepository
 import eu.yeger.koffee.utility.observeAction
+import eu.yeger.koffee.utility.showSnackbar
 import eu.yeger.koffee.utility.viewModelFactories
 
 /**
@@ -43,6 +45,10 @@ class SettingsFragment : Fragment() {
         setHasOptionsMenu(true)
 
         settingsViewModel.apply {
+            observeAction(loginExpiredAction) {
+                requireActivity().showSnackbar(R.string.login_expired)
+            }
+
             observeAction(selectUserAction) {
                 requireActivity().goToUserSelection()
             }

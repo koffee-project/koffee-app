@@ -14,6 +14,7 @@ import eu.yeger.koffee.utility.formatTimestamp
  * @property isAuthenticated Indicates that a user is currently authenticated.
  * @property token A [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) that contains the current token.
  * @property tokenExpiration A [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) that contains the formatted expiration timestamp of the token.
+ * @property loginExpiredAction [SimpleAction] that is activated when the current login has expired.
  * @property selectUserAction [SimpleAction] that is activated when the launch of the user selection activity is requested.
  * @property launchSharedActivityAction [SimpleAction] that is activated when the launch of the multi user mode activity is requested.
  * @property loginAction [SimpleAction] that is activated when a login is requested.
@@ -35,6 +36,7 @@ class SettingsViewModel(
     val token = adminRepository.getJWTFlow().asLiveData()
     val tokenExpiration = token.map { it?.let { token -> formatTimestamp(token.expiration) } }
 
+    val loginExpiredAction = SimpleAction()
     val selectUserAction = SimpleAction()
     val launchSharedActivityAction = SimpleAction()
     val loginAction = SimpleAction()
@@ -42,8 +44,13 @@ class SettingsViewModel(
     val manageUsersAction = SimpleAction()
 
     init {
-        if (loginExpired) {
-            logout()
+        onViewModelScope {
+            if (loginExpired) {
+                logout()
+            } else if (adminRepository.loginHasExpired()) {
+                logout()
+                loginExpiredAction.activate()
+            }
         }
     }
 

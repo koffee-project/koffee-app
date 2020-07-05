@@ -59,6 +59,16 @@ class AdminRepository(private val database: KoffeeDatabase) {
     }
 
     /**
+     * Checks if the current login has expired.
+     *
+     * @return true if the login has expired.
+     */
+    suspend fun loginHasExpired(): Boolean {
+        val token = getJWT() ?: return false
+        return token.expiration <= System.currentTimeMillis()
+    }
+
+    /**
      * Performs a login using the provided credentials and stores the resulting [JWT] in [KoffeeDatabase].
      *
      * @param userId The user id used for the login.
