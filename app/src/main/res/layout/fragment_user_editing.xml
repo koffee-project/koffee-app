@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="eu.yeger.koffee.ui.user.editing.UserEditingViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/user_editing_title_text"
+                style="@style/TextAppearance.MaterialComponents.Headline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:text="@string/title_user_editing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/user_id_label_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_spacing"
+                android:labelFor="@id/user_id_input"
+                android:text="@string/id"
+                app:layout_constraintStart_toStartOf="@+id/user_id_input"
+                app:layout_constraintTop_toBottomOf="@+id/user_editing_title_text" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/user_id_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:text="@{viewModel.userId}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_id_label_text" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/user_name_label_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_spacing"
+                android:labelFor="@id/user_name_input"
+                android:text="@string/name"
+                app:layout_constraintStart_toStartOf="@+id/user_name_input"
+                app:layout_constraintTop_toBottomOf="@+id/user_id_input" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/user_name_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:text="@={viewModel.userName}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_name_label_text" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/password_label_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_spacing"
+                android:labelFor="@id/password_input"
+                android:text="@string/password"
+                app:layout_constraintStart_toStartOf="@+id/password_input"
+                app:layout_constraintTop_toBottomOf="@+id/user_name_input"
+                app:present="@{viewModel.isAdmin}" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:text="@={viewModel.userPassword}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_label_text"
+                app:present="@{viewModel.isAdmin}" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/is_admin_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_spacing"
+                android:checked="@={viewModel.isAdmin}"
+                android:text="@string/is_admin"
+                app:layout_constraintStart_toStartOf="@+id/user_name_input"
+                app:layout_constraintTop_toBottomOf="@+id/password_input" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/update_user_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_spacing"
+                android:enabled="@{viewModel.canUpdateUser}"
+                android:onClick="@{() -> viewModel.updateUser()}"
+                android:text="@string/update_user"
+                app:layout_constraintEnd_toEndOf="@+id/user_name_input"
+                app:layout_constraintTop_toBottomOf="@+id/is_admin_checkbox" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

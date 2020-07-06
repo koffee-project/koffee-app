@@ -1,0 +1,111 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>UserListFragment - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">eu.yeger.koffee.ui.user.list</a>&nbsp;/&nbsp;<a href="./index.html">UserListFragment</a><br/>
+<br/>
+<h1>UserListFragment</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">UserListFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Fragment</span></code>
+<p>Abstract <a href="https://developer.android.com/jetpack/androidx/releases/fragment">Fragment</a> for the user list screen.
+Supports searching.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Abstract <a href="https://developer.android.com/jetpack/androidx/releases/fragment">Fragment</a> for the user list screen.
+Supports searching.</p>
+<code><span class="identifier">UserListFragment</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="user-list-view-model.html">userListViewModel</a></h4>
+</td>
+<td>
+<p>The <a href="../-user-list-view-model/index.html">UserListViewModel</a> used for accessing the user list.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">userListViewModel</span><span class="symbol">: </span><a href="../-user-list-view-model/index.html"><span class="identifier">UserListViewModel</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="initialize-view-model.html">initializeViewModel</a></h4>
+</td>
+<td>
+<p>Called when the <a href="../-user-list-view-model/index.html">UserListViewModel</a> is initialized.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">initializeViewModel</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-create-view.html">onCreateView</a></h4>
+</td>
+<td>
+<p>Inflates and initializes the layout.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onCreateView</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.user.list.UserListFragment$onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)/inflater">inflater</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/LayoutInflater.html"><span class="identifier">LayoutInflater</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.user.list.UserListFragment$onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)/container">container</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/ViewGroup.html"><span class="identifier">ViewGroup</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.user.list.UserListFragment$onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-pause.html">onPause</a></h4>
+</td>
+<td>
+<p>Cancels the asynchronous loading of profile images.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onPause</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-resume.html">onResume</a></h4>
+</td>
+<td>
+<p>Refreshes the <a href="../-user-list-view-model/index.html">UserListViewModel</a>.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onResume</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../-admin-user-list-fragment/index.html">AdminUserListFragment</a></h4>
+</td>
+<td>
+<p><a href="./index.html">UserListFragment</a> for user management.
+Supports searching.</p>
+<code><span class="keyword">class </span><span class="identifier">AdminUserListFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">UserListFragment</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-shared-user-list-fragment/index.html">SharedUserListFragment</a></h4>
+</td>
+<td>
+<p><a href="./index.html">UserListFragment</a> for the multi user mode.
+Supports searching.</p>
+<code><span class="keyword">class </span><span class="identifier">SharedUserListFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">UserListFragment</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../eu.yeger.koffee.ui.user.selection/-user-selection-fragment/index.html">UserSelectionFragment</a></h4>
+</td>
+<td>
+<p><a href="./index.html">UserListFragment</a> for selecting the user of the single user mode.
+Supports searching.</p>
+<code><span class="keyword">class </span><span class="identifier">UserSelectionFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">UserListFragment</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

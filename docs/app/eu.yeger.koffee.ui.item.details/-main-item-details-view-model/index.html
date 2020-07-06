@@ -1,0 +1,93 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MainItemDetailsViewModel - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">eu.yeger.koffee.ui.item.details</a>&nbsp;/&nbsp;<a href="./index.html">MainItemDetailsViewModel</a><br/>
+<br/>
+<h1>MainItemDetailsViewModel</h1>
+<code><span class="keyword">class </span><span class="identifier">MainItemDetailsViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-item-details-view-model/index.html"><span class="identifier">ItemDetailsViewModel</span></a></code>
+<p><a href="../-item-details-view-model/index.html">ItemDetailsViewModel</a> for the single user mode and item management.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p><a href="../-item-details-view-model/index.html">ItemDetailsViewModel</a> for the single user mode and item management.</p>
+<code><span class="identifier">MainItemDetailsViewModel</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.item.details.MainItemDetailsViewModel$<init>(kotlin.String, kotlin.String, eu.yeger.koffee.repository.AdminRepository, eu.yeger.koffee.repository.ItemRepository, eu.yeger.koffee.repository.TransactionRepository, eu.yeger.koffee.repository.UserRepository)/itemId">itemId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.item.details.MainItemDetailsViewModel$<init>(kotlin.String, kotlin.String, eu.yeger.koffee.repository.AdminRepository, eu.yeger.koffee.repository.ItemRepository, eu.yeger.koffee.repository.TransactionRepository, eu.yeger.koffee.repository.UserRepository)/userId">userId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.item.details.MainItemDetailsViewModel$<init>(kotlin.String, kotlin.String, eu.yeger.koffee.repository.AdminRepository, eu.yeger.koffee.repository.ItemRepository, eu.yeger.koffee.repository.TransactionRepository, eu.yeger.koffee.repository.UserRepository)/adminRepository">adminRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-admin-repository/index.html"><span class="identifier">AdminRepository</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.item.details.MainItemDetailsViewModel$<init>(kotlin.String, kotlin.String, eu.yeger.koffee.repository.AdminRepository, eu.yeger.koffee.repository.ItemRepository, eu.yeger.koffee.repository.TransactionRepository, eu.yeger.koffee.repository.UserRepository)/itemRepository">itemRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-item-repository/index.html"><span class="identifier">ItemRepository</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.item.details.MainItemDetailsViewModel$<init>(kotlin.String, kotlin.String, eu.yeger.koffee.repository.AdminRepository, eu.yeger.koffee.repository.ItemRepository, eu.yeger.koffee.repository.TransactionRepository, eu.yeger.koffee.repository.UserRepository)/transactionRepository">transactionRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-transaction-repository/index.html"><span class="identifier">TransactionRepository</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.item.details.MainItemDetailsViewModel$<init>(kotlin.String, kotlin.String, eu.yeger.koffee.repository.AdminRepository, eu.yeger.koffee.repository.ItemRepository, eu.yeger.koffee.repository.TransactionRepository, eu.yeger.koffee.repository.UserRepository)/userRepository">userRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-user-repository/index.html"><span class="identifier">UserRepository</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="can-modify.html">canModify</a></h4>
+</td>
+<td>
+<p>Indicates that the user can be modified.</p>
+<code><span class="keyword">val </span><span class="identifier">canModify</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="delete-item-action.html">deleteItemAction</a></h4>
+</td>
+<td>
+<p><a href="../../eu.yeger.koffee.ui/-data-action/index.html">DataAction</a> that is activated when deletion of the item is requested. Contains the item's id.</p>
+<code><span class="keyword">val </span><span class="identifier">deleteItemAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-data-action/index.html"><span class="identifier">DataAction</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="edit-item-action.html">editItemAction</a></h4>
+</td>
+<td>
+<p><a href="../../eu.yeger.koffee.ui/-data-action/index.html">DataAction</a> that is activated when editing of the item is requested. Contains item's id.</p>
+<code><span class="keyword">val </span><span class="identifier">editItemAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-data-action/index.html"><span class="identifier">DataAction</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="item-deleted-action.html">itemDeletedAction</a></h4>
+</td>
+<td>
+<p><a href="../../eu.yeger.koffee.ui/-simple-action/index.html">SimpleAction</a> that is activated when the item has been deleted.</p>
+<code><span class="keyword">val </span><span class="identifier">itemDeletedAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-simple-action/index.html"><span class="identifier">SimpleAction</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="activate-delete-item-action.html">activateDeleteItemAction</a></h4>
+</td>
+<td>
+<p>Requests deletion of the item.</p>
+<code><span class="keyword">fun </span><span class="identifier">activateDeleteItemAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="activate-edit-item-action.html">activateEditItemAction</a></h4>
+</td>
+<td>
+<p>Requests editing of the item.</p>
+<code><span class="keyword">fun </span><span class="identifier">activateEditItemAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="delete-item.html">deleteItem</a></h4>
+</td>
+<td>
+<p>Requests the deletion of the item.</p>
+<code><span class="keyword">fun </span><span class="identifier">deleteItem</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

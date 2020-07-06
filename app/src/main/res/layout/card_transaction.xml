@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="transaction"
+            type="eu.yeger.koffee.domain.Transaction" />
+
+        <variable
+            name="timestamp"
+            type="String" />
+
+        <variable
+            name="onClickListener"
+            type="eu.yeger.koffee.ui.OnClickListener" />
+    </data>
+
+    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/half_spacing"
+        android:onClick="@{() -> onClickListener.onClick(transaction)}"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardElevation="@dimen/card_elevation"
+        app:contentPadding="@dimen/half_spacing">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/type_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:contentDescription="@string/refund_image_description"
+                app:layout_constraintBottom_toBottomOf="@+id/details_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/details_text"
+                app:transaction="@{transaction}"
+                tools:src="@drawable/ic_attach_money_24dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/details_text"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/half_spacing"
+                android:layout_marginEnd="@dimen/half_spacing"
+                android:text="@{String.valueOf(transaction.value)}"
+                android:textAlignment="textStart"
+                app:layout_constraintBottom_toBottomOf="@+id/timestamp_text"
+                app:layout_constraintEnd_toStartOf="@+id/timestamp_text"
+                app:layout_constraintStart_toEndOf="@+id/type_image_view"
+                app:layout_constraintTop_toTopOf="@+id/value_text"
+                app:transactionDetails="@{transaction}"
+                tools:text="TransactionDetails" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/value_text"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:transactionValue="@{transaction}"
+                tools:text="+30Euro" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/timestamp_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{timestamp}"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/value_text"
+                tools:text="Timestamp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+</layout>

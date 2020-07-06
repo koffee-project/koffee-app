@@ -1,0 +1,114 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>UserListViewModel - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">eu.yeger.koffee.ui.user.list</a>&nbsp;/&nbsp;<a href="./index.html">UserListViewModel</a><br/>
+<br/>
+<h1>UserListViewModel</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">UserListViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.ui/-search-view-model/index.html"><span class="identifier">SearchViewModel</span></a><span class="symbol">&lt;</span><a href="../../eu.yeger.koffee.domain/-user/index.html"><span class="identifier">User</span></a><span class="symbol">&gt;</span></code>
+<p>Abstract <a href="../../eu.yeger.koffee.ui/-search-view-model/index.html">SearchViewModel</a> for accessing available users.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Abstract <a href="../../eu.yeger.koffee.ui/-search-view-model/index.html">SearchViewModel</a> for accessing available users.</p>
+<code><span class="identifier">UserListViewModel</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.user.list.UserListViewModel$<init>(eu.yeger.koffee.repository.UserRepository)/userRepository">userRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-user-repository/index.html"><span class="identifier">UserRepository</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="is-authenticated.html">isAuthenticated</a></h4>
+</td>
+<td>
+<p>Indicates that a user is authenticated. Abstract.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">isAuthenticated</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="refreshing.html">refreshing</a></h4>
+</td>
+<td>
+<p>Indicates that a refresh is in progress.</p>
+<code><span class="keyword">val </span><span class="identifier">refreshing</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="activate-create-user-action.html">activateCreateUserAction</a></h4>
+</td>
+<td>
+<p>Requests the creation of users.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">activateCreateUserAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="activate-user-selected-action.html">activateUserSelectedAction</a></h4>
+</td>
+<td>
+<p>Requests the selection of a users.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">activateUserSelectedAction</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.user.list.UserListViewModel$activateUserSelectedAction(eu.yeger.koffee.domain.User)/user">user</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.domain/-user/index.html"><span class="identifier">User</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-source.html">getSource</a></h4>
+</td>
+<td>
+<p>Get the users for the given filter.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getSource</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.user.list.UserListViewModel$getSource(eu.yeger.koffee.database.Filter)/filter">filter</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.database/-filter/index.html"><span class="identifier">Filter</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><span class="identifier">PagedList</span><span class="symbol">&lt;</span><a href="../../eu.yeger.koffee.domain/-user/index.html"><span class="identifier">User</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="refresh-users.html">refreshUsers</a></h4>
+</td>
+<td>
+<p>Refreshes the available users.</p>
+<code><span class="keyword">fun </span><span class="identifier">refreshUsers</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../-admin-user-list-view-model/index.html">AdminUserListViewModel</a></h4>
+</td>
+<td>
+<p><a href="./index.html">UserListViewModel</a> for user management.</p>
+<code><span class="keyword">class </span><span class="identifier">AdminUserListViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">UserListViewModel</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-shared-user-list-view-model/index.html">SharedUserListViewModel</a></h4>
+</td>
+<td>
+<p><a href="./index.html">UserListViewModel</a> for the multi user mode.</p>
+<code><span class="keyword">class </span><span class="identifier">SharedUserListViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">UserListViewModel</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../eu.yeger.koffee.ui.user.selection/-user-selection-view-model/index.html">UserSelectionViewModel</a></h4>
+</td>
+<td>
+<p><a href="./index.html">UserListViewModel</a> for the single user mode's user selection.</p>
+<code><span class="keyword">class </span><span class="identifier">UserSelectionViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">UserListViewModel</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

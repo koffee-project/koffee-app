@@ -1,0 +1,109 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>HomeViewModel - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">eu.yeger.koffee.ui.home</a>&nbsp;/&nbsp;<a href="./index.html">HomeViewModel</a><br/>
+<br/>
+<h1>HomeViewModel</h1>
+<code><span class="keyword">class </span><span class="identifier">HomeViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.ui/-coroutine-view-model/index.html"><span class="identifier">CoroutineViewModel</span></a></code>
+<p><a href="../../eu.yeger.koffee.ui/-coroutine-view-model/index.html">CoroutineViewModel</a> for accessing user data and modifying profile images.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p><a href="../../eu.yeger.koffee.ui/-coroutine-view-model/index.html">CoroutineViewModel</a> for accessing user data and modifying profile images.</p>
+<code><span class="identifier">HomeViewModel</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.home.HomeViewModel$<init>(kotlin.String, eu.yeger.koffee.repository.ProfileImageRepository, eu.yeger.koffee.repository.TransactionRepository, eu.yeger.koffee.repository.UserRepository)/userId">userId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.home.HomeViewModel$<init>(kotlin.String, eu.yeger.koffee.repository.ProfileImageRepository, eu.yeger.koffee.repository.TransactionRepository, eu.yeger.koffee.repository.UserRepository)/profileImageRepository">profileImageRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-profile-image-repository/index.html"><span class="identifier">ProfileImageRepository</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.home.HomeViewModel$<init>(kotlin.String, eu.yeger.koffee.repository.ProfileImageRepository, eu.yeger.koffee.repository.TransactionRepository, eu.yeger.koffee.repository.UserRepository)/transactionRepository">transactionRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-transaction-repository/index.html"><span class="identifier">TransactionRepository</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.home.HomeViewModel$<init>(kotlin.String, eu.yeger.koffee.repository.ProfileImageRepository, eu.yeger.koffee.repository.TransactionRepository, eu.yeger.koffee.repository.UserRepository)/userRepository">userRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-user-repository/index.html"><span class="identifier">UserRepository</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="edit-profile-image-action.html">editProfileImageAction</a></h4>
+</td>
+<td>
+<p><a href="../../eu.yeger.koffee.ui/-data-action/index.html">DataAction</a> that is activated when editing of the profile image is requested. Contains true if the profile image can be deleted.</p>
+<code><span class="keyword">val </span><span class="identifier">editProfileImageAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-data-action/index.html"><span class="identifier">DataAction</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="profile-image.html">profileImage</a></h4>
+</td>
+<td>
+<p>A <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a> that contains the user's profile image.</p>
+<code><span class="keyword">val </span><span class="identifier">profileImage</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../eu.yeger.koffee.domain/-profile-image/index.html"><span class="identifier">ProfileImage</span></a><span class="symbol">?</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="refreshing.html">refreshing</a></h4>
+</td>
+<td>
+<p>Indicates that a refresh is in progress.</p>
+<code><span class="keyword">val </span><span class="identifier">refreshing</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="user.html">user</a></h4>
+</td>
+<td>
+<p>A <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a> that contains the user.</p>
+<code><span class="keyword">val </span><span class="identifier">user</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../eu.yeger.koffee.domain/-user/index.html"><span class="identifier">User</span></a><span class="symbol">?</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="user-not-found-action.html">userNotFoundAction</a></h4>
+</td>
+<td>
+<p><a href="../../eu.yeger.koffee.ui/-simple-action/index.html">SimpleAction</a> that is activated when the user has been deleted.</p>
+<code><span class="keyword">val </span><span class="identifier">userNotFoundAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-simple-action/index.html"><span class="identifier">SimpleAction</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="activate-edit-profile-image-action.html">activateEditProfileImageAction</a></h4>
+</td>
+<td>
+<p>Requests editing of the profile image.</p>
+<code><span class="keyword">fun </span><span class="identifier">activateEditProfileImageAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="delete-profile-image.html">deleteProfileImage</a></h4>
+</td>
+<td>
+<p>Deletes the current profile image.</p>
+<code><span class="keyword">fun </span><span class="identifier">deleteProfileImage</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="refresh-user.html">refreshUser</a></h4>
+</td>
+<td>
+<p>Fetches new user data from the API and checks if the user has been deleted.</p>
+<code><span class="keyword">fun </span><span class="identifier">refreshUser</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="upload-profile-image.html">uploadProfileImage</a></h4>
+</td>
+<td>
+<p>Uploads a new profile image.</p>
+<code><span class="keyword">fun </span><span class="identifier">uploadProfileImage</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.home.HomeViewModel$uploadProfileImage(java.io.File)/image">image</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

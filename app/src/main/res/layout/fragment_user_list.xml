@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="eu.yeger.koffee.ui.user.list.UserListViewModel" />
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:onRefresh="@{() -> viewModel.refreshUsers()}"
+        app:refreshing="@{viewModel.refreshing}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search_query_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:ems="10"
+                android:hint="@string/name"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:text="@={viewModel.searchQuery}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/state_text"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_results"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="@+id/user_recycler_view"
+                app:layout_constraintEnd_toEndOf="@+id/user_recycler_view"
+                app:layout_constraintStart_toStartOf="@+id/user_recycler_view"
+                app:layout_constraintTop_toTopOf="@+id/user_recycler_view"
+                app:present="@{viewModel.hasNoResults}" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/user_recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/half_spacing"
+                android:layout_marginTop="@dimen/half_spacing"
+                android:layout_marginEnd="@dimen/half_spacing"
+                app:callback="@{viewModel.onFilteredEntriesApplied}"
+                app:items="@{viewModel.filteredEntries}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/user_recycler_view"
+                app:layout_constraintEnd_toEndOf="@+id/user_recycler_view"
+                app:layout_constraintStart_toStartOf="@+id/user_recycler_view"
+                app:layout_constraintTop_toTopOf="@+id/user_recycler_view"
+                app:present="@{viewModel.isBusy}" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:layout_marginBottom="@dimen/default_spacing"
+                android:onClick="@{() -> viewModel.activateCreateUserAction()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:present="@{viewModel.isAuthenticated}"
+                app:srcCompat="@drawable/ic_person_add_24dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>

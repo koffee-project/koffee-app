@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="eu.yeger.koffee.ui.user.crediting.UserCreditingViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/user_crediting_title_text"
+                style="@style/TextAppearance.MaterialComponents.Headline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:text="@string/title_user_crediting"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/credit_amount_label_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_spacing"
+                android:labelFor="@id/credit_amount_input"
+                android:text="@string/amount"
+                app:layout_constraintStart_toStartOf="@+id/credit_amount_input"
+                app:layout_constraintTop_toBottomOf="@+id/user_crediting_title_text" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/credit_amount_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:text="@={viewModel.creditAmount}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/credit_amount_label_text" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/credit_user_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_spacing"
+                android:enabled="@{viewModel.canCreditUser}"
+                android:onClick="@{() -> viewModel.creditUser()}"
+                android:text="@string/credit_user"
+                app:layout_constraintEnd_toEndOf="@+id/credit_amount_input"
+                app:layout_constraintTop_toBottomOf="@+id/credit_amount_input" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

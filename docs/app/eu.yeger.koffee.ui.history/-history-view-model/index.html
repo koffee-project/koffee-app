@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>HistoryViewModel - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">eu.yeger.koffee.ui.history</a>&nbsp;/&nbsp;<a href="./index.html">HistoryViewModel</a><br/>
+<br/>
+<h1>HistoryViewModel</h1>
+<code><span class="keyword">class </span><span class="identifier">HistoryViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.ui/-coroutine-view-model/index.html"><span class="identifier">CoroutineViewModel</span></a></code>
+<p><a href="../../eu.yeger.koffee.ui/-coroutine-view-model/index.html">CoroutineViewModel</a> for accessing the transaction history of a user.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p><a href="../../eu.yeger.koffee.ui/-coroutine-view-model/index.html">CoroutineViewModel</a> for accessing the transaction history of a user.</p>
+<code><span class="identifier">HistoryViewModel</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.history.HistoryViewModel$<init>(kotlin.String, eu.yeger.koffee.repository.TransactionRepository)/userId">userId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.history.HistoryViewModel$<init>(kotlin.String, eu.yeger.koffee.repository.TransactionRepository)/transactionRepository">transactionRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-transaction-repository/index.html"><span class="identifier">TransactionRepository</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="has-transactions.html">hasTransactions</a></h4>
+</td>
+<td>
+<p>Indicates that there are transactions.</p>
+<code><span class="keyword">val </span><span class="identifier">hasTransactions</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="refreshing.html">refreshing</a></h4>
+</td>
+<td>
+<p>Indicates that a refresh is in progress.</p>
+<code><span class="keyword">val </span><span class="identifier">refreshing</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="transactions.html">transactions</a></h4>
+</td>
+<td>
+<p>A <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a> that contains the transactions of this user.</p>
+<code><span class="keyword">val </span><span class="identifier">transactions</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><span class="identifier">PagedList</span><span class="symbol">&lt;</span><a href="../../eu.yeger.koffee.domain/-transaction/index.html"><span class="identifier">Transaction</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="refresh.html">refresh</a></h4>
+</td>
+<td>
+<p>Refreshes the history by fetching the transaction of this user.</p>
+<code><span class="keyword">fun </span><span class="identifier">refresh</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>JWT - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">eu.yeger.koffee.domain</a>&nbsp;/&nbsp;<a href="./index.html">JWT</a><br/>
+<br/>
+<h1>JWT</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">JWT</span></code>
+<p><a href="https://developer.android.com/reference/androidx/room/Entity">Entity</a> class representing <a href="./index.html">JWT</a>s.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p><a href="https://developer.android.com/reference/androidx/room/Entity">Entity</a> class representing <a href="./index.html">JWT</a>s.</p>
+<code><span class="identifier">JWT</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.domain.JWT$<init>(kotlin.String, kotlin.String, kotlin.Long)/userId">userId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.domain.JWT$<init>(kotlin.String, kotlin.String, kotlin.Long)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.domain.JWT$<init>(kotlin.String, kotlin.String, kotlin.Long)/expiration">expiration</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="expiration.html">expiration</a></h4>
+</td>
+<td>
+<p>The expiration date of the token.</p>
+<code><span class="keyword">val </span><span class="identifier">expiration</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="token.html">token</a></h4>
+</td>
+<td>
+<p>The token.</p>
+<code><span class="keyword">val </span><span class="identifier">token</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="user-id.html">userId</a></h4>
+</td>
+<td>
+<p>The id of the <a href="../-user/index.html">User</a> owning this token.</p>
+<code><span class="keyword">val </span><span class="identifier">userId</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../../eu.yeger.koffee.network/format-token.html">formatToken</a></h4>
+</td>
+<td>
+<p>Transforms a <a href="./index.html">JWT</a> into the correct header format.</p>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">JWT</span></a><span class="symbol">.</span><span class="identifier">formatToken</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

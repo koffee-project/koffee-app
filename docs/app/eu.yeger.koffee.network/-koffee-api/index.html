@@ -1,0 +1,173 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>KoffeeApi - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">eu.yeger.koffee.network</a>&nbsp;/&nbsp;<a href="./index.html">KoffeeApi</a><br/>
+<br/>
+<h1>KoffeeApi</h1>
+<code><span class="keyword">interface </span><span class="identifier">KoffeeApi</span></code>
+<p>The Koffee API interface.</p>
+<p><strong>Author</strong><br/>
+Jan Müller</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="create-item.html">createItem</a></h4>
+</td>
+<td>
+<p>Requests the creation of an item using the provided <a href="../-api-item-d-t-o/index.html">ApiItemDTO</a>.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">createItem</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$createItem(eu.yeger.koffee.network.ApiItemDTO, kotlin.String)/itemDTO">itemDTO</span><span class="symbol">:</span>&nbsp;<a href="../-api-item-d-t-o/index.html"><span class="identifier">ApiItemDTO</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$createItem(eu.yeger.koffee.network.ApiItemDTO, kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="create-user.html">createUser</a></h4>
+</td>
+<td>
+<p>Requests the creation of a user using the provided <a href="../-api-user-d-t-o/index.html">ApiUserDTO</a>.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">createUser</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$createUser(eu.yeger.koffee.network.ApiUserDTO, kotlin.String)/userDTO">userDTO</span><span class="symbol">:</span>&nbsp;<a href="../-api-user-d-t-o/index.html"><span class="identifier">ApiUserDTO</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$createUser(eu.yeger.koffee.network.ApiUserDTO, kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="credit-user.html">creditUser</a></h4>
+</td>
+<td>
+<p>Requests the crediting of the user with the given id.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">creditUser</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$creditUser(kotlin.String, eu.yeger.koffee.network.ApiFundingRequest, kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$creditUser(kotlin.String, eu.yeger.koffee.network.ApiFundingRequest, kotlin.String)/fundingRequest">fundingRequest</span><span class="symbol">:</span>&nbsp;<a href="../-api-funding-request/index.html"><span class="identifier">ApiFundingRequest</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$creditUser(kotlin.String, eu.yeger.koffee.network.ApiFundingRequest, kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="delete-item.html">deleteItem</a></h4>
+</td>
+<td>
+<p>Requests the deletion of the item with the given id.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">deleteItem</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$deleteItem(kotlin.String, kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$deleteItem(kotlin.String, kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="delete-profile-picture.html">deleteProfilePicture</a></h4>
+</td>
+<td>
+<p>Requests the deletion of the profile image whose user has the given id.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">deleteProfilePicture</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$deleteProfilePicture(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="delete-user.html">deleteUser</a></h4>
+</td>
+<td>
+<p>Requests the deletion of the user with the given id.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">deleteUser</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$deleteUser(kotlin.String, kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$deleteUser(kotlin.String, kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-item-by-id.html">getItemById</a></h4>
+</td>
+<td>
+<p>Requests a single item with the given id.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">getItemById</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$getItemById(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-api-item/index.html"><span class="identifier">ApiItem</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-items.html">getItems</a></h4>
+</td>
+<td>
+<p>Requests all items.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">getItems</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-api-item/index.html"><span class="identifier">ApiItem</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-profile-image.html">getProfileImage</a></h4>
+</td>
+<td>
+<p>Requests the profile image of the user with the given id.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">getProfileImage</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$getProfileImage(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-api-profile-image/index.html"><span class="identifier">ApiProfileImage</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-profile-image-timestamp.html">getProfileImageTimestamp</a></h4>
+</td>
+<td>
+<p>Requests the profile image timestamp of the user with the given id.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">getProfileImageTimestamp</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$getProfileImageTimestamp(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-transaction-for-user.html">getTransactionForUser</a></h4>
+</td>
+<td>
+<p>Requests all transactions of a user.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">getTransactionForUser</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$getTransactionForUser(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-api-transaction/index.html"><span class="identifier">ApiTransaction</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-user-by-id.html">getUserById</a></h4>
+</td>
+<td>
+<p>Requests profile data of the user with the given id.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">getUserById</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$getUserById(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-api-user-profile/index.html"><span class="identifier">ApiUserProfile</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-users.html">getUsers</a></h4>
+</td>
+<td>
+<p>Requests metadata of all users.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">getUsers</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-api-user-entry/index.html"><span class="identifier">ApiUserEntry</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="login.html">login</a></h4>
+</td>
+<td>
+<p>Requests a login using the provided <a href="../-api-credentials/index.html">ApiCredentials</a>.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">login</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$login(eu.yeger.koffee.network.ApiCredentials)/credentials">credentials</span><span class="symbol">:</span>&nbsp;<a href="../-api-credentials/index.html"><span class="identifier">ApiCredentials</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-api-token/index.html"><span class="identifier">ApiToken</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="purchase-item.html">purchaseItem</a></h4>
+</td>
+<td>
+<p>Requests a purchase for the given user.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">purchaseItem</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$purchaseItem(kotlin.String, eu.yeger.koffee.network.ApiPurchaseRequest)/userId">userId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$purchaseItem(kotlin.String, eu.yeger.koffee.network.ApiPurchaseRequest)/purchaseRequest">purchaseRequest</span><span class="symbol">:</span>&nbsp;<a href="../-api-purchase-request/index.html"><span class="identifier">ApiPurchaseRequest</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="refund-purchase.html">refundPurchase</a></h4>
+</td>
+<td>
+<p>Requests a refund for the given user.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">refundPurchase</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$refundPurchase(kotlin.String)/userId">userId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="update-item.html">updateItem</a></h4>
+</td>
+<td>
+<p>Request for updating an item using the provided <a href="../-api-item-d-t-o/index.html">ApiItemDTO</a>.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">updateItem</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$updateItem(eu.yeger.koffee.network.ApiItemDTO, kotlin.String)/itemDTO">itemDTO</span><span class="symbol">:</span>&nbsp;<a href="../-api-item-d-t-o/index.html"><span class="identifier">ApiItemDTO</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$updateItem(eu.yeger.koffee.network.ApiItemDTO, kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="update-user.html">updateUser</a></h4>
+</td>
+<td>
+<p>Request for updating a user using the provided <a href="../-api-user-d-t-o/index.html">ApiUserDTO</a>.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">updateUser</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$updateUser(eu.yeger.koffee.network.ApiUserDTO, kotlin.String)/userDTO">userDTO</span><span class="symbol">:</span>&nbsp;<a href="../-api-user-d-t-o/index.html"><span class="identifier">ApiUserDTO</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$updateUser(eu.yeger.koffee.network.ApiUserDTO, kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="upload-profile-image.html">uploadProfileImage</a></h4>
+</td>
+<td>
+<p>Uploads an image to the server to be used as the profile image for the user with he given id.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">uploadProfileImage</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$uploadProfileImage(kotlin.String, okhttp3.MultipartBody.Part)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.network.KoffeeApi$uploadProfileImage(kotlin.String, okhttp3.MultipartBody.Part)/image">image</span><span class="symbol">:</span>&nbsp;<span class="identifier">Part</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="userDetailsViewModel"
+            type="eu.yeger.koffee.ui.user.details.UserDetailsViewModel" />
+
+        <variable
+            name="refundViewModel"
+            type="eu.yeger.koffee.ui.RefundViewModel" />
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:onRefresh="@{() -> userDetailsViewModel.refreshUser()}"
+        app:refreshing="@{userDetailsViewModel.refreshing}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/show_items_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:text="@string/browse_items"
+                android:onClick="@{() -> userDetailsViewModel.activateShowItemsAction()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:present="@{userDetailsViewModel.showItemsButton}" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/user_profile_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/default_spacing"
+                app:layout_constraintBottom_toBottomOf="@+id/user_account_text"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/user_name_text"
+                app:regularProfileImage="@{userDetailsViewModel.profileImage}" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profile_image_edit_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> userDetailsViewModel.activateEditProfileImageAction()}"
+                app:layout_constraintStart_toEndOf="@+id/user_profile_image"
+                app:layout_constraintTop_toTopOf="@+id/user_profile_image"
+                app:present="@{userDetailsViewModel.canEditProfileImage}"
+                app:srcCompat="@drawable/ic_edit_24dp" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profile_image_delete_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> userDetailsViewModel.activateDeleteProfileImageAction()}"
+                app:layout_constraintBottom_toBottomOf="@+id/user_profile_image"
+                app:layout_constraintStart_toEndOf="@+id/user_profile_image"
+                app:present="@{userDetailsViewModel.canDeleteProfileImage}"
+                app:srcCompat="@drawable/ic_delete_forever_24dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/user_name_text"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:text="@{userDetailsViewModel.user.name}"
+                android:textAlignment="viewEnd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profile_image_edit_image"
+                app:layout_constraintTop_toBottomOf="@+id/show_items_button"
+                app:present="@{userDetailsViewModel.hasUser}"
+                tools:text="UserName" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/user_account_text"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:text="@{@string/currency_format(userDetailsViewModel.user.balance)}"
+                android:textAlignment="viewEnd"
+                app:layout_constraintEnd_toEndOf="@+id/user_name_text"
+                app:layout_constraintStart_toEndOf="@+id/profile_image_delete_image"
+                app:layout_constraintTop_toBottomOf="@+id/user_name_text"
+                app:present="@{userDetailsViewModel.hasUser}"
+                tools:text="100$" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/refund_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:onClick="@{() -> refundViewModel.refundPurchase()}"
+                android:text="@string/refund"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_account_text"
+                app:visible="@{refundViewModel.canRefund}" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/transactions_title_text"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:text="@{@string/transactions_title}"
+                app:layout_constraintBottom_toBottomOf="@+id/refund_button"
+                app:layout_constraintEnd_toStartOf="@+id/refund_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/refund_button"
+                app:present="@{userDetailsViewModel.hasUser}"
+                tools:text="Transactions" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/state_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_transactions"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="@+id/transaction_recycler_view"
+                app:layout_constraintEnd_toEndOf="@+id/transaction_recycler_view"
+                app:layout_constraintStart_toStartOf="@+id/transaction_recycler_view"
+                app:layout_constraintTop_toTopOf="@+id/transaction_recycler_view"
+                app:present="@{!userDetailsViewModel.hasTransactions}" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/transaction_recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/half_spacing"
+                android:layout_marginTop="@dimen/half_spacing"
+                android:layout_marginEnd="@dimen/half_spacing"
+                app:items="@{userDetailsViewModel.transactions}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/refund_button"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/delete_user_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/default_spacing"
+                android:onClick="@{() -> userDetailsViewModel.activateDeleteUserAction()}"
+                app:layout_constraintBottom_toTopOf="@+id/credit_user_button"
+                app:layout_constraintEnd_toEndOf="@+id/credit_user_button"
+                app:present="@{userDetailsViewModel.canDelete}"
+                app:srcCompat="@drawable/ic_delete_forever_24dp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/credit_user_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/default_spacing"
+                android:onClick="@{() -> userDetailsViewModel.activateCreditUserAction()}"
+                app:layout_constraintBottom_toTopOf="@+id/edit_user_button"
+                app:layout_constraintEnd_toEndOf="@+id/edit_user_button"
+                app:present="@{userDetailsViewModel.canModify}"
+                app:srcCompat="@drawable/ic_attach_money_24dp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/edit_user_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:layout_marginBottom="@dimen/default_spacing"
+                android:onClick="@{() -> userDetailsViewModel.activateEditUserAction()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:present="@{userDetailsViewModel.canModify}"
+                app:srcCompat="@drawable/ic_edit_24dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>

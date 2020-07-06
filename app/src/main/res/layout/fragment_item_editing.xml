@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="eu.yeger.koffee.ui.item.editing.ItemEditingViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_creation_title_text"
+                style="@style/TextAppearance.MaterialComponents.Headline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:text="@string/title_item_editing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_id_label_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_spacing"
+                android:labelFor="@id/item_id_input"
+                android:text="@string/id"
+                app:layout_constraintStart_toStartOf="@+id/item_id_input"
+                app:layout_constraintTop_toBottomOf="@+id/item_creation_title_text" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/item_id_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:text="@{viewModel.itemId}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_id_label_text" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_name_label_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_spacing"
+                android:labelFor="@id/item_name_input"
+                android:text="@string/name"
+                app:layout_constraintStart_toStartOf="@+id/item_name_input"
+                app:layout_constraintTop_toBottomOf="@+id/item_id_input" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/item_name_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:text="@={viewModel.itemName}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_name_label_text" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/price_label_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_spacing"
+                android:labelFor="@id/price_input"
+                android:text="@string/price"
+                app:layout_constraintStart_toStartOf="@+id/price_input"
+                app:layout_constraintTop_toBottomOf="@+id/item_name_input" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/price_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:text="@={viewModel.itemPrice}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/price_label_text" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/amount_label_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_spacing"
+                android:labelFor="@id/amount_input"
+                android:text="@string/amount_optional"
+                app:layout_constraintStart_toStartOf="@+id/price_input"
+                app:layout_constraintTop_toBottomOf="@+id/price_input" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/amount_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:text="@={viewModel.itemAmount}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/amount_label_text" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/update_item_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_spacing"
+                android:enabled="@{viewModel.canUpdateItem}"
+                android:onClick="@{() -> viewModel.updateItem()}"
+                android:text="@string/update_item"
+                app:layout_constraintEnd_toEndOf="@+id/item_name_input"
+                app:layout_constraintTop_toBottomOf="@+id/amount_input" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

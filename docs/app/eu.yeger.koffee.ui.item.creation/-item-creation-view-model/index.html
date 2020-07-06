@@ -1,0 +1,93 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ItemCreationViewModel - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">eu.yeger.koffee.ui.item.creation</a>&nbsp;/&nbsp;<a href="./index.html">ItemCreationViewModel</a><br/>
+<br/>
+<h1>ItemCreationViewModel</h1>
+<code><span class="keyword">class </span><span class="identifier">ItemCreationViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.ui/-coroutine-view-model/index.html"><span class="identifier">CoroutineViewModel</span></a></code>
+<p><a href="../../eu.yeger.koffee.ui/-coroutine-view-model/index.html">CoroutineViewModel</a> for creating items.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p><a href="../../eu.yeger.koffee.ui/-coroutine-view-model/index.html">CoroutineViewModel</a> for creating items.</p>
+<code><span class="identifier">ItemCreationViewModel</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.item.creation.ItemCreationViewModel$<init>(eu.yeger.koffee.repository.AdminRepository, eu.yeger.koffee.repository.ItemRepository)/adminRepository">adminRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-admin-repository/index.html"><span class="identifier">AdminRepository</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.item.creation.ItemCreationViewModel$<init>(eu.yeger.koffee.repository.AdminRepository, eu.yeger.koffee.repository.ItemRepository)/itemRepository">itemRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-item-repository/index.html"><span class="identifier">ItemRepository</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="can-create-item.html">canCreateItem</a></h4>
+</td>
+<td>
+<p>Indicates that creating an item is possible with the current input values.</p>
+<code><span class="keyword">val </span><span class="identifier">canCreateItem</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="item-amount.html">itemAmount</a></h4>
+</td>
+<td>
+<p>Bidirectional <a href="https://developer.android.com/reference/androidx/lifecycle/MutableLiveData">MutableLiveData</a> for binding the item amount.</p>
+<code><span class="keyword">val </span><span class="identifier">itemAmount</span><span class="symbol">: </span><span class="identifier">MutableLiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="item-created-action.html">itemCreatedAction</a></h4>
+</td>
+<td>
+<p><a href="../../eu.yeger.koffee.ui/-data-action/index.html">DataAction</a> that is activated when the item has been created. Contains the item's id.</p>
+<code><span class="keyword">val </span><span class="identifier">itemCreatedAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-data-action/index.html"><span class="identifier">DataAction</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="item-id.html">itemId</a></h4>
+</td>
+<td>
+<p>Bidirectional <a href="https://developer.android.com/reference/androidx/lifecycle/MutableLiveData">MutableLiveData</a> for binding the item id.</p>
+<code><span class="keyword">val </span><span class="identifier">itemId</span><span class="symbol">: </span><span class="identifier">MutableLiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="item-name.html">itemName</a></h4>
+</td>
+<td>
+<p>Bidirectional <a href="https://developer.android.com/reference/androidx/lifecycle/MutableLiveData">MutableLiveData</a> for binding the item name.</p>
+<code><span class="keyword">val </span><span class="identifier">itemName</span><span class="symbol">: </span><span class="identifier">MutableLiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="item-price.html">itemPrice</a></h4>
+</td>
+<td>
+<p>Bidirectional <a href="https://developer.android.com/reference/androidx/lifecycle/MutableLiveData">MutableLiveData</a> for binding the item price.</p>
+<code><span class="keyword">val </span><span class="identifier">itemPrice</span><span class="symbol">: </span><span class="identifier">MutableLiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="create-item.html">createItem</a></h4>
+</td>
+<td>
+<p>Creates an item with the current id, name, price and amount.</p>
+<code><span class="keyword">fun </span><span class="identifier">createItem</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
