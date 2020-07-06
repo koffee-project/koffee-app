@@ -9,6 +9,20 @@ import eu.yeger.koffee.utility.isValidCurrencyAmount
 import eu.yeger.koffee.utility.nullIfBlank
 import eu.yeger.koffee.utility.sourcedLiveData
 
+/**
+ * ViewModel for creating items.
+ *
+ * @property adminRepository [AdminRepository] for accessing authentication tokens.
+ * @property itemRepository [ItemRepository] for creating the item.
+ * @property itemId Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the item id.
+ * @property itemName Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the item name.
+ * @property itemPrice Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the item price.
+ * @property itemAmount Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the item amount.
+ * @property canCreateItem Indicates that creating an item is possible with the current input values.
+ * @property itemCreatedAction [DataAction] that is activated when the item has been created.
+ *
+ * @author Jan Müller
+ */
 class ItemCreationViewModel(
     private val adminRepository: AdminRepository,
     private val itemRepository: ItemRepository
@@ -30,6 +44,9 @@ class ItemCreationViewModel(
 
     val itemCreatedAction = DataAction<String>()
 
+    /**
+     * Creates an item with the current id, name, price and amount.
+     */
     fun createItem() {
         onViewModelScope {
             val jwt = adminRepository.getJWT()!!

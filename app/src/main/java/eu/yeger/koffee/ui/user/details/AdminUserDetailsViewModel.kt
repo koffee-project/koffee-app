@@ -10,6 +10,25 @@ import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.ui.SimpleAction
 import eu.yeger.koffee.utility.sourcedLiveData
 
+/**
+ * [UserDetailsViewModel] for user management.
+ *
+ * @property isActiveUser Indicates if this is the active user. Blocks deletion if true.
+ * @property userId The id of the user.
+ * @property adminRepository [AdminRepository] for accessing authentication tokens.
+ * @property userRepository [UserRepository] for accessing user data.
+ * @property canModify Indicates tha modifying the profile image is possible.
+ * @property canDelete Indicates tha deleting the profile image is possible.
+ * @property showItemsButton Deprecated.
+ * @property editUserAction [DataAction] that is activated when editing of the user is requested.
+ * @property creditUserAction [DataAction] that is activated when crediting of the user is requested.
+ * @property deleteUserAction [DataAction] that is activated when deletion of the user is requested.
+ * @property userDeletedAction [SimpleAction] that is activated when the user has been deleted.
+ * @param profileImageRepository [ProfileImageRepository] for accessing profile images.
+ * @param transactionRepository [TransactionRepository] for accessing transactions.
+ *
+ * @author Jan Müller
+ */
 class AdminUserDetailsViewModel(
     private val isActiveUser: Boolean,
     private val userId: String?,
@@ -39,6 +58,9 @@ class AdminUserDetailsViewModel(
     val deleteUserAction = DataAction<String>()
     val userDeletedAction = SimpleAction()
 
+    /**
+     * Deletes the user.
+     */
     fun deleteUser() {
         userId?.let {
             onViewModelScope {
@@ -49,11 +71,23 @@ class AdminUserDetailsViewModel(
         }
     }
 
+    /**
+     * Ignored.
+     */
     override fun activateShowItemsAction() = Unit
 
+    /**
+     * Requests editing of the user.
+     */
     override fun activateEditUserAction() = editUserAction.activateWith(user.value?.id)
 
+    /**
+     * Requests crediting of the user.
+     */
     override fun activateCreditUserAction() = creditUserAction.activateWith(user.value?.id)
 
+    /**
+     * Requests deletion of the user.
+     */
     override fun activateDeleteUserAction() = deleteUserAction.activateWith(user.value?.id)
 }

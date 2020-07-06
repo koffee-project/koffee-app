@@ -9,6 +9,7 @@
 <br/>
 <h1>AdminUserDetailsViewModel</h1>
 <code><span class="keyword">class </span><span class="identifier">AdminUserDetailsViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-user-details-view-model/index.html"><span class="identifier">UserDetailsViewModel</span></a></code>
+<p><a href="../-user-details-view-model/index.html">UserDetailsViewModel</a> for user management.</p>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -17,6 +18,7 @@
 <h4><a href="-init-.html">&lt;init&gt;</a></h4>
 </td>
 <td>
+<p><a href="../-user-details-view-model/index.html">UserDetailsViewModel</a> for user management.</p>
 <code><span class="identifier">AdminUserDetailsViewModel</span><span class="symbol">(</span><span class="identifier" id="eu.yeger.koffee.ui.user.details.AdminUserDetailsViewModel$<init>(kotlin.Boolean, kotlin.String, eu.yeger.koffee.repository.AdminRepository, eu.yeger.koffee.repository.UserRepository, eu.yeger.koffee.repository.ProfileImageRepository, eu.yeger.koffee.repository.TransactionRepository)/isActiveUser">isActiveUser</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.user.details.AdminUserDetailsViewModel$<init>(kotlin.Boolean, kotlin.String, eu.yeger.koffee.repository.AdminRepository, eu.yeger.koffee.repository.UserRepository, eu.yeger.koffee.repository.ProfileImageRepository, eu.yeger.koffee.repository.TransactionRepository)/userId">userId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.user.details.AdminUserDetailsViewModel$<init>(kotlin.Boolean, kotlin.String, eu.yeger.koffee.repository.AdminRepository, eu.yeger.koffee.repository.UserRepository, eu.yeger.koffee.repository.ProfileImageRepository, eu.yeger.koffee.repository.TransactionRepository)/adminRepository">adminRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-admin-repository/index.html"><span class="identifier">AdminRepository</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.user.details.AdminUserDetailsViewModel$<init>(kotlin.Boolean, kotlin.String, eu.yeger.koffee.repository.AdminRepository, eu.yeger.koffee.repository.UserRepository, eu.yeger.koffee.repository.ProfileImageRepository, eu.yeger.koffee.repository.TransactionRepository)/userRepository">userRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-user-repository/index.html"><span class="identifier">UserRepository</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.user.details.AdminUserDetailsViewModel$<init>(kotlin.Boolean, kotlin.String, eu.yeger.koffee.repository.AdminRepository, eu.yeger.koffee.repository.UserRepository, eu.yeger.koffee.repository.ProfileImageRepository, eu.yeger.koffee.repository.TransactionRepository)/profileImageRepository">profileImageRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-profile-image-repository/index.html"><span class="identifier">ProfileImageRepository</span></a><span class="symbol">, </span><span class="identifier" id="eu.yeger.koffee.ui.user.details.AdminUserDetailsViewModel$<init>(kotlin.Boolean, kotlin.String, eu.yeger.koffee.repository.AdminRepository, eu.yeger.koffee.repository.UserRepository, eu.yeger.koffee.repository.ProfileImageRepository, eu.yeger.koffee.repository.TransactionRepository)/transactionRepository">transactionRepository</span><span class="symbol">:</span>&nbsp;<a href="../../eu.yeger.koffee.repository/-transaction-repository/index.html"><span class="identifier">TransactionRepository</span></a><span class="symbol">)</span></code></td>
 </tr>
 </tbody>
@@ -29,6 +31,7 @@
 <h4><a href="can-delete.html">canDelete</a></h4>
 </td>
 <td>
+<p>Indicates tha deleting the profile image is possible.</p>
 <code><span class="keyword">val </span><span class="identifier">canDelete</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -36,6 +39,7 @@
 <h4><a href="can-modify.html">canModify</a></h4>
 </td>
 <td>
+<p>Indicates tha modifying the profile image is possible.</p>
 <code><span class="keyword">val </span><span class="identifier">canModify</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -43,6 +47,7 @@
 <h4><a href="credit-user-action.html">creditUserAction</a></h4>
 </td>
 <td>
+<p><a href="../../eu.yeger.koffee.ui/-data-action/index.html">DataAction</a> that is activated when crediting of the user is requested.</p>
 <code><span class="keyword">val </span><span class="identifier">creditUserAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-data-action/index.html"><span class="identifier">DataAction</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -50,6 +55,7 @@
 <h4><a href="delete-user-action.html">deleteUserAction</a></h4>
 </td>
 <td>
+<p><a href="../../eu.yeger.koffee.ui/-data-action/index.html">DataAction</a> that is activated when deletion of the user is requested.</p>
 <code><span class="keyword">val </span><span class="identifier">deleteUserAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-data-action/index.html"><span class="identifier">DataAction</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -57,6 +63,7 @@
 <h4><a href="edit-user-action.html">editUserAction</a></h4>
 </td>
 <td>
+<p><a href="../../eu.yeger.koffee.ui/-data-action/index.html">DataAction</a> that is activated when editing of the user is requested.</p>
 <code><span class="keyword">val </span><span class="identifier">editUserAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-data-action/index.html"><span class="identifier">DataAction</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -64,6 +71,7 @@
 <h4><a href="show-items-button.html">showItemsButton</a></h4>
 </td>
 <td>
+<p>Deprecated.</p>
 <code><span class="keyword">val </span><span class="identifier">showItemsButton</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
 </tr>
 <tr>
@@ -71,6 +79,7 @@
 <h4><a href="user-deleted-action.html">userDeletedAction</a></h4>
 </td>
 <td>
+<p><a href="../../eu.yeger.koffee.ui/-simple-action/index.html">SimpleAction</a> that is activated when the user has been deleted.</p>
 <code><span class="keyword">val </span><span class="identifier">userDeletedAction</span><span class="symbol">: </span><a href="../../eu.yeger.koffee.ui/-simple-action/index.html"><span class="identifier">SimpleAction</span></a></code></td>
 </tr>
 </tbody>
@@ -83,6 +92,7 @@
 <h4><a href="activate-credit-user-action.html">activateCreditUserAction</a></h4>
 </td>
 <td>
+<p>Requests crediting of the user.</p>
 <code><span class="keyword">fun </span><span class="identifier">activateCreditUserAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -90,6 +100,7 @@
 <h4><a href="activate-delete-user-action.html">activateDeleteUserAction</a></h4>
 </td>
 <td>
+<p>Requests deletion of the user.</p>
 <code><span class="keyword">fun </span><span class="identifier">activateDeleteUserAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -97,6 +108,7 @@
 <h4><a href="activate-edit-user-action.html">activateEditUserAction</a></h4>
 </td>
 <td>
+<p>Requests editing of the user.</p>
 <code><span class="keyword">fun </span><span class="identifier">activateEditUserAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -104,6 +116,7 @@
 <h4><a href="activate-show-items-action.html">activateShowItemsAction</a></h4>
 </td>
 <td>
+<p>Ignored.</p>
 <code><span class="keyword">fun </span><span class="identifier">activateShowItemsAction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -111,6 +124,7 @@
 <h4><a href="delete-user.html">deleteUser</a></h4>
 </td>
 <td>
+<p>Deletes the user.</p>
 <code><span class="keyword">fun </span><span class="identifier">deleteUser</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 </tbody>

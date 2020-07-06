@@ -8,6 +8,20 @@ import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.utility.nullIfBlank
 import eu.yeger.koffee.utility.sourcedLiveData
 
+/**
+ * ViewModel for updating users.
+ *
+ * @property userId The id of the user that is being edited.
+ * @property adminRepository [AdminRepository] for accessing authentication tokens.
+ * @property userRepository [UserRepository] for updating the user.
+ * @property userName Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the user name.
+ * @property userPassword Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the user password.
+ * @property isAdmin Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the admin status.
+ * @property canUpdateUser Indicates that updating a user is possible with the current input values.
+ * @property userUpdatedAction [DataAction] that is activated when the user has been updated.
+ *
+ * @author Jan Müller
+ */
 class UserEditingViewModel(
     val userId: String,
     private val adminRepository: AdminRepository,
@@ -36,6 +50,9 @@ class UserEditingViewModel(
         }
     }
 
+    /**
+     * Updates the name, password and admin status of the user with the given id.
+     */
     fun updateUser() {
         onViewModelScope {
             adminRepository.getJWT()?.let {

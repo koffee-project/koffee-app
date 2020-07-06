@@ -8,6 +8,20 @@ import eu.yeger.koffee.ui.DataAction
 import eu.yeger.koffee.utility.nullIfBlank
 import eu.yeger.koffee.utility.sourcedLiveData
 
+/**
+ * ViewModel for creating users.
+ *
+ * @property adminRepository [AdminRepository] for accessing authentication tokens.
+ * @property userRepository [UserRepository] for creating the user.
+ * @property userId Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the user id.
+ * @property userName Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the user name.
+ * @property userPassword Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the user password.
+ * @property isAdmin Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the admin status.
+ * @property canCreateUser Indicates that creating a user is possible with the current input values.
+ * @property userCreatedAction [DataAction] that is activated when the user has been created.
+ *
+ * @author Jan Müller
+ */
 class UserCreationViewModel(
     private val adminRepository: AdminRepository,
     private val userRepository: UserRepository
@@ -30,6 +44,9 @@ class UserCreationViewModel(
 
     val userCreatedAction = DataAction<String>()
 
+    /**
+     * Creates a user with the current id, name, password and admin status.
+     */
     fun createUser() {
         onViewModelScope {
             val jwt = adminRepository.getJWT()!!
