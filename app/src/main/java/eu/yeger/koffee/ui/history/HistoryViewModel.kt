@@ -10,7 +10,7 @@ import eu.yeger.koffee.ui.CoroutineViewModel
 private const val PAGE_SIZE = 50
 
 /**
- * ViewModel for accessing the transaction history of a user.
+ * [CoroutineViewModel] for accessing the transaction history of a user.
  *
  * @property userId The id of the user.
  * @property transactionRepository [TransactionRepository] for accessing and refreshing transactions.

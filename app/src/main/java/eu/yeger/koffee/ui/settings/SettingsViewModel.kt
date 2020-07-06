@@ -8,7 +8,7 @@ import eu.yeger.koffee.ui.SimpleAction
 import eu.yeger.koffee.utility.formatTimestamp
 
 /**
- * ViewModel for various options like navigating to user selection, launching the shared mode as well as admin tools.
+ * [CoroutineViewModel] for various options like navigating to user selection, launching the shared mode as well as admin tools.
  *
  * @property adminRepository [AdminRepository] for admin related actions.
  * @property isAuthenticated Indicates that a user is currently authenticated.

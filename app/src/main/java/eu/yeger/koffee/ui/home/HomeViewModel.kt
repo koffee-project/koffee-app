@@ -12,7 +12,7 @@ import eu.yeger.koffee.ui.SimpleAction
 import java.io.File
 
 /**
- * ViewModel for accessing user data and modifying profile images.
+ * [CoroutineViewModel] for accessing user data and modifying profile images.
  *
  * @property userId The id of the user.
  * @property profileImageRepository [ProfileImageRepository] for modifying profile images.
@@ -22,7 +22,7 @@ import java.io.File
  * @property refreshing Indicates that a refresh is in progress.
  * @property user A [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) that contains the user.
  * @property profileImage A [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) that contains the user's profile image.
- * @property editProfileImageAction [DataAction] that is activated when editing of the profile image is requested.
+ * @property editProfileImageAction [DataAction] that is activated when editing of the profile image is requested. Contains true if the profile image can be deleted.
  *
  * @author Jan Müller
  */

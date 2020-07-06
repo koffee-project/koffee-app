@@ -7,7 +7,7 @@ import eu.yeger.koffee.ui.SimpleAction
 import eu.yeger.koffee.utility.sourcedLiveData
 
 /**
- * ViewModel for performing logins.
+ * [CoroutineViewModel] for performing logins.
  *
  * @property adminRepository [AdminRepository] used for performing logins.
  * @property userId Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the user id.

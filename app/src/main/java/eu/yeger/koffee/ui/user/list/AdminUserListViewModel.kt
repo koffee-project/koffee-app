@@ -12,7 +12,7 @@ import eu.yeger.koffee.ui.SimpleAction
  *
  * @property isAuthenticated ndicates that the user is authenticated.
  * @property createUserAction [SimpleAction] that is activated when the creation of a user is requested.
- * @property userSelectedAction [DataAction] that is activated when a user has been selected.
+ * @property userSelectedAction [DataAction] that is activated when a user has been selected. Contains the user.
  * @param adminRepository [AdminRepository] for accessing authentication tokens.
  * @param userRepository [UserRepository] for accessing, filtering and refreshing users.
  *

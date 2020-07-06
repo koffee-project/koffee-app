@@ -9,7 +9,7 @@ import eu.yeger.koffee.utility.nullIfBlank
 import eu.yeger.koffee.utility.sourcedLiveData
 
 /**
- * ViewModel for updating users.
+ * [CoroutineViewModel] for updating users.
  *
  * @property userId The id of the user that is being edited.
  * @property adminRepository [AdminRepository] for accessing authentication tokens.
@@ -18,7 +18,7 @@ import eu.yeger.koffee.utility.sourcedLiveData
  * @property userPassword Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the user password.
  * @property isAdmin Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the admin status.
  * @property canUpdateUser Indicates that updating a user is possible with the current input values.
- * @property userUpdatedAction [DataAction] that is activated when the user has been updated.
+ * @property userUpdatedAction [DataAction] that is activated when the user has been updated. Contains the user's id.
  *
  * @author Jan Müller
  */

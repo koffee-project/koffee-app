@@ -20,9 +20,9 @@ import eu.yeger.koffee.utility.sourcedLiveData
  * @property canModify Indicates tha modifying the profile image is possible.
  * @property canDelete Indicates tha deleting the profile image is possible.
  * @property showItemsButton Deprecated.
- * @property editUserAction [DataAction] that is activated when editing of the user is requested.
- * @property creditUserAction [DataAction] that is activated when crediting of the user is requested.
- * @property deleteUserAction [DataAction] that is activated when deletion of the user is requested.
+ * @property editUserAction [DataAction] that is activated when editing of the user is requested. Contains the user's id.
+ * @property creditUserAction [DataAction] that is activated when crediting of the user is requested. Contains the user's id.
+ * @property deleteUserAction [DataAction] that is activated when deletion of the user is requested. Contains the user's id.
  * @property userDeletedAction [SimpleAction] that is activated when the user has been deleted.
  * @param profileImageRepository [ProfileImageRepository] for accessing profile images.
  * @param transactionRepository [TransactionRepository] for accessing transactions.

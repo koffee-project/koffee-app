@@ -10,7 +10,7 @@ import eu.yeger.koffee.ui.DataAction
  * [UserListViewModel] for the multi user mode.
  *
  * @property isAuthenticated Always contains false.
- * @property userSelectedAction [DataAction] that is activated when a user has been selected.
+ * @property userSelectedAction [DataAction] that is activated when a user has been selected. Contains the user's id.
  * @param userRepository [UserRepository] for accessing, filtering and refreshing users.
  *
  * @author Jan Müller

@@ -9,7 +9,7 @@ import eu.yeger.koffee.utility.nullIfBlank
 import eu.yeger.koffee.utility.sourcedLiveData
 
 /**
- * ViewModel for creating users.
+ * [CoroutineViewModel] for creating users.
  *
  * @property adminRepository [AdminRepository] for accessing authentication tokens.
  * @property userRepository [UserRepository] for creating the user.
@@ -18,7 +18,7 @@ import eu.yeger.koffee.utility.sourcedLiveData
  * @property userPassword Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the user password.
  * @property isAdmin Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the admin status.
  * @property canCreateUser Indicates that creating a user is possible with the current input values.
- * @property userCreatedAction [DataAction] that is activated when the user has been created.
+ * @property userCreatedAction [DataAction] that is activated when the user has been created. Contains the user's id.
  *
  * @author Jan Müller
  */

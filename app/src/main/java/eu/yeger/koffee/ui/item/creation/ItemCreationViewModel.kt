@@ -10,7 +10,7 @@ import eu.yeger.koffee.utility.nullIfBlank
 import eu.yeger.koffee.utility.sourcedLiveData
 
 /**
- * ViewModel for creating items.
+ * [CoroutineViewModel] for creating items.
  *
  * @property adminRepository [AdminRepository] for accessing authentication tokens.
  * @property itemRepository [ItemRepository] for creating the item.
@@ -19,7 +19,7 @@ import eu.yeger.koffee.utility.sourcedLiveData
  * @property itemPrice Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the item price.
  * @property itemAmount Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the item amount.
  * @property canCreateItem Indicates that creating an item is possible with the current input values.
- * @property itemCreatedAction [DataAction] that is activated when the item has been created.
+ * @property itemCreatedAction [DataAction] that is activated when the item has been created. Contains the item's id.
  *
  * @author Jan Müller
  */

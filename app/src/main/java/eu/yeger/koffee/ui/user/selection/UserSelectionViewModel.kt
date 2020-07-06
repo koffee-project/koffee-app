@@ -11,7 +11,7 @@ import eu.yeger.koffee.ui.user.list.UserListViewModel
  * [UserListViewModel] for the single user mode's user selection.
  *
  * @property isAuthenticated Always contains false.
- * @property userSelectedAction [DataAction] that is activated when a user has been selected.
+ * @property userSelectedAction [DataAction] that is activated when a user has been selected. Contains the user.
  * @param userRepository [UserRepository] for accessing, filtering and refreshing users.
  *
  * @author Jan Müller

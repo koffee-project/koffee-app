@@ -9,7 +9,7 @@ import eu.yeger.koffee.utility.isValidCurrencyAmount
 import eu.yeger.koffee.utility.sourcedLiveData
 
 /**
- * ViewModel for updating items.
+ * [CoroutineViewModel] for updating items.
  *
  * @property itemId The id of the item that is being edited.
  * @property adminRepository [AdminRepository] for accessing authentication tokens.
@@ -18,7 +18,7 @@ import eu.yeger.koffee.utility.sourcedLiveData
  * @property itemPrice Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the item price.
  * @property itemAmount Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the item amount.
  * @property canUpdateItem Indicates that updating an item is possible with the current input values.
- * @property itemUpdatedAction [DataAction] that is activated when the item has been updated.
+ * @property itemUpdatedAction [DataAction] that is activated when the item has been updated. Contains the item's id.
  *
  * @author Jan Müller
  */

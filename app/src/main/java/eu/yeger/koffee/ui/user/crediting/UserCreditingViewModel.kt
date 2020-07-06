@@ -9,14 +9,14 @@ import eu.yeger.koffee.utility.isValidCurrencyAmount
 import eu.yeger.koffee.utility.sourcedLiveData
 
 /**
- * ViewModel for crediting users.
+ * [CoroutineViewModel] for crediting users.
  *
  * @property userId The id of the user that is being credited.
  * @property adminRepository [AdminRepository] for accessing authentication tokens.
  * @property userRepository [UserRepository] for crediting the user.
  * @property creditAmount Bidirectional [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData) for binding the crediting amount.
  * @property canCreditUser Indicates that crediting a user is possible with the current input values.
- * @property userCreditedAction [DataAction] that is activated when the user has been credited.
+ * @property userCreditedAction [DataAction] that is activated when the user has been credited. Contains the user's id.
  *
  * @author Jan Müller
  */

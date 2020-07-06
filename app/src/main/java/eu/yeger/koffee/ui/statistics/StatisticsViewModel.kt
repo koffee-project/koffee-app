@@ -8,7 +8,7 @@ import eu.yeger.koffee.repository.TransactionRepository
 import eu.yeger.koffee.ui.CoroutineViewModel
 
 /**
- * ViewModel for accessing the purchase statistics of a user.
+ * [CoroutineViewModel] for accessing the purchase statistics of a user.
  *
  * @property userId The id of the user.
  * @property transactionRepository [TransactionRepository] for accessing and refreshing purchase statistics.

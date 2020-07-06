@@ -16,8 +16,8 @@ import eu.yeger.koffee.utility.sourcedLiveData
  * @property adminRepository [AdminRepository] for accessing authentication tokens.
  * @property itemRepository [ItemRepository] for accessing and refreshing item data.
  * @property canModify Indicates that the user can be modified.
- * @property editItemAction [DataAction] that is activated when editing of the item is requested.
- * @property deleteItemAction [DataAction] that is activated when deletion of the item is requested.
+ * @property editItemAction [DataAction] that is activated when editing of the item is requested. Contains item's id.
+ * @property deleteItemAction [DataAction] that is activated when deletion of the item is requested. Contains the item's id.
  * @property itemDeletedAction [SimpleAction] that is activated when the item has been deleted.
  * @param userId Optional user id for purchases.
  * @param transactionRepository [TransactionRepository] for accessing and refreshing transactions.
