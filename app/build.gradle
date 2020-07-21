@@ -28,9 +28,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug {
-            buildConfigField "String", "KOFFEE_BACKEND_URL", '"https://yeger.eu/koffee/"'
-        }
     }
 
     compileOptions {
