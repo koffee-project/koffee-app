@@ -109,7 +109,6 @@ dependencies {
 
 dokka {
     outputFormat = "html"
-    outputDirectory = "./../docs"
 
     configuration {
         reportUndocumented = false

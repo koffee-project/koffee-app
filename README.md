@@ -1,3 +1,3 @@
 # koffee-app
 
-Documentation is available at http://koffee-app.yeger.eu/.
+Documentation is available [here](https://koffee.yeger.eu/).
