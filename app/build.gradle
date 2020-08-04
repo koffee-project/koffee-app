@@ -106,11 +106,3 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$ax_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$ax_espresso_version"
 }
-
-dokka {
-    outputFormat = "html"
-
-    configuration {
-        reportUndocumented = false
-    }
-}
