@@ -42,7 +42,7 @@ class MainHomeFragment : HomeFragment() {
             }
             .apply {
                 if (userId === null) {
-                    setNeutralButton(R.string.launch_alternative_activity) { _, _ ->
+                    setNeutralButton(R.string.launch_shared_activity) { _, _ ->
                         requireActivity().goToSharedActivity()
                     }
                 }
