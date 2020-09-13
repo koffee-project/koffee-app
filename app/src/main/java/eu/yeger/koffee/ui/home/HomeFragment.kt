@@ -139,7 +139,7 @@ abstract class HomeFragment : Fragment() {
 
     private fun showImageSelectionDialog() {
         ImagePicker.with(this)
-            .compress(8 * 1024) // Limit size to 8MB
+            .compress(1024) // Limit size to 1MB
             .start { resultCode, data ->
                 when (resultCode) {
                     Activity.RESULT_OK -> {

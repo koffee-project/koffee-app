@@ -71,8 +71,7 @@ class ProfileImageRepository(private val database: KoffeeDatabase) {
                     }
 
                     val newImage = NetworkService.koffeeApi.getProfileImage(userId)
-
-                    insert(newImage.asDomainModel())
+                    insert(newImage.asDomainModel(userId))
                 }
             }
         }
